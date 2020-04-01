@@ -5,13 +5,13 @@
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
    
-  <meta name="keywords" content="Gist,合法性检测,优化," />
+  <meta name="keywords" content="MongoDB,安装," />
    
-  <meta name="description" content="Gist网站实现(4)-我的代码页面输入合法性检测" />
+  <meta name="description" content="The manual about installing MongoDB." />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Gist网站实现(4)-我的代码页面输入合法性检测 |  AwesoLynn
+    MongoDB安装手册 |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-Gist网站实现-4-设计实现我的代码页面" class="article article-type-post" itemscope
+  <article id="post-MongoDB安装手册" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Gist网站实现(4)-我的代码页面输入合法性检测
+  MongoDB安装手册
 </h1>
   
 
@@ -78,12 +78,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html" class="article-date">
-  <time datetime="2020-03-01T10:59:48.000Z" itemprop="datePublished">2020-03-01</time>
+      <a href="/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html" class="article-date">
+  <time datetime="2020-03-08T08:32:19.000Z" itemprop="datePublished">2020-03-08</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Express/">Express</a>
+    <a class="article-category-link" href="/categories/MongoDB/">MongoDB</a>
   </div>
 
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">427字</span>
+            <span class="post-count">912字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -129,30 +129,90 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="添加表单提供提交代码片段功能"><a href="#添加表单提供提交代码片段功能" class="headerlink" title="添加表单提供提交代码片段功能"></a>添加表单提供提交代码片段功能</h2><h3 id="设计表单"><a href="#设计表单" class="headerlink" title="设计表单"></a>设计表单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;save&quot;, method&#x3D;&quot;post&quot;)</span><br><span class="line">        div</span><br><span class="line">            input(name&#x3D;&quot;name&quot;)</span><br><span class="line">            select(name&#x3D;&quot;type&quot;)</span><br><span class="line">                option(value&#x3D;&quot;C&quot;) C</span><br><span class="line">                option(value&#x3D;&quot;C++&quot;) C++</span><br><span class="line">                option(value&#x3D;&quot;C#&quot;) C#</span><br><span class="line">                option(value&#x3D;&quot;Java&quot;) Java</span><br><span class="line">                option(value&#x3D;&quot;JavaScript&quot;) JavaScript</span><br><span class="line">                option(value&#x3D;&quot;php&quot;) PHP</span><br><span class="line">                option(value&#x3D;&quot;Python&quot;) Python</span><br><span class="line">        div</span><br><span class="line">            textarea(name&#x3D;&quot;code&quot;,cols&#x3D;&quot;30&quot;,row&#x3D;&quot;10&quot;)</span><br><span class="line">        div</span><br><span class="line">            button(type&#x3D;&quot;submit&quot;) 保存</span><br></pre></td></tr></table></figure>
-
+      <p>在学习Node.js的过程中需要使用Mongoose，故安装MongeDB进行使用。但过程中踩了不少坑。以下安装步骤是多次踩坑后可以正常运行的版本。</p>
+<p>安装环境：Mac OS 10.15.3</p>
+<h2 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h2><h3 id="方法1-使用官网安装包"><a href="#方法1-使用官网安装包" class="headerlink" title="方法1:使用官网安装包"></a>方法1:使用官网安装包</h3><p><a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">官网安装包下载链接</a></p>
 <a id="more"></a>
-<p><img src="https://s1.ax1x.com/2020/03/19/8sO3gU.jpg" alt="8sO3gU.jpg"></p>
-<h3 id="保存代码逻辑"><a href="#保存代码逻辑" class="headerlink" title="保存代码逻辑"></a>保存代码逻辑</h3><h4 id="检查输入数据合法性"><a href="#检查输入数据合法性" class="headerlink" title="检查输入数据合法性"></a>检查输入数据合法性</h4><blockquote>
-<p>若输入内容不符合要求，则无法保存，提示错误并重新输入</p>
-</blockquote>
+<p>选择对应的操作系统和包格式点击下载即可。</p>
 <blockquote>
-<p>使用错误处理中间件处理报错， 使用<code>req.body</code>取得 post 传入的数据</p>
+<p>此方法个人在下载时一直报错，可能是因为浏览器中安装的下载插件问题，故最后未采用此方式下载。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.post(&quot;&#x2F;save&quot;, (req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">  if (!req.body.name) return next(new Error(&quot;Gist Name不能为空!&quot;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.ax1x.com/2020/03/19/8sO8vF.jpg" alt="8sO8vF.jpg"></p>
-<h4 id="添加错误页并修改样式"><a href="#添加错误页并修改样式" class="headerlink" title="添加错误页并修改样式"></a>添加错误页并修改样式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;错误页</span><br><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1&#x3D;message</span><br><span class="line">    h2&#x3D;error.status</span><br><span class="line"></span><br><span class="line">    div</span><br><span class="line">        a(href&#x3D;&quot;javascript:history.back(1)&quot;) 点此返回</span><br><span class="line"></span><br><span class="line">    pre.gray #&#123;error.stack&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;样式</span><br><span class="line">.gray &#123;</span><br><span class="line">  color: gray;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.ax1x.com/2020/03/19/8sOYDJ.jpg" alt="8sOYDJ.jpg"></p>
-<h4 id="修改错误逻辑为自动捕获"><a href="#修改错误逻辑为自动捕获" class="headerlink" title="修改错误逻辑为自动捕获"></a>修改错误逻辑为自动捕获</h4><blockquote>
-<p>上述错误逻辑为主动传入 next，并不灵活，使用 express-async-errors 处理异步操作时主动抛出异常</p>
+<h3 id="方法2-获取官网下载链接使用命令行下载"><a href="#方法2-获取官网下载链接使用命令行下载" class="headerlink" title="方法2:获取官网下载链接使用命令行下载"></a>方法2:获取官网下载链接使用命令行下载</h3><p>在官网下载页面复制下载链接：</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdealyx2fnj317s0o6acd.jpg" alt="复制官网下载链接"></p>
+<ol>
+<li><p>在iterm中使用命令行下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% sudo curl -O https:&#x2F;&#x2F;fastdl.mongodb.org&#x2F;osx&#x2F;mongodb-macos-x86_64-4.2.5.tgz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压后，将文件夹重命名为mongodb（<strong><em>重要！！！</em></strong>）</p>
+</li>
+</ol>
+<blockquote>
+<p>此方法下载成功且无任何报错</p>
 </blockquote>
-<h5 id="安装导入-express-async-errors-模块"><a href="#安装导入-express-async-errors-模块" class="headerlink" title="安装导入 express-async-errors 模块"></a>安装导入 express-async-errors 模块</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;输入命令安装模块</span><br><span class="line">$ yarn add express-async-errors</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;导入模块</span><br><span class="line">require(&#39;express-async-errors&#39;);</span><br></pre></td></tr></table></figure>
+<h3 id="方法3-使用brew下载"><a href="#方法3-使用brew下载" class="headerlink" title="方法3:使用brew下载"></a>方法3:使用brew下载</h3><blockquote>
+<p>确保自己的开发环境中已安装brew</p>
+<p>brew安装教程<a href="https://zhuanlan.zhihu.com/p/99104545" target="_blank" rel="noopener">点击此进行跳转</a></p>
+</blockquote>
+<p>在iterm中使用命令行(<a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="noopener">以下步骤参考于MongoDB官方下载文档</a>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Macbook% brew tap mongodb&#x2F;brew</span><br><span class="line"></span><br><span class="line">Macbook% brew install mongodb-community@4.2</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改错误逻辑为主动-throw"><a href="#修改错误逻辑为主动-throw" class="headerlink" title="修改错误逻辑为主动 throw"></a>修改错误逻辑为主动 throw</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (!req.body.name)</span><br><span class="line">  throw(new Error(&quot;Gist Name不能为空!&quot;));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试异步时错误处理</span><br><span class="line">router.post(&quot;&#x2F;save&quot;, async(req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F;if (!req.body.name) throw new Error(&quot;Gist Name不能为空!&quot;);</span><br><span class="line">  const content &#x3D; await fs.Promises.readFile( &quot;index.php&quot; );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第一次使用brew下载安装包没有没有按官网的步骤下载，参考了其他大佬的教程，最终没有安装成功，出现了很多奇怪的问题，可能是版本不太一样。<br>后来使用此方法进行下载，但下载后安装遇到了一些问题，初步怀疑是第一次用brew安装后的一些操作没有卸载整理完，故安装失败。</p>
+</blockquote>
+<h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><ol>
+<li><p>使用命令行打开环境变量文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% open -e .bash_profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将安装MongoDB的目录下bin的地址添加到环境变量中（<strong><em>此步骤一定要配置对！！重要！！！否则后来可能会无法打开Mongo</em></strong>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin:$PATH</span><br><span class="line">&#x2F;&#x2F;保存文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使配置生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% source .bash_profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证是否已安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% mongod -version</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s1.ax1x.com/2020/03/19/8sOUER.jpg" alt="8sOUER.jpg"></p>
+</li>
+</ol>
+<p>出现以下信息，则说明安装成功：</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdeb7a9ou9j30ni07yq61.jpg" alt="配置成功信息"></p>
+<h3 id="创建log和data目录"><a href="#创建log和data目录" class="headerlink" title="创建log和data目录"></a>创建log和data目录</h3><blockquote>
+<p>很多教程都表示要使用<code>mkdir -p /data/db</code>创建目录，但使用各个方法都无法创建成功，故以下自己创建目录</p>
+</blockquote>
+<ol>
+<li><p>在MongoDB的安装目录下新建log目录和data目录（本人安装目录为/usr/local/mongodb，该目录就是之前解压后重命名的文件夹）<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdebdsqowzj30nm03640e.jpg" alt="创建目录"></p>
+</li>
+<li><p>进入/usr/local/etc目录打开mongod.conf文件，修改log路径和data路径为步骤1中创建的目录地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">systemLog:</span><br><span class="line">  destination: file</span><br><span class="line">  path: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;mongo.log</span><br><span class="line">  logAppend: true</span><br><span class="line">storage:</span><br><span class="line">  dbPath: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;data</span><br><span class="line">net:</span><br><span class="line">  bindIp: 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>有的教程直接进行第三步运行，但我直接运行第三步后配置并没有改变，出现了一些问题，故还是增加了第二步</p>
+</blockquote>
+</li>
+<li><p>运行MongoDB服务</p>
+<blockquote>
+<p>MongoDB默认数据保存的地址为/data/db，但我一直没创建成功，故修改了地址后，在启动服务时指定dbpath的位置。由于做了第二步也可不指定，以防万一。</p>
+</blockquote>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Macbook% mongod --dbpath data --logpath log&#x2F;mongod.log --logappend</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;--logappend:后台运行</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动后，当前终端不要关闭。</p>
+</blockquote>
+</li>
+<li><p>遇到的问题，在运行MongoDB服务时，有以下报错：</p>
+<blockquote>
+<p>NETWORK  [initandlisten] Failed to unlink socket file /tmp/mongodb-27017.sock Permission denied</p>
+</blockquote>
+<ul>
+<li><p>原因查询:</p>
+<p>  在mongodb目录下使用命令<code>ls -lat /tmp/mongodb-27017.sock</code>查看权限，显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MacBook% srwx------  1 root  wheel  0  4  1 12:27 &#x2F;tmp&#x2F;mongodb-27017.sock</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法：使用命令<code>sudo rm /tmp/mongodb-27017.sock</code>删除该文件即可。</p>
+</li>
+</ul>
+</li>
+</ol>
 
       
       <!-- reward -->
@@ -218,14 +278,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
 
 
     </footer>
@@ -236,19 +296,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            MongoDB安装手册
-          
-        </div>
-      </a>
     
-    
-      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html" class="article-nav-link">
+      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Gist网站实现(3)-创建导航优化页面跳转</div>
+        <div class="article-nav-title">Gist网站实现(4)-我的代码页面输入合法性检测</div>
       </a>
     
   </nav>
