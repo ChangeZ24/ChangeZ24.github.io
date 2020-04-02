@@ -1,437 +1,1266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>MongoDB安装手册</title>
-      <link href="/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html"/>
-      <url>/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html</url>
-      
-        <content type="html"><![CDATA[<p>在学习Node.js的过程中需要使用Mongoose，故安装MongeDB进行使用。但过程中踩了不少坑。以下安装步骤是多次踩坑后可以正常运行的版本。</p><p>安装环境：Mac OS 10.15.3</p><h2 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h2><h3 id="方法1-使用官网安装包"><a href="#方法1-使用官网安装包" class="headerlink" title="方法1:使用官网安装包"></a>方法1:使用官网安装包</h3><p><a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">官网安装包下载链接</a></p><a id="more"></a><p>选择对应的操作系统和包格式点击下载即可。</p><blockquote><p>此方法个人在下载时一直报错，可能是因为浏览器中安装的下载插件问题，故最后未采用此方式下载。</p></blockquote><h3 id="方法2-获取官网下载链接使用命令行下载"><a href="#方法2-获取官网下载链接使用命令行下载" class="headerlink" title="方法2:获取官网下载链接使用命令行下载"></a>方法2:获取官网下载链接使用命令行下载</h3><p>在官网下载页面复制下载链接：</p><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdealyx2fnj317s0o6acd.jpg" alt="复制官网下载链接"></p><ol><li><p>在iterm中使用命令行下载：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% sudo curl -O https:&#x2F;&#x2F;fastdl.mongodb.org&#x2F;osx&#x2F;mongodb-macos-x86_64-4.2.5.tgz</span><br></pre></td></tr></table></figure></li><li><p>解压后，将文件夹重命名为mongodb（<strong><em>重要！！！</em></strong>）</p></li></ol><blockquote><p>此方法下载成功且无任何报错</p></blockquote><h3 id="方法3-使用brew下载"><a href="#方法3-使用brew下载" class="headerlink" title="方法3:使用brew下载"></a>方法3:使用brew下载</h3><blockquote><p>确保自己的开发环境中已安装brew</p><p>brew安装教程<a href="https://zhuanlan.zhihu.com/p/99104545" target="_blank" rel="noopener">点击此进行跳转</a></p></blockquote><p>在iterm中使用命令行(<a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="noopener">以下步骤参考于MongoDB官方下载文档</a>)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Macbook% brew tap mongodb&#x2F;brew</span><br><span class="line"></span><br><span class="line">Macbook% brew install mongodb-community@4.2</span><br></pre></td></tr></table></figure><blockquote><p>第一次使用brew下载安装包没有没有按官网的步骤下载，参考了其他大佬的教程，最终没有安装成功，出现了很多奇怪的问题，可能是版本不太一样。<br>后来使用此方法进行下载，但下载后安装遇到了一些问题，初步怀疑是第一次用brew安装后的一些操作没有卸载整理完，故安装失败。</p></blockquote><h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><ol><li><p>使用命令行打开环境变量文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% open -e .bash_profile</span><br></pre></td></tr></table></figure></li><li><p>将安装MongoDB的目录下bin的地址添加到环境变量中（<strong><em>此步骤一定要配置对！！重要！！！否则后来可能会无法打开Mongo</em></strong>）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin:$PATH</span><br><span class="line">&#x2F;&#x2F;保存文件</span><br></pre></td></tr></table></figure></li><li><p>使配置生效</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% source .bash_profile</span><br></pre></td></tr></table></figure></li><li><p>验证是否已安装成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Macbook% mongod -version</span><br></pre></td></tr></table></figure></li></ol><p>出现以下信息，则说明安装成功：</p><p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdeb7a9ou9j30ni07yq61.jpg" alt="配置成功信息"></p><h3 id="创建log和data目录"><a href="#创建log和data目录" class="headerlink" title="创建log和data目录"></a>创建log和data目录</h3><blockquote><p>很多教程都表示要使用<code>mkdir -p /data/db</code>创建目录，但使用各个方法都无法创建成功，故以下自己创建目录</p></blockquote><ol><li><p>在MongoDB的安装目录下新建log目录和data目录（本人安装目录为/usr/local/mongodb，该目录就是之前解压后重命名的文件夹）<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdebdsqowzj30nm03640e.jpg" alt="创建目录"></p></li><li><p>进入/usr/local/etc目录打开mongod.conf文件，修改log路径和data路径为步骤1中创建的目录地址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">systemLog:</span><br><span class="line">  destination: file</span><br><span class="line">  path: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;mongo.log</span><br><span class="line">  logAppend: true</span><br><span class="line">storage:</span><br><span class="line">  dbPath: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;data</span><br><span class="line">net:</span><br><span class="line">  bindIp: 127.0.0.1</span><br></pre></td></tr></table></figure><blockquote><p>有的教程直接进行第三步运行，但我直接运行第三步后配置并没有改变，出现了一些问题，故还是增加了第二步</p></blockquote></li><li><p>运行MongoDB服务</p><blockquote><p>MongoDB默认数据保存的地址为/data/db，但我一直没创建成功，故修改了地址后，在启动服务时指定dbpath的位置。由于做了第二步也可不指定，以防万一。</p></blockquote> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Macbook% mongod --dbpath data --logpath log&#x2F;mongod.log --logappend</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;--logappend:后台运行</span><br></pre></td></tr></table></figure><blockquote><p>启动后，当前终端不要关闭。</p></blockquote></li><li><p>遇到的问题，在运行MongoDB服务时，有以下报错：</p><blockquote><p>NETWORK  [initandlisten] Failed to unlink socket file /tmp/mongodb-27017.sock Permission denied</p></blockquote><ul><li><p>原因查询:</p><p>  在mongodb目录下使用命令<code>ls -lat /tmp/mongodb-27017.sock</code>查看权限，显示如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MacBook% srwx------  1 root  wheel  0  4  1 12:27 &#x2F;tmp&#x2F;mongodb-27017.sock</span><br></pre></td></tr></table></figure></li><li><p>解决办法：使用命令<code>sudo rm /tmp/mongodb-27017.sock</code>删除该文件即可。</p></li></ul></li></ol>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>正则表达式学习笔记</title>
+    <url>/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Gist网站实现(6)-使用BootStrap优化网站样式</title>
+    <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-6-%E4%BD%BF%E7%94%A8BootStrap%E4%BC%98%E5%8C%96%E7%BD%91%E7%AB%99%E6%A0%B7%E5%BC%8F.html</url>
+    <content><![CDATA[<h2 id="BootStrap"><a href="#BootStrap" class="headerlink" title="BootStrap"></a>BootStrap</h2><p>BootStrap是一个前端组件库，包括一系列CSS和jQuery实现的组件，非常流行。</p>
+<ul>
+<li>通过Reboot清理统一了各个浏览器的样式</li>
+<li>通过Layout提供了一个支持复杂布局的网格结构</li>
+<li>通过Component提供了一系列常用的增强组件</li>
+<li>通过其生态提供了大量风格各异的主题</li>
+</ul>
+<h3 id="优化网站样式"><a href="#优化网站样式" class="headerlink" title="优化网站样式"></a>优化网站样式</h3><h4 id="选择网站主题"><a href="#选择网站主题" class="headerlink" title="选择网站主题"></a>选择网站主题</h4><p>在<a href="https://bootswatch.com/" target="_blank" rel="noopener">BootStrap网站主题</a>页面选择主题，在选择主题的<code>download</code>下拉按钮下，右键点击<code>bootstrap.min.css</code>选择复制链接。</p>
+<a id="more"></a>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdftz1qmj0j312i0qw7qd.jpg" alt="选择主题"></p>
+<h4 id="导入BootStrap"><a href="#导入BootStrap" class="headerlink" title="导入BootStrap"></a>导入BootStrap</h4><p>由于Express使用的是pug(原jade)模版，故需要将html转换为pug(jade)语法。可使用<a href="http://html2jade.org/" target="_blank" rel="noopener">在线转换网站</a>，进行转换。</p>
+<p>把 CSS 放到 head 标签里边，而 JS 放到 body 结束之前。 这样页面在载入时不会丢失样式，又不会因为 JS 文件延迟页面显示速度。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!--CSS--&gt;</span><br><span class="line">link(rel&#x3D;&#39;stylesheet&#39;, href&#x3D;&#39;https:&#x2F;&#x2F;bootswatch.com&#x2F;4&#x2F;cyborg&#x2F;bootstrap.min.css&#39;)</span><br><span class="line">&lt;!--JavaScript--&gt;</span><br><span class="line">script(src&#x3D;&#39;https:&#x2F;&#x2F;stackpath.bootstrapcdn.com&#x2F;bootstrap&#x2F;4.4.1&#x2F;js&#x2F;bootstrap.min.js&#39;, integrity&#x3D;&#39;sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6&#39;, crossorigin&#x3D;&#39;anonymous&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改相关样式样式"><a href="#修改相关样式样式" class="headerlink" title="修改相关样式样式"></a>修改相关样式样式</h4><ol>
+<li><p>点击模版页面的preview按钮进入模版组件样式页面。<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfu8qr2z9j30ic0lkmz1.jpg" alt="组件样式"></p>
+</li>
+<li><p>选择对应的样式，在右边点击<code>&lt;&gt;</code>按钮复制html代码。通过<a href="http://html2jade.org/" target="_blank" rel="noopener">在线转换网站</a>进行pug(jade)语法转换<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfu8staglj31h2046mxo.jpg" alt="选择样式"><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfu8v2ztmj31370u0dm0.jpg" alt="代码"></p>
+</li>
+<li><p>将转换后的语法放在页面对应位置。<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuaw7442j318g0mq0yl.jpg" alt="设置样式"></p>
+</li>
+<li><p>进行样式调整</p>
+</li>
+</ol>
+<h4 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h4><ol>
+<li><p>主页及登陆页面<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuyduf7uj31lq0c6dh6.jpg" alt="未登陆"><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuwkzf39j31ly0ee0ui.jpg" alt="已登陆"><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuym3mi7j31m00dq75l.jpg" alt="登陆页面"></p>
+</li>
+<li><p>我的代码页面<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfucqf6eaj317y0u0gqp.jpg" alt="我的代码"></p>
+</li>
+<li><p>修改代码页面<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfugunak0j31ly0psjua.jpg" alt="修改代码"></p>
+</li>
+<li><p>查看代码详情<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfud4r6qzj31ly0j4mzm.jpg" alt="查看代码"></p>
+</li>
+</ol>
+]]></content>
       <categories>
-          
-          <category> MongoDB </category>
-          
+        <category>Express</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Node.js </tag>
-            
-            <tag> Web </tag>
-            
-            <tag> MongoDB </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Gist网站实现(4)-我的代码页面输入合法性检测</title>
-      <link href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html"/>
-      <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="添加表单提供提交代码片段功能"><a href="#添加表单提供提交代码片段功能" class="headerlink" title="添加表单提供提交代码片段功能"></a>添加表单提供提交代码片段功能</h2><h3 id="设计表单"><a href="#设计表单" class="headerlink" title="设计表单"></a>设计表单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;save&quot;, method&#x3D;&quot;post&quot;)</span><br><span class="line">        div</span><br><span class="line">            input(name&#x3D;&quot;name&quot;)</span><br><span class="line">            select(name&#x3D;&quot;type&quot;)</span><br><span class="line">                option(value&#x3D;&quot;C&quot;) C</span><br><span class="line">                option(value&#x3D;&quot;C++&quot;) C++</span><br><span class="line">                option(value&#x3D;&quot;C#&quot;) C#</span><br><span class="line">                option(value&#x3D;&quot;Java&quot;) Java</span><br><span class="line">                option(value&#x3D;&quot;JavaScript&quot;) JavaScript</span><br><span class="line">                option(value&#x3D;&quot;php&quot;) PHP</span><br><span class="line">                option(value&#x3D;&quot;Python&quot;) Python</span><br><span class="line">        div</span><br><span class="line">            textarea(name&#x3D;&quot;code&quot;,cols&#x3D;&quot;30&quot;,row&#x3D;&quot;10&quot;)</span><br><span class="line">        div</span><br><span class="line">            button(type&#x3D;&quot;submit&quot;) 保存</span><br></pre></td></tr></table></figure><a id="more"></a><p><img src="https://s1.ax1x.com/2020/03/19/8sO3gU.jpg" alt="8sO3gU.jpg"></p><h3 id="保存代码逻辑"><a href="#保存代码逻辑" class="headerlink" title="保存代码逻辑"></a>保存代码逻辑</h3><h4 id="检查输入数据合法性"><a href="#检查输入数据合法性" class="headerlink" title="检查输入数据合法性"></a>检查输入数据合法性</h4><blockquote><p>若输入内容不符合要求，则无法保存，提示错误并重新输入</p></blockquote><blockquote><p>使用错误处理中间件处理报错， 使用<code>req.body</code>取得 post 传入的数据</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.post(&quot;&#x2F;save&quot;, (req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">  if (!req.body.name) return next(new Error(&quot;Gist Name不能为空!&quot;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sO8vF.jpg" alt="8sO8vF.jpg"></p><h4 id="添加错误页并修改样式"><a href="#添加错误页并修改样式" class="headerlink" title="添加错误页并修改样式"></a>添加错误页并修改样式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;错误页</span><br><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1&#x3D;message</span><br><span class="line">    h2&#x3D;error.status</span><br><span class="line"></span><br><span class="line">    div</span><br><span class="line">        a(href&#x3D;&quot;javascript:history.back(1)&quot;) 点此返回</span><br><span class="line"></span><br><span class="line">    pre.gray #&#123;error.stack&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;样式</span><br><span class="line">.gray &#123;</span><br><span class="line">  color: gray;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sOYDJ.jpg" alt="8sOYDJ.jpg"></p><h4 id="修改错误逻辑为自动捕获"><a href="#修改错误逻辑为自动捕获" class="headerlink" title="修改错误逻辑为自动捕获"></a>修改错误逻辑为自动捕获</h4><blockquote><p>上述错误逻辑为主动传入 next，并不灵活，使用 express-async-errors 处理异步操作时主动抛出异常</p></blockquote><h5 id="安装导入-express-async-errors-模块"><a href="#安装导入-express-async-errors-模块" class="headerlink" title="安装导入 express-async-errors 模块"></a>安装导入 express-async-errors 模块</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;输入命令安装模块</span><br><span class="line">$ yarn add express-async-errors</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;导入模块</span><br><span class="line">require(&#39;express-async-errors&#39;);</span><br></pre></td></tr></table></figure><h5 id="修改错误逻辑为主动-throw"><a href="#修改错误逻辑为主动-throw" class="headerlink" title="修改错误逻辑为主动 throw"></a>修改错误逻辑为主动 throw</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if (!req.body.name)</span><br><span class="line">  throw(new Error(&quot;Gist Name不能为空!&quot;));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试异步时错误处理</span><br><span class="line">router.post(&quot;&#x2F;save&quot;, async(req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F;if (!req.body.name) throw new Error(&quot;Gist Name不能为空!&quot;);</span><br><span class="line">  const content &#x3D; await fs.Promises.readFile( &quot;index.php&quot; );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sOUER.jpg" alt="8sOUER.jpg"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>gist</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+        <tag>BootStrap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gist网站实现(5)-使用Mongoose数据库实现简单的增删改查</title>
+    <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-5-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5.html</url>
+    <content><![CDATA[<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><blockquote>
+<p>关系数据库： MySQL、PostgreSQL  </p>
+</blockquote>
+<blockquote>
+<p>文档数据库： mongoDB、CouchDB</p>
+</blockquote>
+<p>区别在于<strong><em>schema</em></strong>：</p>
+<ul>
+<li><p>关系数据库在插入数居前，需要先建立表结构，预先制定好字段和类型，即schema。一张表里的字段结构是一致的，一条数据，就是一个记录</p>
+</li>
+<li><p>文档数据库按文档组织数据，数据格式无需提前声明，各个文档内也无关联。</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="Mongoose"><a href="#Mongoose" class="headerlink" title="Mongoose"></a>Mongoose</h3><p>Mongoose优化了MongoDB，解决对象建模的一系列问题</p>
+<p>核心概念：</p>
+<ul>
+<li><p>Schema：类似关系数据库建表时的字段设置。描述数据规范，类型、长度等</p>
+</li>
+<li><p>Model：从schema产生的构造器，通过model可以得到document。类似SSM中的sevice层，调用数据库component。可以创建、删除、查找等</p>
+</li>
+<li><p>Document：Document是Model的Instance实例，Document里存的都是数据。</p>
+</li>
+</ul>
+<h3 id="使用Mongoose存储数据"><a href="#使用Mongoose存储数据" class="headerlink" title="使用Mongoose存储数据"></a>使用Mongoose存储数据</h3><h4 id="导入Mongoose模块"><a href="#导入Mongoose模块" class="headerlink" title="导入Mongoose模块"></a>导入Mongoose模块</h4><ol>
+<li><p>新建文件mongoose.js，作为连接数据库的模块用于被其他模块导入</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    const mongoose &#x3D; require(&#39;mongoose&#39;);</span><br><span class="line">    mongoose.connect(&#39;mongodb:&#x2F;&#x2F;localhost&#x2F;nodegist&#39;,</span><br><span class="line">    &#123;</span><br><span class="line">    useNewUrlParser:true, useUnifiedTopology:true</span><br><span class="line">&#125;, </span><br><span class="line">err &#x3D;&gt;&#123;</span><br><span class="line">        if(err)&#123;</span><br><span class="line">            console.log(&#39;db error ......&#39;);</span><br><span class="line">            process.exit();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F;将连接数据库服务装载入模块，可供其他地方导入使用</span><br><span class="line">module.exports &#x3D; mongoose;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mongoose.connect(url,options)：连接mongoose数据库<ul>
+<li>options可选</li>
+<li><code>useNewUrlParser</code>：底层MongoDB已经废弃当前连接字符串解析器。因为这是一个重大的改变，添加了<code>useNewUrlParser</code>标记，则当在用户如果遇到bug，允许用户在新的解析器中返回旧的解析器。因此除非连接阻止设置，否则你应该设置<code>useNewUrlParser: true</code></li>
+<li><code>useUnifiedTopology</code>：当出现“当前服务器发现和监视引擎已弃用，将在将来的版本中删除”的连接MongoDB错误时。要使用新的服务器发现和监视引擎，按提示，要将选项<code>useUnifiedTopology:true</code>传递给mongoclient构造函数，即connect函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>导入mongoose模块，设计schema创建model及document</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mg &#x3D; require(&quot;..&#x2F;lib&#x2F;mongoose&quot;);</span><br><span class="line">&#x2F;&#x2F;创建model</span><br><span class="line">&#x2F;&#x2F;每调用一次就要创建一次model</span><br><span class="line">const Gist &#x3D; mg.model( &#39;Gist&#39; , &#123;</span><br><span class="line">    name: &#123;type:String&#125;,</span><br><span class="line">    type: &#123;type:String&#125;,</span><br><span class="line">    code: &#123;type:String&#125;,</span><br><span class="line">    author_id: &#123;type:String&#125;,</span><br><span class="line">    author: &#123;type:mg.Schema.Types.ObjectId, ref: &#39;Author&#39;&#125;,</span><br><span class="line">    created_at: &#123;type:String&#125;</span><br><span class="line">&#125; );</span><br><span class="line">&#x2F;&#x2F;创建document</span><br><span class="line">const gist &#x3D; new Gist(&#123;</span><br><span class="line">  name:req.body.name,</span><br><span class="line">  type:req.body.type,</span><br><span class="line">  code:req.body.code,</span><br><span class="line">  author_id:req.session.user.id,</span><br><span class="line">  author:req.session.user._id,</span><br><span class="line">  created_at:Date.now() </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建保存逻辑<br> 使用<code>await gist.save()</code>保存gist。</p>
+<p> <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdeqsua9h4j30i206wwew.jpg" alt="保存"></p>
+</li>
+<li><p>优化mongoose创建model逻辑<br> 由于2中创建model时，每调用一次Gist的model就要创建一次model，不灵活，故将创建schema逻辑独立出来创建为模块，当使用时，直接使用<code>require</code>调用即可。</p>
+</li>
+<li><p>优化跳转逻辑，使保存后跳转至“我的代码”页面<br> 使用<code>res.redirect</code>设置页面跳转。</p>
+</li>
+</ol>
+<h4 id="展示数据"><a href="#展示数据" class="headerlink" title="展示数据"></a>展示数据</h4><ol>
+<li><p>在“我的代码”页面，使用mongoose的find逻辑对已保存的数据进行展示</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  const Gist &#x3D; require(&quot;..&#x2F;model&#x2F;Gist&quot;);</span><br><span class="line">  &#x2F;&#x2F;设置显示时按创建时间逆序排序展示</span><br><span class="line">  const gists &#x3D; await Gist.find().sort(&#123;&#39;created_at&#39;:-1&#125;);</span><br><span class="line">  &#x2F;&#x2F;将gists信息传入页面</span><br><span class="line">  res.render(&#39;gists&#39;,&#123;</span><br><span class="line">  user:req.session.user,</span><br><span class="line">  gists</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设计“我的代码”页面上代码的展示样式。<br> <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfskc7w8rj30ko0bwgmb.jpg" alt="我的代码"></p>
+</li>
+</ol>
+<h4 id="使用update逻辑修改数据"><a href="#使用update逻辑修改数据" class="headerlink" title="使用update逻辑修改数据"></a>使用update逻辑修改数据</h4><ol>
+<li><p>增加修改代码功能，通过点击修改按钮，跳转至修改页面</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;从路径中获取需要修改的代码片段id</span><br><span class="line">router.get(&#39;&#x2F;modify&#x2F;:id&#39;,async(req,res)&#x3D;&gt;&#123;</span><br><span class="line">    const id &#x3D; req.params.id;</span><br><span class="line">    const Gist &#x3D; require(&quot;..&#x2F;model&#x2F;Gist&quot;);</span><br><span class="line">    &#x2F;&#x2F;通过id查询要修改的gist</span><br><span class="line">    const gist &#x3D; await Gist.findById(id);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;增加校验：是否存在此gist，是否为当前登陆用户所提交的gist</span><br><span class="line">    if(!gist) throw(new Error(&quot;gist not found!&quot;));</span><br><span class="line">    if(gist.author_id !&#x3D; req.session.user.id) throw(new Error(&quot;只允许修改自己提交的代码！&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;修改更新代码</span><br><span class="line">    res.render(&#39;modify&#39;,&#123;gist,user:req.session.user&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建修改代码页面，并增加相关样式。</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;update&#x2F;&quot;+gist.id, method&#x3D;&quot;post&quot;)</span><br><span class="line">        div</span><br><span class="line">            input(name&#x3D;&quot;name&quot; value&#x3D;gist.name)</span><br><span class="line">            select(name&#x3D;&quot;type&quot;)</span><br><span class="line">                each thetype in [&quot;php&quot;,&quot;javascript&quot;,&quot;go&quot;,&quot;python&quot;]</span><br><span class="line">                    -if(gist.type&#x3D;&#x3D;thetype)</span><br><span class="line">                        option(value&#x3D;thetype selected&#x3D;&quot;true&quot;) #&#123;thetype&#125;</span><br><span class="line">                    -else</span><br><span class="line">                        option(value&#x3D;thetype) #&#123;thetype&#125;</span><br><span class="line">        div</span><br><span class="line">            textarea(name&#x3D;&quot;code&quot;, cols&#x3D;&quot;30&quot;, rows&#x3D;&quot;10&quot;) #&#123;gist.code&#125;</span><br><span class="line">        div</span><br><span class="line">            button(type&#x3D;&quot;submit&quot;) 保存修改</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>input：代码名，直接从url中获取</p>
+</li>
+<li><p>select：从gist中获取并将其选中</p>
+<blockquote>
+<p>写的时候忘了截图了= =。最终的样子就是表单填了内容的样子。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>添加修改代码update逻辑，修改后点击提交按钮，更新数据库内容<br>修改代码页面update逻辑与modify逻辑几乎一样，仅添加了对输入框、选择框等的校验。并将新修改的内容更新。   </p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if( !req.body.name )  throw( new Error(&#39;名称不能为空&#39;) );</span><br><span class="line">if( !req.body.type )  throw( new Error(&#39;类型不能为空&#39;) );</span><br><span class="line">if( !req.body.code )  throw( new Error(&#39;代码不能为空&#39;) );</span><br><span class="line"></span><br><span class="line">    gist.name &#x3D; req.body.name;</span><br><span class="line">    gist.type &#x3D; req.body.type;</span><br><span class="line">    gist.code &#x3D; req.body.code;</span><br><span class="line">    gist.author_id &#x3D; req.session.user.id;</span><br><span class="line">    gist.created_at &#x3D; Date.now() ;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><ol>
+<li><p>增加删除代码功能<br> 删除代码使用mongoose的<code>deleteOne()</code>函数直接删除。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">router.get(&#39;&#x2F;remove&#x2F;:id&#39;, async(req,res)&#x3D;&gt;&#123;</span><br><span class="line">        const id &#x3D; req.params.id;</span><br><span class="line">        const Gist &#x3D; require(&quot;..&#x2F;model&#x2F;Gist&quot;);</span><br><span class="line">        const gist &#x3D; await Gist.findById(id);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;增加校验：是否存在此gist？是否为当前登陆用户所提交的gist</span><br><span class="line">        if(!gist) throw(new Error(&quot;gist not found!&quot;));</span><br><span class="line">        if(gist.author_id !&#x3D; req.session.user.id) throw(new Error(&quot;只允许修改自己提交的代码！&quot;));</span><br><span class="line">  </span><br><span class="line">        await gist.deleteOne();</span><br><span class="line">        res.redirect(&#39;&#x2F;gists&#x2F;main&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除代码时添加提醒是否删除<br>在点击按钮时使用<code>javascript:function()</code>调用js函数添加弹窗提醒</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.btn.btn-danger(href&#x3D;(&quot;javascript:remove_gist(&#39;&quot;+gist.id+&quot;&#39;);void(0);&quot;)) 删除</span><br><span class="line">    &#x2F;&#x2F;删除提醒弹窗</span><br><span class="line">    function remove_gist(id)&#123;</span><br><span class="line">        &#x2F;&#x2F;若点击确定删除，则执行remove删除逻辑</span><br><span class="line">        if(confirm(&quot;真的要删除吗？本操作无法恢复&quot;))&#123;</span><br><span class="line">        location &#x3D; &#39;&#x2F;gists&#x2F;remove&#x2F;&#39;+id;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdftawhffrj311a09ywfp.jpg" alt="删除"></p>
+</li>
+</ol>
+<h4 id="搜索数据"><a href="#搜索数据" class="headerlink" title="搜索数据"></a>搜索数据</h4><ol>
+<li><p>创建搜索逻辑</p>
+<ul>
+<li><p>添加搜索组件，将搜索条件search传入逻辑</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;main&quot;)</span><br><span class="line">    input(type&#x3D;&#39;search&#39;, placeholder&#x3D;&#39;关键字&#39;, name&#x3D;&quot;search&quot;, value&#x3D;search)</span><br><span class="line">    button(type&#x3D;&#39;submit&#39;) 搜索</span><br></pre></td></tr></table></figure></li>
+<li><p>实现搜索逻辑</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const gists &#x3D; await Gist.find(search).sort(&#123;&#39;created_at&#39;:-1&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfsjpkacuj30ms09kjs8.jpg" alt="搜索"></p>
+</li>
+</ul>
+</li>
+<li><p>优化逻辑，设计查询条件（name、code）</p>
+<ul>
+<li><p>查询条件是js对象，需满足查询<code>name</code>or<code>code</code>，且查询的范围必须为该用户可查看的范围。</p>
+</li>
+<li><p>查询条件使用正则表达式，则其查询对象的key为<code>{$regex: new RegExp( search, &#39;i&#39;)}</code></p>
+<ul>
+<li>$regex: 启用正则表达式，冒号后面是值</li>
+<li>new RegExp(): js中创建正则表达式</li>
+<li>search: 规则，描述字符串的特征</li>
+<li>i: 正则表达式参数，i表示忽略大小写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const search &#x3D; req.query.search ? </span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F;查询条件必须为当前用户可看范围，使用and</span><br><span class="line">    $and:[</span><br><span class="line">      &#x2F;&#x2F;查询条件name和code为or关系</span><br><span class="line">      &#123;</span><br><span class="line">        $or:[</span><br><span class="line">          &#123;name:&#123;$regex:new RegExp(req.query.search,&#39;i&#39;)&#125;&#125;,</span><br><span class="line">          &#123;code:&#123;$regex:new RegExp(req.query.search,&#39;i&#39;)&#125;&#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">      ,&#123;&#39;author_id&#39;:req.session.user.id&#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125; </span><br><span class="line">  :&#123;&#39;author_id&#39;:req.session.user.id&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="展示gist详细信息"><a href="#展示gist详细信息" class="headerlink" title="展示gist详细信息"></a>展示gist详细信息</h4><p>展示gist详细信息，需要同时展示作者信息，故需要多个实体。</p>
+<h5 id="多实体功能实现方法"><a href="#多实体功能实现方法" class="headerlink" title="多实体功能实现方法"></a>多实体功能实现方法</h5><p>对于多实体的功能有三种实现方式：Map、Subdocument、Populate。</p>
+<ul>
+<li>Map：保存作者信息时，直接使用Map类型，在取数据时，使用get方法。</li>
+<li>Subdocument：在建立gist的Schema前，建立author的Schema，在gist中直接使用authorSchema嵌套。<ul>
+<li>这种方式数据更规范。</li>
+<li>当其parent Document的save、validate中间件触发时，Subdocument的中间件也被触发。故对数据的控制更有力（有点类似父类和子类）。</li>
+<li>访问数据时，直接使用.即可。</li>
+</ul>
+</li>
+<li>Populate：Populate的实现是在gist里只存入供查询的author的id（此id为标识author的id，不是人为定义的id）。在查完gist后，再通过此id将author的内容进行扩展。扩展的方法是通过gist的model里为author设置的ref参数，至此就获得了author的全部信息（类似一种二次查询）。<ul>
+<li>Map和Subdocument的问题是都把信息嵌入了document中，若有修改时，则需要全部修改，不够灵活。</li>
+<li>此种方法author的信息也是需要存入数据库以供populate查询。</li>
+<li>传输时，只传输标识author的id</li>
+</ul>
+</li>
+</ul>
+<h5 id="展示gist详细信息实现步骤（该部分使用Populate方式实现）"><a href="#展示gist详细信息实现步骤（该部分使用Populate方式实现）" class="headerlink" title="展示gist详细信息实现步骤（该部分使用Populate方式实现）"></a>展示gist详细信息实现步骤（该部分使用Populate方式实现）</h5><ol>
+<li><p>创建Author的Shema  </p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mg &#x3D; require(&quot;..&#x2F;lib&#x2F;mongoose&quot;);</span><br><span class="line"></span><br><span class="line">const AuthorSchema &#x3D; new mg.Schema(&#123;</span><br><span class="line">    name:&#123;type:String&#125;,</span><br><span class="line">    avatar:&#123;type:String&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const Author &#x3D; mg.model(&#39;Author&#39;,AuthorSchema);</span><br><span class="line"></span><br><span class="line">module.exports&#x3D;Author;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将author信息存入数据库</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const Author &#x3D; require(&quot;..&#x2F;model&#x2F;Author&quot;);</span><br><span class="line">&#x2F;&#x2F;将用户数据存入数据库</span><br><span class="line">const user_data &#x3D; user.data;</span><br><span class="line">let author &#x3D; await Author.findOne(&#123;&quot;id&quot;:user_data.id&#125;);</span><br><span class="line">if(!author)&#123;&#x2F;&#x2F;如果用户不存在，则新建一个用户</span><br><span class="line">  author &#x3D; new Author(&#123;</span><br><span class="line">    id:user_data.id,</span><br><span class="line">    name:user_data.name,</span><br><span class="line">    avatar:user_data.avatar_url</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;else&#123;&#x2F;&#x2F;若存在，则更新为最新信息</span><br><span class="line">  author.name &#x3D; user_data.name;</span><br><span class="line">  author.avatar &#x3D; user_data.avatar_url;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">await author.save();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;将用户_id存入session</span><br><span class="line">req.session.user &#x3D; user.data;</span><br><span class="line">req.session.user._id &#x3D; author._id;</span><br></pre></td></tr></table></figure></li>
+<li><p>展示gist详细信息及作者信息</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extends layout</span><br><span class="line">block content</span><br><span class="line">    .d-flex.justify-content-between</span><br><span class="line">        h4 #&#123;gist.name&#125;</span><br><span class="line">            span.badge.badge-secondary #&#123;gist.type&#125;</span><br><span class="line">        div #&#123;gist.author.name&#125;</span><br><span class="line"></span><br><span class="line">    pre</span><br><span class="line">        code#thecode.tcode(class&#x3D;gist.type) #&#123;gist.code&#125;</span><br><span class="line"></span><br><span class="line">    .form-group.row</span><br><span class="line">        a.btn.btn-primary(href&#x3D;(&quot;&#x2F;gists&#x2F;main&quot;) style&#x3D;&quot;&quot;) 返回上页</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdftsrilknj31xo0ekdho.jpg" alt="详细信息展示"></p>
+</li>
+</ol>
+]]></content>
       <categories>
-          
-          <category> Express </category>
-          
+        <category>Express</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> gist </tag>
-            
-            <tag> Express </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Gist网站实现(3)-创建导航优化页面跳转</title>
-      <link href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html"/>
-      <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="创建导航优化页面跳转"><a href="#创建导航优化页面跳转" class="headerlink" title="创建导航优化页面跳转"></a>创建导航优化页面跳转</h2><h3 id="创建导航"><a href="#创建导航" class="headerlink" title="创建导航"></a>创建导航</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title&#x3D; title</span><br><span class="line">    link(rel&#x3D;&#39;stylesheet&#39;, href&#x3D;&#39;&#x2F;stylesheets&#x2F;style.css&#39;)</span><br><span class="line">  body</span><br><span class="line">    div.menu</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;&quot;) 首页</span><br><span class="line">      -if(user &amp;&amp; user.login)</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;gists&#x2F;main&quot;) 我的代码</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;logout&quot;) 退出登陆#&#123;user.login&#125;</span><br><span class="line">      -else</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;login&quot;) 登陆</span><br><span class="line">    block content</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="添加导航样式"><a href="#添加导航样式" class="headerlink" title="添加导航样式"></a>添加导航样式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.menu &gt; * &#123;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sOeBj.jpg" alt="8sOeBj.jpg"></p><p><img src="https://s1.ax1x.com/2020/03/19/8sO13T.jpg" alt="8sO13T.jpg"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>gist</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+        <tag>Mongoose</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB安装手册</title>
+    <url>/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html</url>
+    <content><![CDATA[<p>在学习Node.js的过程中需要使用Mongoose，故安装MongeDB进行使用。但过程中踩了不少坑。以下安装步骤是多次踩坑后可以正常运行的版本。</p>
+<p>安装环境：Mac OS 10.15.3</p>
+<h2 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h2><h3 id="方法1-使用官网安装包"><a href="#方法1-使用官网安装包" class="headerlink" title="方法1:使用官网安装包"></a>方法1:使用官网安装包</h3><p><a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">官网安装包下载链接</a></p>
+<a id="more"></a>
+<p>选择对应的操作系统和包格式点击下载即可。</p>
+<blockquote>
+<p>此方法个人在下载时一直报错，可能是因为浏览器中安装的下载插件问题，故最后未采用此方式下载。</p>
+</blockquote>
+<h3 id="方法2-获取官网下载链接使用命令行下载"><a href="#方法2-获取官网下载链接使用命令行下载" class="headerlink" title="方法2:获取官网下载链接使用命令行下载"></a>方法2:获取官网下载链接使用命令行下载</h3><p>在官网下载页面复制下载链接：</p>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdealyx2fnj317s0o6acd.jpg" alt="复制官网下载链接"></p>
+<ol>
+<li><p>在iterm中使用命令行下载：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Macbook% sudo curl -O https:&#x2F;&#x2F;fastdl.mongodb.org&#x2F;osx&#x2F;mongodb-macos-x86_64-4.2.5.tgz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压后，将文件夹重命名为mongodb（<strong><em>重要！！！</em></strong>）</p>
+</li>
+</ol>
+<blockquote>
+<p>此方法下载成功且无任何报错</p>
+</blockquote>
+<h3 id="方法3-使用brew下载"><a href="#方法3-使用brew下载" class="headerlink" title="方法3:使用brew下载"></a>方法3:使用brew下载</h3><blockquote>
+<p>确保自己的开发环境中已安装brew</p>
+<p>brew安装教程<a href="https://zhuanlan.zhihu.com/p/99104545" target="_blank" rel="noopener">点击此进行跳转</a></p>
+</blockquote>
+<p>在iterm中使用命令行(<a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="noopener">以下步骤参考于MongoDB官方下载文档</a>)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Macbook% brew tap mongodb&#x2F;brew</span><br><span class="line"></span><br><span class="line">Macbook% brew install mongodb-community@4.2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第一次使用brew下载安装包没有没有按官网的步骤下载，参考了其他大佬的教程，最终没有安装成功，出现了很多奇怪的问题，可能是版本不太一样。<br>后来使用此方法进行下载，但下载后安装遇到了一些问题，初步怀疑是第一次用brew安装后的一些操作没有卸载整理完，故安装失败。</p>
+</blockquote>
+<h2 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h2><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><ol>
+<li><p>使用命令行打开环境变量文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Macbook% open -e .bash_profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将安装MongoDB的目录下bin的地址添加到环境变量中（<strong><em>此步骤一定要配置对！！重要！！！否则后来可能会无法打开Mongo</em></strong>）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin:$PATH</span><br><span class="line">&#x2F;&#x2F;保存文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使配置生效</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Macbook% source .bash_profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证是否已安装成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Macbook% mongod -version</span><br></pre></td></tr></table></figure>
+
+<p> 出现以下信息，则说明安装成功：</p>
+<p> <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdeb7a9ou9j30ni07yq61.jpg" alt="配置成功信息"></p>
+</li>
+</ol>
+<h3 id="创建log和data目录"><a href="#创建log和data目录" class="headerlink" title="创建log和data目录"></a>创建log和data目录</h3><blockquote>
+<p>很多教程都表示要使用<code>mkdir -p /data/db</code>创建目录，但使用各个方法都无法创建成功，故以下自己创建目录</p>
+</blockquote>
+<ol>
+<li><p>在MongoDB的安装目录下新建log目录和data目录（本人安装目录为/usr/local/mongodb，该目录就是之前解压后重命名的文件夹）<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdebdsqowzj30nm03640e.jpg" alt="创建目录"></p>
+</li>
+<li><p>进入/usr/local/etc目录打开mongod.conf文件，修改log路径和data路径为步骤1中创建的目录地址</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemLog:</span><br><span class="line">  destination: file</span><br><span class="line">  path: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;mongo.log</span><br><span class="line">  logAppend: true</span><br><span class="line">storage:</span><br><span class="line">  dbPath: &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;data</span><br><span class="line">net:</span><br><span class="line">  bindIp: 127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>有的教程直接进行第三步运行，但我直接运行第三步后配置并没有改变，出现了一些问题，故还是增加了第二步</p>
+</blockquote>
+</li>
+<li><p>运行MongoDB服务</p>
+<blockquote>
+<p>MongoDB默认数据保存的地址为/data/db，但我一直没创建成功，故修改了地址后，在启动服务时指定dbpath的位置。由于做了第二步也可不指定，以防万一。</p>
+</blockquote>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Macbook% mongod --dbpath data --logpath log&#x2F;mongod.log --logappend</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;--logappend:后台运行</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动后，当前终端不要关闭。</p>
+</blockquote>
+<p> <strong>遇到的问题：</strong></p>
+<p> 在运行MongoDB服务时，有以下报错：</p>
+<blockquote>
+<p>NETWORK  [initandlisten] Failed to unlink socket file /tmp/mongodb-27017.sock Permission denied</p>
+</blockquote>
+<ul>
+<li><p>原因查询:</p>
+<p>  在mongodb目录下使用命令<code>ls -lat /tmp/mongodb-27017.sock</code>查看权限，显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MacBook% srwx------  1 root  wheel  0  4  1 12:27 &#x2F;tmp&#x2F;mongodb-27017.sock</span><br></pre></td></tr></table></figure></li>
+<li><p>解决办法：使用命令<code>sudo rm /tmp/mongodb-27017.sock</code>删除该文件即可。</p>
+</li>
+</ul>
+</li>
+<li><p>启动数据库<br> 新打开一个终端，输入mongo连接数据库。<br> 若出现<code>command not found</code>错误，直接使用命令<code>source .bash_profile</code>再次使环境变量生效，再使用mongo连接即可解决。</p>
+</li>
+</ol>
+]]></content>
       <categories>
-          
-          <category> Express </category>
-          
+        <category>MongoDB</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> gist </tag>
-            
-            <tag> Express </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Gist网站实现(2)-通过会话和session绑定登陆状态及登入登出跳转</title>
-      <link href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html"/>
-      <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="使用会话和-session-保存登陆状态"><a href="#使用会话和-session-保存登陆状态" class="headerlink" title="使用会话和 session 保存登陆状态"></a>使用会话和 session 保存登陆状态</h2><h3 id="安装包-express-session、session-file-store"><a href="#安装包-express-session、session-file-store" class="headerlink" title="安装包 express-session、session-file-store"></a>安装包 express-session、session-file-store</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add express-session session-file-store</span><br></pre></td></tr></table></figure><h3 id="导入安装的模块"><a href="#导入安装的模块" class="headerlink" title="导入安装的模块"></a>导入安装的模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;导入session模块，需要cookie后，session需要依赖cookie</span><br><span class="line">var session &#x3D; require(&quot;express-session&quot;);</span><br><span class="line">var FileStore &#x3D; require(&quot;session-file-store&quot;)(session);</span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="配置-session-参数"><a href="#配置-session-参数" class="headerlink" title="配置 session 参数"></a>配置 session 参数</h3><blockquote><p>sercet: 添加此参数提高安全性</p></blockquote><blockquote><p>resave: 强制将会话保存回会话存储，即使在请求期间从未修改过会话也是如此。</p></blockquote><blockquote><p>rolling: 强制在每个响应上设置会话标识符 cookie。到期重置为原始的 maxAge，重置到期倒数。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">app.use(cookieParser(&#39;SOMEd31$&#39;));&#x2F;&#x2F;添加secret，提高安全性</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">  secret:&#39;SOMEd31$&#39;,</span><br><span class="line">  resave: true,</span><br><span class="line">  rolling: true,</span><br><span class="line">  saveUninitialized: true,</span><br><span class="line">  cookie:&#123;</span><br><span class="line">    path:&#39;&#x2F;&#39;,       &#x2F;&#x2F;cookie路径</span><br><span class="line">    httpOnly:true,</span><br><span class="line">    secure:false,</span><br><span class="line">    maxAge: 60*60*1000*24     &#x2F;&#x2F;过期时间</span><br><span class="line">  &#125;,</span><br><span class="line">  store: new FileStore(&#123;&#125;)    &#x2F;&#x2F;采用文件来存储，否则默认为采用内存存储</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure><h3 id="将-github-登陆用户数据存入-session"><a href="#将-github-登陆用户数据存入-session" class="headerlink" title="将 github 登陆用户数据存入 session"></a>将 github 登陆用户数据存入 session</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">req.session.user &#x3D; user.data;&#x2F;&#x2F;将传回的数据存入session</span><br><span class="line">res.redirect(&#39;&#x2F;&#39;);&#x2F;&#x2F;返回首页</span><br></pre></td></tr></table></figure><blockquote><p>操作 session 时，会有文件变动</p></blockquote><h4 id="在模板中访问-session"><a href="#在模板中访问-session" class="headerlink" title="在模板中访问 session"></a>在模板中访问 session</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">router.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;</span><br><span class="line">  res.render(&#39;index&#39;, &#123; title: &#39;AwesoLynn&#39; , user:req.session.user &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模板jade文件中添加读取的session信息</span><br><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  h1&#x3D; title</span><br><span class="line">  p 欢迎来到 #&#123;title&#125; , #&#123;user.login&#125;</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sOKNq.jpg" alt="8sOKNq.jpg"></p><h2 id="优化登陆页面"><a href="#优化登陆页面" class="headerlink" title="优化登陆页面"></a>优化登陆页面</h2><blockquote><p>若已登入用户访问登录页，则自动跳入首页，略过授权页面</p></blockquote><blockquote><p>若未登陆用户访问需登入才囊查看的页面，则自动跳入登陆页。</p></blockquote><h3 id="添加代码片段页-需登陆才能访问"><a href="#添加代码片段页-需登陆才能访问" class="headerlink" title="添加代码片段页(需登陆才能访问)"></a>添加代码片段页(需登陆才能访问)</h3><h4 id="封装-gists-路由"><a href="#封装-gists-路由" class="headerlink" title="封装 gists 路由"></a>封装 gists 路由</h4><p>新建 gists.js 文件，封装 gists 路由</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var express &#x3D; require(&quot;express&quot;);</span><br><span class="line">var router &#x3D; express.Router();</span><br><span class="line"></span><br><span class="line">router.get(&quot;&#x2F;&quot;, function(req, res, next) &#123;</span><br><span class="line">  res.render(&quot;gists&quot;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; router;&#x2F;&#x2F;封装router模块</span><br></pre></td></tr></table></figure><h4 id="导入-gists-路由"><a href="#导入-gists-路由" class="headerlink" title="导入 gists 路由"></a>导入 gists 路由</h4><blockquote><p>在 app.js 文件导入 gists 路由</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var gistsRouter &#x3D; require(&quot;.&#x2F;routes&#x2F;gists&quot;);</span><br><span class="line">app.use(&quot;&#x2F;gists&quot;, gistsRouter);</span><br></pre></td></tr></table></figure><h4 id="创建-gists-模板页"><a href="#创建-gists-模板页" class="headerlink" title="创建 gists 模板页"></a>创建 gists 模板页</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1 gists</span><br><span class="line">    p Welcome to Gists</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sOlCV.jpg" alt="8sOlCV.jpg"></p><h4 id="设置-gists-页面为登陆才可访问"><a href="#设置-gists-页面为登陆才可访问" class="headerlink" title="设置 gists 页面为登陆才可访问"></a>设置 gists 页面为登陆才可访问</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (!req.session.user)</span><br><span class="line">  return res.redirect(&#39;&#x2F;users&#x2F;login&#39;);&#x2F;&#x2F;若没有登陆则转入登陆页面</span><br><span class="line">res.render(&quot;gists&quot;);</span><br></pre></td></tr></table></figure><h4 id="创建退出登陆逻辑"><a href="#创建退出登陆逻辑" class="headerlink" title="创建退出登陆逻辑"></a>创建退出登陆逻辑</h4><blockquote><p>使用 req.session.destroy 来销毁服务器上的 session 文件。它是异步的，故可使用 async 和 await</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;退出逻辑</span><br><span class="line">router.get(&#39;&#x2F;logout&#39;,async (req,res)&#x3D;&gt;</span><br><span class="line">&#123;</span><br><span class="line">  if( req.session ) await req.session.destroy();</span><br><span class="line">  res.redirect(&#39;&#x2F;&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><h4 id="处理首页用户不存在时显示信息"><a href="#处理首页用户不存在时显示信息" class="headerlink" title="处理首页用户不存在时显示信息"></a>处理首页用户不存在时显示信息</h4><blockquote><p>原首页会显示用户信息，登出后 session 销毁，user 不存在，故需要处理 user 不存在的情况</p></blockquote><blockquote><p>pug/jade 文件可通过-嵌入 JS 语法</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">block content</span><br><span class="line">  h1&#x3D; title</span><br><span class="line">  -if(user) &#x2F;&#x2F;若已经登陆，则显示信息及退出链接</span><br><span class="line">    p Welcome to #&#123;title&#125;，#&#123;user.login&#125;</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;users&#x2F;logout&quot;) Logout</span><br><span class="line">  -else &#x2F;&#x2F;若没有登陆，则显示登入链接</span><br><span class="line">    p Welcome to #&#123;title&#125;</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;users&#x2F;login&quot;) Login</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/19/8sOM40.jpg" alt="8sOM40.jpg"></p><p><img src="https://s1.ax1x.com/2020/03/19/8sOmHs.jpg" alt="8sOmHs.jpg"></p><h4 id="使用中间件优化登陆访问逻辑"><a href="#使用中间件优化登陆访问逻辑" class="headerlink" title="使用中间件优化登陆访问逻辑"></a>使用中间件优化登陆访问逻辑</h4><blockquote><p>上述方式需要在每个登陆才能访问的页面添加逻辑判断，故使用中间件优化此通用逻辑</p></blockquote><blockquote><p>使用中间件，每当访问 gist 的请求，都会自动执行此中间件函数，若为未登陆状态，则转入登陆页面，否则，调用 next()进入下一个函数 gistRouter</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.use(&#39;&#x2F;gists&#39;,( req , res , next )&#x3D;&gt;&#123;</span><br><span class="line">  if( !req.session.user )</span><br><span class="line">    return res.redirect(&#39;&#x2F;users&#x2F;login&#39;);</span><br><span class="line">  else</span><br><span class="line">    next();</span><br><span class="line">&#125;,gistsRouter);</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>Node.js</tag>
+        <tag>Web</tag>
+        <tag>MongoDB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gist网站实现(4)-我的代码页面输入合法性检测</title>
+    <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html</url>
+    <content><![CDATA[<h2 id="添加表单提供提交代码片段功能"><a href="#添加表单提供提交代码片段功能" class="headerlink" title="添加表单提供提交代码片段功能"></a>添加表单提供提交代码片段功能</h2><h3 id="设计表单"><a href="#设计表单" class="headerlink" title="设计表单"></a>设计表单</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;save&quot;, method&#x3D;&quot;post&quot;)</span><br><span class="line">        div</span><br><span class="line">            input(name&#x3D;&quot;name&quot;)</span><br><span class="line">            select(name&#x3D;&quot;type&quot;)</span><br><span class="line">                option(value&#x3D;&quot;C&quot;) C</span><br><span class="line">                option(value&#x3D;&quot;C++&quot;) C++</span><br><span class="line">                option(value&#x3D;&quot;C#&quot;) C#</span><br><span class="line">                option(value&#x3D;&quot;Java&quot;) Java</span><br><span class="line">                option(value&#x3D;&quot;JavaScript&quot;) JavaScript</span><br><span class="line">                option(value&#x3D;&quot;php&quot;) PHP</span><br><span class="line">                option(value&#x3D;&quot;Python&quot;) Python</span><br><span class="line">        div</span><br><span class="line">            textarea(name&#x3D;&quot;code&quot;,cols&#x3D;&quot;30&quot;,row&#x3D;&quot;10&quot;)</span><br><span class="line">        div</span><br><span class="line">            button(type&#x3D;&quot;submit&quot;) 保存</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><img src="https://s1.ax1x.com/2020/03/19/8sO3gU.jpg" alt="8sO3gU.jpg"></p>
+<h3 id="保存代码逻辑"><a href="#保存代码逻辑" class="headerlink" title="保存代码逻辑"></a>保存代码逻辑</h3><h4 id="检查输入数据合法性"><a href="#检查输入数据合法性" class="headerlink" title="检查输入数据合法性"></a>检查输入数据合法性</h4><blockquote>
+<p>若输入内容不符合要求，则无法保存，提示错误并重新输入</p>
+</blockquote>
+<blockquote>
+<p>使用错误处理中间件处理报错， 使用<code>req.body</code>取得 post 传入的数据</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">router.post(&quot;&#x2F;save&quot;, (req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">  if (!req.body.name) return next(new Error(&quot;Gist Name不能为空!&quot;));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sO8vF.jpg" alt="8sO8vF.jpg"></p>
+<h4 id="添加错误页并修改样式"><a href="#添加错误页并修改样式" class="headerlink" title="添加错误页并修改样式"></a>添加错误页并修改样式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;错误页</span><br><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1&#x3D;message</span><br><span class="line">    h2&#x3D;error.status</span><br><span class="line"></span><br><span class="line">    div</span><br><span class="line">        a(href&#x3D;&quot;javascript:history.back(1)&quot;) 点此返回</span><br><span class="line"></span><br><span class="line">    pre.gray #&#123;error.stack&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;样式</span><br><span class="line">.gray &#123;</span><br><span class="line">  color: gray;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOYDJ.jpg" alt="8sOYDJ.jpg"></p>
+<h4 id="修改错误逻辑为自动捕获"><a href="#修改错误逻辑为自动捕获" class="headerlink" title="修改错误逻辑为自动捕获"></a>修改错误逻辑为自动捕获</h4><blockquote>
+<p>上述错误逻辑为主动传入 next，并不灵活，使用 express-async-errors 处理异步操作时主动抛出异常</p>
+</blockquote>
+<h5 id="安装导入-express-async-errors-模块"><a href="#安装导入-express-async-errors-模块" class="headerlink" title="安装导入 express-async-errors 模块"></a>安装导入 express-async-errors 模块</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;输入命令安装模块</span><br><span class="line">$ yarn add express-async-errors</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;导入模块</span><br><span class="line">require(&#39;express-async-errors&#39;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改错误逻辑为主动-throw"><a href="#修改错误逻辑为主动-throw" class="headerlink" title="修改错误逻辑为主动 throw"></a>修改错误逻辑为主动 throw</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (!req.body.name)</span><br><span class="line">  throw(new Error(&quot;Gist Name不能为空!&quot;));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;测试异步时错误处理</span><br><span class="line">router.post(&quot;&#x2F;save&quot;, async(req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;&#x2F;if (!req.body.name) throw new Error(&quot;Gist Name不能为空!&quot;);</span><br><span class="line">  const content &#x3D; await fs.Promises.readFile( &quot;index.php&quot; );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOUER.jpg" alt="8sOUER.jpg"></p>
+]]></content>
       <categories>
-          
-          <category> Express </category>
-          
+        <category>Express</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> gist </tag>
-            
-            <tag> Express </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Gist网站实现(1)-通过第三方登陆GitHub</title>
-      <link href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html"/>
-      <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="安装-Express"><a href="#安装-Express" class="headerlink" title="安装 Express"></a>安装 Express</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g express-generator</span><br></pre></td></tr></table></figure><h3 id="新建-Express-项目初始化"><a href="#新建-Express-项目初始化" class="headerlink" title="新建 Express 项目初始化"></a>新建 Express 项目初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx express-generator --view&#x3D;pug nodegist</span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="安装依赖包并检查"><a href="#安装依赖包并检查" class="headerlink" title="安装依赖包并检查"></a>安装依赖包并检查</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd nodegist</span><br><span class="line">npm i yarn -g</span><br><span class="line">yarn start</span><br></pre></td></tr></table></figure><p><img src="https://ftp.bmp.ovh/imgs/2020/03/44e5a8852717b06e.jpg" alt="安装依赖包并检查"></p><h3 id="安装-nodemon-工具，使其监控文件变动，自己重启服务。"><a href="#安装-nodemon-工具，使其监控文件变动，自己重启服务。" class="headerlink" title="安装 nodemon 工具，使其监控文件变动，自己重启服务。"></a>安装 nodemon 工具，使其监控文件变动，自己重启服务。</h3><p>yarn add nodemon –dev</p><p>修改 package.json，将 script 下的 start 命令的 node 换为 nodemon。下次使用 yarn start 时即可通过 nodemon 启动</p><p><img src="https://ftp.bmp.ovh/imgs/2020/03/5512f974bc701b70.jpg" alt="nodemon"></p><h2 id="通过第三方登入-github"><a href="#通过第三方登入-github" class="headerlink" title="通过第三方登入 github"></a>通过第三方登入 github</h2><h3 id="直接登陆-github"><a href="#直接登陆-github" class="headerlink" title="直接登陆 github"></a>直接登陆 github</h3><p>用户在 github 登陆，输入用户名密码，传入 github，github 查询对应数据库，确认无误后，通过 session 标识用户登陆成功</p><h3 id="第三方登陆"><a href="#第三方登陆" class="headerlink" title="第三方登陆"></a>第三方登陆</h3><p>第三方不可信，故不直接使用用户名和密码进行登陆，而是采用限制性的登入授权解决。=&gt;OAuth</p><p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图源自 easy 老师方糖全站课堂：</a></p><p><img src="https://ftp.bmp.ovh/imgs/2020/03/fe5cc456c2233b7b.jpg" alt="github"></p><p>核心步骤为：<strong>获取 Code，用 Code 换 AccessToken</strong></p><h4 id="添加登陆页面"><a href="#添加登陆页面" class="headerlink" title="添加登陆页面"></a>添加登陆页面</h4><blockquote><p>页面由路由、回调函数、模板三部分组成</p></blockquote><p>1、在 routes/users.js 添加路由规则</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.get(&#39;&#x2F;login&#39;,function(res,res,next)&#123;</span><br><span class="line">   res.render(&#39;login&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>2、新建 views/login.jade 作为模板</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extends layout</span><br><span class="line">block content</span><br><span class="line">h1 login</span><br><span class="line">p</span><br><span class="line">a(href&#x3D;&#39;#&#39;) Login with Github</span><br></pre></td></tr></table></figure><blockquote><p>jade 是 Express 默认模板引擎，现已改名为 pug，其采用缩进来区分层级。<br>每一层将标签名写在最前面，然后用括号写属性，最后是标签对应的文字内容。<br>html2jade.org 可在线把 HTML 转化为 jade 语法<br>开头的<code>extends layout</code>即以 layout.jade 为基础，进行 block 替换</p></blockquote><h4 id="创建-OAuth-App"><a href="#创建-OAuth-App" class="headerlink" title="创建 OAuth App"></a>创建 OAuth App</h4><p><img src="https://pic.downk.cc/item/5e6f4ec6e83c3a1e3a7d04fa.jpg" alt="1"></p><p><img src="https://pic.downk.cc/item/5e6f4ec6e83c3a1e3a7d04fc.jpg" alt="2"></p><p><img src="https://s1.ax1x.com/2020/03/16/8JOQpV.jpg" alt="3"></p><h4 id="拼接请求链接（Github-的-OAuth-文档）"><a href="#拼接请求链接（Github-的-OAuth-文档）" class="headerlink" title="拼接请求链接（Github 的 OAuth 文档）"></a>拼接请求链接（Github 的 OAuth 文档）</h4><ol><li>定义 Client 相关信息为常量</li></ol><p><img src="https://pic.downk.cc/item/5e6f4ec6e83c3a1e3a7d0500.jpg" alt="5"></p><ol start="2"><li>拼接 GET 参数，使用 encodeURIComponent 进行编码，保证参数中有特殊字符时不会报错</li></ol><p><img src="https://s1.ax1x.com/2020/03/16/8JOnkn.jpg" alt="6"></p><ol start="3"><li>将 url 作为参数传给模板</li></ol><p><img src="https://s1.ax1x.com/2020/03/16/8JOuYq.jpg" alt="7"></p><ol start="4"><li>在模板 views/login.jade 将 a 标签的 href 换为 url</li></ol><p><img src="https://s1.ax1x.com/2020/03/16/8JOeTs.jpg" alt="8"></p><ol start="5"><li>打开 login 页面即可看到授权页面</li></ol><p><img src="https://s1.ax1x.com/2020/03/16/8JOVmQ.jpg" alt="9"></p><p><img src="https://s1.ax1x.com/2020/03/16/8JORht.jpg" alt="10"></p><h4 id="创建授权页面后回调函数"><a href="#创建授权页面后回调函数" class="headerlink" title="创建授权页面后回调函数"></a>创建授权页面后回调函数</h4><ol><li>点击授权按钮后，code 会出现在回调 URL 上</li></ol><p><img src="https://s1.ax1x.com/2020/03/16/8JO2tI.jpg" alt="11"></p><ol start="2"><li>安装必要的库</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add axios url-search-params-polyfill querystring</span><br></pre></td></tr></table></figure><ol start="3"><li>在 users.js 引入新安装的库</li></ol><blockquote><p>NodeJS 特性</p></blockquote><blockquote><p>当我们通过 require 载入 module.exports 导出的内容时，如果是对象， NodeJS 会自动缓存它。如果是函数，则不会被缓存。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;构成表单数据</span><br><span class="line">require(&#39;url-search-params-polyfill&#39;);</span><br><span class="line">&#x2F;&#x2F;发起HTTP请求</span><br><span class="line">const axios &#x3D; require(&#39;axios&#39;);</span><br><span class="line">&#x2F;&#x2F;分析URL里的参数</span><br><span class="line">const querystring &#x3D; require(&#39;querystring&#39;);</span><br></pre></td></tr></table></figure><ol start="4"><li>新增 callback 路由规则，实现回调函数</li></ol><p>检查 url 中是否有 code，没有则报错</p><ol start="5"><li>获取到 code 后需要再次发送请求获取 accessToken，此时根据文档需要发送 POST，故无法通过拼接 URL 实现</li></ol><blockquote><p>通过 axios 库发起请求，axios 支持 await 语法，其 post 方法接受两个参数，url 和要发送的数据</p></blockquote><blockquote><p>通过 URLSearchParams 按格式拼接要发送的数据</p></blockquote><blockquote><p>通过 url-search-params-polyfill 兼容低版本环境</p></blockquote><ol start="6"><li>使用 querystring.parse 从 URL 中提取出 access_token，则即可使用 access token 调用接口</li></ol><p>完整代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F;req,res为Express传递的两个参数，分别为request请求和response响应</span><br><span class="line"> router.get(&quot;&#x2F;ghcallback&quot;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">  if (!req.query.code) res.status(500).send(&quot;bad code!&quot;);</span><br><span class="line">  console.log(&quot;in callback&quot;);</span><br><span class="line">  console.log(req.query.code);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;拼接POST请求参数</span><br><span class="line">  let params &#x3D; new URLSearchParams();</span><br><span class="line">  params.append(&quot;client_id&quot;, GH_CLIENT_ID);</span><br><span class="line">  params.append(&quot;client_secret&quot;, GH_CLIENT_SECRET);</span><br><span class="line">  params.append(&quot;code&quot;, req.query.code);</span><br><span class="line">  params.append(&quot;redirect_url&quot;, GH_CALLBACK);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;发起请求</span><br><span class="line">  const &#123; data &#125; &#x3D; await axios.post(</span><br><span class="line">    &quot;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,</span><br><span class="line">    params</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;使用querystring提取access_token的值</span><br><span class="line">  if (data) &#123;</span><br><span class="line">    const acode &#x3D; querystring.parse(data).access_token;</span><br><span class="line">    &#x2F;&#x2F;使用access_token调用Github接口查询当前用户的信息</span><br><span class="line">    const user &#x3D; await axios.get(</span><br><span class="line">      &quot;https:&#x2F;&#x2F;api.github.com&#x2F;user?access_token&#x3D;&quot; + acode</span><br><span class="line">    );</span><br><span class="line">    console.log(&quot;Got user info:&quot;, user.data);</span><br><span class="line"></span><br><span class="line">    res.json(user.data);</span><br><span class="line">    res.end();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/16/8JOj3V.jpg" alt="info"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>gist</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gist网站实现(3)-创建导航优化页面跳转</title>
+    <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html</url>
+    <content><![CDATA[<h2 id="创建导航优化页面跳转"><a href="#创建导航优化页面跳转" class="headerlink" title="创建导航优化页面跳转"></a>创建导航优化页面跳转</h2><h3 id="创建导航"><a href="#创建导航" class="headerlink" title="创建导航"></a>创建导航</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title&#x3D; title</span><br><span class="line">    link(rel&#x3D;&#39;stylesheet&#39;, href&#x3D;&#39;&#x2F;stylesheets&#x2F;style.css&#39;)</span><br><span class="line">  body</span><br><span class="line">    div.menu</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;&quot;) 首页</span><br><span class="line">      -if(user &amp;&amp; user.login)</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;gists&#x2F;main&quot;) 我的代码</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;logout&quot;) 退出登陆#&#123;user.login&#125;</span><br><span class="line">      -else</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;login&quot;) 登陆</span><br><span class="line">    block content</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h4 id="添加导航样式"><a href="#添加导航样式" class="headerlink" title="添加导航样式"></a>添加导航样式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.menu &gt; * &#123;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOeBj.jpg" alt="8sOeBj.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/03/19/8sO13T.jpg" alt="8sO13T.jpg"></p>
+]]></content>
       <categories>
-          
-          <category> Express </category>
-          
+        <category>Express</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> gist </tag>
-            
-            <tag> Express </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Node.js(5)-Express基础</title>
-      <link href="/Node-js-5-Express.html"/>
-      <url>/Node-js-5-Express.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Express 是一个简洁灵活的 Node.js Web 应用框架，其特点为：</p><ul><li><p>可以设置中间件来响应 HTTP 请求</p></li><li><p>定义了路由表用于执行不同的 HTTP 请求动作</p></li><li><p>可以通过向模板传递参数来动态渲染 HTML 页面</p><a id="more"></a></li></ul><h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p>请求发送到服务器，服务端在监听处理请求时的过程很复杂，若将这些负责的业务拆分成子部分，则每个子部份就是一个中间件，类似一个流水线工作流程。</p><blockquote><p>function(req, res, next)</p></blockquote><blockquote><p>若符合 function 中的条件，则执行对应的 end()函数结束此次路由，若不符合条件，则执行 next()函数进入 function2</p></blockquote><blockquote><p>类同与异步的 promise.then().then()</p></blockquote><p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p><p><img src="https://i.loli.net/2020/03/16/amscOKBu1qZRNSD.jpg" alt="中间件"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> var express &#x3D; require(&#39;express&#39;);</span><br><span class="line"> var app &#x3D; express();</span><br><span class="line"></span><br><span class="line"> app.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;&#x2F;&#x2F;function(req, res, next)为中间件</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 当前中间件函数没有结束请求&#x2F;响应循环，调用next(), 将控制权传递给下一个中间件函数继续往下处理，否则页面到此会被挂起</span><br><span class="line">    next();&#x2F;&#x2F;有next()才会往下进行下一个中间件，否则一直被挂起</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;next()代表的下一个中间件</span><br><span class="line">app.get(&#39;&#x2F;end&#39;, function(req, res) &#123;</span><br><span class="line">    &#x2F;&#x2F;此时没有next(),故到此结束</span><br><span class="line">    res.send(&#39;-----END-----&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure><h3 id="错误中间件"><a href="#错误中间件" class="headerlink" title="错误中间件"></a>错误中间件</h3><blockquote><p>function(err, req, res, next)</p></blockquote><p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p><p><img src="https://i.loli.net/2020/03/16/AKTki9687StbFu5.jpg" alt="错误中间件"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.use(function(err, req, res, next) &#123;&#x2F;&#x2F;function(err, req, res, next)为错误处理中间件</span><br><span class="line">  console.error(err.stack);</span><br><span class="line">  res.status(500).send(&#39;Something broke!&#39;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;另一种写法</span><br><span class="line">app.use(function(req, res, next) &#123;</span><br><span class="line">  next(new Error(&quot;XXX error&quot;));&#x2F;&#x2F;next()将请求交给新建的错误处理中间件。</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><h2 id="单文件-Express-app"><a href="#单文件-Express-app" class="headerlink" title="单文件 Express app"></a>单文件 Express app</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const express &#x3D; require(&#39;express&#39;)</span><br><span class="line">const app &#x3D; express()</span><br><span class="line">const port &#x3D; 3000</span><br><span class="line"></span><br><span class="line">app.get(&#39;&#x2F;&#39;, (req, res) &#x3D;&gt; res.send(&#39;Hello World!&#39;))</span><br><span class="line"></span><br><span class="line">app.listen(port, () &#x3D;&gt; console.log(&#96;Example app listening on port &#96;+ port));</span><br></pre></td></tr></table></figure><p><img src="https://i.loli.net/2020/03/16/Of4DapRuvUVq5mE.jpg" alt="output"></p><h2 id="使用-Express-generate-生成-Express-项目"><a href="#使用-Express-generate-生成-Express-项目" class="headerlink" title="使用 Express generate 生成 Express 项目"></a>使用 Express generate 生成 Express 项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Node.js v8.2.0直接使用npx命令使用生成器</span><br><span class="line">$ npx express-generator</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;之前版本先安装生成器包</span><br><span class="line">$ npm install -g express-generator</span><br><span class="line">$ express</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;生成项目myapp</span><br><span class="line">&#x2F;&#x2F;将view引擎设置成pug，jade已不被支持</span><br><span class="line">$ express --view&#x3D;pug myapp</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">&#x2F;&#x2F;安装依赖</span><br><span class="line">$ cd myapp</span><br><span class="line">$ npm install</span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">$ set DEBUG&#x3D;myapp:*</span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;打开页面http:&#x2F;&#x2F;localhost:3000&#x2F;查看结果</span><br></pre></td></tr></table></figure><p><img src="https://i.loli.net/2020/03/16/BNmsdbH4D3yvjqU.jpg" alt="express"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>gist</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gist网站实现(2)-通过会话和session绑定登陆状态及登入登出跳转</title>
+    <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html</url>
+    <content><![CDATA[<h2 id="使用会话和-session-保存登陆状态"><a href="#使用会话和-session-保存登陆状态" class="headerlink" title="使用会话和 session 保存登陆状态"></a>使用会话和 session 保存登陆状态</h2><h3 id="安装包-express-session、session-file-store"><a href="#安装包-express-session、session-file-store" class="headerlink" title="安装包 express-session、session-file-store"></a>安装包 express-session、session-file-store</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn add express-session session-file-store</span><br></pre></td></tr></table></figure>
+
+<h3 id="导入安装的模块"><a href="#导入安装的模块" class="headerlink" title="导入安装的模块"></a>导入安装的模块</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;导入session模块，需要cookie后，session需要依赖cookie</span><br><span class="line">var session &#x3D; require(&quot;express-session&quot;);</span><br><span class="line">var FileStore &#x3D; require(&quot;session-file-store&quot;)(session);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="配置-session-参数"><a href="#配置-session-参数" class="headerlink" title="配置 session 参数"></a>配置 session 参数</h3><blockquote>
+<p>sercet: 添加此参数提高安全性</p>
+</blockquote>
+<blockquote>
+<p>resave: 强制将会话保存回会话存储，即使在请求期间从未修改过会话也是如此。</p>
+</blockquote>
+<blockquote>
+<p>rolling: 强制在每个响应上设置会话标识符 cookie。到期重置为原始的 maxAge，重置到期倒数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">app.use(cookieParser(&#39;SOMEd31$&#39;));&#x2F;&#x2F;添加secret，提高安全性</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">  secret:&#39;SOMEd31$&#39;,</span><br><span class="line">  resave: true,</span><br><span class="line">  rolling: true,</span><br><span class="line">  saveUninitialized: true,</span><br><span class="line">  cookie:&#123;</span><br><span class="line">    path:&#39;&#x2F;&#39;,       &#x2F;&#x2F;cookie路径</span><br><span class="line">    httpOnly:true,</span><br><span class="line">    secure:false,</span><br><span class="line">    maxAge: 60*60*1000*24     &#x2F;&#x2F;过期时间</span><br><span class="line">  &#125;,</span><br><span class="line">  store: new FileStore(&#123;&#125;)    &#x2F;&#x2F;采用文件来存储，否则默认为采用内存存储</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<h3 id="将-github-登陆用户数据存入-session"><a href="#将-github-登陆用户数据存入-session" class="headerlink" title="将 github 登陆用户数据存入 session"></a>将 github 登陆用户数据存入 session</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">req.session.user &#x3D; user.data;&#x2F;&#x2F;将传回的数据存入session</span><br><span class="line">res.redirect(&#39;&#x2F;&#39;);&#x2F;&#x2F;返回首页</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>操作 session 时，会有文件变动</p>
+</blockquote>
+<h4 id="在模板中访问-session"><a href="#在模板中访问-session" class="headerlink" title="在模板中访问 session"></a>在模板中访问 session</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">router.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;</span><br><span class="line">  res.render(&#39;index&#39;, &#123; title: &#39;AwesoLynn&#39; , user:req.session.user &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;模板jade文件中添加读取的session信息</span><br><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">  h1&#x3D; title</span><br><span class="line">  p 欢迎来到 #&#123;title&#125; , #&#123;user.login&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOKNq.jpg" alt="8sOKNq.jpg"></p>
+<h2 id="优化登陆页面"><a href="#优化登陆页面" class="headerlink" title="优化登陆页面"></a>优化登陆页面</h2><blockquote>
+<p>若已登入用户访问登录页，则自动跳入首页，略过授权页面</p>
+</blockquote>
+<blockquote>
+<p>若未登陆用户访问需登入才囊查看的页面，则自动跳入登陆页。</p>
+</blockquote>
+<h3 id="添加代码片段页-需登陆才能访问"><a href="#添加代码片段页-需登陆才能访问" class="headerlink" title="添加代码片段页(需登陆才能访问)"></a>添加代码片段页(需登陆才能访问)</h3><h4 id="封装-gists-路由"><a href="#封装-gists-路由" class="headerlink" title="封装 gists 路由"></a>封装 gists 路由</h4><p>新建 gists.js 文件，封装 gists 路由</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var express &#x3D; require(&quot;express&quot;);</span><br><span class="line">var router &#x3D; express.Router();</span><br><span class="line"></span><br><span class="line">router.get(&quot;&#x2F;&quot;, function(req, res, next) &#123;</span><br><span class="line">  res.render(&quot;gists&quot;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; router;&#x2F;&#x2F;封装router模块</span><br></pre></td></tr></table></figure>
+
+<h4 id="导入-gists-路由"><a href="#导入-gists-路由" class="headerlink" title="导入 gists 路由"></a>导入 gists 路由</h4><blockquote>
+<p>在 app.js 文件导入 gists 路由</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var gistsRouter &#x3D; require(&quot;.&#x2F;routes&#x2F;gists&quot;);</span><br><span class="line">app.use(&quot;&#x2F;gists&quot;, gistsRouter);</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建-gists-模板页"><a href="#创建-gists-模板页" class="headerlink" title="创建 gists 模板页"></a>创建 gists 模板页</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1 gists</span><br><span class="line">    p Welcome to Gists</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOlCV.jpg" alt="8sOlCV.jpg"></p>
+<h4 id="设置-gists-页面为登陆才可访问"><a href="#设置-gists-页面为登陆才可访问" class="headerlink" title="设置 gists 页面为登陆才可访问"></a>设置 gists 页面为登陆才可访问</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (!req.session.user)</span><br><span class="line">  return res.redirect(&#39;&#x2F;users&#x2F;login&#39;);&#x2F;&#x2F;若没有登陆则转入登陆页面</span><br><span class="line">res.render(&quot;gists&quot;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建退出登陆逻辑"><a href="#创建退出登陆逻辑" class="headerlink" title="创建退出登陆逻辑"></a>创建退出登陆逻辑</h4><blockquote>
+<p>使用 req.session.destroy 来销毁服务器上的 session 文件。它是异步的，故可使用 async 和 await</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;退出逻辑</span><br><span class="line">router.get(&#39;&#x2F;logout&#39;,async (req,res)&#x3D;&gt;</span><br><span class="line">&#123;</span><br><span class="line">  if( req.session ) await req.session.destroy();</span><br><span class="line">  res.redirect(&#39;&#x2F;&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="处理首页用户不存在时显示信息"><a href="#处理首页用户不存在时显示信息" class="headerlink" title="处理首页用户不存在时显示信息"></a>处理首页用户不存在时显示信息</h4><blockquote>
+<p>原首页会显示用户信息，登出后 session 销毁，user 不存在，故需要处理 user 不存在的情况</p>
+</blockquote>
+<blockquote>
+<p>pug/jade 文件可通过-嵌入 JS 语法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">block content</span><br><span class="line">  h1&#x3D; title</span><br><span class="line">  -if(user) &#x2F;&#x2F;若已经登陆，则显示信息及退出链接</span><br><span class="line">    p Welcome to #&#123;title&#125;，#&#123;user.login&#125;</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;users&#x2F;logout&quot;) Logout</span><br><span class="line">  -else &#x2F;&#x2F;若没有登陆，则显示登入链接</span><br><span class="line">    p Welcome to #&#123;title&#125;</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;users&#x2F;login&quot;) Login</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOM40.jpg" alt="8sOM40.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOmHs.jpg" alt="8sOmHs.jpg"></p>
+<h4 id="使用中间件优化登陆访问逻辑"><a href="#使用中间件优化登陆访问逻辑" class="headerlink" title="使用中间件优化登陆访问逻辑"></a>使用中间件优化登陆访问逻辑</h4><blockquote>
+<p>上述方式需要在每个登陆才能访问的页面添加逻辑判断，故使用中间件优化此通用逻辑</p>
+</blockquote>
+<blockquote>
+<p>使用中间件，每当访问 gist 的请求，都会自动执行此中间件函数，若为未登陆状态，则转入登陆页面，否则，调用 next()进入下一个函数 gistRouter</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">app.use(&#39;&#x2F;gists&#39;,( req , res , next )&#x3D;&gt;&#123;</span><br><span class="line">  if( !req.session.user )</span><br><span class="line">    return res.redirect(&#39;&#x2F;users&#x2F;login&#39;);</span><br><span class="line">  else</span><br><span class="line">    next();</span><br><span class="line">&#125;,gistsRouter);</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-          
-          <category> Node.js </category>
-          
+        <category>Express</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> Express </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Node.js(4)-模块及文件系统</title>
-      <link href="/Node-js-4-%E6%A8%A1%E5%9D%97%E5%8F%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.html"/>
-      <url>/Node-js-4-%E6%A8%A1%E5%9D%97%E5%8F%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>模块是 Node.js 的基本组成部分，文件和模块一一对应，即一个 Node.js 文件就是一个模块。</p><blockquote><p><code>exports</code>：模块公开的接口，即封装模块的关键字</p></blockquote><blockquote><p><code>require</code>：从外部获取一个模块的接口，即调用模块的关键字</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;引入当前目录下的hello文件</span><br><span class="line">var hello &#x3D; require(&quot;.&#x2F;hello&quot;);</span><br><span class="line">&#x2F;&#x2F;使用exports将world作为模块访问的接口</span><br><span class="line">exports.world&#x3D;function()&#123;</span><br><span class="line">    console.log(&quot;Hello World&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  <a id="more"></a><h3 id="require-调用模块机制"><a href="#require-调用模块机制" class="headerlink" title="require 调用模块机制"></a>require 调用模块机制</h3><p><img src="https://s1.ax1x.com/2020/03/16/8GZTTx.jpg" alt="require"></p><blockquote><p>其中，</p></blockquote><blockquote><p>原生模块：Node.js 自带的模块，如 http、fs 等。</p></blockquote><blockquote><p>文件模块：某目录下的文件，使用前必须先使用<code>exports</code>封装模块</p></blockquote><h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var fs &#x3D; require(&quot;fs&quot;);</span><br></pre></td></tr></table></figure><p>文件模块中所有方法均有异步同步两种，异步方法的最后一个参数为回掉函数，第一个参数包含了错误信息。</p><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var fs &#x3D; require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 异步读取</span><br><span class="line">fs.readFile(&#39;fs.txt&#39;, function (err, data) &#123;</span><br><span class="line">   if (err) &#123;</span><br><span class="line">       return console.error(err);</span><br><span class="line">   &#125;</span><br><span class="line">   console.log(&quot;异步: &quot; + data.toString());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 同步读取</span><br><span class="line">var data &#x3D; fs.readFileSync(&#39;fs.txt&#39;);</span><br><span class="line">console.log(&quot;同步: &quot; + data.toString());</span><br><span class="line"></span><br><span class="line">console.log(&quot;------END------&quot;);</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/03/16/8Gmoi6.jpg" alt="output"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>gist</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Gist网站实现(1)-通过第三方登陆GitHub</title>
+    <url>/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html</url>
+    <content><![CDATA[<h2 id="安装-Express"><a href="#安装-Express" class="headerlink" title="安装 Express"></a>安装 Express</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g express-generator</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建-Express-项目初始化"><a href="#新建-Express-项目初始化" class="headerlink" title="新建 Express 项目初始化"></a>新建 Express 项目初始化</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npx express-generator --view&#x3D;pug nodegist</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="安装依赖包并检查"><a href="#安装依赖包并检查" class="headerlink" title="安装依赖包并检查"></a>安装依赖包并检查</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd nodegist</span><br><span class="line">npm i yarn -g</span><br><span class="line">yarn start</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/03/44e5a8852717b06e.jpg" alt="安装依赖包并检查"></p>
+<h3 id="安装-nodemon-工具，使其监控文件变动，自己重启服务。"><a href="#安装-nodemon-工具，使其监控文件变动，自己重启服务。" class="headerlink" title="安装 nodemon 工具，使其监控文件变动，自己重启服务。"></a>安装 nodemon 工具，使其监控文件变动，自己重启服务。</h3><p>yarn add nodemon –dev</p>
+<p>修改 package.json，将 script 下的 start 命令的 node 换为 nodemon。下次使用 yarn start 时即可通过 nodemon 启动</p>
+<p><img src="https://ftp.bmp.ovh/imgs/2020/03/5512f974bc701b70.jpg" alt="nodemon"></p>
+<h2 id="通过第三方登入-github"><a href="#通过第三方登入-github" class="headerlink" title="通过第三方登入 github"></a>通过第三方登入 github</h2><h3 id="直接登陆-github"><a href="#直接登陆-github" class="headerlink" title="直接登陆 github"></a>直接登陆 github</h3><p>用户在 github 登陆，输入用户名密码，传入 github，github 查询对应数据库，确认无误后，通过 session 标识用户登陆成功</p>
+<h3 id="第三方登陆"><a href="#第三方登陆" class="headerlink" title="第三方登陆"></a>第三方登陆</h3><p>第三方不可信，故不直接使用用户名和密码进行登陆，而是采用限制性的登入授权解决。=&gt;OAuth</p>
+<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图源自 easy 老师方糖全站课堂：</a></p>
+<p><img src="https://ftp.bmp.ovh/imgs/2020/03/fe5cc456c2233b7b.jpg" alt="github"></p>
+<p>核心步骤为：<strong>获取 Code，用 Code 换 AccessToken</strong></p>
+<h4 id="添加登陆页面"><a href="#添加登陆页面" class="headerlink" title="添加登陆页面"></a>添加登陆页面</h4><blockquote>
+<p>页面由路由、回调函数、模板三部分组成</p>
+</blockquote>
+<p>1、在 routes/users.js 添加路由规则</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">router.get(&#39;&#x2F;login&#39;,function(res,res,next)&#123;</span><br><span class="line">   res.render(&#39;login&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>2、新建 views/login.jade 作为模板</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extends layout</span><br><span class="line">block content</span><br><span class="line">h1 login</span><br><span class="line">p</span><br><span class="line">a(href&#x3D;&#39;#&#39;) Login with Github</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>jade 是 Express 默认模板引擎，现已改名为 pug，其采用缩进来区分层级。<br>每一层将标签名写在最前面，然后用括号写属性，最后是标签对应的文字内容。<br>html2jade.org 可在线把 HTML 转化为 jade 语法<br>开头的<code>extends layout</code>即以 layout.jade 为基础，进行 block 替换</p>
+</blockquote>
+<h4 id="创建-OAuth-App"><a href="#创建-OAuth-App" class="headerlink" title="创建 OAuth App"></a>创建 OAuth App</h4><p><img src="https://pic.downk.cc/item/5e6f4ec6e83c3a1e3a7d04fa.jpg" alt="1"></p>
+<p><img src="https://pic.downk.cc/item/5e6f4ec6e83c3a1e3a7d04fc.jpg" alt="2"></p>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JOQpV.jpg" alt="3"></p>
+<h4 id="拼接请求链接（Github-的-OAuth-文档）"><a href="#拼接请求链接（Github-的-OAuth-文档）" class="headerlink" title="拼接请求链接（Github 的 OAuth 文档）"></a>拼接请求链接（Github 的 OAuth 文档）</h4><ol>
+<li>定义 Client 相关信息为常量</li>
+</ol>
+<p><img src="https://pic.downk.cc/item/5e6f4ec6e83c3a1e3a7d0500.jpg" alt="5"></p>
+<ol start="2">
+<li>拼接 GET 参数，使用 encodeURIComponent 进行编码，保证参数中有特殊字符时不会报错</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JOnkn.jpg" alt="6"></p>
+<ol start="3">
+<li>将 url 作为参数传给模板</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JOuYq.jpg" alt="7"></p>
+<ol start="4">
+<li>在模板 views/login.jade 将 a 标签的 href 换为 url</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JOeTs.jpg" alt="8"></p>
+<ol start="5">
+<li>打开 login 页面即可看到授权页面</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JOVmQ.jpg" alt="9"></p>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JORht.jpg" alt="10"></p>
+<h4 id="创建授权页面后回调函数"><a href="#创建授权页面后回调函数" class="headerlink" title="创建授权页面后回调函数"></a>创建授权页面后回调函数</h4><ol>
+<li>点击授权按钮后，code 会出现在回调 URL 上</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2020/03/16/8JO2tI.jpg" alt="11"></p>
+<ol start="2">
+<li>安装必要的库</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn add axios url-search-params-polyfill querystring</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在 users.js 引入新安装的库</li>
+</ol>
+<blockquote>
+<p>NodeJS 特性</p>
+</blockquote>
+<blockquote>
+<p>当我们通过 require 载入 module.exports 导出的内容时，如果是对象， NodeJS 会自动缓存它。如果是函数，则不会被缓存。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;构成表单数据</span><br><span class="line">require(&#39;url-search-params-polyfill&#39;);</span><br><span class="line">&#x2F;&#x2F;发起HTTP请求</span><br><span class="line">const axios &#x3D; require(&#39;axios&#39;);</span><br><span class="line">&#x2F;&#x2F;分析URL里的参数</span><br><span class="line">const querystring &#x3D; require(&#39;querystring&#39;);</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>新增 callback 路由规则，实现回调函数</li>
+</ol>
+<p>检查 url 中是否有 code，没有则报错</p>
+<ol start="5">
+<li>获取到 code 后需要再次发送请求获取 accessToken，此时根据文档需要发送 POST，故无法通过拼接 URL 实现</li>
+</ol>
+<blockquote>
+<p>通过 axios 库发起请求，axios 支持 await 语法，其 post 方法接受两个参数，url 和要发送的数据</p>
+</blockquote>
+<blockquote>
+<p>通过 URLSearchParams 按格式拼接要发送的数据</p>
+</blockquote>
+<blockquote>
+<p>通过 url-search-params-polyfill 兼容低版本环境</p>
+</blockquote>
+<ol start="6">
+<li>使用 querystring.parse 从 URL 中提取出 access_token，则即可使用 access token 调用接口</li>
+</ol>
+<p>完整代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &#x2F;&#x2F;req,res为Express传递的两个参数，分别为request请求和response响应</span><br><span class="line"> router.get(&quot;&#x2F;ghcallback&quot;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">  if (!req.query.code) res.status(500).send(&quot;bad code!&quot;);</span><br><span class="line">  console.log(&quot;in callback&quot;);</span><br><span class="line">  console.log(req.query.code);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;拼接POST请求参数</span><br><span class="line">  let params &#x3D; new URLSearchParams();</span><br><span class="line">  params.append(&quot;client_id&quot;, GH_CLIENT_ID);</span><br><span class="line">  params.append(&quot;client_secret&quot;, GH_CLIENT_SECRET);</span><br><span class="line">  params.append(&quot;code&quot;, req.query.code);</span><br><span class="line">  params.append(&quot;redirect_url&quot;, GH_CALLBACK);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;发起请求</span><br><span class="line">  const &#123; data &#125; &#x3D; await axios.post(</span><br><span class="line">    &quot;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,</span><br><span class="line">    params</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;使用querystring提取access_token的值</span><br><span class="line">  if (data) &#123;</span><br><span class="line">    const acode &#x3D; querystring.parse(data).access_token;</span><br><span class="line">    &#x2F;&#x2F;使用access_token调用Github接口查询当前用户的信息</span><br><span class="line">    const user &#x3D; await axios.get(</span><br><span class="line">      &quot;https:&#x2F;&#x2F;api.github.com&#x2F;user?access_token&#x3D;&quot; + acode</span><br><span class="line">    );</span><br><span class="line">    console.log(&quot;Got user info:&quot;, user.data);</span><br><span class="line"></span><br><span class="line">    res.json(user.data);</span><br><span class="line">    res.end();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/16/8JOj3V.jpg" alt="info"></p>
+]]></content>
       <categories>
-          
-          <category> Node.js </category>
-          
+        <category>Express</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Node.js(3)-回调与事件</title>
-      <link href="/Node-js-3-%E5%9B%9E%E8%B0%83%E4%B8%8E%E4%BA%8B%E4%BB%B6.html"/>
-      <url>/Node-js-3-%E5%9B%9E%E8%B0%83%E4%B8%8E%E4%BA%8B%E4%BB%B6.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote><p>回调是 Node.js 异步编程的直接体现。回调函数在完成任务后就会被调用。Node 的所有 API 都支持回调函数。回调函数是一种非阻塞的方式。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function f1(value,callback1,callback2,...)&#123;&#125;</span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="进程、线程"><a href="#进程、线程" class="headerlink" title="进程、线程"></a>进程、线程</h3><blockquote><p>进程：系统中正在运行的一个应用程序，是资源分配的最小单位。</p></blockquote><blockquote><p>线程：系统分配处理器时间资源的最小单位，程序执行的最小单位。</p></blockquote><h4 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h4><blockquote><p>1.进程包含一个或多个线程。</p></blockquote><blockquote><p>2.进程=线程+内存+文件/网络句柄</p></blockquote><blockquote><p>3.线程=栈+程序计数器+线程独立内存 TLS</p></blockquote><blockquote><p>4.一个程序至少有一个进程，一个进程至少有一个线程，其第一个线程即为此进程的主线程。</p></blockquote><blockquote><p>5.一个线程可以创建和撤销另一个线程，同一个进程的多个线程可以并发执行。</p></blockquote><h3 id="同步、异步、阻塞、非阻塞"><a href="#同步、异步、阻塞、非阻塞" class="headerlink" title="同步、异步、阻塞、非阻塞"></a>同步、异步、阻塞、非阻塞</h3><blockquote><p><strong>同步、异步关注应用层，阻塞、非阻塞更多针对进程和线程而谈</strong></p></blockquote><blockquote><p>同步：发送方发送请求之后，需要等接收方发回响应后才接着发。</p></blockquote><blockquote><p>异步：发送方发送请求后，不等待接收方响应请求，继续发送下个请求。</p></blockquote><blockquote><p>阻塞调用：调用结果返回之前，当前线程会被挂起，调用线程在获得结果后才会返回数据。</p></blockquote><blockquote><p>非阻塞调用：调用结果返回之前，当前线程也不会被挂起，而是立刻返回执行下一个调用。</p></blockquote><h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ol><li><p>进程通信方面，同步、异步和阻塞、非阻塞基本是同义词，发送方阻塞/非阻塞与接收方阻塞/非阻塞互不影响。</p></li><li><p>I/O 系统调用层面，非阻塞 I/O 系统调用和异步 IO 系统调用都不会阻塞进程，但非阻塞 I/O 系统调用 read()立即返回的是可以立即拿到的数据，完整或不完整的结果或空值都可；而异步 I/O 系统调用 read()返回的结果必须是完整的。</p></li><li><p>非阻塞 I/O 系统调用可用来实现线程级别的 I/O 并发，与通过多线程实现的 I/O 并发相比，可减少内存消耗及进程切换的开销。</p></li></ol><h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><blockquote><p>Node.js 是单进程单线程的应用程序，但通过 V8 引擎提供的异步执行回调接口，可以处理大量的并发。</p></blockquote><blockquote><p>Node.js 所有的事件机制，都通过观察者模式实现。其单线程类似进入一个<code>while(true)</code>的事件循环，知道没有事件观察者退出，每个异步事件都生成一个事件观察者，若有事件发生就调用该回调函数。</p></blockquote><blockquote><p>观察者模式：其定义了对象的一对多依赖，当一个对象改变，所有依赖它的观察者都会收到通知并自动更新。</p></blockquote><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>Node.js 使用事件驱动模型。当 web server 收到请求，就将他关闭放到任务队列中，然后服务下一个 web 请求，通过先进先出的原则，任务队列中的事件会被放到调用栈上进行处理（若为非阻塞 I/O 操作，则直接调用栈执行完毕，若为文件或其他数据库等需长时间的操作，则会被放入 Libuv 处理，当前任务挂起，处理下一个任务），当此请求处理完成，它会将结果重新放回任务队列，当到达队列开头，此处理结果被返回给用户（<strong>非阻塞 I/O</strong>或<strong>事件驱动 I/O</strong>）</p><p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图 Node.js 工作流程源自 easy 老师方糖全站课堂（超值！！买买买！！！）：</a></p><p><a href="https://imgchr.com/i/83rcH1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/15/83rcH1.md.jpg" alt="node.js"></a></p><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ol><li>事件驱动程序</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var events &#x3D; require(&quot;events&quot;);</span><br><span class="line">var eventEmitter &#x3D; new events.EventEmitter();</span><br><span class="line"></span><br><span class="line">var connectHandler &#x3D; function connected() &#123;</span><br><span class="line">  console.log(&quot;Connect Success!!&quot;);</span><br><span class="line">  &#x2F;&#x2F;触发data_received事件</span><br><span class="line">  eventEmitter.emit(&quot;data_received&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;绑定事件处理</span><br><span class="line">eventEmitter.on(&quot;connection&quot;, connectHandler);</span><br><span class="line">&#x2F;&#x2F;绑定data_received事件</span><br><span class="line">eventEmitter.on(&quot;data_received&quot;, function() &#123;</span><br><span class="line">  console.log(&quot;data received success!!&quot;);</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F;触发connection事件</span><br><span class="line">eventEmitter.emit(&quot;connection&quot;);</span><br><span class="line"></span><br><span class="line">console.log(&quot;------END------&quot;);</span><br></pre></td></tr></table></figure><p>运行结果：</p><p><img src="https://s1.ax1x.com/2020/03/15/83ryu9.jpg" alt="event"></p><ol start="2"><li>文件读入</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var fs &#x3D; require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&quot;fs.txt&quot;, (err, data) &#x3D;&gt; &#123;</span><br><span class="line">  if (err) &#123;</span><br><span class="line">    console.log(&quot;------ERROR------&quot;);</span><br><span class="line">    console.log(err.stack);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(&quot;------DATA------&quot;);</span><br><span class="line">  console.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&quot;------END------&quot;);</span><br></pre></td></tr></table></figure><p>运行成功：</p><p><img src="https://s1.ax1x.com/2020/03/15/83rrjJ.jpg" alt="fs1"></p><p>运行失败：</p><p><img src="https://s1.ax1x.com/2020/03/15/83r6BR.jpg" alt="fs2"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>gist</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js(5)-Express基础</title>
+    <url>/Node-js-5-Express.html</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Express 是一个简洁灵活的 Node.js Web 应用框架，其特点为：</p>
+<ul>
+<li><p>可以设置中间件来响应 HTTP 请求</p>
+</li>
+<li><p>定义了路由表用于执行不同的 HTTP 请求动作</p>
+</li>
+<li><p>可以通过向模板传递参数来动态渲染 HTML 页面</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p>请求发送到服务器，服务端在监听处理请求时的过程很复杂，若将这些负责的业务拆分成子部分，则每个子部份就是一个中间件，类似一个流水线工作流程。</p>
+<blockquote>
+<p>function(req, res, next)</p>
+</blockquote>
+<blockquote>
+<p>若符合 function 中的条件，则执行对应的 end()函数结束此次路由，若不符合条件，则执行 next()函数进入 function2</p>
+</blockquote>
+<blockquote>
+<p>类同与异步的 promise.then().then()</p>
+</blockquote>
+<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p>
+<p><img src="https://i.loli.net/2020/03/16/amscOKBu1qZRNSD.jpg" alt="中间件"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> var express &#x3D; require(&#39;express&#39;);</span><br><span class="line"> var app &#x3D; express();</span><br><span class="line"></span><br><span class="line"> app.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;&#x2F;&#x2F;function(req, res, next)为中间件</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 当前中间件函数没有结束请求&#x2F;响应循环，调用next(), 将控制权传递给下一个中间件函数继续往下处理，否则页面到此会被挂起</span><br><span class="line">    next();&#x2F;&#x2F;有next()才会往下进行下一个中间件，否则一直被挂起</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;next()代表的下一个中间件</span><br><span class="line">app.get(&#39;&#x2F;end&#39;, function(req, res) &#123;</span><br><span class="line">    &#x2F;&#x2F;此时没有next(),故到此结束</span><br><span class="line">    res.send(&#39;-----END-----&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
+
+<h3 id="错误中间件"><a href="#错误中间件" class="headerlink" title="错误中间件"></a>错误中间件</h3><blockquote>
+<p>function(err, req, res, next)</p>
+</blockquote>
+<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p>
+<p><img src="https://i.loli.net/2020/03/16/AKTki9687StbFu5.jpg" alt="错误中间件"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">app.use(function(err, req, res, next) &#123;&#x2F;&#x2F;function(err, req, res, next)为错误处理中间件</span><br><span class="line">  console.error(err.stack);</span><br><span class="line">  res.status(500).send(&#39;Something broke!&#39;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;另一种写法</span><br><span class="line">app.use(function(req, res, next) &#123;</span><br><span class="line">  next(new Error(&quot;XXX error&quot;));&#x2F;&#x2F;next()将请求交给新建的错误处理中间件。</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="单文件-Express-app"><a href="#单文件-Express-app" class="headerlink" title="单文件 Express app"></a>单文件 Express app</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const express &#x3D; require(&#39;express&#39;)</span><br><span class="line">const app &#x3D; express()</span><br><span class="line">const port &#x3D; 3000</span><br><span class="line"></span><br><span class="line">app.get(&#39;&#x2F;&#39;, (req, res) &#x3D;&gt; res.send(&#39;Hello World!&#39;))</span><br><span class="line"></span><br><span class="line">app.listen(port, () &#x3D;&gt; console.log(&#96;Example app listening on port &#96;+ port));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/16/Of4DapRuvUVq5mE.jpg" alt="output"></p>
+<h2 id="使用-Express-generate-生成-Express-项目"><a href="#使用-Express-generate-生成-Express-项目" class="headerlink" title="使用 Express generate 生成 Express 项目"></a>使用 Express generate 生成 Express 项目</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;Node.js v8.2.0直接使用npx命令使用生成器</span><br><span class="line">$ npx express-generator</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;之前版本先安装生成器包</span><br><span class="line">$ npm install -g express-generator</span><br><span class="line">$ express</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;生成项目myapp</span><br><span class="line">&#x2F;&#x2F;将view引擎设置成pug，jade已不被支持</span><br><span class="line">$ express --view&#x3D;pug myapp</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">&#x2F;&#x2F;安装依赖</span><br><span class="line">$ cd myapp</span><br><span class="line">$ npm install</span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">$ set DEBUG&#x3D;myapp:*</span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;打开页面http:&#x2F;&#x2F;localhost:3000&#x2F;查看结果</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/16/BNmsdbH4D3yvjqU.jpg" alt="express"></p>
+]]></content>
       <categories>
-          
-          <category> Node.js </category>
-          
+        <category>Node.js</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Node.js(2)-REPL(交互式解释器)</title>
-      <link href="/Node-js-2-REPL-%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8.html"/>
-      <url>/Node-js-2-REPL-%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote><p>REPL 表示一个电脑环境类似 Windows 的 cmd 或 powershell 终端，Unix/Linux 的 shell。可进行一些读取、执行、打印、循环操作。</p></blockquote><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$node    &#x2F;&#x2F;进入node REPL</span><br><span class="line">&gt; 1+6</span><br><span class="line">7</span><br></pre></td></tr></table></figure><a id="more"></a><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; x&#x3D;100</span><br><span class="line">100</span><br><span class="line"></span><br><span class="line">&gt; var y&#x3D;50</span><br><span class="line">undifined</span><br><span class="line"></span><br><span class="line">&gt; console.log(&quot;Hello World&quot;)</span><br><span class="line">Hello World</span><br></pre></td></tr></table></figure><h3 id="多行表达式"><a href="#多行表达式" class="headerlink" title="多行表达式"></a>多行表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; var x&#x3D;0;</span><br><span class="line">undefined</span><br><span class="line"></span><br><span class="line">&gt; while(x&lt;6)&#123;</span><br><span class="line">... x++;        &#x2F;&#x2F;...为换行，node会自动检测是否为连续的表达式</span><br><span class="line">... console.log(&quot;x:&quot;+x);</span><br><span class="line">...&#125;</span><br><span class="line">x:1</span><br><span class="line">x:2</span><br><span class="line">x:3</span><br><span class="line">x:4</span><br><span class="line">x:5</span><br><span class="line">x:6</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure><h3 id="下划线变量"><a href="#下划线变量" class="headerlink" title="下划线变量"></a>下划线变量</h3><blockquote><p>node 中下划线_可代表上一个表达式的结果。</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; var x&#x3D;5;</span><br><span class="line">undefined</span><br><span class="line">&gt; var y&#x3D;10;</span><br><span class="line">undefined</span><br><span class="line">&gt; x+y</span><br><span class="line">15</span><br><span class="line">&gt; var sum&#x3D;_;</span><br><span class="line">undefined</span><br><span class="line">&gt; console.log(&quot;sum:&quot;+sum);</span><br><span class="line">sum:15</span><br></pre></td></tr></table></figure><h3 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctrl+c: 退出当前表达式</span><br><span class="line"></span><br><span class="line">ctrl+c(两次)&#x2F;ctrl+d：退出node REPL</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>Express</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js(4)-模块及文件系统</title>
+    <url>/Node-js-4-%E6%A8%A1%E5%9D%97%E5%8F%8A%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.html</url>
+    <content><![CDATA[<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>模块是 Node.js 的基本组成部分，文件和模块一一对应，即一个 Node.js 文件就是一个模块。</p>
+<blockquote>
+<p><code>exports</code>：模块公开的接口，即封装模块的关键字</p>
+</blockquote>
+<blockquote>
+<p><code>require</code>：从外部获取一个模块的接口，即调用模块的关键字</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;引入当前目录下的hello文件</span><br><span class="line">var hello &#x3D; require(&quot;.&#x2F;hello&quot;);</span><br><span class="line">&#x2F;&#x2F;使用exports将world作为模块访问的接口</span><br><span class="line">exports.world&#x3D;function()&#123;</span><br><span class="line">    console.log(&quot;Hello World&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <a id="more"></a>
+<h3 id="require-调用模块机制"><a href="#require-调用模块机制" class="headerlink" title="require 调用模块机制"></a>require 调用模块机制</h3><p><img src="https://s1.ax1x.com/2020/03/16/8GZTTx.jpg" alt="require"></p>
+<blockquote>
+<p>其中，</p>
+</blockquote>
+<blockquote>
+<p>原生模块：Node.js 自带的模块，如 http、fs 等。</p>
+</blockquote>
+<blockquote>
+<p>文件模块：某目录下的文件，使用前必须先使用<code>exports</code>封装模块</p>
+</blockquote>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var fs &#x3D; require(&quot;fs&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>文件模块中所有方法均有异步同步两种，异步方法的最后一个参数为回掉函数，第一个参数包含了错误信息。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var fs &#x3D; require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 异步读取</span><br><span class="line">fs.readFile(&#39;fs.txt&#39;, function (err, data) &#123;</span><br><span class="line">   if (err) &#123;</span><br><span class="line">       return console.error(err);</span><br><span class="line">   &#125;</span><br><span class="line">   console.log(&quot;异步: &quot; + data.toString());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 同步读取</span><br><span class="line">var data &#x3D; fs.readFileSync(&#39;fs.txt&#39;);</span><br><span class="line">console.log(&quot;同步: &quot; + data.toString());</span><br><span class="line"></span><br><span class="line">console.log(&quot;------END------&quot;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.ax1x.com/2020/03/16/8Gmoi6.jpg" alt="output"></p>
+]]></content>
       <categories>
-          
-          <category> Node.js </category>
-          
+        <category>Node.js</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Node.js(1)-创建应用</title>
-      <link href="/Node-js-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.html"/>
-      <url>/Node-js-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Node.js 为运行在服务端的 JavaScript。它是一个基于 Chrome JavaScript 运行时建立的平台，也是一个事件驱动 I/O 服务端的 JavaScript，基于 Google 的 V8 引擎。</p><a id="more"></a><p>Node.js 应用由以下部分组成：</p><ul><li><p>引入 required 模块：使用 require 指令载入 Node.js 模块</p></li><li><p>创建服务器：服务器监听客户端请求。</p></li><li><p>接收、响应请求</p></li></ul><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="引入-required-模块"><a href="#引入-required-模块" class="headerlink" title="引入 required 模块"></a>引入 required 模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var http &#x3D; require(&quot;http&quot;);</span><br></pre></td></tr></table></figure><h3 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">const server &#x3D; http.createServer();&#x2F;&#x2F;创建服务器</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;给服务器绑定request事件，并使用匿名函数作为其回调函数</span><br><span class="line">server.on(&quot;request&quot;, (req, res) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(req.url); &#x2F;&#x2F;输出请求的url地址</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;通过normalize将URL规范成路径</span><br><span class="line">  &#x2F;&#x2F;通过join将他和当前目录拼接起来</span><br><span class="line">  &#x2F;&#x2F;__dirname代表当前文件所在目录</span><br><span class="line">  const doc_path &#x3D; path.join(</span><br><span class="line">    __dirname,</span><br><span class="line">    &quot;document_root&quot;,</span><br><span class="line">    path.normalize(req.url)</span><br><span class="line">  );</span><br><span class="line">  console.log(doc_path);</span><br><span class="line"></span><br><span class="line">  const ext &#x3D; path.extname(req.url); &#x2F;&#x2F;获取扩展名</span><br><span class="line">  let mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;text&#x2F;html&quot; &#125;;</span><br><span class="line">  switch (</span><br><span class="line">    ext &#x2F;&#x2F;指定对应的MIME信息</span><br><span class="line">  ) &#123;</span><br><span class="line">    case &quot;.html&quot;:</span><br><span class="line">    case &quot;.htm&quot;:</span><br><span class="line">      mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;text&#x2F;html&quot; &#125;;</span><br><span class="line">      break;</span><br><span class="line">    case &quot;.css&quot;:</span><br><span class="line">      mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;text&#x2F;css&quot; &#125;;</span><br><span class="line">      break;</span><br><span class="line">    case &quot;.ico&quot;:</span><br><span class="line">      mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;image&#x2F;x-icon&quot; &#125;;</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;使用existSync判断文件是否存在</span><br><span class="line">  &#x2F;&#x2F;使用extname去掉url目录，以防路径为目录，但目录里没有文件</span><br><span class="line">  if (path.extname(req.url) !&#x3D; &quot;&quot; &amp;&amp; fs.existsSync(doc_path)) &#123;</span><br><span class="line">    &#x2F;&#x2F;Response里边会包含MIME信息以告诉浏览器这是个什么格式的文件</span><br><span class="line">    res.writeHead(200, mime); &#x2F;&#x2F;输出状态码</span><br><span class="line">    content &#x3D; fs.readFileSync(doc_path); &#x2F;&#x2F;通过readFileSync读取文件内容</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    res.writeHead(404, mime);</span><br><span class="line">    content &#x3D; &quot;文件不存在&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  res.write(content); &#x2F;&#x2F;将内容写到request响应里去</span><br><span class="line"></span><br><span class="line">  res.end();&#x2F;&#x2F;发送响应数据</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(8080);&#x2F;&#x2F;监听8080端口</span><br></pre></td></tr></table></figure><h3 id="执行代码"><a href="#执行代码" class="headerlink" title="执行代码"></a>执行代码</h3><p><img src="https://s2.ax1x.com/2020/03/08/3xIOiT.jpg" alt="测试结果"></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js(3)-回调与事件</title>
+    <url>/Node-js-3-%E5%9B%9E%E8%B0%83%E4%B8%8E%E4%BA%8B%E4%BB%B6.html</url>
+    <content><![CDATA[<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<p>回调是 Node.js 异步编程的直接体现。回调函数在完成任务后就会被调用。Node 的所有 API 都支持回调函数。回调函数是一种非阻塞的方式。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function f1(value,callback1,callback2,...)&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="进程、线程"><a href="#进程、线程" class="headerlink" title="进程、线程"></a>进程、线程</h3><blockquote>
+<p>进程：系统中正在运行的一个应用程序，是资源分配的最小单位。</p>
+</blockquote>
+<blockquote>
+<p>线程：系统分配处理器时间资源的最小单位，程序执行的最小单位。</p>
+</blockquote>
+<h4 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h4><blockquote>
+<p>1.进程包含一个或多个线程。</p>
+</blockquote>
+<blockquote>
+<p>2.进程=线程+内存+文件/网络句柄</p>
+</blockquote>
+<blockquote>
+<p>3.线程=栈+程序计数器+线程独立内存 TLS</p>
+</blockquote>
+<blockquote>
+<p>4.一个程序至少有一个进程，一个进程至少有一个线程，其第一个线程即为此进程的主线程。</p>
+</blockquote>
+<blockquote>
+<p>5.一个线程可以创建和撤销另一个线程，同一个进程的多个线程可以并发执行。</p>
+</blockquote>
+<h3 id="同步、异步、阻塞、非阻塞"><a href="#同步、异步、阻塞、非阻塞" class="headerlink" title="同步、异步、阻塞、非阻塞"></a>同步、异步、阻塞、非阻塞</h3><blockquote>
+<p><strong>同步、异步关注应用层，阻塞、非阻塞更多针对进程和线程而谈</strong></p>
+</blockquote>
+<blockquote>
+<p>同步：发送方发送请求之后，需要等接收方发回响应后才接着发。</p>
+</blockquote>
+<blockquote>
+<p>异步：发送方发送请求后，不等待接收方响应请求，继续发送下个请求。</p>
+</blockquote>
+<blockquote>
+<p>阻塞调用：调用结果返回之前，当前线程会被挂起，调用线程在获得结果后才会返回数据。</p>
+</blockquote>
+<blockquote>
+<p>非阻塞调用：调用结果返回之前，当前线程也不会被挂起，而是立刻返回执行下一个调用。</p>
+</blockquote>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ol>
+<li><p>进程通信方面，同步、异步和阻塞、非阻塞基本是同义词，发送方阻塞/非阻塞与接收方阻塞/非阻塞互不影响。</p>
+</li>
+<li><p>I/O 系统调用层面，非阻塞 I/O 系统调用和异步 IO 系统调用都不会阻塞进程，但非阻塞 I/O 系统调用 read()立即返回的是可以立即拿到的数据，完整或不完整的结果或空值都可；而异步 I/O 系统调用 read()返回的结果必须是完整的。</p>
+</li>
+<li><p>非阻塞 I/O 系统调用可用来实现线程级别的 I/O 并发，与通过多线程实现的 I/O 并发相比，可减少内存消耗及进程切换的开销。</p>
+</li>
+</ol>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><blockquote>
+<p>Node.js 是单进程单线程的应用程序，但通过 V8 引擎提供的异步执行回调接口，可以处理大量的并发。</p>
+</blockquote>
+<blockquote>
+<p>Node.js 所有的事件机制，都通过观察者模式实现。其单线程类似进入一个<code>while(true)</code>的事件循环，知道没有事件观察者退出，每个异步事件都生成一个事件观察者，若有事件发生就调用该回调函数。</p>
+</blockquote>
+<blockquote>
+<p>观察者模式：其定义了对象的一对多依赖，当一个对象改变，所有依赖它的观察者都会收到通知并自动更新。</p>
+</blockquote>
+<h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>Node.js 使用事件驱动模型。当 web server 收到请求，就将他关闭放到任务队列中，然后服务下一个 web 请求，通过先进先出的原则，任务队列中的事件会被放到调用栈上进行处理（若为非阻塞 I/O 操作，则直接调用栈执行完毕，若为文件或其他数据库等需长时间的操作，则会被放入 Libuv 处理，当前任务挂起，处理下一个任务），当此请求处理完成，它会将结果重新放回任务队列，当到达队列开头，此处理结果被返回给用户（<strong>非阻塞 I/O</strong>或<strong>事件驱动 I/O</strong>）</p>
+<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图 Node.js 工作流程源自 easy 老师方糖全站课堂（超值！！买买买！！！）：</a></p>
+<p><a href="https://imgchr.com/i/83rcH1" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/03/15/83rcH1.md.jpg" alt="node.js"></a></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ol>
+<li>事件驱动程序</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var events &#x3D; require(&quot;events&quot;);</span><br><span class="line">var eventEmitter &#x3D; new events.EventEmitter();</span><br><span class="line"></span><br><span class="line">var connectHandler &#x3D; function connected() &#123;</span><br><span class="line">  console.log(&quot;Connect Success!!&quot;);</span><br><span class="line">  &#x2F;&#x2F;触发data_received事件</span><br><span class="line">  eventEmitter.emit(&quot;data_received&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;绑定事件处理</span><br><span class="line">eventEmitter.on(&quot;connection&quot;, connectHandler);</span><br><span class="line">&#x2F;&#x2F;绑定data_received事件</span><br><span class="line">eventEmitter.on(&quot;data_received&quot;, function() &#123;</span><br><span class="line">  console.log(&quot;data received success!!&quot;);</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F;触发connection事件</span><br><span class="line">eventEmitter.emit(&quot;connection&quot;);</span><br><span class="line"></span><br><span class="line">console.log(&quot;------END------&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://s1.ax1x.com/2020/03/15/83ryu9.jpg" alt="event"></p>
+<ol start="2">
+<li>文件读入</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var fs &#x3D; require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&quot;fs.txt&quot;, (err, data) &#x3D;&gt; &#123;</span><br><span class="line">  if (err) &#123;</span><br><span class="line">    console.log(&quot;------ERROR------&quot;);</span><br><span class="line">    console.log(err.stack);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(&quot;------DATA------&quot;);</span><br><span class="line">  console.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&quot;------END------&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>运行成功：</p>
+<p><img src="https://s1.ax1x.com/2020/03/15/83rrjJ.jpg" alt="fs1"></p>
+<p>运行失败：</p>
+<p><img src="https://s1.ax1x.com/2020/03/15/83r6BR.jpg" alt="fs2"></p>
+]]></content>
       <categories>
-          
-          <category> Node.js </category>
-          
+        <category>Node.js</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Node.js </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> server </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>纯HTML/CSS/JS实现九宫格拼图游戏</title>
-      <link href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"/>
-      <url>/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://i.loli.net/2020/02/21/MBsWOjbg8ED7wLd.gif" alt="showall.gif"></p><p>github地址：<a href="https://github.com/ChangeZ24/game-gridpuzzle" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-gridpuzzle</a></p><p>在线试玩地址： <a href="http://awesolynn.me/game-gridpuzzle/gridpuzzle.html">http://awesolynn.me/game-gridpuzzle/gridpuzzle.html</a></p><a id="more"></a><h2 id="实现功能"><a href="#实现功能" class="headerlink" title="实现功能"></a>实现功能</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ul><li><p>整个九宫格看作一个 div，分为 9 份，位置号为 1~9</p></li><li><p>九宫格内 8 个活动格看作 8 个 div，格号为 1~8，第 9 格为空格，记为 0</p></li></ul><h3 id="乱序排列九宫格内-8-个活动格"><a href="#乱序排列九宫格内-8-个活动格" class="headerlink" title="乱序排列九宫格内 8 个活动格"></a>乱序排列九宫格内 8 个活动格</h3><blockquote><p>算法：</p></blockquote><blockquote><p>1、从第 9 格空格开始，选取随机位置号为 1~9 的某格进行两两替换</p></blockquote><blockquote><p>2、接下来，第 8 格，即格号为 8（初始后格号为 8 的格同在位置 8），则选取随机位置号为 1~8 的格进行两两替换</p></blockquote><blockquote><p>以此类推</p></blockquote><h3 id="活动格鼠标点击进行滑动"><a href="#活动格鼠标点击进行滑动" class="headerlink" title="活动格鼠标点击进行滑动"></a>活动格鼠标点击进行滑动</h3><blockquote><p>算法：</p></blockquote><blockquote><p>1、初始时，使用数组记录每个位置可移动的位置号，如位置 1，可移动到位置 2 和位置 4</p></blockquote><blockquote><p>2、使用数组记录每个位置格的左上角点的 x、y 值，在 css 中即为 left、top 值，即每个格从位置 1 移动到位置 2，改变的位移值。</p></blockquote><blockquote><p>3、当鼠标进行点击某格时，若其可移动的格内有空格，则其位移变为空格的 x、y 值，完成移动的动作。</p></blockquote><h3 id="时间记录"><a href="#时间记录" class="headerlink" title="时间记录"></a>时间记录</h3><blockquote><p>时间记录，同样使用<code>setInterval()</code>函数按 1000ms 的间隔进行实时计算。</p></blockquote><h3 id="关卡设置"><a href="#关卡设置" class="headerlink" title="关卡设置"></a>关卡设置</h3><blockquote><p>本游戏共设置 3 关，当每关成功完成拼图，会出现提示<code>play more</code>表示进入下一关</p></blockquote><p><img src="https://i.loli.net/2020/02/21/BYJ6b4WPpdKz8j9.gif" alt="next.gif"></p><blockquote><p>当位于最后一关时，成功后只会提示<code>congratulations</code>，表示游戏结束。</p></blockquote><p><img src="https://i.loli.net/2020/02/21/eXKdZgihUxIpHzy.gif" alt="suss.gif"></p><h3 id="暂停、重玩机制"><a href="#暂停、重玩机制" class="headerlink" title="暂停、重玩机制"></a>暂停、重玩机制</h3><blockquote><p>当点击开始游戏后，开始游戏的按钮会自动变为暂停游戏</p></blockquote><blockquote><p>点击暂停游戏后，时间暂停，各活动格也无法点击，只有点击开始游戏继续玩或点击重新开始，重启此关</p></blockquote><p><img src="https://i.loli.net/2020/02/21/5gc2CEVIyBKTMpl.gif" alt="pause.gif"></p><blockquote><p>点击重新开始，会重新启动所在的关卡，重排整个图。</p></blockquote><p><img src="https://i.loli.net/2020/02/21/1r2jPMApN3wGTgo.gif" alt="reset.gif"></p><h2 id="疑惑-学习点"><a href="#疑惑-学习点" class="headerlink" title="疑惑/学习点"></a>疑惑/学习点</h2><h3 id="对-CSS-中-position-的理解"><a href="#对-CSS-中-position-的理解" class="headerlink" title="对 CSS 中 position 的理解"></a>对 CSS 中 position 的理解</h3><h4 id="基础定义"><a href="#基础定义" class="headerlink" title="基础定义"></a>基础定义</h4><p>position：用于层的绝对定位，即让一个层位于一个层内具体什么位置</p><p>参数：</p><ul><li><p>static：默认。按页面文档流放置，忽略 top、bottom、left、right 设置的值</p></li><li><p>relative：相对位置。对象不可层叠，可通过 top、bottom、left、right 设置在文档流中的位置</p></li><li><p>absolute：绝对位置。对象可通过 z-index 设置层叠，对象被从文档流拖出，根据 top、bottom、left、right 等属性进行绝对定位。</p></li><li><p>fixed：固定位置。通过 top、bottom、left、right 进行定位，页面滚动，对象仍存在于固定的位置不变。</p></li></ul><h4 id="对相对、绝对位置的理解"><a href="#对相对、绝对位置的理解" class="headerlink" title="对相对、绝对位置的理解"></a>对相对、绝对位置的理解</h4><ol><li><p>当子级使用<code>position: absolute;</code>时。其父级通常定义为<code>position: relative;</code></p><p>父级使用<code>position: relative;</code>相对位置时，最好同时定义其<code>width</code>和<code>height</code>。</p><p>此时，子级使用<code>position: absolute;</code>，设置的<code>top/bottom、left/right</code>即为距离父级上/下侧、左/右侧的距离，有点类似外边距。</p><blockquote><p><strong>注意</strong>：此时<code>top/bottom</code>二选一，<code>left/right</code>二选一！</p></blockquote></li><li><p>当子级使用<code>position: absolute;</code>但父级没有设置<code>position: relative;</code>时，无论子级处于 div 哪一层，都会被拖出文档流，以 <code>body</code>为父级，所设置的所有 <code>top/bottom、left/right</code>都会为距离<code>body</code>的上/下侧、左/右侧的距离，不受其父级控制。</p></li></ol><h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol><li><p>实验楼拼图实现教学</p><p><a href="https://www.shiyanlou.com/courses/161" target="_blank" rel="noopener">https://www.shiyanlou.com/courses/161</a></p></li><li><p>CSS 中 position 相关讲解</p><p><a href="http://www.divcss5.com/rumen/r403.shtml" target="_blank" rel="noopener">http://www.divcss5.com/rumen/r403.shtml</a></p></li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js(2)-REPL(交互式解释器)</title>
+    <url>/Node-js-2-REPL-%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8.html</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p>REPL 表示一个电脑环境类似 Windows 的 cmd 或 powershell 终端，Unix/Linux 的 shell。可进行一些读取、执行、打印、循环操作。</p>
+</blockquote>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$node    &#x2F;&#x2F;进入node REPL</span><br><span class="line">&gt; 1+6</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; x&#x3D;100</span><br><span class="line">100</span><br><span class="line"></span><br><span class="line">&gt; var y&#x3D;50</span><br><span class="line">undifined</span><br><span class="line"></span><br><span class="line">&gt; console.log(&quot;Hello World&quot;)</span><br><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+
+<h3 id="多行表达式"><a href="#多行表达式" class="headerlink" title="多行表达式"></a>多行表达式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; var x&#x3D;0;</span><br><span class="line">undefined</span><br><span class="line"></span><br><span class="line">&gt; while(x&lt;6)&#123;</span><br><span class="line">... x++;        &#x2F;&#x2F;...为换行，node会自动检测是否为连续的表达式</span><br><span class="line">... console.log(&quot;x:&quot;+x);</span><br><span class="line">...&#125;</span><br><span class="line">x:1</span><br><span class="line">x:2</span><br><span class="line">x:3</span><br><span class="line">x:4</span><br><span class="line">x:5</span><br><span class="line">x:6</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+
+<h3 id="下划线变量"><a href="#下划线变量" class="headerlink" title="下划线变量"></a>下划线变量</h3><blockquote>
+<p>node 中下划线_可代表上一个表达式的结果。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; var x&#x3D;5;</span><br><span class="line">undefined</span><br><span class="line">&gt; var y&#x3D;10;</span><br><span class="line">undefined</span><br><span class="line">&gt; x+y</span><br><span class="line">15</span><br><span class="line">&gt; var sum&#x3D;_;</span><br><span class="line">undefined</span><br><span class="line">&gt; console.log(&quot;sum:&quot;+sum);</span><br><span class="line">sum:15</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ctrl+c: 退出当前表达式</span><br><span class="line"></span><br><span class="line">ctrl+c(两次)&#x2F;ctrl+d：退出node REPL</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
-          
-          <category> web </category>
-          
+        <category>Node.js</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> HTML </tag>
-            
-            <tag> CSS </tag>
-            
-            <tag> Grid Puzzle </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hexo建站指南</title>
-      <link href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"/>
-      <url>/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="下载安装必要工具"><a href="#下载安装必要工具" class="headerlink" title="下载安装必要工具"></a>下载安装必要工具</h2><h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><blockquote><p>搭建网站需要进行版本管理，故下载 git 进行使用。</p></blockquote><blockquote><p>下载网址： <a href="https://www.git-scm.com/download" target="_blank" rel="noopener">https://www.git-scm.com/download</a></p></blockquote><blockquote><p>使用说明可参考 git 官方文档：<a href="https://www.git-scm.com/doc" target="_blank" rel="noopener">https://www.git-scm.com/doc</a></p></blockquote><ul><li>安装时，一键 next 即可<a id="more"></a></li><li>安装后，在文件夹内或桌面点击鼠标右键，若出现如下工具，则证明安装成功:</li></ul><p><img src="https://i.loli.net/2020/02/20/iyzHFrNle78sTZn.jpg" alt="git.jpg"></p><h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><blockquote><p>Hexo 是基于 Node.js 编写的，所以需要安装一下 Node.js 和里面的 npm 工具。</p></blockquote><blockquote><p>网址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p></blockquote><h4 id="安装后检查是否安装成功"><a href="#安装后检查是否安装成功" class="headerlink" title="安装后检查是否安装成功"></a>安装后检查是否安装成功</h4><ul><li><code>win+R</code> 打开运行，输入<code>cmd</code>：</li></ul><p><img src="https://i.loli.net/2020/02/20/rn3PRI9HsfzwM4h.jpg" alt="cmd.jpg"></p><ul><li>检查 node.js 和 npm 是否安装成功：</li></ul><p><img src="https://i.loli.net/2020/02/20/I2HDLrPgampFnke.jpg" alt="node.jpg"></p><h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><blockquote><p>hexo 即为此次搭建网站的框架</p></blockquote><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul><li><p>创建一个文件夹，名字任取，作为以后网站所有文件的存储地，即本地仓库</p></li><li><p>进入文件夹，按住<code>shift</code>键点击鼠标右键，win10 选择“在此处打开 powershell 窗口”，win7 选择“在此处打开命令窗口”</p></li></ul><p><img src="https://i.loli.net/2020/02/20/xKdosqQEHlnMr4X.jpg" alt="powershell2.jpg"></p><ul><li><p>输入命令</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></li><li><p>安装结束，输入命令检查是否安装成功</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure></li></ul><h4 id="初始化-hexo"><a href="#初始化-hexo" class="headerlink" title="初始化 hexo"></a>初始化 hexo</h4><ul><li><p>初始化 hexo 框架</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure><p>初始化后一般在博客文件夹会出现以下文件：</p></li></ul><p><img src="https://i.loli.net/2020/02/20/K8XiTDvh4rexBp5.jpg" alt="folder.jpg"></p><ul><li><p>在文件夹内安装 npm 相关组件</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure></li><li><p>生成页面</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure></li><li><p>本地服务器打开查看页面</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure></li><li><p>若出现此页面，证明生成页面成功</p><p><img src="https://i.loli.net/2020/02/20/8fZiS1Wln3x4Ksj.jpg" alt="pagelocal.jpg"></p></li><li><p><code>ctrl+C</code>关掉本地</p></li></ul><h2 id="使用-Github-作为服务器部署-hexo-网站"><a href="#使用-Github-作为服务器部署-hexo-网站" class="headerlink" title="使用 Github 作为服务器部署 hexo 网站"></a>使用 Github 作为服务器部署 hexo 网站</h2><h3 id="配置-github"><a href="#配置-github" class="headerlink" title="配置 github"></a>配置 github</h3><ul><li><p>若没有 github 账号，则首先需要注册</p><p>网址：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p></li><li><p>新建仓库，点击页面右上角+，新建仓库 repository</p><p><img src="https://i.loli.net/2020/02/21/NVMhiTOzBWPGp9U.jpg" alt="repository.jpg"></p></li><li><p>填入信息，注意仓库名必须为：<strong>你的 github 用户名.github.io</strong></p><p>例如：ChangeZ24.github.io</p><p><img src="https://s2.ax1x.com/2020/02/21/3m5P8P.jpg" alt="github"></p></li><li><p>在 blog 目录内点击鼠标右键，选择在此处打开 git Bash</p></li></ul><p><img src="https://i.loli.net/2020/02/20/sgNcERCUeFvb7VD.jpg" alt="gitbash.jpg"></p><ul><li><p>生成 SSH key</p><blockquote><p>SSH key 提供了一种与 GitHub 通信的方式，通过这种方式，能够在不输入密码的情况下，将 GitHub 作为自己的 remote 端服务器，进行版本控制</p></blockquote><p>输入命令生成 SSH key</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;github用户名&quot;</span><br><span class="line">git config --global user.email &quot;github登陆邮箱&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;可以使用此命令检查是否输入正确</span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure></li><li><p>创建 SSH key</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;github登陆邮箱&quot;</span><br></pre></td></tr></table></figure><p>创建完成后会在我的电脑 C 盘出现 id_rsa、id_rsa.pub 文件</p><p><img src="https://i.loli.net/2020/02/20/2Uu6ZaMjqlENSz4.jpg" alt="id.jpg"></p></li><li><p>打开 id_rsa.pub 文件，复制里面全部内容（即 key）</p></li><li><p>打开 github 导入 key</p><p><img src="https://i.loli.net/2020/02/21/84Wx7mUcVqRMB3Y.jpg" alt="setting.jpg"></p><p><img src="https://s2.ax1x.com/2020/02/21/3m5SUA.jpg" alt="3m5SUA.jpg"></p><p><img src="https://i.loli.net/2020/02/20/5RXFkjyDr2IH4e9.jpg" alt="createSSH.jpg"></p><p>新建时 SSHkey 的 title 可以随便填。</p></li><li><p>在 git Bash 中输入以下命令检查是否导入成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure></li></ul><h3 id="将-hexo-部署到-github"><a href="#将-hexo-部署到-github" class="headerlink" title="将 hexo 部署到 github"></a>将 hexo 部署到 github</h3><ul><li><p>修改站点的配置文件_config.yml</p><blockquote><p><strong>注意</strong></p></blockquote><blockquote><p>存储在博客目录文件下的_config.yml 为<strong>站点的配置文件</strong></p></blockquote><blockquote><p>存储在博客目录的/theme/xxx(模板名)/_config.yml 为<strong>模板的配置文件</strong></p></blockquote><p>修改站点配置文件_config.yml 的 deploy 属性：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  # 此路径可直接在github仓库复制，如下图所示</span><br><span class="line">  repository:</span><br><span class="line">    github: https:&#x2F;&#x2F;github.com&#x2F;github用户名&#x2F;你的github用户名.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure><p>repository 路径可直接在仓库页面复制 http 路径：</p><p><img src="https://i.loli.net/2020/02/20/cQmOy5DBiz6eKbl.jpg" alt="githubhttp.jpg"></p></li><li><p>安装部署 git 的命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li><li><p>清理部署项目</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;生成部署命令可一起使用</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure></li><li><p>部署成功即可在<code>http://github用户名.github.io</code>查看生成的页面</p><p><img src="https://i.loli.net/2020/02/20/8fZiS1Wln3x4Ksj.jpg" alt="pagelocal.jpg"></p></li></ul><h2 id="常用的-hexo-命令"><a href="#常用的-hexo-命令" class="headerlink" title="常用的 hexo 命令"></a>常用的 hexo 命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目缓存内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br><span class="line"></span><br><span class="line">hexo new page &quot;page名&quot; &#x2F;&#x2F;新建页面</span><br><span class="line">hexo new &quot;文章名&quot; &#x2F;&#x2F;新建文章</span><br></pre></td></tr></table></figure><h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><ul><li>在 hexo 官网选择喜欢的模板</li></ul><p>网址：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p><ul><li>在 blog 目录下打开命令行或 git Bash 输入命令下载主题</li></ul><blockquote><p>主题下载命令一般在主题页面，或预览页面主题创作人的文章里都有</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;Shen-Yu&#x2F;hexo-theme-ayer.git themes&#x2F;ayer</span><br></pre></td></tr></table></figure><ul><li>修改站点配置文件_config.yml</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">theme: ayer  #在此处修改想要使用的主题名</span><br></pre></td></tr></table></figure><ul><li>重新生成部署页面即可看到新主题下的网页</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目缓存内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br></pre></td></tr></table></figure><h2 id="设置自己的个人域名"><a href="#设置自己的个人域名" class="headerlink" title="设置自己的个人域名"></a>设置自己的个人域名</h2><pre><code>目前生成的页面都是通过github提供的xxx.github.io访问，若想使用自己的个性化域名则需要以下步骤</code></pre><h3 id="申请域名"><a href="#申请域名" class="headerlink" title="申请域名"></a>申请域名</h3><blockquote><p>申请域名有很多网站，国内大多使用<a href="https://wanwang.aliyun.com/?spm=5176.8142029.digitalization.2.e9396d3e46JCc5" target="_blank" rel="noopener">阿里云</a>，不同的域名后缀价格不同，挑选自己喜欢可承受的即可。<br>国外域名可使用<a href="https://sg.godaddy.com/domains/domain-name-search" target="_blank" rel="noopener">godaddy</a>、<a href="https://www.namesilo.com/" target="_blank" rel="noopener">namesilo</a>等购买，国外域名一般不需要备案。</p></blockquote><h3 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h3><p>本人注册的域名时在 namesilo 购买，故以 namesilo 为例：</p><ul><li><p>登陆 namesilo 在自己的账户页面，点击 Account Domain 后的数字，进入域名管理页面</p><p><img src="https://i.loli.net/2020/02/20/ZDBEhn9WfrKbLvQ.jpg" alt="namesilo1.jpg"></p></li><li><p>选择 option 下的蓝色小人图标，进入解析界面</p><p><img src="https://i.loli.net/2020/02/20/p4fmEQvedOkT6MA.jpg" alt="domain.jpg"></p></li><li><p>将 namesoil 自动生成的所有记录删除，即 sevice 下所有未 parking 状态的记录，一般情况为 3 条 A 记录，1 条 CNAME 记录</p></li><li><p>添加自己的解析内容</p><ul><li><p>新建一个 A 记录</p><p><img src="https://i.loli.net/2020/02/20/lFyMoJXKYPnswN1.jpg" alt="a.jpg"></p></li><li><p>在系统 cmd 界面 ping github.io 的 ip</p><p><img src="https://s2.ax1x.com/2020/02/21/3m5EDg.jpg" alt="3m5EDg.jpg"></p></li><li><p>在框内填写解析 ip</p><p><img src="https://i.loli.net/2020/02/20/ODTXBP4WRYyZcVK.jpg" alt="A2.jpg"></p></li><li><p>新建 CNAME 记录</p><p><img src="https://i.loli.net/2020/02/20/CP6BZFTMnqYycbh.jpg" alt="cname.jpg"></p></li><li><p>域名解析</p><blockquote><p>点击 SUBMIT 之后，回到域名管理界面，等待 status 状态变为 Active，则为解析成功，一般大概需要几分钟时间。</p></blockquote><p><img src="https://s2.ax1x.com/2020/02/21/3m5p4I.jpg" alt="3m5p4I.jpg"></p></li></ul></li></ul><h3 id="在-github-关联域名"><a href="#在-github-关联域名" class="headerlink" title="在 github 关联域名"></a>在 github 关联域名</h3><ul><li><p>进入 github 博客仓库，选择 settings 进入项目设置</p><p><img src="https://s2.ax1x.com/2020/02/21/3m5CCt.jpg" alt="3m5CCt.jpg"></p></li><li><p>在 Option 界面找到 git page 属性进行以下设置</p></li></ul><p><img src="https://i.loli.net/2020/02/20/D1tE3YZ8naOTmFS.jpg" alt="githubpage.jpg"></p><h3 id="在博客目录下的-source-文件夹新建-CNAME-文件，在文件内填写自己的域名"><a href="#在博客目录下的-source-文件夹新建-CNAME-文件，在文件内填写自己的域名" class="headerlink" title="在博客目录下的 source 文件夹新建 CNAME 文件，在文件内填写自己的域名"></a>在博客目录下的 source 文件夹新建 CNAME 文件，在文件内填写自己的域名</h3><blockquote><p>保存时，注意选择所有文件类型，文件名仅为 CNAME，无后缀</p></blockquote><p><img src="https://i.loli.net/2020/02/20/VxqNsOWwflFrESG.jpg" alt="cname2.jpg"></p><p><img src="https://i.loli.net/2020/02/20/3aSFl1etGmCx5kU.jpg" alt="cname1.jpg"></p><h3 id="重新部署生成页面"><a href="#重新部署生成页面" class="headerlink" title="重新部署生成页面"></a>重新部署生成页面</h3><ul><li>生成部署页面</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目缓存内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br></pre></td></tr></table></figure><ul><li>在浏览器输入自己的域名即可看到生成的网页</li></ul><blockquote><p><strong>注意：记得清理浏览器缓存。</strong></p></blockquote><ul><li>使用<code>hexo new “文章名”</code>新建文章，在博客目录的 source/_posts/下找到“文章名.md”，即可使用 Markdown 编辑自己的文章了</li></ul><blockquote><p>写好后，注意使用<code>hexo g -d</code>重新生成，部署页面</p></blockquote>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js(1)-创建应用</title>
+    <url>/Node-js-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Node.js 为运行在服务端的 JavaScript。它是一个基于 Chrome JavaScript 运行时建立的平台，也是一个事件驱动 I/O 服务端的 JavaScript，基于 Google 的 V8 引擎。</p>
+<a id="more"></a>
+
+<p>Node.js 应用由以下部分组成：</p>
+<ul>
+<li><p>引入 required 模块：使用 require 指令载入 Node.js 模块</p>
+</li>
+<li><p>创建服务器：服务器监听客户端请求。</p>
+</li>
+<li><p>接收、响应请求</p>
+</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="引入-required-模块"><a href="#引入-required-模块" class="headerlink" title="引入 required 模块"></a>引入 required 模块</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var http &#x3D; require(&quot;http&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建服务器"><a href="#创建服务器" class="headerlink" title="创建服务器"></a>创建服务器</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const server &#x3D; http.createServer();&#x2F;&#x2F;创建服务器</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;给服务器绑定request事件，并使用匿名函数作为其回调函数</span><br><span class="line">server.on(&quot;request&quot;, (req, res) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(req.url); &#x2F;&#x2F;输出请求的url地址</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;通过normalize将URL规范成路径</span><br><span class="line">  &#x2F;&#x2F;通过join将他和当前目录拼接起来</span><br><span class="line">  &#x2F;&#x2F;__dirname代表当前文件所在目录</span><br><span class="line">  const doc_path &#x3D; path.join(</span><br><span class="line">    __dirname,</span><br><span class="line">    &quot;document_root&quot;,</span><br><span class="line">    path.normalize(req.url)</span><br><span class="line">  );</span><br><span class="line">  console.log(doc_path);</span><br><span class="line"></span><br><span class="line">  const ext &#x3D; path.extname(req.url); &#x2F;&#x2F;获取扩展名</span><br><span class="line">  let mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;text&#x2F;html&quot; &#125;;</span><br><span class="line">  switch (</span><br><span class="line">    ext &#x2F;&#x2F;指定对应的MIME信息</span><br><span class="line">  ) &#123;</span><br><span class="line">    case &quot;.html&quot;:</span><br><span class="line">    case &quot;.htm&quot;:</span><br><span class="line">      mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;text&#x2F;html&quot; &#125;;</span><br><span class="line">      break;</span><br><span class="line">    case &quot;.css&quot;:</span><br><span class="line">      mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;text&#x2F;css&quot; &#125;;</span><br><span class="line">      break;</span><br><span class="line">    case &quot;.ico&quot;:</span><br><span class="line">      mime &#x3D; &#123; &quot;Content-Type&quot;: &quot;image&#x2F;x-icon&quot; &#125;;</span><br><span class="line">      break;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;使用existSync判断文件是否存在</span><br><span class="line">  &#x2F;&#x2F;使用extname去掉url目录，以防路径为目录，但目录里没有文件</span><br><span class="line">  if (path.extname(req.url) !&#x3D; &quot;&quot; &amp;&amp; fs.existsSync(doc_path)) &#123;</span><br><span class="line">    &#x2F;&#x2F;Response里边会包含MIME信息以告诉浏览器这是个什么格式的文件</span><br><span class="line">    res.writeHead(200, mime); &#x2F;&#x2F;输出状态码</span><br><span class="line">    content &#x3D; fs.readFileSync(doc_path); &#x2F;&#x2F;通过readFileSync读取文件内容</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    res.writeHead(404, mime);</span><br><span class="line">    content &#x3D; &quot;文件不存在&quot;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  res.write(content); &#x2F;&#x2F;将内容写到request响应里去</span><br><span class="line"></span><br><span class="line">  res.end();&#x2F;&#x2F;发送响应数据</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.listen(8080);&#x2F;&#x2F;监听8080端口</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行代码"><a href="#执行代码" class="headerlink" title="执行代码"></a>执行代码</h3><p><img src="https://s2.ax1x.com/2020/03/08/3xIOiT.jpg" alt="测试结果"></p>
+]]></content>
       <categories>
-          
-          <category> hexo </category>
-          
+        <category>Node.js</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>纯HTML/CSS/JS实现扫雷游戏</title>
-      <link href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html"/>
-      <url>/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="使用语言"><a href="#使用语言" class="headerlink" title="使用语言"></a>使用语言</h2><p>  该半个月在<a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noopener">MDN Web Docs</a>网站学习网页开发，在学完 HTML、CSS、JavaScript 相关内容以后，决定用项目练练手。在<a href="https://www.shiyanlou.com/courses/?tag=%E5%85%A8%E9%83%A8&fee=all&sort=default&category=Web%20%E5%89%8D%E7%AB%AF&page=2" target="_blank" rel="noopener">实验楼 Web 开发</a>找到仅有的几个纯 HTML + CSS + JavaScript 项目作为练习。</p><p>  此项目即为纯Html + CSS + JavaScript的网页版扫雷游戏实现。</p><p>  github地址: <a href="https://github.com/ChangeZ24/game-minesweeper" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-minesweeper</a></p><p>  在线试玩页面：<a href="http://awesolynn.me/game-minesweeper/">http://awesolynn.me/game-minesweeper/</a></p>  <a id="more"></a><h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><h3 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h3><p><img src="https://i.loli.net/2020/02/19/4y2JApmUso1Q6YH.jpg" alt="index.jpg"></p><h3 id="游戏页"><a href="#游戏页" class="headerlink" title="游戏页"></a>游戏页</h3><p><img src="https://s2.ax1x.com/2020/02/21/3m5eEj.gif" alt="3m5eEj.gif"></p><h2 id="实现功能"><a href="#实现功能" class="headerlink" title="实现功能"></a>实现功能</h2><h3 id="选择游戏难度"><a href="#选择游戏难度" class="headerlink" title="选择游戏难度"></a>选择游戏难度</h3><ol><li><p>游戏难度参照 win10 自带扫雷设置：</p><ul><li>初级 9*9 雷：10</li><li>中级 16*16 雷：40</li><li>高级 30*16 雷：99</li></ul></li><li><p>选择游戏难度后，点击开始游戏按钮跳转进入游戏页面。</p></li><li><p>游戏难度自带参数通过 url 传递</p></li></ol><h3 id="左键点击格子显示数字-雷"><a href="#左键点击格子显示数字-雷" class="headerlink" title="左键点击格子显示数字/雷"></a>左键点击格子显示数字/雷</h3><ol><li><p>为每个格子绑定 onmousedown 事件，通过其 event.button 值确定点击左键</p></li><li><p>初始化时，设定扫雷 mineSweeper 类，其中，地图格子以二维数组形式 landArrs 存在</p></li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;由于扫雷每个格子中的内容为数字或雷。数字表示以其为中心的九宫格内雷的数量，故以九宫格中数字1~8表示，0为空格，9为雷</span><br><span class="line">landArrs[i][j]&#x3D;0;&#x2F;&#x2F;空格</span><br><span class="line">landArrs[i][j]&#x3D;1;&#x2F;&#x2F;数字1~8</span><br><span class="line">landArrs[i][j]&#x3D;9;&#x2F;&#x2F;雷</span><br></pre></td></tr></table></figure><ol start="3"><li>游戏开始前，按所选难度的雷数，将各雷随机放在地图内，再根据雷的位置计算雷周围数字的设置</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;1.初始化所有格子为0</span><br><span class="line">landArrs[i][j]&#x3D;0;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2.按雷数随机放置雷位置</span><br><span class="line">&#x2F;&#x2F;随机数a-b：Math.floor(Math.random() * (max - min)) + min</span><br><span class="line">var randomNum &#x3D; Math.floor(Math.random() * (row * col - 0) + 0);</span><br><span class="line">var rNum &#x3D; parseInt(randomNum &#x2F; this.colCount);&#x2F;&#x2F;随机数所在的格子行数</span><br><span class="line">var cNum &#x3D; parseInt(randomNum % this.colCount);&#x2F;&#x2F;随机数所在的格子列数</span><br><span class="line">&#x2F;&#x2F;判断该位置是否已放置雷（省略）</span><br><span class="line">landArrs[rNum][cNum] &#x3D; 9;&#x2F;&#x2F;放置雷</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;3.按雷位置，计算其周边数字</span><br><span class="line">&#x2F;&#x2F;算法：遍历每个雷，将每个雷上下左右8格均+1</span><br></pre></td></tr></table></figure><ol start="4"><li>点中雷，游戏失败</li></ol><h3 id="右键点击插旗或取消旗子"><a href="#右键点击插旗或取消旗子" class="headerlink" title="右键点击插旗或取消旗子"></a>右键点击插旗或取消旗子</h3><ol><li><p>为每个格子绑定 onmousedown 事件，通过其 event.button 值确定点击右键</p></li><li><p>点击右键则将此格的 class 设置为 flag，按 CSS 样式放置旗子背景图—-&gt;插旗</p></li><li><p>再次点击右键则将已插旗的格子 class 设置为空字符串，取消 CSS 样式—-&gt;拔旗</p></li></ol><h3 id="点击格子为空值无数字时，自动连续展开其周边格子"><a href="#点击格子为空值无数字时，自动连续展开其周边格子" class="headerlink" title="点击格子为空值无数字时，自动连续展开其周边格子"></a>点击格子为空值无数字时，自动连续展开其周边格子</h3><blockquote><p>算法：</p><ol><li>点击格子值为 0，则以该格为中心查看其周围8个格</li><li>若其周围格为被打开过，则打开该格。</li><li>若其周围格再次遇到 0，自动循环查找</li></ol></blockquote><h3 id="花费时间即剩余雷数计算"><a href="#花费时间即剩余雷数计算" class="headerlink" title="花费时间即剩余雷数计算"></a>花费时间即剩余雷数计算</h3><ol><li><p>花费时间</p><blockquote><p>采用 JS 异步时间间隔 setInterval()算法，每 1s 更新一次时间<br>setInterval(displayTime, 1000);</p></blockquote></li><li><p>剩余雷数</p><blockquote><p>每标记一处，html 更新一次内容</p></blockquote></li></ol><h3 id="双击设定：满足已标记数与自身数字一致时自动打开格子"><a href="#双击设定：满足已标记数与自身数字一致时自动打开格子" class="headerlink" title="双击设定：满足已标记数与自身数字一致时自动打开格子"></a>双击设定：满足已标记数与自身数字一致时自动打开格子</h3><ol><li><p>双击已打开的数字格。</p><blockquote><p>当双击位置周围已标记雷数等于该位置数字时操作有效，相当于对该数字周围未打开的方块均进行一次左键单击操作。<br>地雷未标记完全时使用双击无效。</p></blockquote></li><li><p>若数字周围有标错的地雷，则游戏结束，标错的地雷上会显示一个“×”</p></li></ol><p><img src="https://s2.ax1x.com/2020/02/21/3m5VbQ.gif" alt="3m5VbQ.gif"></p><h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol><li><p>实验楼扫雷实现教程</p><p><a href="https://www.shiyanlou.com/courses/144" target="_blank" rel="noopener">https://www.shiyanlou.com/courses/144</a></p></li><li><p>MDN Web Docs</p><p><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps</a></p></li></ol>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>Node.js</tag>
+        <tag>JavaScript</tag>
+        <tag>server</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>纯HTML/CSS/JS实现九宫格拼图游戏</title>
+    <url>/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html</url>
+    <content><![CDATA[<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://i.loli.net/2020/02/21/MBsWOjbg8ED7wLd.gif" alt="showall.gif"></p>
+<p>github地址：<a href="https://github.com/ChangeZ24/game-gridpuzzle" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-gridpuzzle</a></p>
+<p>在线试玩地址： <a href="http://awesolynn.me/game-gridpuzzle/gridpuzzle.html">http://awesolynn.me/game-gridpuzzle/gridpuzzle.html</a></p>
+<a id="more"></a>
+<h2 id="实现功能"><a href="#实现功能" class="headerlink" title="实现功能"></a>实现功能</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ul>
+<li><p>整个九宫格看作一个 div，分为 9 份，位置号为 1~9</p>
+</li>
+<li><p>九宫格内 8 个活动格看作 8 个 div，格号为 1~8，第 9 格为空格，记为 0</p>
+</li>
+</ul>
+<h3 id="乱序排列九宫格内-8-个活动格"><a href="#乱序排列九宫格内-8-个活动格" class="headerlink" title="乱序排列九宫格内 8 个活动格"></a>乱序排列九宫格内 8 个活动格</h3><blockquote>
+<p>算法：</p>
+</blockquote>
+<blockquote>
+<p>1、从第 9 格空格开始，选取随机位置号为 1~9 的某格进行两两替换</p>
+</blockquote>
+<blockquote>
+<p>2、接下来，第 8 格，即格号为 8（初始后格号为 8 的格同在位置 8），则选取随机位置号为 1~8 的格进行两两替换</p>
+</blockquote>
+<blockquote>
+<p>以此类推</p>
+</blockquote>
+<h3 id="活动格鼠标点击进行滑动"><a href="#活动格鼠标点击进行滑动" class="headerlink" title="活动格鼠标点击进行滑动"></a>活动格鼠标点击进行滑动</h3><blockquote>
+<p>算法：</p>
+</blockquote>
+<blockquote>
+<p>1、初始时，使用数组记录每个位置可移动的位置号，如位置 1，可移动到位置 2 和位置 4</p>
+</blockquote>
+<blockquote>
+<p>2、使用数组记录每个位置格的左上角点的 x、y 值，在 css 中即为 left、top 值，即每个格从位置 1 移动到位置 2，改变的位移值。</p>
+</blockquote>
+<blockquote>
+<p>3、当鼠标进行点击某格时，若其可移动的格内有空格，则其位移变为空格的 x、y 值，完成移动的动作。</p>
+</blockquote>
+<h3 id="时间记录"><a href="#时间记录" class="headerlink" title="时间记录"></a>时间记录</h3><blockquote>
+<p>时间记录，同样使用<code>setInterval()</code>函数按 1000ms 的间隔进行实时计算。</p>
+</blockquote>
+<h3 id="关卡设置"><a href="#关卡设置" class="headerlink" title="关卡设置"></a>关卡设置</h3><blockquote>
+<p>本游戏共设置 3 关，当每关成功完成拼图，会出现提示<code>play more</code>表示进入下一关</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/21/BYJ6b4WPpdKz8j9.gif" alt="next.gif"></p>
+<blockquote>
+<p>当位于最后一关时，成功后只会提示<code>congratulations</code>，表示游戏结束。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/21/eXKdZgihUxIpHzy.gif" alt="suss.gif"></p>
+<h3 id="暂停、重玩机制"><a href="#暂停、重玩机制" class="headerlink" title="暂停、重玩机制"></a>暂停、重玩机制</h3><blockquote>
+<p>当点击开始游戏后，开始游戏的按钮会自动变为暂停游戏</p>
+</blockquote>
+<blockquote>
+<p>点击暂停游戏后，时间暂停，各活动格也无法点击，只有点击开始游戏继续玩或点击重新开始，重启此关</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/21/5gc2CEVIyBKTMpl.gif" alt="pause.gif"></p>
+<blockquote>
+<p>点击重新开始，会重新启动所在的关卡，重排整个图。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/21/1r2jPMApN3wGTgo.gif" alt="reset.gif"></p>
+<h2 id="疑惑-学习点"><a href="#疑惑-学习点" class="headerlink" title="疑惑/学习点"></a>疑惑/学习点</h2><h3 id="对-CSS-中-position-的理解"><a href="#对-CSS-中-position-的理解" class="headerlink" title="对 CSS 中 position 的理解"></a>对 CSS 中 position 的理解</h3><h4 id="基础定义"><a href="#基础定义" class="headerlink" title="基础定义"></a>基础定义</h4><p>position：用于层的绝对定位，即让一个层位于一个层内具体什么位置</p>
+<p>参数：</p>
+<ul>
+<li><p>static：默认。按页面文档流放置，忽略 top、bottom、left、right 设置的值</p>
+</li>
+<li><p>relative：相对位置。对象不可层叠，可通过 top、bottom、left、right 设置在文档流中的位置</p>
+</li>
+<li><p>absolute：绝对位置。对象可通过 z-index 设置层叠，对象被从文档流拖出，根据 top、bottom、left、right 等属性进行绝对定位。</p>
+</li>
+<li><p>fixed：固定位置。通过 top、bottom、left、right 进行定位，页面滚动，对象仍存在于固定的位置不变。</p>
+</li>
+</ul>
+<h4 id="对相对、绝对位置的理解"><a href="#对相对、绝对位置的理解" class="headerlink" title="对相对、绝对位置的理解"></a>对相对、绝对位置的理解</h4><ol>
+<li><p>当子级使用<code>position: absolute;</code>时。其父级通常定义为<code>position: relative;</code></p>
+<p>父级使用<code>position: relative;</code>相对位置时，最好同时定义其<code>width</code>和<code>height</code>。</p>
+<p>此时，子级使用<code>position: absolute;</code>，设置的<code>top/bottom、left/right</code>即为距离父级上/下侧、左/右侧的距离，有点类似外边距。</p>
+<blockquote>
+<p><strong>注意</strong>：此时<code>top/bottom</code>二选一，<code>left/right</code>二选一！</p>
+</blockquote>
+</li>
+<li><p>当子级使用<code>position: absolute;</code>但父级没有设置<code>position: relative;</code>时，无论子级处于 div 哪一层，都会被拖出文档流，以 <code>body</code>为父级，所设置的所有 <code>top/bottom、left/right</code>都会为距离<code>body</code>的上/下侧、左/右侧的距离，不受其父级控制。</p>
+</li>
+</ol>
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol>
+<li><p>实验楼拼图实现教学</p>
+<p><a href="https://www.shiyanlou.com/courses/161" target="_blank" rel="noopener">https://www.shiyanlou.com/courses/161</a></p>
+</li>
+<li><p>CSS 中 position 相关讲解</p>
+<p><a href="http://www.divcss5.com/rumen/r403.shtml" target="_blank" rel="noopener">http://www.divcss5.com/rumen/r403.shtml</a></p>
+</li>
+</ol>
+]]></content>
       <categories>
-          
-          <category> web </category>
-          
+        <category>web</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> HTML </tag>
-            
-            <tag> CSS </tag>
-            
-            <tag> MineSweeper </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Web学习(1)--网络基础</title>
-      <link href="/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html"/>
-      <url>/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html</url>
-      
-        <content type="html"><![CDATA[<h2 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h2><p>  Web开发与网络息息相关，故首先从打好网络基础入手：<br>  <a id="more"></a></p><p>  <img src="https://i.loli.net/2020/02/19/Q3fYNHwpL6XPcng.jpg" alt="internet.jpg"></p><h2 id="参考学习内容"><a href="#参考学习内容" class="headerlink" title="参考学习内容"></a>参考学习内容</h2><p>  MDN Web Docs</p><p>  <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web</a></p>]]></content>
-      
-      
+      <tags>
+        <tag>web</tag>
+        <tag>JavaScript</tag>
+        <tag>HTML</tag>
+        <tag>CSS</tag>
+        <tag>Grid Puzzle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo建站指南</title>
+    <url>/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html</url>
+    <content><![CDATA[<h2 id="下载安装必要工具"><a href="#下载安装必要工具" class="headerlink" title="下载安装必要工具"></a>下载安装必要工具</h2><h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><blockquote>
+<p>搭建网站需要进行版本管理，故下载 git 进行使用。</p>
+</blockquote>
+<blockquote>
+<p>下载网址： <a href="https://www.git-scm.com/download" target="_blank" rel="noopener">https://www.git-scm.com/download</a></p>
+</blockquote>
+<blockquote>
+<p>使用说明可参考 git 官方文档：<a href="https://www.git-scm.com/doc" target="_blank" rel="noopener">https://www.git-scm.com/doc</a></p>
+</blockquote>
+<ul>
+<li>安装时，一键 next 即可<a id="more"></a></li>
+<li>安装后，在文件夹内或桌面点击鼠标右键，若出现如下工具，则证明安装成功:</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/iyzHFrNle78sTZn.jpg" alt="git.jpg"></p>
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><blockquote>
+<p>Hexo 是基于 Node.js 编写的，所以需要安装一下 Node.js 和里面的 npm 工具。</p>
+</blockquote>
+<blockquote>
+<p>网址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
+</blockquote>
+<h4 id="安装后检查是否安装成功"><a href="#安装后检查是否安装成功" class="headerlink" title="安装后检查是否安装成功"></a>安装后检查是否安装成功</h4><ul>
+<li><code>win+R</code> 打开运行，输入<code>cmd</code>：</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/rn3PRI9HsfzwM4h.jpg" alt="cmd.jpg"></p>
+<ul>
+<li>检查 node.js 和 npm 是否安装成功：</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/I2HDLrPgampFnke.jpg" alt="node.jpg"></p>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><blockquote>
+<p>hexo 即为此次搭建网站的框架</p>
+</blockquote>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul>
+<li><p>创建一个文件夹，名字任取，作为以后网站所有文件的存储地，即本地仓库</p>
+</li>
+<li><p>进入文件夹，按住<code>shift</code>键点击鼠标右键，win10 选择“在此处打开 powershell 窗口”，win7 选择“在此处打开命令窗口”</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/xKdosqQEHlnMr4X.jpg" alt="powershell2.jpg"></p>
+<ul>
+<li><p>输入命令</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装结束，输入命令检查是否安装成功</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="初始化-hexo"><a href="#初始化-hexo" class="headerlink" title="初始化 hexo"></a>初始化 hexo</h4><ul>
+<li><p>初始化 hexo 框架</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>初始化后一般在博客文件夹会出现以下文件：</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/K8XiTDvh4rexBp5.jpg" alt="folder.jpg"></p>
+<ul>
+<li><p>在文件夹内安装 npm 相关组件</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成页面</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本地服务器打开查看页面</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若出现此页面，证明生成页面成功</p>
+<p><img src="https://i.loli.net/2020/02/20/8fZiS1Wln3x4Ksj.jpg" alt="pagelocal.jpg"></p>
+</li>
+<li><p><code>ctrl+C</code>关掉本地</p>
+</li>
+</ul>
+<h2 id="使用-Github-作为服务器部署-hexo-网站"><a href="#使用-Github-作为服务器部署-hexo-网站" class="headerlink" title="使用 Github 作为服务器部署 hexo 网站"></a>使用 Github 作为服务器部署 hexo 网站</h2><h3 id="配置-github"><a href="#配置-github" class="headerlink" title="配置 github"></a>配置 github</h3><ul>
+<li><p>若没有 github 账号，则首先需要注册</p>
+<p>网址：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p>
+</li>
+<li><p>新建仓库，点击页面右上角+，新建仓库 repository</p>
+<p><img src="https://i.loli.net/2020/02/21/NVMhiTOzBWPGp9U.jpg" alt="repository.jpg"></p>
+</li>
+<li><p>填入信息，注意仓库名必须为：<strong>你的 github 用户名.github.io</strong></p>
+<p>例如：ChangeZ24.github.io</p>
+<p><img src="https://s2.ax1x.com/2020/02/21/3m5P8P.jpg" alt="github"></p>
+</li>
+<li><p>在 blog 目录内点击鼠标右键，选择在此处打开 git Bash</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/sgNcERCUeFvb7VD.jpg" alt="gitbash.jpg"></p>
+<ul>
+<li><p>生成 SSH key</p>
+<blockquote>
+<p>SSH key 提供了一种与 GitHub 通信的方式，通过这种方式，能够在不输入密码的情况下，将 GitHub 作为自己的 remote 端服务器，进行版本控制</p>
+</blockquote>
+<p>输入命令生成 SSH key</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;github用户名&quot;</span><br><span class="line">git config --global user.email &quot;github登陆邮箱&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;可以使用此命令检查是否输入正确</span><br><span class="line">git config user.name</span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 SSH key</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;github登陆邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<p>创建完成后会在我的电脑 C 盘出现 id_rsa、id_rsa.pub 文件</p>
+<p><img src="https://i.loli.net/2020/02/20/2Uu6ZaMjqlENSz4.jpg" alt="id.jpg"></p>
+</li>
+<li><p>打开 id_rsa.pub 文件，复制里面全部内容（即 key）</p>
+</li>
+<li><p>打开 github 导入 key</p>
+<p><img src="https://i.loli.net/2020/02/21/84Wx7mUcVqRMB3Y.jpg" alt="setting.jpg"></p>
+<p><img src="https://s2.ax1x.com/2020/02/21/3m5SUA.jpg" alt="3m5SUA.jpg"></p>
+<p><img src="https://i.loli.net/2020/02/20/5RXFkjyDr2IH4e9.jpg" alt="createSSH.jpg"></p>
+<p>新建时 SSHkey 的 title 可以随便填。</p>
+</li>
+<li><p>在 git Bash 中输入以下命令检查是否导入成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="将-hexo-部署到-github"><a href="#将-hexo-部署到-github" class="headerlink" title="将 hexo 部署到 github"></a>将 hexo 部署到 github</h3><ul>
+<li><p>修改站点的配置文件_config.yml</p>
+<blockquote>
+<p><strong>注意</strong></p>
+</blockquote>
+<blockquote>
+<p>存储在博客目录文件下的_config.yml 为<strong>站点的配置文件</strong></p>
+</blockquote>
+<blockquote>
+<p>存储在博客目录的/theme/xxx(模板名)/_config.yml 为<strong>模板的配置文件</strong></p>
+</blockquote>
+<p>修改站点配置文件_config.yml 的 deploy 属性：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  # 此路径可直接在github仓库复制，如下图所示</span><br><span class="line">  repository:</span><br><span class="line">    github: https:&#x2F;&#x2F;github.com&#x2F;github用户名&#x2F;你的github用户名.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>repository 路径可直接在仓库页面复制 http 路径：</p>
+<p><img src="https://i.loli.net/2020/02/20/cQmOy5DBiz6eKbl.jpg" alt="githubhttp.jpg"></p>
+</li>
+<li><p>安装部署 git 的命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清理部署项目</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;生成部署命令可一起使用</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署成功即可在<code>http://github用户名.github.io</code>查看生成的页面</p>
+<p><img src="https://i.loli.net/2020/02/20/8fZiS1Wln3x4Ksj.jpg" alt="pagelocal.jpg"></p>
+</li>
+</ul>
+<h2 id="常用的-hexo-命令"><a href="#常用的-hexo-命令" class="headerlink" title="常用的 hexo 命令"></a>常用的 hexo 命令</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目缓存内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br><span class="line"></span><br><span class="line">hexo new page &quot;page名&quot; &#x2F;&#x2F;新建页面</span><br><span class="line">hexo new &quot;文章名&quot; &#x2F;&#x2F;新建文章</span><br></pre></td></tr></table></figure>
+
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><ul>
+<li>在 hexo 官网选择喜欢的模板</li>
+</ul>
+<p>网址：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+<ul>
+<li>在 blog 目录下打开命令行或 git Bash 输入命令下载主题</li>
+</ul>
+<blockquote>
+<p>主题下载命令一般在主题页面，或预览页面主题创作人的文章里都有</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;Shen-Yu&#x2F;hexo-theme-ayer.git themes&#x2F;ayer</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改站点配置文件_config.yml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">theme: ayer  #在此处修改想要使用的主题名</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重新生成部署页面即可看到新主题下的网页</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目缓存内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置自己的个人域名"><a href="#设置自己的个人域名" class="headerlink" title="设置自己的个人域名"></a>设置自己的个人域名</h2><pre><code>目前生成的页面都是通过github提供的xxx.github.io访问，若想使用自己的个性化域名则需要以下步骤</code></pre><h3 id="申请域名"><a href="#申请域名" class="headerlink" title="申请域名"></a>申请域名</h3><blockquote>
+<p>申请域名有很多网站，国内大多使用<a href="https://wanwang.aliyun.com/?spm=5176.8142029.digitalization.2.e9396d3e46JCc5" target="_blank" rel="noopener">阿里云</a>，不同的域名后缀价格不同，挑选自己喜欢可承受的即可。<br>国外域名可使用<a href="https://sg.godaddy.com/domains/domain-name-search" target="_blank" rel="noopener">godaddy</a>、<a href="https://www.namesilo.com/" target="_blank" rel="noopener">namesilo</a>等购买，国外域名一般不需要备案。</p>
+</blockquote>
+<h3 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h3><p>本人注册的域名时在 namesilo 购买，故以 namesilo 为例：</p>
+<ul>
+<li><p>登陆 namesilo 在自己的账户页面，点击 Account Domain 后的数字，进入域名管理页面</p>
+<p><img src="https://i.loli.net/2020/02/20/ZDBEhn9WfrKbLvQ.jpg" alt="namesilo1.jpg"></p>
+</li>
+<li><p>选择 option 下的蓝色小人图标，进入解析界面</p>
+<p><img src="https://i.loli.net/2020/02/20/p4fmEQvedOkT6MA.jpg" alt="domain.jpg"></p>
+</li>
+<li><p>将 namesoil 自动生成的所有记录删除，即 sevice 下所有未 parking 状态的记录，一般情况为 3 条 A 记录，1 条 CNAME 记录</p>
+</li>
+<li><p>添加自己的解析内容</p>
+<ul>
+<li><p>新建一个 A 记录</p>
+<p><img src="https://i.loli.net/2020/02/20/lFyMoJXKYPnswN1.jpg" alt="a.jpg"></p>
+</li>
+<li><p>在系统 cmd 界面 ping github.io 的 ip</p>
+<p><img src="https://s2.ax1x.com/2020/02/21/3m5EDg.jpg" alt="3m5EDg.jpg"></p>
+</li>
+<li><p>在框内填写解析 ip</p>
+<p><img src="https://i.loli.net/2020/02/20/ODTXBP4WRYyZcVK.jpg" alt="A2.jpg"></p>
+</li>
+<li><p>新建 CNAME 记录</p>
+<p><img src="https://i.loli.net/2020/02/20/CP6BZFTMnqYycbh.jpg" alt="cname.jpg"></p>
+</li>
+<li><p>域名解析</p>
+<blockquote>
+<p>点击 SUBMIT 之后，回到域名管理界面，等待 status 状态变为 Active，则为解析成功，一般大概需要几分钟时间。</p>
+</blockquote>
+<p><img src="https://s2.ax1x.com/2020/02/21/3m5p4I.jpg" alt="3m5p4I.jpg"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="在-github-关联域名"><a href="#在-github-关联域名" class="headerlink" title="在 github 关联域名"></a>在 github 关联域名</h3><ul>
+<li><p>进入 github 博客仓库，选择 settings 进入项目设置</p>
+<p><img src="https://s2.ax1x.com/2020/02/21/3m5CCt.jpg" alt="3m5CCt.jpg"></p>
+</li>
+<li><p>在 Option 界面找到 git page 属性进行以下设置</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2020/02/20/D1tE3YZ8naOTmFS.jpg" alt="githubpage.jpg"></p>
+<h3 id="在博客目录下的-source-文件夹新建-CNAME-文件，在文件内填写自己的域名"><a href="#在博客目录下的-source-文件夹新建-CNAME-文件，在文件内填写自己的域名" class="headerlink" title="在博客目录下的 source 文件夹新建 CNAME 文件，在文件内填写自己的域名"></a>在博客目录下的 source 文件夹新建 CNAME 文件，在文件内填写自己的域名</h3><blockquote>
+<p>保存时，注意选择所有文件类型，文件名仅为 CNAME，无后缀</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/20/VxqNsOWwflFrESG.jpg" alt="cname2.jpg"></p>
+<p><img src="https://i.loli.net/2020/02/20/3aSFl1etGmCx5kU.jpg" alt="cname1.jpg"></p>
+<h3 id="重新部署生成页面"><a href="#重新部署生成页面" class="headerlink" title="重新部署生成页面"></a>重新部署生成页面</h3><ul>
+<li>生成部署页面</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean  &#x2F;&#x2F;清理项目缓存内容</span><br><span class="line">hexo g      &#x2F;&#x2F;生成页面</span><br><span class="line">hexo d      &#x2F;&#x2F;部署页面</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在浏览器输入自己的域名即可看到生成的网页</li>
+</ul>
+<blockquote>
+<p><strong>注意：记得清理浏览器缓存。</strong></p>
+</blockquote>
+<ul>
+<li>使用<code>hexo new “文章名”</code>新建文章，在博客目录的 source/_posts/下找到“文章名.md”，即可使用 Markdown 编辑自己的文章了</li>
+</ul>
+<blockquote>
+<p>写好后，注意使用<code>hexo g -d</code>重新生成，部署页面</p>
+</blockquote>
+]]></content>
       <categories>
-          
-          <category> web </category>
-          
+        <category>hexo</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-            <tag> Internet </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>web</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>纯HTML/CSS/JS实现扫雷游戏</title>
+    <url>/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html</url>
+    <content><![CDATA[<h2 id="使用语言"><a href="#使用语言" class="headerlink" title="使用语言"></a>使用语言</h2><p>  该半个月在<a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noopener">MDN Web Docs</a>网站学习网页开发，在学完 HTML、CSS、JavaScript 相关内容以后，决定用项目练练手。在<a href="https://www.shiyanlou.com/courses/?tag=%E5%85%A8%E9%83%A8&fee=all&sort=default&category=Web%20%E5%89%8D%E7%AB%AF&page=2" target="_blank" rel="noopener">实验楼 Web 开发</a>找到仅有的几个纯 HTML + CSS + JavaScript 项目作为练习。</p>
+<p>  此项目即为纯Html + CSS + JavaScript的网页版扫雷游戏实现。</p>
+<p>  github地址: <a href="https://github.com/ChangeZ24/game-minesweeper" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-minesweeper</a></p>
+<p>  在线试玩页面：<a href="http://awesolynn.me/game-minesweeper/">http://awesolynn.me/game-minesweeper/</a></p>
+  <a id="more"></a>
+
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><h3 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h3><p><img src="https://i.loli.net/2020/02/19/4y2JApmUso1Q6YH.jpg" alt="index.jpg"></p>
+<h3 id="游戏页"><a href="#游戏页" class="headerlink" title="游戏页"></a>游戏页</h3><p><img src="https://s2.ax1x.com/2020/02/21/3m5eEj.gif" alt="3m5eEj.gif"></p>
+<h2 id="实现功能"><a href="#实现功能" class="headerlink" title="实现功能"></a>实现功能</h2><h3 id="选择游戏难度"><a href="#选择游戏难度" class="headerlink" title="选择游戏难度"></a>选择游戏难度</h3><ol>
+<li><p>游戏难度参照 win10 自带扫雷设置：</p>
+<ul>
+<li>初级 9*9 雷：10</li>
+<li>中级 16*16 雷：40</li>
+<li>高级 30*16 雷：99</li>
+</ul>
+</li>
+<li><p>选择游戏难度后，点击开始游戏按钮跳转进入游戏页面。</p>
+</li>
+<li><p>游戏难度自带参数通过 url 传递</p>
+</li>
+</ol>
+<h3 id="左键点击格子显示数字-雷"><a href="#左键点击格子显示数字-雷" class="headerlink" title="左键点击格子显示数字/雷"></a>左键点击格子显示数字/雷</h3><ol>
+<li><p>为每个格子绑定 onmousedown 事件，通过其 event.button 值确定点击左键</p>
+</li>
+<li><p>初始化时，设定扫雷 mineSweeper 类，其中，地图格子以二维数组形式 landArrs 存在</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;由于扫雷每个格子中的内容为数字或雷。数字表示以其为中心的九宫格内雷的数量，故以九宫格中数字1~8表示，0为空格，9为雷</span><br><span class="line">landArrs[i][j]&#x3D;0;&#x2F;&#x2F;空格</span><br><span class="line">landArrs[i][j]&#x3D;1;&#x2F;&#x2F;数字1~8</span><br><span class="line">landArrs[i][j]&#x3D;9;&#x2F;&#x2F;雷</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>游戏开始前，按所选难度的雷数，将各雷随机放在地图内，再根据雷的位置计算雷周围数字的设置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;1.初始化所有格子为0</span><br><span class="line">landArrs[i][j]&#x3D;0;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;2.按雷数随机放置雷位置</span><br><span class="line">&#x2F;&#x2F;随机数a-b：Math.floor(Math.random() * (max - min)) + min</span><br><span class="line">var randomNum &#x3D; Math.floor(Math.random() * (row * col - 0) + 0);</span><br><span class="line">var rNum &#x3D; parseInt(randomNum &#x2F; this.colCount);&#x2F;&#x2F;随机数所在的格子行数</span><br><span class="line">var cNum &#x3D; parseInt(randomNum % this.colCount);&#x2F;&#x2F;随机数所在的格子列数</span><br><span class="line">&#x2F;&#x2F;判断该位置是否已放置雷（省略）</span><br><span class="line">landArrs[rNum][cNum] &#x3D; 9;&#x2F;&#x2F;放置雷</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;3.按雷位置，计算其周边数字</span><br><span class="line">&#x2F;&#x2F;算法：遍历每个雷，将每个雷上下左右8格均+1</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>点中雷，游戏失败</li>
+</ol>
+<h3 id="右键点击插旗或取消旗子"><a href="#右键点击插旗或取消旗子" class="headerlink" title="右键点击插旗或取消旗子"></a>右键点击插旗或取消旗子</h3><ol>
+<li><p>为每个格子绑定 onmousedown 事件，通过其 event.button 值确定点击右键</p>
+</li>
+<li><p>点击右键则将此格的 class 设置为 flag，按 CSS 样式放置旗子背景图—-&gt;插旗</p>
+</li>
+<li><p>再次点击右键则将已插旗的格子 class 设置为空字符串，取消 CSS 样式—-&gt;拔旗</p>
+</li>
+</ol>
+<h3 id="点击格子为空值无数字时，自动连续展开其周边格子"><a href="#点击格子为空值无数字时，自动连续展开其周边格子" class="headerlink" title="点击格子为空值无数字时，自动连续展开其周边格子"></a>点击格子为空值无数字时，自动连续展开其周边格子</h3><blockquote>
+<p>算法：</p>
+<ol>
+<li>点击格子值为 0，则以该格为中心查看其周围8个格</li>
+<li>若其周围格为被打开过，则打开该格。</li>
+<li>若其周围格再次遇到 0，自动循环查找</li>
+</ol>
+</blockquote>
+<h3 id="花费时间即剩余雷数计算"><a href="#花费时间即剩余雷数计算" class="headerlink" title="花费时间即剩余雷数计算"></a>花费时间即剩余雷数计算</h3><ol>
+<li><p>花费时间</p>
+<blockquote>
+<p>采用 JS 异步时间间隔 setInterval()算法，每 1s 更新一次时间<br>setInterval(displayTime, 1000);</p>
+</blockquote>
+</li>
+<li><p>剩余雷数</p>
+<blockquote>
+<p>每标记一处，html 更新一次内容</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="双击设定：满足已标记数与自身数字一致时自动打开格子"><a href="#双击设定：满足已标记数与自身数字一致时自动打开格子" class="headerlink" title="双击设定：满足已标记数与自身数字一致时自动打开格子"></a>双击设定：满足已标记数与自身数字一致时自动打开格子</h3><ol>
+<li><p>双击已打开的数字格。</p>
+<blockquote>
+<p>当双击位置周围已标记雷数等于该位置数字时操作有效，相当于对该数字周围未打开的方块均进行一次左键单击操作。<br>地雷未标记完全时使用双击无效。</p>
+</blockquote>
+</li>
+<li><p>若数字周围有标错的地雷，则游戏结束，标错的地雷上会显示一个“×”</p>
+</li>
+</ol>
+<p><img src="https://s2.ax1x.com/2020/02/21/3m5VbQ.gif" alt="3m5VbQ.gif"></p>
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol>
+<li><p>实验楼扫雷实现教程</p>
+<p><a href="https://www.shiyanlou.com/courses/144" target="_blank" rel="noopener">https://www.shiyanlou.com/courses/144</a></p>
+</li>
+<li><p>MDN Web Docs</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>JavaScript</tag>
+        <tag>HTML</tag>
+        <tag>CSS</tag>
+        <tag>MineSweeper</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web学习(1)--网络基础</title>
+    <url>/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html</url>
+    <content><![CDATA[<h2 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h2><p>  Web开发与网络息息相关，故首先从打好网络基础入手：<br>  <a id="more"></a></p>
+<p>  <img src="https://i.loli.net/2020/02/19/Q3fYNHwpL6XPcng.jpg" alt="internet.jpg"></p>
+<h2 id="参考学习内容"><a href="#参考学习内容" class="headerlink" title="参考学习内容"></a>参考学习内容</h2><p>  MDN Web Docs</p>
+<p>  <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web</a></p>
+]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>Internet</tag>
+      </tags>
+  </entry>
 </search>
