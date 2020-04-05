@@ -46,10 +46,10 @@
 <p>缺点：SEO难度较高，页面的前进后退管理复杂，且初次加载时可能耗时会较长。</p>
 ]]></content>
       <categories>
-        <category>Web</category>
+        <category>web</category>
       </categories>
       <tags>
-        <tag>Web</tag>
+        <tag>web</tag>
         <tag>SPA</tag>
         <tag>前后端分离</tag>
       </tags>
