@@ -4,7 +4,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
-    
+   
+  <meta name="keywords" content="正则表达式," />
+   
+  <meta name="description" content="正则表达式学习笔记" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
     正则表达式学习笔记 |  AwesoLynn
@@ -75,9 +79,13 @@ var _hmt = _hmt || [];
     
     <div class="article-meta">
       <a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" class="article-date">
-  <time datetime="2020-04-02T07:04:02.000Z" itemprop="datePublished">2020-04-02</time>
+  <time datetime="2020-03-11T14:04:02.000Z" itemprop="datePublished">2020-03-11</time>
 </a>
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+  </div>
+
       
       
 <div class="word_count">
@@ -85,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">0字</span>
+            <span class="post-count">2.1k字</span>
         </span>
     </span>
 
@@ -94,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">7分钟</span>
         </span>
     </span>
 </div>
@@ -105,6 +113,8 @@ var _hmt = _hmt || [];
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -119,7 +129,224 @@ var _hmt = _hmt || [];
       
 
       
-      
+      <p>正则表达式定义了字符串的模式，可以用来搜索、编辑、处理文本。用<code>//</code>包围一个正则表达式</p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ul>
+<li>测试字符串内模式（数据验证）</li>
+<li>替换文本</li>
+<li>基于模式匹配提取子字符串</li>
+</ul>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>正则表达式由普通字符以及特殊字符（元字符）组成。</p>
+<h3 id="普通字符"><a href="#普通字符" class="headerlink" title="普通字符"></a>普通字符</h3><p>包括没有显式指定为元字符的所有可打印、不可打印字符。（包括所有大小写字母、数字、标点符号、其他符号）</p>
+<ul>
+<li>不可打印字符：匹配包括换页符<code>\f</code>、换行符<code>\n</code>、回车符<code>\r</code>、空白字符<code>\s</code>、制表符<code>\t</code>等字符。</li>
+</ul>
+<h3 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h3><p>类似关键字，匹配特殊字符时需要先使用<code>\</code>将其转义。</p>
+<table>
+<thead>
+<tr>
+<th>特殊字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>匹配输入字符串中的开始位置，若放在方括号表达式中使用，表示不接受该方括号表达式中的字符集合</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结尾。若设置了<code>RegExp</code>对象的<code>Multiline</code>属性，则也匹配<code>\n</code>和 <code>\r</code></td>
+</tr>
+<tr>
+<td>()</td>
+<td>标记子字符串的开始和结束</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式0次或多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式1次或多次 （至少要有一次）</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式0次或1次（最多1次）</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符\n之外的所有单字符</td>
+</tr>
+<tr>
+<td>[</td>
+<td>标记一个中括号表达式的开始</td>
+</tr>
+<tr>
+<td>\</td>
+<td>将下一个字符标记为特殊字符或向后引用或转义符或原义字符</td>
+</tr>
+<tr>
+<td>{</td>
+<td>标记限定符表达式的开始</td>
+</tr>
+<tr>
+<td>|</td>
+<td>指明两项之间的一个选择</td>
+</tr>
+</tbody></table>
+<h3 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h3><p>用来指定正则表达式中一个给定组件必须出现多少次才能满足匹配，共6种：</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>匹配前面的子表达式0次或多次，等价于<code>{0,}</code>，如<code>/zo*/</code>匹配<code>z</code>、<code>zoo</code>、<code>zoooo</code></td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式1次或多次 （至少要有一次），如<code>/zo+/</code>匹配<code>zo</code>、<code>zoo</code>，不匹配<code>z</code></td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式0次或1次（最多1次），如<code>/zo?/</code>，只能匹配<code>z</code>、<code>zo</code>，不匹配<code>zoooo</code>等</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td><code>n</code>为非负整数。匹配前面的子表达式n次，如<code>o{2}</code>匹配<code>zoo</code>、<code>book</code>，不匹配<code>box</code></td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td><code>n</code>为非负整数。至少匹配前面的子表达式n次，如<code>o{2,}</code>匹配<code>zoo</code>、<code>boooook</code>，不匹配<code>box</code></td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td><code>n</code>、<code>m</code>为非负整数，且<code>n&lt;=m</code>。最少匹配前面的子表达式n次，且最多匹配前面的子表达式m次，如<code>o{2,4}</code>匹配<code>zoo</code>、<code>boook</code>，不匹配<code>box</code>、<code>booooox</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>限定符出现在范围表达式之后，故应用于整个范围表达式</p>
+</blockquote>
+<h4 id="非贪婪限定符实现"><a href="#非贪婪限定符实现" class="headerlink" title="非贪婪限定符实现"></a>非贪婪限定符实现</h4><p><code>*</code>和<code>+</code>限定符都是贪婪的，即会尽可能多的匹配文字。若<strong><em>在其后加上?就会实现非贪婪或最小匹配</em></strong>。</p>
+<p>如表达式<code>&lt;p&gt;Hello World&lt;p&gt;</code></p>
+<ul>
+<li>使用<code>/&lt;.*&gt;/</code>匹配，则匹配到的内容为整个表达式<code>&lt;p&gt;Hello World&lt;p&gt;</code></li>
+<li>使用<code>/&lt;.*?&gt;/</code>匹配，则只匹配到<code>&lt;p&gt;</code></li>
+</ul>
+<h3 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h3><p>定位符将正则表达式固定到某位置，让其出现在行首行尾或某单词开头、内部、结尾。用来描述字符串或单词的边界。</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>^</td>
+<td>匹配输入字符串中的开始位置，即匹配一行文本开始处的文本。若放在方括号表达式中使用，表示不接受该方括号表达式中的字符集合</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结尾，即匹配一行文本结束处的文本。若设置了<code>RegExp</code>对象的<code>Multiline</code>属性，则也匹配<code>\n</code>和 <code>\r</code></td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，即字与空格间的位置。如<code>/\bCha/</code>匹配单词Chapter开头的三个字符。<code>/ter\b/</code>匹配单词Chapter结尾的三个字符</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非单词边界匹配，如<code>/\Bapt/</code>匹配Chapter中间的apt，但不匹配aptitude开头的apt，因为此apt出现在单词的边界</td>
+</tr>
+</tbody></table>
+<h3 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h3><p><code>()</code>：可以将选择项括起来，但其相关的匹配会被缓存，可以使用<code>?:</code>放在第一个选项消除此缓存的作用<br><code>|</code>：分割相邻的选择项。</p>
+<h3 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h3><p>反向引用提供查找文本中两个相同的相邻单词的匹配项的能力。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &quot;Is is the cost of of gasoline going up up&quot;;</span><br><span class="line">var patt1 &#x3D; &#x2F;\b([a-z]+) \1\b&#x2F;ig;</span><br><span class="line">document.write(str.match(patt1));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>\b([a-z]+)</code>:匹配一个或多个字母</li>
+<li><code>\1\b</code>:引用第一个子匹配项，即单词的第二个匹配项正好由第一个子匹配项匹配。</li>
+<li>引用单词边界符确保只检测整个单词</li>
+<li><code>i</code>:忽略大小写</li>
+<li><code>g</code>:指定将该表达式应用到输入字符串能够查找到的尽可能多的匹配</li>
+</ul>
+<p>还可以将url分解为其组件，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var str &#x3D; &quot;http:&#x2F;&#x2F;www.runoob.com:80&#x2F;html&#x2F;html-tutorial.html&quot;;</span><br><span class="line">var patt1 &#x3D; &#x2F;(\w+):\&#x2F;\&#x2F;([^&#x2F;:]+)(:\d*)?([^# ]*)&#x2F;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>(\w+)</code>：<strong>\w等价于[a-zA-Z0-9_]，匹配下划线、所有字母和数字。</strong>该表达式表示匹配url的协议部分，即http。</li>
+<li><code>:\/\/</code>：即http后的://</li>
+<li><code>([^/:])</code>：匹配非<code>:</code>和<code>/</code>后的一个或多个字符，即url地址部分。</li>
+<li><code>(:\d*)?</code>：<strong>\d等价于[0-9]，表示匹配所有的数字</strong>。该表达式表示匹配以:开头的0个或多个数字，即url端口号部分。<code>?</code>表示该端口号部分只匹配0次或1次</li>
+<li><code>([^# ]*)</code>：表示匹配非<code>#</code>或<code>空格</code>字符的任何字符序列，即匹配url的指定路径和页信息。</li>
+</ul>
+<p>对正则表达式模式两边添加()会将相关匹配存储到一个临时缓冲区中，所捕获到的每个子匹配都按在正则表达式模式中从左到右出现的顺序存储，从1开始，最多存储99个捕获的子表达式。<br>可以使用非捕获元字符来重写捕获，忽略对相关匹配的保存。</p>
+<h4 id="非捕获元"><a href="#非捕获元" class="headerlink" title="非捕获元"></a>非捕获元</h4><p><code>?:</code>：消除圆括号相关匹配缓存的副作用<br><code>?=</code>：正向预查，在任何开始匹配圆括号内的正则表达式模式的位置来搜索字符串。<br><code>?!</code>：负向预查，在任何开始不匹配该正则表达式模式的位置来匹配搜索字符串</p>
+<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>正则表达式相同优先级的从左到右计算，不同优先级的先高后低。</p>
+<p>下表表示优先级由高至低：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\</td>
+<td>转义符</td>
+</tr>
+<tr>
+<td>(),(?:),(?=),[]</td>
+<td>圆括号和方括号</td>
+</tr>
+<tr>
+<td>*,+,?,{n},{n,},{n,m}</td>
+<td>限定符</td>
+</tr>
+<tr>
+<td>^,$,以开头的\元字符、字符</td>
+<td>定位符和序列</td>
+</tr>
+<tr>
+<td>｜</td>
+<td>替换、或操作</td>
+</tr>
+</tbody></table>
+<h2 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h2><h3 id="基本模式匹配"><a href="#基本模式匹配" class="headerlink" title="基本模式匹配"></a>基本模式匹配</h3><p>模式是正则表达式最基本的元素，是一组描述字符串特征的字符。</p>
+<p><code>^the</code>: 匹配以the开头的字符串。如匹配<code>the book is over there</code>，不匹配<code>get the book</code>。</p>
+<p><code>book$</code>: 匹配以book结尾的字符串。如匹配<code>there is a book</code>，不匹配<code>the book is on the table</code>。</p>
+<p><code>^book$</code>: 精准匹配book，只匹配字符串<code>book</code>。</p>
+<p><code>book</code>: 与任何包含book的字符串匹配。</p>
+<p>若需要匹配转义字符，则需要以<code>\</code>开头，如<code>^\t</code>，匹配以制表符开头的字符串。</p>
+<h3 id="字符簇"><a href="#字符簇" class="headerlink" title="字符簇"></a>字符簇</h3><p>字符簇一组字符的集合。用方括号<code>[]</code>扩起来。如<code>[AaEeIiOoUu]</code>匹配<strong>一个元音字符</strong>。</p>
+<p>用<code>-</code>连接可表示<strong>一个字符</strong>的范围。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[a-z]：所有小写字母</span><br><span class="line">[A-Z]：所有大写字母</span><br><span class="line">[a-zA-Z]：所有字母</span><br><span class="line">[0-9]：所有数字</span><br></pre></td></tr></table></figure>
+
+<p>方括号内使用<code>^</code>表示非。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[^0-9]：除0-9所有字符</span><br><span class="line">[^a-z]：除a-z所有字符</span><br></pre></td></tr></table></figure>
+
+<p>特殊字符<code>.</code>表示出了新行之外的所有字符。</p>
+<h3 id="重复出现"><a href="#重复出现" class="headerlink" title="重复出现"></a>重复出现</h3><p>使用<code>{}</code>确定重复出现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;n&#125;：出现n次</span><br><span class="line">&#123;n,&#125;：出现至少n次</span><br><span class="line">&#123;n,m&#125;：至少出现n次但不超过m次</span><br><span class="line">?：相当于&#123;0,1&#125;，出现0次或1次</span><br><span class="line">+：&#123;1,&#125;，至少出现1次</span><br><span class="line">*：&#123;0,&#125;，出现0次或多次</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript正则表达式RegExp对象"><a href="#JavaScript正则表达式RegExp对象" class="headerlink" title="JavaScript正则表达式RegExp对象"></a>JavaScript正则表达式RegExp对象</h2><p>RefExp是JavaScript的正则表达式对象。</p>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var patt &#x3D; new RegExp(pattern,modifiers);</span><br><span class="line"></span><br><span class="line">var patt &#x3D; &#x2F;pattern&#x2F;modifiers;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>patterm：正则表达式模式</li>
+<li>modifiers：正则表达式修饰符<ul>
+<li>i：不区分大小写</li>
+<li>g：执行全文搜索</li>
+</ul>
+</li>
+</ul>
+<p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var patt &#x3D; new RegExp(&quot;^[abc]&quot;);</span><br><span class="line"></span><br><span class="line">var patt &#x3D; &#x2F;is&#x2F;g;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>test()：搜索字符串指定的值，根据结果返回<code>true</code>或<code>false</code>。</p>
+<p>exec()：检索字符中指定值。找到返回该值，未找到返回null。</p>
+
       
       <!-- reward -->
       
@@ -191,6 +418,8 @@ var _hmt = _hmt || [];
 <div id="share-mask"></div>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li></ul>
+
 
     </footer>
 
@@ -199,6 +428,15 @@ var _hmt = _hmt || [];
   
   
   <nav class="article-nav">
+    
+      <a href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%8ESPA%E7%9A%84%E7%90%86%E8%A7%A3.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前后端分离与SPA的理解
+          
+        </div>
+      </a>
     
     
       <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-6-%E4%BD%BF%E7%94%A8BootStrap%E4%BC%98%E5%8C%96%E7%BD%91%E7%AB%99%E6%A0%B7%E5%BC%8F.html" class="article-nav-link">
