@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1k字</span>
+            <span class="post-count">1.6k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -135,6 +135,8 @@ var _hmt = _hmt || [];
 <li>静态页面：网页中没有程序代码，仅HTML。一般静态页面一旦生成，内容就不会被改变。</li>
 <li>动态页面：网页文件除了HTML还包括一些程序代码使浏览器可以与服务器交互，随用户交互的不同请求动态的生成网页内容。</li>
 <li>网页的静态化：将动态数据都提前生成为静态的html页面，避免从数据库取数的时间。</li>
+<li>DOM：文档对象模型（Document Object Model），一种将HTML/XML文档组织成对象模型（DOM树）的建模过程。</li>
+<li>虚拟DOM：DOM树结构在内存里的映射</li>
 </ul>
 <a id="more"></a>
 <h3 id="前后端不分离架构"><a href="#前后端不分离架构" class="headerlink" title="前后端不分离架构"></a>前后端不分离架构</h3><p>传统的不分离架构的设计大致为：</p>
@@ -170,6 +172,30 @@ var _hmt = _hmt || [];
 <p>工作时，在Web页面初始化时，就加载完相应的HTML、CSS、JS内容，以后不会因用户的操作而进行页面的重新加载或跳转。当用户交互时，只通过Javascript动态变换HTML的内容，即进行部分内容的动态切换和替换。</p>
 <p>优点：用户体验快，避免不必要的跳转和页面的重复渲染，加快了对数据的刷新，对服务器压力小。且共用一套后端代码即可同时应用于Web界面、手机、平板等多种客户端。</p>
 <p>缺点：SEO难度较高，页面的前进后退管理复杂，且初次加载时可能耗时会较长。</p>
+<h3 id="核心逻辑"><a href="#核心逻辑" class="headerlink" title="核心逻辑"></a>核心逻辑</h3><h4 id="动态切换视图"><a href="#动态切换视图" class="headerlink" title="动态切换视图"></a>动态切换视图</h4><ul>
+<li><p>通过JavaScript的<code>$().replacewith()</code>等方法实现切换。</p>
+</li>
+<li><p>通过URL路由机制，从URL路由中的hashtag获取信息，再通过<code>window.location.hash.slice()</code>方法实现页面内容切换</p>
+</li>
+</ul>
+<h4 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h4><ol>
+<li>通过ajax获取数据</li>
+<li>载入前占位提示。由于从服务器端获取数据需要时间，则设置一个占位符，如loading样式、文字提示，表示数据正在载入，请等待。</li>
+<li>异步操作(取数据渲染页面)：await callback promise</li>
+</ol>
+<h4 id="模版替换"><a href="#模版替换" class="headerlink" title="模版替换"></a>模版替换</h4><ol>
+<li>JSON数据转换：JSON是字符串，需要将它转换为DataObject使用，jQuery会自动解析，其他的库需要自己解析</li>
+<li>模版替换：数据转换后就发给模版，将对应内容进行替换，得到HTML </li>
+</ol>
+<h4 id="双向绑定和动态渲染"><a href="#双向绑定和动态渲染" class="headerlink" title="双向绑定和动态渲染"></a>双向绑定和动态渲染</h4><p>服务器端渲染：一次请求渲染一次，新的数据变更在新的请求后渲染。</p>
+<p>前端SPA渲染：用户修改数据，相应的数据要同步修改，故需要用到事件机制通知。修改数据后触发事件机制，事件绑定的函数检查修改的数据，重新通过模版渲染页面，填回DOM对应的地方，即做到自动更新。</p>
+<p>问题：实现时，每次修改可能会渲染整个页面，效率十分低。</p>
+<p>解决：只渲染修改的部分。</p>
+<h5 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h5><blockquote>
+<p>调用虚拟DOM实现动态渲染修改的内容。</p>
+</blockquote>
+<p>每次修改完内容，按新内容在内存里构建一个新的虚拟DOM树， 与旧的DOM树比较，检查节点变动情况，再到真实的DOM树中，修改对应的节点，完成渲染更新。</p>
+<h4 id="组件化和重用"><a href="#组件化和重用" class="headerlink" title="组件化和重用"></a>组件化和重用</h4><p>支持自定义标签，在重用时只需要关注内容，不需要关心具体结构。若需要变动，只需要调整自定义标签的模版，那整个页面使用的自定义标签都会自动更新。</p>
 
       
       <!-- reward -->
@@ -252,6 +278,15 @@ var _hmt = _hmt || [];
   
   
   <nav class="article-nav">
+    
+      <a href="/React(1)-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            React(1)-基础知识
+          
+        </div>
+      </a>
     
     
       <a href="/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" class="article-nav-link">
