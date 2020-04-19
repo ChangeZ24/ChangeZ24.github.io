@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="web,React,SPA," />
+   
+  <meta name="description" content="React列表及表单" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    React(3)-列表及简单表单 |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="https://sm.ms/image/pAvQcIxbGHSsYMr" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-React-3-列表及简单表单" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  React(3)-列表及简单表单
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-3-%E5%88%97%E8%A1%A8%E5%8F%8A%E7%AE%80%E5%8D%95%E8%A1%A8%E5%8D%95.html" class="article-date">
+  <time datetime="2020-03-19T08:39:35.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.4k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>使用<code>{}</code>在JSX构建一个元素集合。<br>使用JS的<code>map()</code>方法遍历数组，将数组中的元素变成<code>&lt;li&gt;</code>标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const number &#x3D; [1,2,3,4,5];</span><br><span class="line">const listitems &#x3D; numbers.map((number) &#x3D;&gt; </span><br><span class="line">    &lt;li&gt;&#123;number&#125;&lt;&#x2F;li&gt;</span><br><span class="line">);</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;ul&gt;&#123;listItems&#125;&lt;&#x2F;ul&gt;,</span><br><span class="line">document.getElementById(&#39;root&#39;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="key"><a href="#key" class="headerlink" title="key"></a>key</h3><p>当创建元素时必须包含一个key属性。key属性帮助React识别元素的变化。</p>
+<h4 id="key的正确使用"><a href="#key的正确使用" class="headerlink" title="key的正确使用"></a>key的正确使用</h4><p>一个元素的key最好是元素在列表中拥有的独一无二的字符串，万不得已时才使用索引作为key。</p>
+<p>元素的key只有放在就近的数组上下文才有意义。故如果提取一个组件，就应把组件的key保留在该组件的元素上，而不是它里面的子元素上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function ListItem(props)&#123;</span><br><span class="line">    &#x2F;&#x2F;子元素无需指定key</span><br><span class="line">    return &lt;li&gt;&#123;props.value&#125;&lt;&#x2F;li&gt;;</span><br><span class="line">&#125;</span><br><span class="line">function NumberList(props)&#123;</span><br><span class="line">    const numbers &#x3D; props.numbers;</span><br><span class="line">    const listItems &#x3D; numbers.map((number) &#x3D;&gt;</span><br><span class="line">    &#x2F;&#x2F;key应在数组的上下文中指定，经验法则：在map()中的元素需指定key属性</span><br><span class="line">        &lt;ListItem key&#x3D;&#123;number.toString()&#125; value&#x3D;&#123;number&#125; &#x2F;&gt;</span><br><span class="line">    );</span><br><span class="line">    return (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;listItems&#125;</span><br><span class="line">    &lt;&#x2F;ul&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const numbers &#x3D; [1, 2, 3, 4, 5];</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;NumberList numbers&#x3D;&#123;numbers&#125; &#x2F;&gt;,</span><br><span class="line">  document.getElementById(&#39;root&#39;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="key的唯一性"><a href="#key的唯一性" class="headerlink" title="key的唯一性"></a>key的唯一性</h4><p>key在兄弟节点之间必须唯一，但不是全局唯一。即当有两个不同的数组时，key可以相同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const sidebar &#x3D; (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;props.posts.map((post) &#x3D;&gt;</span><br><span class="line">        &lt;li key&#x3D;&#123;post.id&#125;&gt;</span><br><span class="line">          &#123;post.title&#125;</span><br><span class="line">        &lt;&#x2F;li&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;&#x2F;ul&gt;</span><br><span class="line">  );</span><br><span class="line">  const content &#x3D; props.posts.map((post) &#x3D;&gt;</span><br><span class="line">    &lt;div key&#x3D;&#123;post.id&#125;&gt;</span><br><span class="line">      &lt;h3&gt;&#123;post.title&#125;&lt;&#x2F;h3&gt;</span><br><span class="line">      &lt;p&gt;&#123;post.content&#125;&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<p>key传递信息给React，但不会传递给组件。因此，若需要使用key的值，需要使用其他属性将其显式的传递出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const content &#x3D; posts.map((post) &#x3D;&gt;</span><br><span class="line">  &lt;Post</span><br><span class="line">    key&#x3D;&#123;post.id&#125;</span><br><span class="line">    id&#x3D;&#123;post.id&#125;</span><br><span class="line">    title&#x3D;&#123;post.title&#125; &#x2F;&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="在JSX中嵌入map"><a href="#在JSX中嵌入map" class="headerlink" title="在JSX中嵌入map()"></a>在JSX中嵌入map()</h3><p>以上都是声明单独的变量并将其包含在JSX中，但JSX允许在大括号<code>{}</code>中嵌入表达式，因此可以直接内联<code>map()</code>返回的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function NumberList(props)&#123;</span><br><span class="line">    const numbers &#x3D; props.numbers;</span><br><span class="line">    return (</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &#123;numbers.map((number) &#x3D;&gt; </span><br><span class="line">                &lt;ListItem key&#x3D;&#123;number.toString()&#125;</span><br><span class="line">                          value&#x3D;&#123;number&#125;</span><br><span class="line">                &#x2F;&gt;</span><br><span class="line">            )&#125;</span><br><span class="line">        &lt;&#x2F;ul&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><p>HTML表单与其他DOM元素不同，它内部通常保持一些state，大多情况下，使用JavaScript函数可以方便的处理表单提交，同时访问用户填写的表单数据。实现此效果的标准方式是使用受控组件</p>
+<h3 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h3><p>受控组件使React的state成为唯一数据源。渲染表单的React组件控制用户输入过程中发生的操作。（结合state及事件处理操作）</p>
+<h4 id="input"><a href="#input" class="headerlink" title="input"></a>input</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class NameForm extends React.Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    &#x2F;&#x2F;输入input组件值由state控制，此处设置初始值。</span><br><span class="line">    this.state &#x3D; &#123;value: &#39;&#39;&#125;;</span><br><span class="line"></span><br><span class="line">    this.handleChange &#x3D; this.handleChange.bind(this);</span><br><span class="line">    this.handleSubmit &#x3D; this.handleSubmit.bind(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#x2F;&#x2F;input框内容改变事件</span><br><span class="line">  handleChange(event) &#123;</span><br><span class="line">    this.setState(&#123;value: event.target.value&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#x2F;&#x2F;提交内容事件</span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    alert(&#39;提交的名字: &#39; + this.state.value);</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;form onSubmit&#x3D;&#123;this.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          名字:</span><br><span class="line">          &#x2F;&#x2F;state.value是input框的唯一数据源</span><br><span class="line">          &#x2F;&#x2F;onChange事件会在用户每一次按键后更新React的state</span><br><span class="line">          &lt;input type&#x3D;&quot;text&quot; value&#x3D;&#123;this.state.value&#125; onChange&#x3D;&#123;this.handleChange&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;label&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;提交&quot; &#x2F;&gt;</span><br><span class="line">      &lt;&#x2F;form&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="textarea"><a href="#textarea" class="headerlink" title="textarea"></a>textarea</h4><p>text的使用与input相同，但默认有初值</p>
+<h4 id="select"><a href="#select" class="headerlink" title="select"></a>select</h4><p>select选择框的选中属性使用value控制，而不使用selected属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.state &#x3D; &#123;value: &#39;coconut&#39;&#125;;</span><br><span class="line"></span><br><span class="line">    this.handleChange &#x3D; this.handleChange.bind(this);</span><br><span class="line">    this.handleSubmit &#x3D; this.handleSubmit.bind(this);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;form onSubmit&#x3D;&#123;this.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          选择你喜欢的风味:</span><br><span class="line">          &lt;select value&#x3D;&#123;this.state.value&#125; onChange&#x3D;&#123;this.handleChange&#125;&gt;</span><br><span class="line">            &lt;option value&#x3D;&quot;grapefruit&quot;&gt;葡萄柚&lt;&#x2F;option&gt;</span><br><span class="line">            &lt;option value&#x3D;&quot;lime&quot;&gt;酸橙&lt;&#x2F;option&gt;</span><br><span class="line">            &lt;option value&#x3D;&quot;coconut&quot;&gt;椰子&lt;&#x2F;option&gt;</span><br><span class="line">            &lt;option value&#x3D;&quot;mango&quot;&gt;芒果&lt;&#x2F;option&gt;</span><br><span class="line">          &lt;&#x2F;select&gt;</span><br><span class="line">        &lt;&#x2F;label&gt;</span><br><span class="line">        &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;提交&quot; &#x2F;&gt;</span><br><span class="line">      &lt;&#x2F;form&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>option内容也可直接在select标签内将数组传递到vlue属性。使用多选时，设置<code>multiple={true}</code></p>
+<h3 id="接受多个输入"><a href="#接受多个输入" class="headerlink" title="接受多个输入"></a>接受多个输入</h3><p>当需要处理多个input元素时，给每个元素添加<code>name</code>属性，处理函数根据<code>event.target.name</code>选择要执行的操作。<code>setState()</code>自动将部分state合并到当前state。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class Reservation extends React.Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.state &#x3D; &#123;</span><br><span class="line">      isGoing: true,</span><br><span class="line">      numberOfGuests: 2</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    this.handleInputChange &#x3D; this.handleInputChange.bind(this);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleInputChange(event) &#123;</span><br><span class="line">    const target &#x3D; event.target;</span><br><span class="line">    const value &#x3D; target.name &#x3D;&#x3D;&#x3D; &#39;isGoing&#39; ? target.checked : target.value;</span><br><span class="line">    const name &#x3D; target.name;</span><br><span class="line"></span><br><span class="line">    this.setState(&#123;</span><br><span class="line">      [name]: value</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;form&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          参与:</span><br><span class="line">          &lt;input</span><br><span class="line">            name&#x3D;&quot;isGoing&quot;</span><br><span class="line">            type&#x3D;&quot;checkbox&quot;</span><br><span class="line">            checked&#x3D;&#123;this.state.isGoing&#125;</span><br><span class="line">            onChange&#x3D;&#123;this.handleInputChange&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;label&gt;</span><br><span class="line">        &lt;br &#x2F;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          来宾人数:</span><br><span class="line">          &lt;input</span><br><span class="line">            name&#x3D;&quot;numberOfGuests&quot;</span><br><span class="line">            type&#x3D;&quot;number&quot;</span><br><span class="line">            value&#x3D;&#123;this.state.numberOfGuests&#125;</span><br><span class="line">            onChange&#x3D;&#123;this.handleInputChange&#125; &#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;label&gt;</span><br><span class="line">      &lt;&#x2F;form&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/React-3-%E5%88%97%E8%A1%A8%E5%8F%8A%E7%AE%80%E5%8D%95%E8%A1%A8%E5%8D%95.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            React(4)-状态提升及组合
+          
+        </div>
+      </a>
+    
+    
+      <a href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">React(2)-事件处理及条件渲染</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

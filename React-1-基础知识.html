@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-React(1)-基础知识" class="article article-type-post" itemscope
+  <article id="post-React-1-基础知识" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -78,7 +78,7 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/React(1)-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="article-date">
+      <a href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="article-date">
   <time datetime="2020-03-15T14:12:17.000Z" itemprop="datePublished">2020-03-15</time>
 </a>
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.9k字</span>
+            <span class="post-count">2k字</span>
         </span>
     </span>
 
@@ -131,6 +131,9 @@ var _hmt = _hmt || [];
       
       <h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>React是一个声明式，高效且灵活的用于构建用户界面的JavaScript库。使用React可以将一些简短、独立的代码片段组合成复杂的UI界面，这些代码片段称为“组件”。</p>
 <h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JSX是JavaScript的语法拓展，可以生成React“元素”。React认为渲染逻辑与其他UI逻辑内在耦合，故其没有采用将标记和逻辑分离在不同文件的方式，而是将他们共同存入“组件”的松散耦合单元中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;JSX语法</span><br><span class="line">&lt;div &#x2F;&gt;</span><br><span class="line">&#x2F;&#x2F;等同于</span><br><span class="line">React.createElement(&#39;div&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>在JSX中可以任意使用JavaScript表达式，只需要用大括号<code>{}</code>括起来。</p>
 <a id="more"></a>
 <ul>
 <li><p>使用<code>{}</code>嵌入元素：可嵌入变量、表达式、函数等。</p>
@@ -164,13 +167,14 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <h3 id="元素渲染"><a href="#元素渲染" class="headerlink" title="元素渲染"></a>元素渲染</h3><p>元素是构成React应用的最小模块，是创建开销极小的普通对象。</p>
+<p>每一个React元素都是一个JavaScript对象，可以在程序中保存到变量中或作为参数传递。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const element &#x3D; &lt;h1&gt;Hello, world&lt;&#x2F;h1&gt;;</span><br></pre></td></tr></table></figure>
 
 <p>若要将React元素渲染到根DOM节点root，使用ReactDOM.render()。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const element &#x3D; &lt;h1&gt;Hello, world&lt;&#x2F;h1&gt;;</span><br><span class="line">ReactDOM.render(element, document.getElementById(&#39;root&#39;));</span><br></pre></td></tr></table></figure>
 
 <p>React元素不可变。一旦被创建就无法更改它的子元素或属性，它代表了某个特定时刻的UI。要修改元素只能通过重新绑定新的元素渲染或通过state修改。</p>
-<h3 id="组件及Props"><a href="#组件及Props" class="headerlink" title="组件及Props"></a>组件及Props</h3><p>组件，类似于JavaScript函数，接受任意的入参（props），并返回用于描述页面展示内容的React元素。</p>
+<h3 id="组件及Props"><a href="#组件及Props" class="headerlink" title="组件及Props"></a>组件及Props</h3><p>组件，类似于JavaScript函数，接受任意的入参（props），通过<code>render</code>方法返回用于描述页面展示内容的React元素。</p>
 <p>两种写法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">方法一：函数</span><br><span class="line">function Welcome(props)&#123;</span><br><span class="line">    return &lt;h1&gt;Hello,&#123;props.name&#125;&lt;&#x2F;h1&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">方法二：ES6的class</span><br><span class="line">class Welcome extends React.Component&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return &lt;h1&gt;Hello,&#123;props.name&#125;&lt;&#x2F;h1&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -289,7 +293,7 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/React(1)-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" alt="微信分享二维码">
     </div>
 </div>
 
