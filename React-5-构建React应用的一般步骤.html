@@ -7,11 +7,11 @@
    
   <meta name="keywords" content="web,React,SPA," />
    
-  <meta name="description" content="React状态提升及组合" />
+  <meta name="description" content="构建React应用的一般步骤" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    React(4)-状态提升及组合 |  AwesoLynn
+    React(5)-构建React应用的一般步骤 |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-React-4-状态提升及组合继承" class="article article-type-post" itemscope
+  <article id="post-React-5-构建React应用的一般步骤" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  React(4)-状态提升及组合
+  React(5)-构建React应用的一般步骤
 </h1>
   
 
@@ -78,8 +78,8 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html" class="article-date">
-  <time datetime="2020-03-22T15:14:32.000Z" itemprop="datePublished">2020-03-22</time>
+      <a href="/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html" class="article-date">
+  <time datetime="2020-03-23T12:42:54.000Z" itemprop="datePublished">2020-03-23</time>
 </a>
       
   <div class="article-category">
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">531字</span>
+            <span class="post-count">1.3k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -129,18 +129,80 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="状态提升"><a href="#状态提升" class="headerlink" title="状态提升"></a>状态提升</h2><p>React应用中，任何可变的数据应只有一个唯一数据源，此时state首先添加到需要渲染的组件中。但当多个组件需要共用反映同样的变化数据时，即其他组件也需要这个state时，需要将state提升到这些组件的共同父组件中。通过自顶向下的数据源，更新唯一的数据源state。</p>
-<p>在子组件中使用<code>this.props.xxx</code>代替<code>this.state</code>。在共同父组件中使用<code>state</code>更新子组件中的值。</p>
-<a id="more"></a>
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>React有丰富的组合模式，供组件间的代码重用。</p>
-<h3 id="包含关系"><a href="#包含关系" class="headerlink" title="包含关系"></a>包含关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function FancyBorder(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div className&#x3D;&#123;&#39;FancyBorder FancyBorder-&#39; + props.color&#125;&gt;</span><br><span class="line">      &#123;props.children&#125;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function WelcomeDialog() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;FancyBorder color&#x3D;&quot;blue&quot;&gt;</span><br><span class="line">      &lt;h1 className&#x3D;&quot;Dialog-title&quot;&gt;</span><br><span class="line">        Welcome</span><br><span class="line">      &lt;&#x2F;h1&gt;</span><br><span class="line">      &lt;p className&#x3D;&quot;Dialog-message&quot;&gt;</span><br><span class="line">        Thank you for visiting our spacecraft!</span><br><span class="line">      &lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;FancyBorder&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>WelcomeDialog</code>方法中<code>&lt;FancyBorder&gt;</code>标签内的内容对应<code>FancyBorder</code>函数里的<code>{props.children}</code>，此时<code>props.children</code>中的内容都被渲染到<code>&lt;div&gt;</code>中。</p>
-<p>也可以通过标签属性来自行约定<code>children</code>，将所需的内容传入props。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function Contacts() &#123;</span><br><span class="line">  return &lt;div className&#x3D;&quot;Contacts&quot; &#x2F;&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Chat() &#123;</span><br><span class="line">  return &lt;div className&#x3D;&quot;Chat&quot; &#x2F;&gt;;</span><br><span class="line">&#125;</span><br><span class="line">function SplitPane(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div className&#x3D;&quot;SplitPane&quot;&gt;</span><br><span class="line">      &lt;div className&#x3D;&quot;SplitPane-left&quot;&gt;</span><br><span class="line">        &#123;props.left&#125;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;div className&#x3D;&quot;SplitPane-right&quot;&gt;</span><br><span class="line">        &#123;props.right&#125;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function App() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;SplitPane</span><br><span class="line">      left&#x3D;&#123;</span><br><span class="line">        &lt;Contacts &#x2F;&gt;</span><br><span class="line">      &#125;</span><br><span class="line">      right&#x3D;&#123;</span><br><span class="line">        &lt;Chat &#x2F;&gt;</span><br><span class="line">      &#125; &#x2F;&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>获得一张组件设计图和后台返回的JSON数据。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge0bqnovjoj30f60g00uz.jpg" alt="设计图"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;category: &quot;Sporting Goods&quot;, price: &quot;$49.99&quot;, stocked: true, name: &quot;Football&quot;&#125;,</span><br><span class="line">  &#123;category: &quot;Sporting Goods&quot;, price: &quot;$9.99&quot;, stocked: true, name: &quot;Baseball&quot;&#125;,</span><br><span class="line">  &#123;category: &quot;Sporting Goods&quot;, price: &quot;$29.99&quot;, stocked: false, name: &quot;Basketball&quot;&#125;,</span><br><span class="line">  &#123;category: &quot;Electronics&quot;, price: &quot;$99.99&quot;, stocked: true, name: &quot;iPod Touch&quot;&#125;,</span><br><span class="line">  &#123;category: &quot;Electronics&quot;, price: &quot;$399.99&quot;, stocked: false, name: &quot;iPhone 5&quot;&#125;,</span><br><span class="line">  &#123;category: &quot;Electronics&quot;, price: &quot;$199.99&quot;, stocked: true, name: &quot;Nexus 7&quot;&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
 
-<p>上例中<code>&lt;Contacts /&gt;</code>和<code>&lt;Chat /&gt;</code>本质即为对象，故可以当作props来传递。</p>
-<h3 id="特例关系"><a href="#特例关系" class="headerlink" title="特例关系"></a>特例关系</h3><p>有些组件可看作其他组件的特殊实例。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function Dialog(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;FancyBorder color&#x3D;&quot;blue&quot;&gt;</span><br><span class="line">      &lt;h1 className&#x3D;&quot;Dialog-title&quot;&gt;</span><br><span class="line">        &#123;props.title&#125;</span><br><span class="line">      &lt;&#x2F;h1&gt;</span><br><span class="line">      &lt;p className&#x3D;&quot;Dialog-message&quot;&gt;</span><br><span class="line">        &#123;props.message&#125;</span><br><span class="line">      &lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;FancyBorder&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function WelcomeDialog() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Dialog</span><br><span class="line">      title&#x3D;&quot;Welcome&quot;</span><br><span class="line">      message&#x3D;&quot;Thank you for visiting our spacecraft!&quot; &#x2F;&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="划分组件层级"><a href="#划分组件层级" class="headerlink" title="划分组件层级"></a>划分组件层级</h2><p>按照给定的组件设计图，划分组件层级。</p>
+<p>将组件看作函数或对象来考虑，根据单一功能原则判定组件范围，即一个组件只负责一个功能。若负责多个功能则考虑将其拆分。</p>
+<p>按给定的JSON数据模型设计UI（组件结构），使两者一一对应。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ge0byibhvyj30es0g876c.jpg" alt="划分组件"></p>
+<p>如上图，可将整个设计图层级分为5部分：</p>
+<ol>
+<li>红色区域（FilterProductTable）：整个组件应用整体</li>
+<li>绿色区域（SearchBar）：获取用户输入部分</li>
+<li>蓝色部分（ProductTable）：整个数据展示部分</li>
+<li>粉色部分（ProductCategoryRow）：数据展示部分的产品分类标题部分</li>
+<li>橘色部分（ProductRow）：数据展示部分的分类下每个产品的部分。</li>
+</ol>
+<p>层级关系可表示为：</p>
+<ul>
+<li>FilterProductTable<ul>
+<li>SearchBar</li>
+<li>ProductTable<ul>
+<li>ProductCategoryRow</li>
+<li>ProductRow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="根据层级关系编写应用的静态版本"><a href="#根据层级关系编写应用的静态版本" class="headerlink" title="根据层级关系编写应用的静态版本"></a>根据层级关系编写应用的静态版本</h2><p>应用静态版本即使用已有的数据模型渲染一个不包含交互的UI。</p>
+<p>静态版本不需要考虑交互细节，而添加交互功能需要考虑大量的细节。故在实际应用中分开进行更合适。构建静态版本只需要通过props传入所需的数据，props是父组件向子组件传递数据的方式。此时不需要考虑state，因为state代表会随时间变化的数据，应只在交互时使用。</p>
+<p>编写静态版本有两种方式：自上而下和自下而上。</p>
+<ol>
+<li>自上而下：先构建层级较高的组件，再自上而下分步细化组件。适用于构建简单的应用。</li>
+<li>自下而上：先构建最基本的组件，再一层一层向上构建。适用于构建大型的项目。</li>
+</ol>
+<p>静态版本的组件提供<code>render()</code>方法用于渲染数据模型。故当数据模型改变，则调用<code>ReactDOM.render()</code>重新渲染，UI相应更新，即React的单向数据流思想。</p>
+<p>相应代码见<a href="https://react.docschina.org/docs/thinking-in-react.html" target="_blank" rel="noopener">React官方文档</a></p>
+<h2 id="确定state变量"><a href="#确定state变量" class="headerlink" title="确定state变量"></a>确定state变量</h2><blockquote>
+<p>全称:Don’t Repeat Yourself (摘自wikipedia),是指编程过程中不写重复代码,将能够公共的部分抽象出来,封装成工具类或者用“abstraction”类来抽象公有的东西,降低代码的耦合性,</p>
+</blockquote>
+<p>按照DRY原则，只保留应用所需的<code>state</code>的最小集合，其他数据由此<code>state</code>计算得出。</p>
+<p>确定<code>state</code>需考虑以下问题：</p>
+<ol>
+<li>该数据是否由父组件通过<code>props</code>传递而来，若是，则不是<code>state</code></li>
+<li>该数据是否变化？若保持不变，则不是<code>state</code></li>
+<li>该数据是否能根据其他数据计算而来，若是，则不是<code>state</code>。</li>
+</ol>
+<p>由上文可得，产品的所有信息都可由父组件<code>FilterProductTable</code>传递而来，故不是<code>state</code>。<code>SearchBar</code>中的搜索字段和checkbox选中值需要由用户交互而变化，且无法由其他数据计算而来，故应该为<code>state</code></p>
+<h2 id="确定state位置"><a href="#确定state位置" class="headerlink" title="确定state位置"></a>确定state位置</h2><p>由于React的数据是单向流动，且按组件层级自上而下传递，故<code>state</code>所属的组件很难确定。</p>
+<p>判断时，依照如下步骤考虑：</p>
+<ol>
+<li>查看根据此<code>state</code>渲染的所有组件</li>
+<li>找到这些组件的共同所有者组件，即层级高于这些组件的组件</li>
+<li>该共同所有者组件或比他层级更高的组件应该拥有此<code>state</code></li>
+<li>若无法找到合适的位置存放<code>state</code>，则可以创建一个新的组件来存放<code>state</code>。</li>
+</ol>
+<p>根据上述步骤，可发现：</p>
+<ol>
+<li><code>SearchBar</code>和<code>ProductTable</code>都需要此state。<code>SearchBar</code>需要state展示搜索框和checkbox的状态。<code>ProductTable</code>需要根据state筛选产品列表。</li>
+<li><code>SearchBar</code>和<code>ProductTable</code>的共同所有者是<code>FilterProductTable</code></li>
+<li>因此state应存放在<code>FilterProductTable</code>中。</li>
+</ol>
+<p>首先，将实例属性<code>this.state = {filterText: &#39;&#39;, inStockOnly: false}</code>添加到<code>FilterableProductTable</code>的 <code>constructor</code>中，设置应用的初始 <code>state</code>；接着，将<code>filterText</code>和<code>inStockOnly</code>作为<code>props</code>传入 <code>ProductTable</code>和<code>SearchBar</code>；最后，用这些<code>props</code>筛选<code>ProductTable</code>中的产品信息，并设置<code>SearchBar</code>的表单值。</p>
+<p>相应代码见<a href="https://react.docschina.org/docs/thinking-in-react.html" target="_blank" rel="noopener">React官方文档</a></p>
+<h2 id="添加state的数据流控制"><a href="#添加state的数据流控制" class="headerlink" title="添加state的数据流控制"></a>添加state的数据流控制</h2><p>之前步骤通过props和state自上而下传递了需要的数据。现在控制处于较低层级的表单组件更新较高组件中的state，以达到完成交互。</p>
+<p>要实现的功能是：<br>用户改变表单的值-&gt;改变state反映用户输入。</p>
+<p>state只能由拥有它的组件进行更改，故需要设置一个能触发state改变的回调函数传递给SearchBar。思路为：</p>
+<ol>
+<li>使用输入框的onChange事件监视用户输入</li>
+<li>当用户改变表单的值，触发onChange事件，调用表单组件的handle方法。</li>
+<li>表单组件的handle方法调用父组件FilterProductTable的onFilterTextChange事件</li>
+<li>FilterProductTable的handleFilterTextChange方法使用setState改变state的值，更新应用</li>
+</ol>
+<p>所有代码见<a href="https://react.docschina.org/docs/thinking-in-react.html" target="_blank" rel="noopener">React官方文档</a></p>
+
       
       <!-- reward -->
       
@@ -205,7 +267,7 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -223,19 +285,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            React(5)-构建React应用的一般步骤
-          
-        </div>
-      </a>
     
-    
-      <a href="/React-3-%E5%88%97%E8%A1%A8%E5%8F%8A%E7%AE%80%E5%8D%95%E8%A1%A8%E5%8D%95.html" class="article-nav-link">
+      <a href="/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">React(3)-列表及简单表单</div>
+        <div class="article-nav-title">React(4)-状态提升及组合</div>
       </a>
     
   </nav>

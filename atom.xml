@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2020-04-19T13:36:06.225Z</updated>
+  <updated>2020-04-20T13:02:25.608Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>React(5)-构建React应用的一般步骤</title>
+    <link href="https://awesolynn.me/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html"/>
+    <id>https://awesolynn.me/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html</id>
+    <published>2020-03-23T12:42:54.000Z</published>
+    <updated>2020-04-20T13:02:25.608Z</updated>
+    
+    <summary type="html">
+    
+      构建React应用的一般步骤
+    
+    </summary>
+    
+    
+      <category term="React" scheme="https://awesolynn.me/categories/React/"/>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
+    
+      <category term="React" scheme="https://awesolynn.me/tags/React/"/>
+    
+      <category term="SPA" scheme="https://awesolynn.me/tags/SPA/"/>
+    
+  </entry>
   
   <entry>
     <title>React(4)-状态提升及组合</title>
@@ -522,29 +547,6 @@
       <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
     
       <category term="Grid Puzzle" scheme="https://awesolynn.me/tags/Grid-Puzzle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo建站指南</title>
-    <link href="https://awesolynn.me/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"/>
-    <id>https://awesolynn.me/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html</id>
-    <published>2020-02-19T15:55:24.000Z</published>
-    <updated>2020-04-01T08:40:05.399Z</updated>
-    
-    <summary type="html">
-    
-      Hexo建站指南
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="https://awesolynn.me/categories/hexo/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="hexo" scheme="https://awesolynn.me/tags/hexo/"/>
     
   </entry>
   
