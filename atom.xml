@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2020-04-20T13:02:25.608Z</updated>
+  <updated>2020-10-23T07:28:53.187Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSS设置div垂直横向居中</title>
+    <link href="https://awesolynn.me/CSS%E8%AE%BE%E7%BD%AEdiv%E5%9E%82%E7%9B%B4%E6%A8%AA%E5%90%91%E5%B1%85%E4%B8%AD.html"/>
+    <id>https://awesolynn.me/CSS%E8%AE%BE%E7%BD%AEdiv%E5%9E%82%E7%9B%B4%E6%A8%AA%E5%90%91%E5%B1%85%E4%B8%AD.html</id>
+    <published>2020-09-23T07:17:54.000Z</published>
+    <updated>2020-10-23T07:28:53.187Z</updated>
+    
+    <summary type="html">
+    
+      CSS设置div横竖向均居中
+    
+    </summary>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/categories/CSS/"/>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+  </entry>
   
   <entry>
     <title>React(5)-构建React应用的一般步骤</title>
@@ -518,35 +541,6 @@
       <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
     
       <category term="server" scheme="https://awesolynn.me/tags/server/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>纯HTML/CSS/JS实现九宫格拼图游戏</title>
-    <link href="https://awesolynn.me/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"/>
-    <id>https://awesolynn.me/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html</id>
-    <published>2020-02-20T17:14:50.000Z</published>
-    <updated>2020-04-01T08:41:48.327Z</updated>
-    
-    <summary type="html">
-    
-      纯HTML/CSS/JS实现九宫格拼图游戏
-    
-    </summary>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
-    
-      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
-    
-      <category term="Grid Puzzle" scheme="https://awesolynn.me/tags/Grid-Puzzle/"/>
     
   </entry>
   
