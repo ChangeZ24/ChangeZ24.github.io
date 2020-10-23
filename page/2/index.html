@@ -91,468 +91,6 @@ var _hmt = _hmt || [];
     
     
     
-    <article id="post-MongoDB安装手册" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html"
-    >MongoDB安装手册</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html" class="article-date">
-  <time datetime="2020-03-08T08:32:19.000Z" itemprop="datePublished">2020-03-08</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MongoDB/">MongoDB</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>在学习Node.js的过程中需要使用Mongoose，故安装MongeDB进行使用。但过程中踩了不少坑。以下安装步骤是多次踩坑后可以正常运行的版本。</p>
-<p>安装环境：Mac OS 10.15.3</p>
-<h2 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h2><h3 id="方法1-使用官网安装包"><a href="#方法1-使用官网安装包" class="headerlink" title="方法1:使用官网安装包"></a>方法1:使用官网安装包</h3><p><a href="https://www.mongodb.com/download-center/community" target="_blank" rel="noopener">官网安装包下载链接</a></p>
-      
-      <a class="article-more-link" href="/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Gist网站实现-4-设计实现我的代码页面" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html"
-    >Gist网站实现(4)-我的代码页面输入合法性检测</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html" class="article-date">
-  <time datetime="2020-03-01T10:59:48.000Z" itemprop="datePublished">2020-03-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Express/">Express</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="添加表单提供提交代码片段功能"><a href="#添加表单提供提交代码片段功能" class="headerlink" title="添加表单提供提交代码片段功能"></a>添加表单提供提交代码片段功能</h2><h3 id="设计表单"><a href="#设计表单" class="headerlink" title="设计表单"></a>设计表单</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;save&quot;, method&#x3D;&quot;post&quot;)</span><br><span class="line">        div</span><br><span class="line">            input(name&#x3D;&quot;name&quot;)</span><br><span class="line">            select(name&#x3D;&quot;type&quot;)</span><br><span class="line">                option(value&#x3D;&quot;C&quot;) C</span><br><span class="line">                option(value&#x3D;&quot;C++&quot;) C++</span><br><span class="line">                option(value&#x3D;&quot;C#&quot;) C#</span><br><span class="line">                option(value&#x3D;&quot;Java&quot;) Java</span><br><span class="line">                option(value&#x3D;&quot;JavaScript&quot;) JavaScript</span><br><span class="line">                option(value&#x3D;&quot;php&quot;) PHP</span><br><span class="line">                option(value&#x3D;&quot;Python&quot;) Python</span><br><span class="line">        div</span><br><span class="line">            textarea(name&#x3D;&quot;code&quot;,cols&#x3D;&quot;30&quot;,row&#x3D;&quot;10&quot;)</span><br><span class="line">        div</span><br><span class="line">            button(type&#x3D;&quot;submit&quot;) 保存</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Gist网站实现-3-创建导航优化页面跳转" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html"
-    >Gist网站实现(3)-创建导航优化页面跳转</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html" class="article-date">
-  <time datetime="2020-03-01T05:58:40.000Z" itemprop="datePublished">2020-03-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Express/">Express</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="创建导航优化页面跳转"><a href="#创建导航优化页面跳转" class="headerlink" title="创建导航优化页面跳转"></a>创建导航优化页面跳转</h2><h3 id="创建导航"><a href="#创建导航" class="headerlink" title="创建导航"></a>创建导航</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title&#x3D; title</span><br><span class="line">    link(rel&#x3D;&#39;stylesheet&#39;, href&#x3D;&#39;&#x2F;stylesheets&#x2F;style.css&#39;)</span><br><span class="line">  body</span><br><span class="line">    div.menu</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;&quot;) 首页</span><br><span class="line">      -if(user &amp;&amp; user.login)</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;gists&#x2F;main&quot;) 我的代码</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;logout&quot;) 退出登陆#&#123;user.login&#125;</span><br><span class="line">      -else</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;login&quot;) 登陆</span><br><span class="line">    block content</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Gist网站实现-2-通过会话和session绑定登陆状态及登入登出跳转" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html"
-    >Gist网站实现(2)-通过会话和session绑定登陆状态及登入登出跳转</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html" class="article-date">
-  <time datetime="2020-03-01T02:28:30.000Z" itemprop="datePublished">2020-03-01</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Express/">Express</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="使用会话和-session-保存登陆状态"><a href="#使用会话和-session-保存登陆状态" class="headerlink" title="使用会话和 session 保存登陆状态"></a>使用会话和 session 保存登陆状态</h2><h3 id="安装包-express-session、session-file-store"><a href="#安装包-express-session、session-file-store" class="headerlink" title="安装包 express-session、session-file-store"></a>安装包 express-session、session-file-store</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add express-session session-file-store</span><br></pre></td></tr></table></figure>
-
-<h3 id="导入安装的模块"><a href="#导入安装的模块" class="headerlink" title="导入安装的模块"></a>导入安装的模块</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;导入session模块，需要cookie后，session需要依赖cookie</span><br><span class="line">var session &#x3D; require(&quot;express-session&quot;);</span><br><span class="line">var FileStore &#x3D; require(&quot;session-file-store&quot;)(session);</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Gist网站实现-1-通过第三方登陆GitHub" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html"
-    >Gist网站实现(1)-通过第三方登陆GitHub</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html" class="article-date">
-  <time datetime="2020-02-29T06:54:54.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Express/">Express</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="安装-Express"><a href="#安装-Express" class="headerlink" title="安装 Express"></a>安装 Express</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g express-generator</span><br></pre></td></tr></table></figure>
-
-<h3 id="新建-Express-项目初始化"><a href="#新建-Express-项目初始化" class="headerlink" title="新建 Express 项目初始化"></a>新建 Express 项目初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx express-generator --view&#x3D;pug nodegist</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Node-js-5-Express" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Node-js-5-Express.html"
-    >Node.js(5)-Express基础</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Node-js-5-Express.html" class="article-date">
-  <time datetime="2020-02-26T14:13:57.000Z" itemprop="datePublished">2020-02-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Express 是一个简洁灵活的 Node.js Web 应用框架，其特点为：</p>
-<ul>
-<li><p>可以设置中间件来响应 HTTP 请求</p>
-</li>
-<li><p>定义了路由表用于执行不同的 HTTP 请求动作</p>
-</li>
-<li><p>可以通过向模板传递参数来动态渲染 HTML 页面</p>
-      
-      <a class="article-more-link" href="/Node-js-5-Express.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
     <article id="post-Node-js-4-模块及文件系统" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -866,13 +404,328 @@ var _hmt = _hmt || [];
 
 </article>
     
+    <article id="post-纯HTML-CSS-JS实现九宫格拼图游戏" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"
+    >纯HTML/CSS/JS实现九宫格拼图游戏</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html" class="article-date">
+  <time datetime="2020-02-20T17:14:50.000Z" itemprop="datePublished">2020-02-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://i.loli.net/2020/02/21/MBsWOjbg8ED7wLd.gif" alt="showall.gif"></p>
+<p>github地址：<a href="https://github.com/ChangeZ24/game-gridpuzzle" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-gridpuzzle</a></p>
+<p>在线试玩地址： <a href="http://awesolynn.me/game-gridpuzzle/gridpuzzle.html">http://awesolynn.me/game-gridpuzzle/gridpuzzle.html</a></p>
+      
+      <a class="article-more-link" href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Grid-Puzzle/" rel="tag">Grid Puzzle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Hexo建站指南" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"
+    >Hexo建站指南</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html" class="article-date">
+  <time datetime="2020-02-19T15:55:24.000Z" itemprop="datePublished">2020-02-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="下载安装必要工具"><a href="#下载安装必要工具" class="headerlink" title="下载安装必要工具"></a>下载安装必要工具</h2><h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><blockquote>
+<p>搭建网站需要进行版本管理，故下载 git 进行使用。</p>
+</blockquote>
+<blockquote>
+<p>下载网址： <a href="https://www.git-scm.com/download" target="_blank" rel="noopener">https://www.git-scm.com/download</a></p>
+</blockquote>
+<blockquote>
+<p>使用说明可参考 git 官方文档：<a href="https://www.git-scm.com/doc" target="_blank" rel="noopener">https://www.git-scm.com/doc</a></p>
+</blockquote>
+<ul>
+<li>安装时，一键 next 即可
+      
+      <a class="article-more-link" href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-纯HTML-CSS-JavaScript实现扫雷游戏" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html"
+    >纯HTML/CSS/JS实现扫雷游戏</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html" class="article-date">
+  <time datetime="2020-02-16T13:01:24.000Z" itemprop="datePublished">2020-02-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="使用语言"><a href="#使用语言" class="headerlink" title="使用语言"></a>使用语言</h2><p>  该半个月在<a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noopener">MDN Web Docs</a>网站学习网页开发，在学完 HTML、CSS、JavaScript 相关内容以后，决定用项目练练手。在<a href="https://www.shiyanlou.com/courses/?tag=%E5%85%A8%E9%83%A8&fee=all&sort=default&category=Web%20%E5%89%8D%E7%AB%AF&page=2" target="_blank" rel="noopener">实验楼 Web 开发</a>找到仅有的几个纯 HTML + CSS + JavaScript 项目作为练习。</p>
+<p>  此项目即为纯Html + CSS + JavaScript的网页版扫雷游戏实现。</p>
+<p>  github地址: <a href="https://github.com/ChangeZ24/game-minesweeper" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-minesweeper</a></p>
+<p>  在线试玩页面：<a href="http://awesolynn.me/game-minesweeper/">http://awesolynn.me/game-minesweeper/</a></p>
+      
+      <a class="article-more-link" href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MineSweeper/" rel="tag">MineSweeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Web学习-1-网络基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html"
+    >Web学习(1)--网络基础</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html" class="article-date">
+  <time datetime="2020-02-05T06:03:03.000Z" itemprop="datePublished">2020-02-05</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="学习内容"><a href="#学习内容" class="headerlink" title="学习内容"></a>学习内容</h2><p>  Web开发与网络息息相关，故首先从打好网络基础入手：<br>
+      
+      <a class="article-more-link" href="/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
   </nav>
   
 </section>

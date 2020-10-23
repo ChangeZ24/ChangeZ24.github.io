@@ -211,68 +211,6 @@
   </entry>
   
   <entry>
-    <title>Gist网站实现(6)-使用BootStrap优化网站样式</title>
-    <link href="https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-6-%E4%BD%BF%E7%94%A8BootStrap%E4%BC%98%E5%8C%96%E7%BD%91%E7%AB%99%E6%A0%B7%E5%BC%8F.html"/>
-    <id>https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-6-%E4%BD%BF%E7%94%A8BootStrap%E4%BC%98%E5%8C%96%E7%BD%91%E7%AB%99%E6%A0%B7%E5%BC%8F.html</id>
-    <published>2020-03-10T13:03:35.000Z</published>
-    <updated>2020-04-02T15:55:49.722Z</updated>
-    
-    <summary type="html">
-    
-      Gist网站实现(6)-使用BootStrap优化网站样式
-    
-    </summary>
-    
-    
-      <category term="Express" scheme="https://awesolynn.me/categories/Express/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="gist" scheme="https://awesolynn.me/tags/gist/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-      <category term="BootStrap" scheme="https://awesolynn.me/tags/BootStrap/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gist网站实现(5)-使用Mongoose数据库实现简单的增删改查</title>
-    <link href="https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-5-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5.html"/>
-    <id>https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-5-%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5.html</id>
-    <published>2020-03-09T07:02:45.000Z</published>
-    <updated>2020-04-02T15:11:53.241Z</updated>
-    
-    <summary type="html">
-    
-      使用Mongoose数据库实现简单的增删改查
-    
-    </summary>
-    
-    
-      <category term="Express" scheme="https://awesolynn.me/categories/Express/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="gist" scheme="https://awesolynn.me/tags/gist/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-      <category term="Mongoose" scheme="https://awesolynn.me/tags/Mongoose/"/>
-    
-  </entry>
-  
-  <entry>
     <title>MongoDB安装手册</title>
     <link href="https://awesolynn.me/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html"/>
     <id>https://awesolynn.me/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html</id>
@@ -289,129 +227,11 @@
       <category term="MongoDB" scheme="https://awesolynn.me/categories/MongoDB/"/>
     
     
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
       <category term="Web" scheme="https://awesolynn.me/tags/Web/"/>
     
       <category term="MongoDB" scheme="https://awesolynn.me/tags/MongoDB/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Gist网站实现(4)-我的代码页面输入合法性检测</title>
-    <link href="https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html"/>
-    <id>https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-4-%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0%E6%88%91%E7%9A%84%E4%BB%A3%E7%A0%81%E9%A1%B5%E9%9D%A2.html</id>
-    <published>2020-03-01T10:59:48.000Z</published>
-    <updated>2020-04-01T08:38:57.410Z</updated>
-    
-    <summary type="html">
-    
-      Gist网站实现(4)-我的代码页面输入合法性检测
-    
-    </summary>
-    
-    
-      <category term="Express" scheme="https://awesolynn.me/categories/Express/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
       <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="gist" scheme="https://awesolynn.me/tags/gist/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gist网站实现(3)-创建导航优化页面跳转</title>
-    <link href="https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html"/>
-    <id>https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-3-%E5%88%9B%E5%BB%BA%E5%AF%BC%E8%88%AA%E4%BC%98%E5%8C%96%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC.html</id>
-    <published>2020-03-01T05:58:40.000Z</published>
-    <updated>2020-03-22T09:13:29.315Z</updated>
-    
-    <summary type="html">
-    
-      Gist网站实现(3)-创建导航优化页面跳转
-    
-    </summary>
-    
-    
-      <category term="Express" scheme="https://awesolynn.me/categories/Express/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="gist" scheme="https://awesolynn.me/tags/gist/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gist网站实现(2)-通过会话和session绑定登陆状态及登入登出跳转</title>
-    <link href="https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html"/>
-    <id>https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-2-%E9%80%9A%E8%BF%87%E4%BC%9A%E8%AF%9D%E5%92%8Csession%E7%BB%91%E5%AE%9A%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E5%8F%8A%E7%99%BB%E5%85%A5%E7%99%BB%E5%87%BA%E8%B7%B3%E8%BD%AC.html</id>
-    <published>2020-03-01T02:28:30.000Z</published>
-    <updated>2020-04-01T08:38:26.388Z</updated>
-    
-    <summary type="html">
-    
-      Gist网站实现(2)-创建导航优化页面跳转
-    
-    </summary>
-    
-    
-      <category term="Express" scheme="https://awesolynn.me/categories/Express/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="gist" scheme="https://awesolynn.me/tags/gist/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gist网站实现(1)-通过第三方登陆GitHub</title>
-    <link href="https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html"/>
-    <id>https://awesolynn.me/Gist%E7%BD%91%E7%AB%99%E5%AE%9E%E7%8E%B0-1-%E9%80%9A%E8%BF%87%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E9%99%86GitHub.html</id>
-    <published>2020-02-29T06:54:54.000Z</published>
-    <updated>2020-03-22T08:21:04.721Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;安装-Express&quot;&gt;&lt;a href=&quot;#安装-Express&quot; class=&quot;headerlink&quot; title=&quot;安装 Express&quot;&gt;&lt;/a&gt;安装 Express&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install -g express-generator&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;新建-Express-项目初始化&quot;&gt;&lt;a href=&quot;#新建-Express-项目初始化&quot; class=&quot;headerlink&quot; title=&quot;新建 Express 项目初始化&quot;&gt;&lt;/a&gt;新建 Express 项目初始化&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npx express-generator --view&amp;#x3D;pug nodegist&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-      <category term="Express" scheme="https://awesolynn.me/categories/Express/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="gist" scheme="https://awesolynn.me/tags/gist/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
     
   </entry>
   
@@ -436,9 +256,9 @@
     
       <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
     
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
-    
       <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
     
   </entry>
   
@@ -538,9 +358,113 @@
     
       <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
     
+      <category term="server" scheme="https://awesolynn.me/tags/server/"/>
+    
       <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
     
-      <category term="server" scheme="https://awesolynn.me/tags/server/"/>
+  </entry>
+  
+  <entry>
+    <title>纯HTML/CSS/JS实现九宫格拼图游戏</title>
+    <link href="https://awesolynn.me/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"/>
+    <id>https://awesolynn.me/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html</id>
+    <published>2020-02-20T17:14:50.000Z</published>
+    <updated>2020-04-01T08:41:48.327Z</updated>
+    
+    <summary type="html">
+    
+      纯HTML/CSS/JS实现九宫格拼图游戏
+    
+    </summary>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="Grid Puzzle" scheme="https://awesolynn.me/tags/Grid-Puzzle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo建站指南</title>
+    <link href="https://awesolynn.me/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"/>
+    <id>https://awesolynn.me/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html</id>
+    <published>2020-02-19T15:55:24.000Z</published>
+    <updated>2020-04-01T08:40:05.399Z</updated>
+    
+    <summary type="html">
+    
+      Hexo建站指南
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://awesolynn.me/categories/hexo/"/>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
+    
+      <category term="hexo" scheme="https://awesolynn.me/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>纯HTML/CSS/JS实现扫雷游戏</title>
+    <link href="https://awesolynn.me/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html"/>
+    <id>https://awesolynn.me/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html</id>
+    <published>2020-02-16T13:01:24.000Z</published>
+    <updated>2020-04-01T08:41:03.742Z</updated>
+    
+    <summary type="html">
+    
+      纯HTML+CSS+JS实现扫雷游戏
+    
+    </summary>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="MineSweeper" scheme="https://awesolynn.me/tags/MineSweeper/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Web学习(1)--网络基础</title>
+    <link href="https://awesolynn.me/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html"/>
+    <id>https://awesolynn.me/Web%E5%AD%A6%E4%B9%A0-1-%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80.html</id>
+    <published>2020-02-05T06:03:03.000Z</published>
+    <updated>2020-02-19T14:07:24.978Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;学习内容&quot;&gt;&lt;a href=&quot;#学习内容&quot; class=&quot;headerlink&quot; title=&quot;学习内容&quot;&gt;&lt;/a&gt;学习内容&lt;/h2&gt;&lt;p&gt;  Web开发与网络息息相关，故首先从打好网络基础入手：&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
+    
+    
+      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
+    
+      <category term="Internet" scheme="https://awesolynn.me/tags/Internet/"/>
     
   </entry>
   
