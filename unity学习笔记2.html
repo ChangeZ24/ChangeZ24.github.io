@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">5分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -141,10 +141,12 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private void OnTriggerEnter2D(Collider2D collision)</span><br><span class="line">    &#123;</span><br><span class="line">        if (collision.tag.Equals(&quot;Cherry&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            cherry++;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (collision.tag.Equals(&quot;Gem&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            gem++;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h4><figure class="highlight plain"><figcaption><span>Trigger```: 触发器 触发后会发生一些改变</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;inspector&#96;&#96;&#96;中&#96;&#96;&#96;Tag&#96;&#96;&#96;、&#96;&#96;&#96;Layer</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><figcaption><span>一个预置，类似于一个模版</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 瓦片地图出现拼接缝隙</span><br><span class="line"></span><br><span class="line">将&#96;&#96;&#96;tilemap&#96;&#96;&#96;的&#96;&#96;&#96;grid&#96;&#96;&#96;中&#96;&#96;&#96;cellsize&#96;&#96;&#96;改为0.99</span><br><span class="line"></span><br><span class="line">### 解决两个collider碰撞摩擦的问题(material材质)</span><br><span class="line">1. 创建&#96;&#96;&#96;physical material 2d</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<h4 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h4><p>is Trigger: 触发器 触发后会发生一些改变</p>
+<p>inspector中: <code>Tag</code>、<code>Layer</code></p>
+<p>Perfabs: 一个预置，类似于一个模版</p>
+<h3 id="瓦片地图出现拼接缝隙"><a href="#瓦片地图出现拼接缝隙" class="headerlink" title="瓦片地图出现拼接缝隙"></a>瓦片地图出现拼接缝隙</h3><p>将<code>tilemap</code>的<code>grid</code>中<code>cellsize</code>改为0.99</p>
+<h3 id="解决两个collider碰撞摩擦的问题-material材质"><a href="#解决两个collider碰撞摩擦的问题-material材质" class="headerlink" title="解决两个collider碰撞摩擦的问题(material材质)"></a>解决两个collider碰撞摩擦的问题(material材质)</h3><ol>
+<li>创建<code>physical material 2d</code></li>
 <li>修改摩擦力<code>friction</code>为0</li>
 <li>将材质放入需要的collider里的material中</li>
 </ol>
