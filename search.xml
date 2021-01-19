@@ -11,6 +11,8 @@
 <li><p><code>protected</code>：成员只能由类或派生类中的代码访问</p>
 </li>
 </ul>
+<a id="more"></a>
+
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
 <li><p><code>static</code>：若使用<code>static</code>关键字，该方法只能通过类访问，不能通过对象实例来访问</p>
 </li>
@@ -46,6 +48,8 @@
 <li><p>Audio Clips：音乐片段</p>
 </li>
 </ul>
+<a id="more"></a>
+
 <h4 id="背景音乐"><a href="#背景音乐" class="headerlink" title="背景音乐"></a>背景音乐</h4><ol>
 <li>下载音乐素材</li>
 <li>在player界面添加<code>Audio Source</code></li>

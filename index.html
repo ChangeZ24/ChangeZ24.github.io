@@ -142,22 +142,9 @@ var _hmt = _hmt || [];
 <li><p><code>protected</code>：成员只能由类或派生类中的代码访问</p>
 </li>
 </ul>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
-<li><p><code>static</code>：若使用<code>static</code>关键字，该方法只能通过类访问，不能通过对象实例来访问</p>
-</li>
-<li><p><code>virtual</code>：方法可以重写</p>
-</li>
-<li><p><code>abstract</code>：方法必须在非抽象的派生类中重写（只用于抽象类）</p>
-</li>
-<li><p><code>override</code>：方法重写了一个基类方法（若方法被重写，必须使用该关键字）</p>
-</li>
-<li><p><code>extern</code>：方法定义放在其他地方</p>
-</li>
-<li><p><code>base</code>：调用重写或隐藏的基类方法，表示包含在派生类中的基类的实现代码</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;基类</span><br><span class="line">public class MyBaseClass&#123;</span><br><span class="line">    &#x2F;&#x2F;若子类可重写此方法，必须使用virtual关键字</span><br><span class="line">    public virtual void DoSomething()&#123;</span><br><span class="line">        &#x2F;&#x2F;方法内容</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;子类</span><br><span class="line">public class MyDerivedClass : MyBaseClass&#123;</span><br><span class="line">    &#x2F;&#x2F;重写基类方法必须使用override关键字</span><br><span class="line">    public override void DoSomething()&#123;</span><br><span class="line">        &#x2F;&#x2F;继承基类方法DoSomething()的已有内容</span><br><span class="line">        base.DoSomething();</span><br><span class="line">        &#x2F;&#x2F;重写方法其他独有功能</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+      
+      <a class="article-more-link" href="/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html">阅读更多...</a>
+      
       
       <!-- reward -->
       
@@ -237,70 +224,9 @@ var _hmt = _hmt || [];
 <li><p>Audio Clips：音乐片段</p>
 </li>
 </ul>
-<h4 id="背景音乐"><a href="#背景音乐" class="headerlink" title="背景音乐"></a>背景音乐</h4><ol>
-<li>下载音乐素材</li>
-<li>在player界面添加<code>Audio Source</code></li>
-<li>将对应bgm拖入<code>Audio Clip</code></li>
-</ol>
-<ul>
-<li>Play On Awake: 游戏一开始就播放</li>
-<li>Loop: 循环播放</li>
-</ul>
-<h4 id="为其他动作添加音效"><a href="#为其他动作添加音效" class="headerlink" title="为其他动作添加音效"></a>为其他动作添加音效</h4><ol>
-<li><p>对象单个动作添音效</p>
-<ul>
-<li>下载音乐素材</li>
-<li>在对象界面添加<code>Audio Source</code></li>
-<li>将对应bgm拖入<code>Audio Clip</code></li>
-<li>在脚本中添加<code>AudioSource</code>对象，并在<code>start()</code>方法使用<code>GetComponent&lt;AudioSource&gt;()</code>创建component</li>
-<li>在合适的位置添加代码<code>audio.Play();</code>方法播放音效 </li>
-</ul>
-</li>
-<li><p>对象多个动作添音效</p>
-<ul>
-<li>下载音乐素材</li>
-<li>在对象界面添加<code>Audio Source</code></li>
-<li>将对应bgm拖入<code>Audio Clip</code></li>
-<li>在脚本中添加多个<code>public</code>的<code>AudioSource</code>对象，在unity界面将不同的音效拖入脚本的不同属性中</li>
-<li>在合适的位置添加代码<code>audio.Play();</code>方法播放音效 </li>
-</ul>
-</li>
-</ol>
-<h3 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h3><ol>
-<li>添加UI中的<code>Panel</code>面板</li>
-<li>选择合适的位置和颜色</li>
-<li>在<code>Panel</code>中添加<code>Text</code>，并添加对应文字和样式</li>
-<li>设置出现对话位置的碰撞体并设置<code>is Trigger</code></li>
-<li>在代码中实现出现对话框的逻辑</li>
-<li>在unity中将对应的对话框拖入<code>script</code>的对应<code>Object</code>中</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public GameObject enterDialog;&#x2F;&#x2F;对话框Object</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;角色碰撞到出现对话的位置，触发函数</span><br><span class="line">public void OnTriggerEnter2D(Collider2D collision)</span><br><span class="line">&#123;</span><br><span class="line">    if (collision.gameObject.tag.Equals(&quot;Player&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        enterDialog.SetActive(true);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;角色离开出现对话的位置，触发函数</span><br><span class="line">public void OnTriggerExit2D(Collider2D collision)</span><br><span class="line">&#123;</span><br><span class="line">    if (collision.gameObject.tag.Equals(&quot;Player&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        enterDialog.SetActive(false);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="场景变换"><a href="#场景变换" class="headerlink" title="场景变换"></a>场景变换</h3><blockquote>
-<p>SceneManagement</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;重新加载scene--死亡后重启</span><br><span class="line">SceneManager.LoadScene(SceneManager.GetActiveScene().name);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;进入下一个场景</span><br><span class="line">&#x2F;&#x2F;使用buildIndex前需要到File-&gt;Build Setting中加入所有场景</span><br><span class="line">SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="增加光源"><a href="#增加光源" class="headerlink" title="增加光源"></a>增加光源</h3><blockquote>
-<p>先让环境暗下来，再让发光的地方发出光源</p>
-</blockquote>
-<ul>
-<li>法线贴图</li>
-</ul>
-<ol>
-<li>给背景添加材质<code>Default_diffuse</code>，使其变暗</li>
-<li>给人物及其他角色添加材质<ul>
-<li>新建材质</li>
-<li>在<code>Shader</code>中选择<code>Sprites/Diffuse</code>，若有法线贴图，则将其添加到<code>Normal Map</code>中</li>
-<li>将材质拖入人物及其他角色的材质栏</li>
-</ul>
-</li>
-<li>添加<code>Point Light</code>，光源是3D的，需要调节z轴的值来调节光线的亮度，并通过调节Range和Intensity改变光的范围和强度</li>
-<li>更改光源位置到需要的地方</li>
-</ol>
-<p>若添加光源有边缘线，可讲cell size改成1、1，若出现锯齿，则在Project Setting中的Quality，将抗锯齿Anti Aliasing设置为Disabled</p>
-
+      
+      <a class="article-more-link" href="/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html">阅读更多...</a>
+      
       
       <!-- reward -->
       
