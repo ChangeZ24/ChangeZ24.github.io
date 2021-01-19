@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2021-01-18T01:39:37.317Z</updated>
+  <updated>2021-01-19T01:32:50.485Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -15,6 +15,71 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Csharp学习笔记2</title>
+    <link href="https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html"/>
+    <id>https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html</id>
+    <published>2021-01-19T01:30:20.000Z</published>
+    <updated>2021-01-19T01:32:50.485Z</updated>
+    
+    <summary type="html">
+    
+      c#学习笔记
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="https://awesolynn.me/categories/C/"/>
+    
+    
+      <category term="unity" scheme="https://awesolynn.me/tags/unity/"/>
+    
+      <category term="C#" scheme="https://awesolynn.me/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>unity学习笔记4</title>
+    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html"/>
+    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html</id>
+    <published>2021-01-19T01:18:44.000Z</published>
+    <updated>2021-01-19T16:40:45.439Z</updated>
+    
+    <summary type="html">
+    
+      unity学习笔记
+    
+    </summary>
+    
+    
+      <category term="unity" scheme="https://awesolynn.me/categories/unity/"/>
+    
+    
+      <category term="unity" scheme="https://awesolynn.me/tags/unity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>unity学习笔记3</title>
+    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03.html"/>
+    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03.html</id>
+    <published>2021-01-18T07:36:15.000Z</published>
+    <updated>2021-01-19T01:19:33.185Z</updated>
+    
+    <summary type="html">
+    
+      unity学习笔记
+    
+    </summary>
+    
+    
+      <category term="unity" scheme="https://awesolynn.me/categories/unity/"/>
+    
+    
+      <category term="unity" scheme="https://awesolynn.me/tags/unity/"/>
+    
+  </entry>
   
   <entry>
     <title>unity学习笔记2</title>
@@ -426,87 +491,6 @@
       <category term="server" scheme="https://awesolynn.me/tags/server/"/>
     
       <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>纯HTML/CSS/JS实现九宫格拼图游戏</title>
-    <link href="https://awesolynn.me/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"/>
-    <id>https://awesolynn.me/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html</id>
-    <published>2020-02-20T17:14:50.000Z</published>
-    <updated>2020-04-01T08:41:48.327Z</updated>
-    
-    <summary type="html">
-    
-      纯HTML/CSS/JS实现九宫格拼图游戏
-    
-    </summary>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
-    
-      <category term="Grid Puzzle" scheme="https://awesolynn.me/tags/Grid-Puzzle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo建站指南</title>
-    <link href="https://awesolynn.me/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"/>
-    <id>https://awesolynn.me/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html</id>
-    <published>2020-02-19T15:55:24.000Z</published>
-    <updated>2020-04-01T08:40:05.399Z</updated>
-    
-    <summary type="html">
-    
-      Hexo建站指南
-    
-    </summary>
-    
-    
-      <category term="hexo" scheme="https://awesolynn.me/categories/hexo/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="hexo" scheme="https://awesolynn.me/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>纯HTML/CSS/JS实现扫雷游戏</title>
-    <link href="https://awesolynn.me/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html"/>
-    <id>https://awesolynn.me/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html</id>
-    <published>2020-02-16T13:01:24.000Z</published>
-    <updated>2020-04-01T08:41:03.742Z</updated>
-    
-    <summary type="html">
-    
-      纯HTML+CSS+JS实现扫雷游戏
-    
-    </summary>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
-    
-      <category term="MineSweeper" scheme="https://awesolynn.me/tags/MineSweeper/"/>
     
   </entry>
   

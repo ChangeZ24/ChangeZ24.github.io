@@ -91,6 +91,249 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-React-2-事件处理及条件渲染" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html"
+    >React(2)-事件处理及条件渲染</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html" class="article-date">
+  <time datetime="2020-03-17T12:34:54.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><blockquote>
+<p>为了与传统HTML区别开，React事件命名采用小驼峰（camelCase）形式。<br>使用JSX语法时需要传入函数作为事件处理函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick&#x3D;&#123;function&#125;&gt;</span><br><span class="line">Function</span><br><span class="line">&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
+<li><p>阻止默认行为必须显式的使用<code>preventDefault</code></p>
+      
+      <a class="article-more-link" href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-React-1-基础知识" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html"
+    >React(1)-基础知识</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="article-date">
+  <time datetime="2020-03-15T14:12:17.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>React是一个声明式，高效且灵活的用于构建用户界面的JavaScript库。使用React可以将一些简短、独立的代码片段组合成复杂的UI界面，这些代码片段称为“组件”。</p>
+<h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JSX是JavaScript的语法拓展，可以生成React“元素”。React认为渲染逻辑与其他UI逻辑内在耦合，故其没有采用将标记和逻辑分离在不同文件的方式，而是将他们共同存入“组件”的松散耦合单元中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;JSX语法</span><br><span class="line">&lt;div &#x2F;&gt;</span><br><span class="line">&#x2F;&#x2F;等同于</span><br><span class="line">React.createElement(&#39;div&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>在JSX中可以任意使用JavaScript表达式，只需要用大括号<code>{}</code>括起来。</p>
+      
+      <a class="article-more-link" href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-前后端分离与SPA的理解" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%8ESPA%E7%9A%84%E7%90%86%E8%A7%A3.html"
+    >前后端分离与SPA的理解</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%8ESPA%E7%9A%84%E7%90%86%E8%A7%A3.html" class="article-date">
+  <time datetime="2020-03-13T13:57:28.000Z" itemprop="datePublished">2020-03-13</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web/">web</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h2><h3 id="一些概念理解"><a href="#一些概念理解" class="headerlink" title="一些概念理解"></a>一些概念理解</h3><ul>
+<li>前端：在浏览器端运行的内容为前端。通常是用HTML+CSS+JS来实现的，如APP、小程序、H5等。</li>
+<li>后端：在服务器端运行的内容为后端。如Java、C、Python、PHP等</li>
+<li>静态页面：网页中没有程序代码，仅HTML。一般静态页面一旦生成，内容就不会被改变。</li>
+<li>动态页面：网页文件除了HTML还包括一些程序代码使浏览器可以与服务器交互，随用户交互的不同请求动态的生成网页内容。</li>
+<li>网页的静态化：将动态数据都提前生成为静态的html页面，避免从数据库取数的时间。</li>
+<li>DOM：文档对象模型（Document Object Model），一种将HTML/XML文档组织成对象模型（DOM树）的建模过程。</li>
+<li>虚拟DOM：DOM树结构在内存里的映射</li>
+</ul>
+      
+      <a class="article-more-link" href="/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%8ESPA%E7%9A%84%E7%90%86%E8%A7%A3.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/" rel="tag">前后端分离</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-正则表达式学习笔记" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -627,246 +870,6 @@ var _hmt = _hmt || [];
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/server/" rel="tag">server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-纯HTML-CSS-JS实现九宫格拼图游戏" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"
-    >纯HTML/CSS/JS实现九宫格拼图游戏</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html" class="article-date">
-  <time datetime="2020-02-20T17:14:50.000Z" itemprop="datePublished">2020-02-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://i.loli.net/2020/02/21/MBsWOjbg8ED7wLd.gif" alt="showall.gif"></p>
-<p>github地址：<a href="https://github.com/ChangeZ24/game-gridpuzzle" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-gridpuzzle</a></p>
-<p>在线试玩地址： <a href="http://awesolynn.me/game-gridpuzzle/gridpuzzle.html">http://awesolynn.me/game-gridpuzzle/gridpuzzle.html</a></p>
-      
-      <a class="article-more-link" href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Grid-Puzzle/" rel="tag">Grid Puzzle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Hexo建站指南" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"
-    >Hexo建站指南</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html" class="article-date">
-  <time datetime="2020-02-19T15:55:24.000Z" itemprop="datePublished">2020-02-19</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="下载安装必要工具"><a href="#下载安装必要工具" class="headerlink" title="下载安装必要工具"></a>下载安装必要工具</h2><h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><blockquote>
-<p>搭建网站需要进行版本管理，故下载 git 进行使用。</p>
-</blockquote>
-<blockquote>
-<p>下载网址： <a href="https://www.git-scm.com/download" target="_blank" rel="noopener">https://www.git-scm.com/download</a></p>
-</blockquote>
-<blockquote>
-<p>使用说明可参考 git 官方文档：<a href="https://www.git-scm.com/doc" target="_blank" rel="noopener">https://www.git-scm.com/doc</a></p>
-</blockquote>
-<ul>
-<li>安装时，一键 next 即可
-      
-      <a class="article-more-link" href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-纯HTML-CSS-JavaScript实现扫雷游戏" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html"
-    >纯HTML/CSS/JS实现扫雷游戏</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html" class="article-date">
-  <time datetime="2020-02-16T13:01:24.000Z" itemprop="datePublished">2020-02-16</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="使用语言"><a href="#使用语言" class="headerlink" title="使用语言"></a>使用语言</h2><p>  该半个月在<a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank" rel="noopener">MDN Web Docs</a>网站学习网页开发，在学完 HTML、CSS、JavaScript 相关内容以后，决定用项目练练手。在<a href="https://www.shiyanlou.com/courses/?tag=%E5%85%A8%E9%83%A8&fee=all&sort=default&category=Web%20%E5%89%8D%E7%AB%AF&page=2" target="_blank" rel="noopener">实验楼 Web 开发</a>找到仅有的几个纯 HTML + CSS + JavaScript 项目作为练习。</p>
-<p>  此项目即为纯Html + CSS + JavaScript的网页版扫雷游戏实现。</p>
-<p>  github地址: <a href="https://github.com/ChangeZ24/game-minesweeper" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-minesweeper</a></p>
-<p>  在线试玩页面：<a href="http://awesolynn.me/game-minesweeper/">http://awesolynn.me/game-minesweeper/</a></p>
-      
-      <a class="article-more-link" href="/%E7%BA%AFHTML-CSS-JavaScript%E5%AE%9E%E7%8E%B0%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MineSweeper/" rel="tag">MineSweeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
 
 
     </footer>
