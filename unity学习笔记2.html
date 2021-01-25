@@ -129,7 +129,7 @@ var _hmt = _hmt || [];
       
 
       
-      <h3 id="创建收集内容"><a href="#创建收集内容" class="headerlink" title="创建收集内容"></a>创建收集内容</h3><ol>
+      <h2 id="创建收集内容"><a href="#创建收集内容" class="headerlink" title="创建收集内容"></a>创建收集内容</h2><ol>
 <li>新建收集object</li>
 <li>添加sprite和动画</li>
 <li>移动至合适位置</li>
@@ -141,21 +141,21 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private void OnTriggerEnter2D(Collider2D collision)</span><br><span class="line">    &#123;</span><br><span class="line">        if (collision.tag.Equals(&quot;Cherry&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            cherry++;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (collision.tag.Equals(&quot;Gem&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            gem++;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h4><p>is Trigger: 触发器 触发后会发生一些改变</p>
+<h3 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h3><p>is Trigger: 触发器 触发后会发生一些改变</p>
 <p>inspector中: <code>Tag</code>、<code>Layer</code></p>
 <p>Perfabs: 一个预置，类似于一个模版</p>
-<h3 id="瓦片地图出现拼接缝隙"><a href="#瓦片地图出现拼接缝隙" class="headerlink" title="瓦片地图出现拼接缝隙"></a>瓦片地图出现拼接缝隙</h3><p>将<code>tilemap</code>的<code>grid</code>中<code>cellsize</code>改为0.99</p>
-<h3 id="解决两个collider碰撞摩擦的问题-material材质"><a href="#解决两个collider碰撞摩擦的问题-material材质" class="headerlink" title="解决两个collider碰撞摩擦的问题(material材质)"></a>解决两个collider碰撞摩擦的问题(material材质)</h3><ol>
+<h2 id="瓦片地图出现拼接缝隙"><a href="#瓦片地图出现拼接缝隙" class="headerlink" title="瓦片地图出现拼接缝隙"></a>瓦片地图出现拼接缝隙</h2><p>将<code>tilemap</code>的<code>grid</code>中<code>cellsize</code>改为0.99</p>
+<h2 id="解决两个collider碰撞摩擦的问题-material材质"><a href="#解决两个collider碰撞摩擦的问题-material材质" class="headerlink" title="解决两个collider碰撞摩擦的问题(material材质)"></a>解决两个collider碰撞摩擦的问题(material材质)</h2><ol>
 <li>创建<code>physical material 2d</code></li>
 <li>修改摩擦力<code>friction</code>为0</li>
 <li>将材质放入需要的collider里的material中</li>
 </ol>
-<h3 id="解决角色可多次跳的问题"><a href="#解决角色可多次跳的问题" class="headerlink" title="解决角色可多次跳的问题"></a>解决角色可多次跳的问题</h3><blockquote>
+<h2 id="解决角色可多次跳的问题"><a href="#解决角色可多次跳的问题" class="headerlink" title="解决角色可多次跳的问题"></a>解决角色可多次跳的问题</h2><blockquote>
 <p>设置角色只有触碰地面才可以跳跃，无法在空中跳跃</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public LayerMask ground;&#x2F;&#x2F;图层</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;角色跳跃</span><br><span class="line">if (Input.GetButtonDown(&quot;Jump&quot;) &amp;&amp; coll.IsTouchingLayers(ground))</span><br><span class="line">&#123;</span><br><span class="line">    rb.velocity &#x3D; new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);</span><br><span class="line">    anim.SetBool(&quot;jumping&quot;, true);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="下蹲"><a href="#下蹲" class="headerlink" title="下蹲"></a>下蹲</h3><h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><ol>
+<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><ol>
 <li>新建UI画布<code>canvas</code></li>
 <li>在<code>canvas</code>内添加需要的内容</li>
 <li>需要变化的变量在脚本中实现，unity中新建的UI是什么选项，脚本中就按该关键字获取UI</li>
@@ -163,24 +163,24 @@ var _hmt = _hmt || [];
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine.UI</span><br><span class="line"></span><br><span class="line">public Text CherryNumber;&#x2F;&#x2F;新建Text类</span><br><span class="line"></span><br><span class="line">CherryNumber.text &#x3D; cherry.ToString();&#x2F;&#x2F;将实际cherry值传给unity的Text类中</span><br></pre></td></tr></table></figure>
 
-<h3 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h3><h4 id="创建敌人"><a href="#创建敌人" class="headerlink" title="创建敌人"></a>创建敌人</h4><ol>
+<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="创建敌人"><a href="#创建敌人" class="headerlink" title="创建敌人"></a>创建敌人</h3><ol>
 <li>新建角色sprite</li>
 <li>添加动画</li>
 <li>添加刚体</li>
 <li>添加collider。<code>circle</code>最好，可以保证移动时不翻转</li>
 <li>给敌人加标签，便于编写脚本时获取</li>
 </ol>
-<h4 id="踩敌人消灭"><a href="#踩敌人消灭" class="headerlink" title="踩敌人消灭"></a>踩敌人消灭</h4><blockquote>
+<h3 id="踩敌人消灭"><a href="#踩敌人消灭" class="headerlink" title="踩敌人消灭"></a>踩敌人消灭</h3><blockquote>
 <p>判断角色是下落状态时，碰撞到敌人则destroy敌人</p>
 </blockquote>
-<h4 id="受伤"><a href="#受伤" class="headerlink" title="受伤"></a>受伤</h4><ol>
+<h3 id="受伤"><a href="#受伤" class="headerlink" title="受伤"></a>受伤</h3><ol>
 <li>添加受伤动画</li>
 <li>在<code>Animator</code>添加hurt标志，调整不同状态转换的条件</li>
 <li>编写受伤脚本</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[SerializeField]private bool isHurt;&#x2F;&#x2F;判断是否受伤</span><br><span class="line">&#x2F;&#x2F;受伤动画转换</span><br><span class="line">else if (isHurt)</span><br><span class="line">&#123;</span><br><span class="line">    anim.SetBool(&quot;hurt&quot;, true);</span><br><span class="line">    anim.SetFloat(&quot;running&quot;, 0);&#x2F;&#x2F;保证受伤后处于静止状态而不是跑步状态</span><br><span class="line">    if (Mathf.Abs(rb.velocity.x) &lt; 0.1) &#123;&#x2F;&#x2F;判断角色是否已经反弹结束处于静止状态</span><br><span class="line">        isHurt &#x3D; false;</span><br><span class="line">        anim.SetBool(&quot;hurt&quot;, false);</span><br><span class="line">        anim.SetBool(&quot;idle&quot;, true);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;消灭敌人</span><br><span class="line">private void OnCollisionEnter2D(Collision2D collision)&#x2F;&#x2F;当该刚体碰撞另一个刚体时调用的函数</span><br><span class="line">&#123;</span><br><span class="line">    if (collision.gameObject.tag.Equals(&quot;Enemies&quot;)) &#123; &#x2F;&#x2F;函数代表的是整个碰撞器&#x2F;刚体，故需要.gameObject获其角色类</span><br><span class="line">    	&#x2F;&#x2F;消灭敌人</span><br><span class="line">        if (anim.GetBool(&quot;falling&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">            &#x2F;&#x2F;增加消灭后再次小跳的效果</span><br><span class="line">            rb.velocity &#x3D; new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);</span><br><span class="line">            anim.SetBool(&quot;jumping&quot;, true);</span><br><span class="line">        &#125;else if(transform.position.x &lt; collision.gameObject.transform.position.x)</span><br><span class="line">        &#123;&#x2F;&#x2F;增加受伤反弹的效果</span><br><span class="line">            rb.velocity &#x3D; new Vector2(-5, rb.velocity.y);</span><br><span class="line">            isHurt &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (transform.position.x &gt; collision.gameObject.transform.position.x)</span><br><span class="line">        &#123;</span><br><span class="line">            rb.velocity &#x3D; new Vector2(5, rb.velocity.y);</span><br><span class="line">            isHurt &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="敌人移动AI"><a href="#敌人移动AI" class="headerlink" title="敌人移动AI"></a>敌人移动AI</h4><ol>
+<h3 id="敌人移动AI"><a href="#敌人移动AI" class="headerlink" title="敌人移动AI"></a>敌人移动AI</h3><ol>
 <li>敌人角色下创建两个<code>GameObject</code>表示左右边界，设置移动边界位置（此时角色与边界为父子关系）</li>
 <li>新建敌人脚本</li>
 <li>新建两个<code>Transform</code>类表示左右边界，并在unity中拖入边界Object完成关联</li>
