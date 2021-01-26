@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>unity学习笔记7</title>
+    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>unity学习笔记6</title>
     <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06.html</url>
     <content><![CDATA[<h2 id="2D场景透视效果"><a href="#2D场景透视效果" class="headerlink" title="2D场景透视效果"></a>2D场景透视效果</h2><ol>
@@ -11,7 +16,18 @@
 </li>
 <li>调整景深，即调整不同背景图层<code>Position</code>的<code>z轴</code></li>
 </ol>
-<h2 id="法线贴图"><a href="#法线贴图" class="headerlink" title="法线贴图"></a>法线贴图</h2><h2 id="BlendTree"><a href="#BlendTree" class="headerlink" title="BlendTree"></a>BlendTree</h2>]]></content>
+<a id="more"></a>
+
+<h2 id="解决设置多个电光源但部分光源失效的问题"><a href="#解决设置多个电光源但部分光源失效的问题" class="headerlink" title="解决设置多个电光源但部分光源失效的问题"></a>解决设置多个电光源但部分光源失效的问题</h2><blockquote>
+<p>Unity中Quality Setting的Pixel Light Count的个数过小</p>
+</blockquote>
+<ol>
+<li><p>点击<code>Edit</code>-&gt;<code>Project Setting</code>-&gt;<code>Quality</code>，查看<code>QualitySetting</code></p>
+</li>
+<li><p>在<code>Rendering</code>设置<code>Pixel Light Count</code>，即场景中渲染的点光源个数。</p>
+</li>
+</ol>
+]]></content>
       <categories>
         <category>unity</category>
       </categories>
@@ -28,6 +44,8 @@
 <li>将<code>RigidBody 2D</code>的<code>Body Type</code>设置为<code>static</code>，则其不会因重力而运动，固定在原地</li>
 <li>同时也可以在<code>Inspector</code>的右上角将<code>Static</code>勾选</li>
 </ol>
+<a id="more"></a>
+
 <h2 id="unity在脚本中使用标记字段"><a href="#unity在脚本中使用标记字段" class="headerlink" title="unity在脚本中使用标记字段"></a>unity在脚本中使用标记字段</h2><blockquote>
 <p>在脚本中使用标记字段可以在<code>Inspector</code>中组织属性显示</p>
 </blockquote>
@@ -45,9 +63,54 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[SerializeField]</span><br><span class="line">private float crouchSpeedDivison &#x3D; 3f;</span><br><span class="line"></span><br><span class="line">[Header(&quot;移动速度&quot;)]</span><br><span class="line">public float speed &#x3D; 8f;</span><br><span class="line">[Space(10)]</span><br><span class="line"></span><br><span class="line">[Range(0, 10)]</span><br><span class="line">public float xVelocity;</span><br></pre></td></tr></table></figure>
 <p>使用后：</p>
 <p><img src="https://s3.ax1x.com/2021/01/22/sIMIhR.png" alt="sIMIhR.png"></p>
-<h2 id="射线检测碰撞体（RaycastHit2D）"><a href="#射线检测碰撞体（RaycastHit2D）" class="headerlink" title="射线检测碰撞体（RaycastHit2D）"></a>射线检测碰撞体（RaycastHit2D）</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;画射线</span><br><span class="line">RaycastHit2D leftCheck &#x3D; Physics2D.Raycast(pos + offset, Vector2.down, groundDistance, groundLayer);</span><br><span class="line">&#x2F;&#x2F;显示射线用于debug</span><br><span class="line">Debug.DrawRay(pos + offset, Vector2.down, Color.red, 0.2f);</span><br></pre></td></tr></table></figure>
+<h2 id="射线检测碰撞体-RaycastHit2D"><a href="#射线检测碰撞体-RaycastHit2D" class="headerlink" title="射线检测碰撞体(RaycastHit2D)"></a>射线检测碰撞体(RaycastHit2D)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;画射线</span><br><span class="line">RaycastHit2D leftCheck &#x3D; Physics2D.Raycast(pos + offset, Vector2.down, groundDistance, groundLayer);</span><br><span class="line">&#x2F;&#x2F;显示射线用于debug</span><br><span class="line">Debug.DrawRay(pos + offset, Vector2.down, Color.red, 0.2f);</span><br></pre></td></tr></table></figure>
 
-<p><strong><em>待补充</em></strong></p>
+<h3 id="Physics-Raycast"><a href="#Physics-Raycast" class="headerlink" title="Physics.Raycast"></a>Physics.Raycast</h3><blockquote>
+<p><strong>射线投射(raycast)</strong>：射线投射从原点沿着射线方向发送假想的“激光束”，直至命中场景中的碰撞体，随后返回有关该对象和<code>RaycastHist</code>对象内的投射命中点的信息。</p>
+</blockquote>
+<blockquote>
+<p>向场景中的所有碰撞体投射一条射线，该射线起点为<code>origin</code>，朝向<code>direction</code>，长度为<code>maxDistance</code>。</p>
+</blockquote>
+<blockquote>
+<p>若射线与任何碰撞体相交，返回<code>true</code>否则为<code>false</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static bool Raycast (Vector3 origin, Vector3 direction, float maxDistance&#x3D; Mathf.Infinity, int layerMask&#x3D; DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction&#x3D; QueryTriggerInteraction.UseGlobal);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>origin</td>
+<td>射线在坐标系中的起点</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>射线方向</td>
+</tr>
+<tr>
+<td>maxDistance</td>
+<td>射线检查碰撞的最大距离</td>
+</tr>
+<tr>
+<td>layerMask</td>
+<td>遮罩层，用于投射射线时选择性的忽略碰撞体</td>
+</tr>
+<tr>
+<td>queryTriggerInteraction</td>
+<td>指定该查询是否应该命中触发器</td>
+</tr>
+</tbody></table>
+<p><strong>重写Raycast方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;重构Raycast方法</span><br><span class="line">RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask layer)</span><br><span class="line">&#123;</span><br><span class="line">    Vector2 pos &#x3D; transform.position;</span><br><span class="line">    RaycastHit2D hit &#x3D; Physics2D.Raycast(pos + offset, rayDirection, length, layer);</span><br><span class="line">    Color color &#x3D; hit ? Color.red : Color.green;</span><br><span class="line">    Debug.DrawRay(pos + offset, rayDirection * length,color);</span><br><span class="line">    return hit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 ]]></content>
       <categories>
         <category>unity</category>
