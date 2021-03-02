@@ -207,37 +207,9 @@ var _hmt = _hmt || [];
 <p>法线贴图不是真正的贴图，故不会直接贴到物体的表面，其作用就是记录每个点上法线的方向。</p>
 </blockquote>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>模型面数越高，可以表现的细节越多，效果越好，但面数多了，顶点数便多了，计算量变大了。为了能用尽可能简单的模型来做出更好的效果，最初提出纹理映射，但它只影响像素阶段输出的颜色值，不能让模型有凹凸的细节，故提出法线贴图解决此问题。</p>
-<p>最早在计算时需要逐顶点计算光照，然后每个像素的颜色在各个顶点的颜色之间插值，在此情况下，面数决定一切效果。但在像素着色器出现后，可以通过逐像素来计算光照效果。在计算时，会计算此像素所在面的法向量，此法向量也是由这个面周围的顶点的法线插值得来。当改变法线的方向，则可以改变这个点的光照结果。</p>
-<p>在平面的情况下，感觉物体的凹凸很大一部分取决于面的亮度，有了对比，就容易感觉有凹凸。因此通过改变法线来改变面上点的光照条件进而可以让观察者感觉这个面有凹凸</p>
-<p><a href="https://imgchr.com/i/sXFc0U" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/26/sXFc0U.png" alt="sXFc0U.png"></a></p>
-<h2 id="BlendTree"><a href="#BlendTree" class="headerlink" title="BlendTree"></a>BlendTree</h2><blockquote>
-<p>混合树(Blend Tree)按不同程度组合所有动画的各个部分来平滑混合多个动画。即将多个动画融合在一起按条件触发。</p>
-</blockquote>
-<ol>
-<li><code>Animator</code>选择新建混合树的状态，右键选择<code>Create New Blend Tree in State</code></li>
-</ol>
-<p><a href="https://imgchr.com/i/sXFRk4" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/26/sXFRk4.png" alt="sXFRk4.png"></a></p>
-<ol start="2">
-<li><p>双击<code>Blend Tree</code>打开<code>Inspector</code>在<code>Motion</code>处新建需要混合的多个动画。</p>
-</li>
-<li><p>选择参数<code>Parameter</code>是通过速度<code>Speed</code>计算还是通过垂直加速度<code>verticalVelocity</code>，两个都是<code>Float</code>类型</p>
-</li>
-<li><p>在各个动画的<code>Threshold</code>设置不同的参数值来控制其出现的时间</p>
-</li>
-</ol>
-<p><a href="https://imgchr.com/i/sXFg7F" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/26/sXFg7F.png" alt="sXFg7F.png"></a></p>
-<ol start="5">
-<li>在脚本中为动画参数赋值，即关联实际角色与动画设置的参数。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int fallID;</span><br><span class="line">&#x2F;&#x2F;fallID为Animator状态参数的编号</span><br><span class="line">fallID &#x3D; Animator.StringToHash(&quot;verticalVelocity&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;设置跳跃BlendTree的动画，其float值就是角色刚体y轴跳跃的加速度,</span><br><span class="line">anim.SetFloat(fallID, rb.velocity.y);</span><br></pre></td></tr></table></figure>
-
-<h2 id="解决更换场景也不销毁某对象"><a href="#解决更换场景也不销毁某对象" class="headerlink" title="解决更换场景也不销毁某对象"></a>解决更换场景也不销毁某对象</h2><p>在代码中使用<code>DontDestroyOnLoad(gameObject)</code>方法</p>
-<h2 id="代码中给角色添加特效VFX"><a href="#代码中给角色添加特效VFX" class="headerlink" title="代码中给角色添加特效VFX"></a>代码中给角色添加特效VFX</h2><ol>
-<li>脚本中创建特效变量</li>
-<li>unity中将特效拖入对应变量中</li>
-<li>使用<code>Instantiate(origin,position,rotation)</code>方法替换当前角色的位置为特效动画</li>
-</ol>
-
+      
+      <a class="article-more-link" href="/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07.html">阅读更多...</a>
+      
       
       <!-- reward -->
       
