@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>unity学习笔记8</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B08.html</url>
-    <content><![CDATA[<h2 id="2D光随鼠标移动转变方向"><a href="#2D光随鼠标移动转变方向" class="headerlink" title="2D光随鼠标移动转变方向"></a>2D光随鼠标移动转变方向</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Update () &#123;</span><br><span class="line">&#x2F;&#x2F;获取鼠标的坐标，鼠标是屏幕坐标，Z轴为0，这里不做转换  </span><br><span class="line">Vector3 mouse &#x3D; Input.mousePosition;</span><br><span class="line">&#x2F;&#x2F;获取物体坐标，物体坐标是世界坐标，将其转换成屏幕坐标，和鼠标一直  </span><br><span class="line">Vector3 obj &#x3D; Camera.main.WorldToScreenPoint(transform.position);</span><br><span class="line">&#x2F;&#x2F;屏幕坐标向量相减，得到指向鼠标点的目标向量，即黄色线段  </span><br><span class="line">Vector3 direction &#x3D; mouse - obj;</span><br><span class="line">&#x2F;&#x2F;将Z轴置0,保持在2D平面内  </span><br><span class="line">direction.z &#x3D; 0f;</span><br><span class="line">&#x2F;&#x2F;将目标向量长度变成1，即单位向量，这里的目的是只使用向量的方向，不需要长度，所以变成1  </span><br><span class="line">direction &#x3D; direction.normalized;</span><br><span class="line">&#x2F;&#x2F;物体自身的Y轴和目标向量保持一直，这个过程XY轴都会变化数值  </span><br><span class="line">transform.up &#x3D; direction;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>新坑</title>
+    <url>/%E6%96%B0%E5%9D%91.html</url>
+    <content><![CDATA[<p>最近打算重写个人网站了，想想可以把之前练手的前端设计的个站、gist网站、还有当前的个站整合在一起，还要加一些作品集展示区。<br>本事一般想法挺大。感觉又要重学一遍了。<br>这周末再怎么犹豫也要把离职提了，做点自己喜欢的吧。</p>
+]]></content>
+      <categories>
+        <category>日常</category>
+      </categories>
+      <tags>
+        <tag>咕咕咕</tag>
+      </tags>
   </entry>
   <entry>
-    <title>unity学习笔记7</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07.html</url>
+    <title>unity-2D光随鼠标移动转变方向</title>
+    <url>/unity-2D%E5%85%89%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E8%BD%AC%E5%8F%98%E6%96%B9%E5%90%91.html</url>
+    <content><![CDATA[<h2 id="2D光随鼠标移动转变方向"><a href="#2D光随鼠标移动转变方向" class="headerlink" title="2D光随鼠标移动转变方向"></a>2D光随鼠标移动转变方向</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Update () &#123;</span><br><span class="line">&#x2F;&#x2F;获取鼠标的坐标，鼠标是屏幕坐标，Z轴为0，这里不做转换  </span><br><span class="line">Vector3 mouse &#x3D; Input.mousePosition;</span><br><span class="line">&#x2F;&#x2F;获取物体坐标，物体坐标是世界坐标，将其转换成屏幕坐标，和鼠标一直  </span><br><span class="line">Vector3 obj &#x3D; Camera.main.WorldToScreenPoint(transform.position);</span><br><span class="line">&#x2F;&#x2F;屏幕坐标向量相减，得到指向鼠标点的目标向量，即黄色线段  </span><br><span class="line">Vector3 direction &#x3D; mouse - obj;</span><br><span class="line">&#x2F;&#x2F;将Z轴置0,保持在2D平面内  </span><br><span class="line">direction.z &#x3D; 0f;</span><br><span class="line">&#x2F;&#x2F;将目标向量长度变成1，即单位向量，这里的目的是只使用向量的方向，不需要长度，所以变成1  </span><br><span class="line">direction &#x3D; direction.normalized;</span><br><span class="line">&#x2F;&#x2F;物体自身的Y轴和目标向量保持一直，这个过程XY轴都会变化数值  </span><br><span class="line">transform.up &#x3D; direction;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>unity</category>
+      </categories>
+      <tags>
+        <tag>unity</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>unity-法线贴图&amp;BlendTree&amp;特效VFX</title>
+    <url>/unity-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE&amp;BlendTree&amp;%E7%89%B9%E6%95%88VFX.html</url>
     <content><![CDATA[<h2 id="法线贴图"><a href="#法线贴图" class="headerlink" title="法线贴图"></a>法线贴图</h2><blockquote>
 <p>法线贴图：记录了一个需要进行光影变换的贴图上的各个点的凹凸情况的贴图，显示芯片根据贴图的内容来实时生成新的有光影变换的贴图，从而实现立体效果</p>
 </blockquote>
@@ -56,8 +74,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity学习笔记6</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06.html</url>
+    <title>unity-2D场景透视效果&amp;多个电光源部分光源失效的问题</title>
+    <url>/unity-2D%E5%9C%BA%E6%99%AF%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C&amp;%E5%A4%9A%E4%B8%AA%E7%94%B5%E5%85%89%E6%BA%90%E9%83%A8%E5%88%86%E5%85%89%E6%BA%90%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98.html</url>
     <content><![CDATA[<h2 id="2D场景透视效果"><a href="#2D场景透视效果" class="headerlink" title="2D场景透视效果"></a>2D场景透视效果</h2><ol>
 <li>调整Camera的<code>Projection</code>为<code>Perspective</code><ul>
 <li><code>Perspective</code>接近真实摄像机，在3D视图中表现为以点发散的射线构成的画面<br><img src="https://s3.ax1x.com/2021/01/25/sqIAFs.png" alt="sqIAFs.png"></li>
@@ -86,8 +104,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity学习笔记5</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05.html</url>
+    <title>unity-合并地图碰撞器&amp;标记字段&amp;射线检测碰撞体</title>
+    <url>/unity-%E5%90%88%E5%B9%B6%E5%9C%B0%E5%9B%BE%E7%A2%B0%E6%92%9E%E5%99%A8&amp;%E6%A0%87%E8%AE%B0%E5%AD%97%E6%AE%B5&amp;%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B%E7%A2%B0%E6%92%9E%E4%BD%93.html</url>
     <content><![CDATA[<h2 id="将地图碰撞器合并"><a href="#将地图碰撞器合并" class="headerlink" title="将地图碰撞器合并"></a>将地图碰撞器合并</h2><ol>
 <li>在<code>Tile Collider 2D</code>中勾选<code>Used by Composite</code></li>
 <li>新建一个<code>Composite Collider 2D</code>，同时会自动生成一个刚体<code>RigidBody 2D</code></li>
@@ -170,8 +188,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Csharp学习笔记2</title>
-    <url>/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html</url>
+    <title>Csharp-类&amp;方法</title>
+    <url>/Csharp-%E7%B1%BB&amp;%E6%96%B9%E6%B3%95.html</url>
     <content><![CDATA[<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
 <li><p><code>public</code>：成员可由任何代码访问</p>
 </li>
@@ -207,8 +225,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity学习笔记4</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html</url>
+    <title>unity-音效&amp;UI&amp;场景变换及光源</title>
+    <url>/unity-%E9%9F%B3%E6%95%88&amp;UI&amp;%E5%9C%BA%E6%99%AF%E5%8F%98%E6%8D%A2%E5%8F%8A%E5%85%89%E6%BA%90.html</url>
     <content><![CDATA[<h2 id="音效"><a href="#音效" class="headerlink" title="音效"></a>音效</h2><ul>
 <li><p>Audio Listener：音乐接收</p>
 </li>
@@ -288,8 +306,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity学习笔记3</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03.html</url>
+    <title>unity-调用其他类&amp;敌人death动画</title>
+    <url>/unity-%E8%B0%83%E7%94%A8%E5%85%B6%E4%BB%96%E7%B1%BB&amp;%E6%95%8C%E4%BA%BAdeath%E5%8A%A8%E7%94%BB.html</url>
     <content><![CDATA[<h2 id="调用其他类的方法"><a href="#调用其他类的方法" class="headerlink" title="调用其他类的方法"></a>调用其他类的方法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;调用Enemy_Frog类的方法切换敌人的动画</span><br><span class="line">Enemy_Frog frog &#x3D; collision.gameObject.GetComponent&lt;Enemy_Frog&gt;();</span><br><span class="line">frog.SwitchDeath();</span><br></pre></td></tr></table></figure>
 
 <a id="more"></a>
@@ -309,8 +327,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity学习笔记2</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html</url>
+    <title>unity-收集&amp;tilemap拼接缝隙&amp;collider碰撞摩擦&amp;敌人</title>
+    <url>/unity-%E6%94%B6%E9%9B%86&amp;tilemap%E6%8B%BC%E6%8E%A5%E7%BC%9D%E9%9A%99&amp;collider%E7%A2%B0%E6%92%9E%E6%91%A9%E6%93%A6&amp;%E6%95%8C%E4%BA%BA.html</url>
     <content><![CDATA[<h2 id="创建收集内容"><a href="#创建收集内容" class="headerlink" title="创建收集内容"></a>创建收集内容</h2><ol>
 <li>新建收集object</li>
 <li>添加sprite和动画</li>
@@ -384,8 +402,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Csharp学习笔记1</title>
-    <url>/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01.html</url>
+    <title>Csharp-基础</title>
+    <url>/Csharp-%E5%9F%BA%E7%A1%80.html</url>
     <content><![CDATA[<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Console.WriteLine(&quot;Hello World!&quot;); &#x2F;&#x2F;有换行符</span><br><span class="line">Console.Write(&quot;Hello New World&quot;!); &#x2F;&#x2F;无换行符</span><br></pre></td></tr></table></figure>
 
 <p>C#区分大小写，字符串只能用<code>“”</code>，单字符char使用<code>&#39;&#39;</code></p>
@@ -444,8 +462,8 @@
       </tags>
   </entry>
   <entry>
-    <title>unity学习笔记1</title>
-    <url>/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01.html</url>
+    <title>unity-tilemap&amp;角色移动&amp;刚体&amp;碰撞</title>
+    <url>/unity-tilemap&amp;%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8&amp;%E5%88%9A%E4%BD%93&amp;%E7%A2%B0%E6%92%9E.html</url>
     <content><![CDATA[<h2 id="制作地图（Tilemap）"><a href="#制作地图（Tilemap）" class="headerlink" title="制作地图（Tilemap）"></a>制作地图（Tilemap）</h2><ol>
 <li>设置素材大小<code>Pixels Per Unit</code>为合适的数值</li>
 <li>设置sprite Mode为Multiple用于切割</li>

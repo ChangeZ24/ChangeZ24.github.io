@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2021-02-23T11:11:13.822Z</updated>
+  <updated>2021-03-04T03:35:56.209Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -17,34 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>unity学习笔记8</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B08.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B08.html</id>
+    <title>新坑</title>
+    <link href="https://awesolynn.me/%E6%96%B0%E5%9D%91.html"/>
+    <id>https://awesolynn.me/%E6%96%B0%E5%9D%91.html</id>
+    <published>2021-03-04T03:31:58.000Z</published>
+    <updated>2021-03-04T03:35:56.209Z</updated>
+    
+    <summary type="html">
+    
+      日常咕咕咕
+    
+    </summary>
+    
+    
+      <category term="日常" scheme="https://awesolynn.me/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+      <category term="咕咕咕" scheme="https://awesolynn.me/tags/%E5%92%95%E5%92%95%E5%92%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>unity-2D光随鼠标移动转变方向</title>
+    <link href="https://awesolynn.me/unity-2D%E5%85%89%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E8%BD%AC%E5%8F%98%E6%96%B9%E5%90%91.html"/>
+    <id>https://awesolynn.me/unity-2D%E5%85%89%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E8%BD%AC%E5%8F%98%E6%96%B9%E5%90%91.html</id>
     <published>2021-01-30T07:48:14.000Z</published>
-    <updated>2021-02-23T11:11:13.822Z</updated>
+    <updated>2021-03-04T03:36:07.153Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;2D光随鼠标移动转变方向&quot;&gt;&lt;a href=&quot;#2D光随鼠标移动转变方向&quot; class=&quot;headerlink&quot; title=&quot;2D光随鼠标移动转变方向&quot;&gt;&lt;/a&gt;2D光随鼠标移动转变方向&lt;/h2&gt;&lt;figure class=&quot;highlight
-        
-      
+      unity学习笔记
     
     </summary>
     
     
+      <category term="unity" scheme="https://awesolynn.me/categories/unity/"/>
+    
+    
+      <category term="unity" scheme="https://awesolynn.me/tags/unity/"/>
     
   </entry>
   
   <entry>
-    <title>unity学习笔记7</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B07.html</id>
+    <title>unity-法线贴图&amp;BlendTree&amp;特效VFX</title>
+    <link href="https://awesolynn.me/unity-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE&amp;BlendTree&amp;%E7%89%B9%E6%95%88VFX.html"/>
+    <id>https://awesolynn.me/unity-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE&amp;BlendTree&amp;%E7%89%B9%E6%95%88VFX.html</id>
     <published>2021-01-26T01:10:21.000Z</published>
-    <updated>2021-03-02T07:41:41.922Z</updated>
+    <updated>2021-03-04T03:36:56.984Z</updated>
     
     <summary type="html">
     
@@ -61,11 +80,11 @@
   </entry>
   
   <entry>
-    <title>unity学习笔记6</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B06.html</id>
+    <title>unity-2D场景透视效果&amp;多个电光源部分光源失效的问题</title>
+    <link href="https://awesolynn.me/unity-2D%E5%9C%BA%E6%99%AF%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C&amp;%E5%A4%9A%E4%B8%AA%E7%94%B5%E5%85%89%E6%BA%90%E9%83%A8%E5%88%86%E5%85%89%E6%BA%90%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98.html"/>
+    <id>https://awesolynn.me/unity-2D%E5%9C%BA%E6%99%AF%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C&amp;%E5%A4%9A%E4%B8%AA%E7%94%B5%E5%85%89%E6%BA%90%E9%83%A8%E5%88%86%E5%85%89%E6%BA%90%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98.html</id>
     <published>2021-01-25T03:32:10.000Z</published>
-    <updated>2021-01-26T01:09:53.713Z</updated>
+    <updated>2021-03-04T03:38:18.917Z</updated>
     
     <summary type="html">
     
@@ -82,11 +101,11 @@
   </entry>
   
   <entry>
-    <title>unity学习笔记5</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05.html</id>
+    <title>unity-合并地图碰撞器&amp;标记字段&amp;射线检测碰撞体</title>
+    <link href="https://awesolynn.me/unity-%E5%90%88%E5%B9%B6%E5%9C%B0%E5%9B%BE%E7%A2%B0%E6%92%9E%E5%99%A8&amp;%E6%A0%87%E8%AE%B0%E5%AD%97%E6%AE%B5&amp;%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B%E7%A2%B0%E6%92%9E%E4%BD%93.html"/>
+    <id>https://awesolynn.me/unity-%E5%90%88%E5%B9%B6%E5%9C%B0%E5%9B%BE%E7%A2%B0%E6%92%9E%E5%99%A8&amp;%E6%A0%87%E8%AE%B0%E5%AD%97%E6%AE%B5&amp;%E5%B0%84%E7%BA%BF%E6%A3%80%E6%B5%8B%E7%A2%B0%E6%92%9E%E4%BD%93.html</id>
     <published>2021-01-21T03:12:03.000Z</published>
-    <updated>2021-01-26T01:05:58.707Z</updated>
+    <updated>2021-03-04T03:39:14.122Z</updated>
     
     <summary type="html">
     
@@ -103,11 +122,11 @@
   </entry>
   
   <entry>
-    <title>Csharp学习笔记2</title>
-    <link href="https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html"/>
-    <id>https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html</id>
+    <title>Csharp-类&amp;方法</title>
+    <link href="https://awesolynn.me/Csharp-%E7%B1%BB&amp;%E6%96%B9%E6%B3%95.html"/>
+    <id>https://awesolynn.me/Csharp-%E7%B1%BB&amp;%E6%96%B9%E6%B3%95.html</id>
     <published>2021-01-19T01:30:20.000Z</published>
-    <updated>2021-01-25T03:38:29.231Z</updated>
+    <updated>2021-03-04T03:43:08.585Z</updated>
     
     <summary type="html">
     
@@ -126,11 +145,11 @@
   </entry>
   
   <entry>
-    <title>unity学习笔记4</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html</id>
+    <title>unity-音效&amp;UI&amp;场景变换及光源</title>
+    <link href="https://awesolynn.me/unity-%E9%9F%B3%E6%95%88&amp;UI&amp;%E5%9C%BA%E6%99%AF%E5%8F%98%E6%8D%A2%E5%8F%8A%E5%85%89%E6%BA%90.html"/>
+    <id>https://awesolynn.me/unity-%E9%9F%B3%E6%95%88&amp;UI&amp;%E5%9C%BA%E6%99%AF%E5%8F%98%E6%8D%A2%E5%8F%8A%E5%85%89%E6%BA%90.html</id>
     <published>2021-01-19T01:18:44.000Z</published>
-    <updated>2021-01-25T03:36:27.371Z</updated>
+    <updated>2021-03-04T03:40:05.051Z</updated>
     
     <summary type="html">
     
@@ -147,11 +166,11 @@
   </entry>
   
   <entry>
-    <title>unity学习笔记3</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03.html</id>
+    <title>unity-调用其他类&amp;敌人death动画</title>
+    <link href="https://awesolynn.me/unity-%E8%B0%83%E7%94%A8%E5%85%B6%E4%BB%96%E7%B1%BB&amp;%E6%95%8C%E4%BA%BAdeath%E5%8A%A8%E7%94%BB.html"/>
+    <id>https://awesolynn.me/unity-%E8%B0%83%E7%94%A8%E5%85%B6%E4%BB%96%E7%B1%BB&amp;%E6%95%8C%E4%BA%BAdeath%E5%8A%A8%E7%94%BB.html</id>
     <published>2021-01-18T07:36:15.000Z</published>
-    <updated>2021-01-25T03:38:16.219Z</updated>
+    <updated>2021-03-04T03:40:46.855Z</updated>
     
     <summary type="html">
     
@@ -168,11 +187,11 @@
   </entry>
   
   <entry>
-    <title>unity学习笔记2</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html</id>
+    <title>unity-收集&amp;tilemap拼接缝隙&amp;collider碰撞摩擦&amp;敌人</title>
+    <link href="https://awesolynn.me/unity-%E6%94%B6%E9%9B%86&amp;tilemap%E6%8B%BC%E6%8E%A5%E7%BC%9D%E9%9A%99&amp;collider%E7%A2%B0%E6%92%9E%E6%91%A9%E6%93%A6&amp;%E6%95%8C%E4%BA%BA.html"/>
+    <id>https://awesolynn.me/unity-%E6%94%B6%E9%9B%86&amp;tilemap%E6%8B%BC%E6%8E%A5%E7%BC%9D%E9%9A%99&amp;collider%E7%A2%B0%E6%92%9E%E6%91%A9%E6%93%A6&amp;%E6%95%8C%E4%BA%BA.html</id>
     <published>2021-01-17T07:48:53.000Z</published>
-    <updated>2021-01-25T03:37:57.807Z</updated>
+    <updated>2021-03-04T03:41:45.670Z</updated>
     
     <summary type="html">
     
@@ -189,11 +208,11 @@
   </entry>
   
   <entry>
-    <title>Csharp学习笔记1</title>
-    <link href="https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01.html"/>
-    <id>https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01.html</id>
+    <title>Csharp-基础</title>
+    <link href="https://awesolynn.me/Csharp-%E5%9F%BA%E7%A1%80.html"/>
+    <id>https://awesolynn.me/Csharp-%E5%9F%BA%E7%A1%80.html</id>
     <published>2021-01-16T07:25:57.000Z</published>
-    <updated>2021-01-16T11:11:33.265Z</updated>
+    <updated>2021-03-04T03:43:37.190Z</updated>
     
     <summary type="html">
     
@@ -212,11 +231,11 @@
   </entry>
   
   <entry>
-    <title>unity学习笔记1</title>
-    <link href="https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01.html"/>
-    <id>https://awesolynn.me/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01.html</id>
+    <title>unity-tilemap&amp;角色移动&amp;刚体&amp;碰撞</title>
+    <link href="https://awesolynn.me/unity-tilemap&amp;%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8&amp;%E5%88%9A%E4%BD%93&amp;%E7%A2%B0%E6%92%9E.html"/>
+    <id>https://awesolynn.me/unity-tilemap&amp;%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8&amp;%E5%88%9A%E4%BD%93&amp;%E7%A2%B0%E6%92%9E.html</id>
     <published>2021-01-15T08:00:20.000Z</published>
-    <updated>2021-01-25T03:37:10.113Z</updated>
+    <updated>2021-03-04T03:42:36.215Z</updated>
     
     <summary type="html">
     
@@ -448,33 +467,6 @@
       <category term="Web" scheme="https://awesolynn.me/tags/Web/"/>
     
       <category term="MongoDB" scheme="https://awesolynn.me/tags/MongoDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Node.js(5)-Express基础</title>
-    <link href="https://awesolynn.me/Node-js-5-Express.html"/>
-    <id>https://awesolynn.me/Node-js-5-Express.html</id>
-    <published>2020-02-26T14:13:57.000Z</published>
-    <updated>2020-04-01T08:44:50.320Z</updated>
-    
-    <summary type="html">
-    
-      Node.js Express基础
-    
-    </summary>
-    
-    
-      <category term="Node.js" scheme="https://awesolynn.me/categories/Node-js/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
-    
-      <category term="Express" scheme="https://awesolynn.me/tags/Express/"/>
     
   </entry>
   

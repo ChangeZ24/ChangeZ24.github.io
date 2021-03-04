@@ -5,13 +5,13 @@
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
    
-  <meta name="keywords" content="CSS,div居中," />
+  <meta name="keywords" content="unity," />
    
-  <meta name="description" content="CSS设置div横竖向均居中" />
+  <meta name="description" content="unity学习笔记" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    CSS设置div垂直横向居中 |  AwesoLynn
+    unity-tilemap&amp;角色移动&amp;刚体&amp;碰撞 |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-CSS设置div垂直横向居中" class="article article-type-post" itemscope
+  <article id="post-unity-tilemap&amp;角色移动&amp;刚体&amp;碰撞" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  CSS设置div垂直横向居中
+  unity-tilemap&amp;角色移动&amp;刚体&amp;碰撞
 </h1>
   
 
@@ -78,12 +78,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/CSS%E8%AE%BE%E7%BD%AEdiv%E5%9E%82%E7%9B%B4%E6%A8%AA%E5%90%91%E5%B1%85%E4%B8%AD.html" class="article-date">
-  <time datetime="2020-09-23T07:17:54.000Z" itemprop="datePublished">2020-09-23</time>
+      <a href="/unity-tilemap&%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8&%E5%88%9A%E4%BD%93&%E7%A2%B0%E6%92%9E.html" class="article-date">
+  <time datetime="2021-01-15T08:00:20.000Z" itemprop="datePublished">2021-01-15</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+    <a class="article-category-link" href="/categories/unity/">unity</a>
   </div>
 
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">118字</span>
+            <span class="post-count">677字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">2分钟</span>
         </span>
     </span>
 </div>
@@ -129,13 +129,59 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><pre><code>最近写公司登陆页面，打算设置登录框水平竖直均居中，尝试了各种方式，最终解决方式如下</code></pre><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><pre><code>父级div：
+      <h2 id="制作地图（Tilemap）"><a href="#制作地图（Tilemap）" class="headerlink" title="制作地图（Tilemap）"></a>制作地图（Tilemap）</h2><ol>
+<li>设置素材大小<code>Pixels Per Unit</code>为合适的数值</li>
+<li>设置sprite Mode为Multiple用于切割</li>
+<li>打开素材Sprite Editor编辑，选择不同slice方式切割素材</li>
+<li>选择每个单元格的素材在scene中绘制地图<a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.login-div&#123;</span><br><span class="line">	width: 100%,</span><br><span class="line">	height: 100%,</span><br><span class="line">	overflow: hidden</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="添加角色"><a href="#添加角色" class="headerlink" title="添加角色"></a>添加角色</h2><ol>
+<li>设置素材大小为合适数值</li>
+<li>将角色拖至<code>Hierarchy</code>中，设置其<code>sorting layer</code></li>
+<li>在<code>Animation</code>窗口添加多张图片以添加动画</li>
+<li>拖拽时间轴使动画频率合适</li>
+</ol>
+<h2 id="刚体–Rigidbody"><a href="#刚体–Rigidbody" class="headerlink" title="刚体–Rigidbody"></a>刚体–Rigidbody</h2><blockquote>
+<p>让平面物体拥有重量，使其有重力，阻力等，可以受力的作用</p>
+</blockquote>
+<ol>
+<li><code>Add Component</code>中选择<code>Rigidbody 2D</code></li>
+<li>设置<code>Gravity Scale</code>重力为合适的数值</li>
+<li>若使角色保持直立，则勾选<code>Constraints</code>中<code>Freeze Rotation</code>的Z轴使之锁定</li>
+</ol>
+<h2 id="碰撞–Collider"><a href="#碰撞–Collider" class="headerlink" title="碰撞–Collider"></a>碰撞–Collider</h2><blockquote>
+<p>让物体可碰撞，接触。</p>
+</blockquote>
+<ol>
+<li><code>Add Component</code>中选择需要的collider</li>
+<li>勾选<code>Edit Collider</code>编辑角色碰撞的范围</li>
+<li>设置不同图层，使角色与环境分离</li>
+</ol>
+<h2 id="角色移动"><a href="#角色移动" class="headerlink" title="角色移动"></a>角色移动</h2><ol>
+<li><code>Edit</code>-&gt;<code>Project Settings</code>-&gt;<code>Input Manager</code>获取需要的输入信息</li>
+<li>左右方向Horizontal，-1为左，0不动，1为右</li>
+<li>编写脚本，距离=速度speed*单位位移*Time.delTime（delTime保证不同环境下都能顺滑移动），speed越高，移动的越快</li>
+<li>跳跃时给角色添加跳跃的力<code>jumpForce</code>，在unity脚本页面设置的jumpForce越大跳的越高</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[SerializeField]private Rigidbody2D rb;</span><br><span class="line">public float speed;</span><br><span class="line">public float jumpForce;</span><br><span class="line"></span><br><span class="line">void movement()</span><br><span class="line">&#123;</span><br><span class="line">    float horizontalMove &#x3D; Input.GetAxis(&quot;Horizontal&quot;);</span><br><span class="line">    float faceDirection &#x3D; Input.GetAxisRaw(&quot;Horizontal&quot;);</span><br><span class="line">    &#x2F;&#x2F;角色移动</span><br><span class="line">    if(horizontalMove !&#x3D; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        rb.velocity &#x3D; new Vector2(horizontalMove * speed * Time.deltaTime, rb.velocity.y);</span><br><span class="line">        anim.SetFloat(&quot;running&quot;, Mathf.Abs(faceDirection)); </span><br><span class="line">    &#125;</span><br><span class="line">    if(faceDirection !&#x3D; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        transform.localScale &#x3D; new Vector3(faceDirection, 1, 1);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;角色跳跃</span><br><span class="line">    if (Input.GetButtonDown(&quot;Jump&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        rb.velocity &#x3D; new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);</span><br><span class="line">        anim.SetBool(&quot;jumping&quot;, true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-子级登录框：
+<h2 id="角色移动时动画的改变"><a href="#角色移动时动画的改变" class="headerlink" title="角色移动时动画的改变"></a>角色移动时动画的改变</h2><ol>
+<li>新建动画</li>
+<li>打开<code>Animator</code>设置不同改变顺序</li>
+<li>点击各箭头关闭<code>Has Exit Time</code>和<code>Transition Duration</code>使变化没有延迟时间</li>
+<li>若需要变化条件，则在<code>Parameter</code>中新建不同的参数用于脚本使用</li>
+<li>并在<code>Conditions</code>处设置不同的条件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[SerializeField]private Rigidbody2D rb;</span><br><span class="line">[SerializeField]private Animator anim;</span><br><span class="line"></span><br><span class="line">void switchAnim()</span><br><span class="line">    &#123;</span><br><span class="line">        anim.SetBool(&quot;idle&quot;, false);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;跳跃到下落动画切换</span><br><span class="line">        if (anim.GetBool(&quot;jumping&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            if(rb.velocity.y &lt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                anim.SetBool(&quot;jumping&quot;, false);</span><br><span class="line">                anim.SetBool(&quot;falling&quot;, true);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else if (coll.IsTouchingLayers(ground))&#x2F;&#x2F;下降到地面动画切换</span><br><span class="line">        &#123;</span><br><span class="line">            anim.SetBool(&quot;falling&quot;, false);</span><br><span class="line">            anim.SetBool(&quot;idle&quot;, true);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.login-box&#123;</span><br><span class="line">	&#x2F;&#x2F; 以左上角为原点,不处以中心位置</span><br><span class="line">	top: 50%,</span><br><span class="line">	left: 50%,</span><br><span class="line">	&#x2F;&#x2F; 往上（x轴）,左（y轴）移动自身长宽的 50%，以使其居于中心位置</span><br><span class="line">	transform: translate(-50%,-50%)</span><br><span class="line">	position: absolute</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<h2 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h2><p>Input.GetAxis()//获取-1～0，0～1<br>Input.GetAxisRaw()//仅获取-1.0.1，左，不动，右</p>
+<p>Vector2: 2维变化<br>Vector3: 3维变化    </p>
+<p>FixedUpdate();<br>Update();</p>
+<p>LayerMask: 在脚本中获取图层</p>
+<p>public可以在script里看到<br>private不能看到，在start里初始化<br>[SerializeField]private则可以看到，但不能改</p>
+
       
       <!-- reward -->
       
@@ -200,14 +246,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/CSS%E8%AE%BE%E7%BD%AEdiv%E5%9E%82%E7%9B%B4%E6%A8%AA%E5%90%91%E5%B1%85%E4%B8%AD.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/unity-tilemap&%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8&%E5%88%9A%E4%BD%93&%E7%A2%B0%E6%92%9E.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul>
 
 
     </footer>
@@ -218,19 +264,19 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/unity-tilemap&%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8&%E5%88%9A%E4%BD%93&%E7%A2%B0%E6%92%9E.html" class="article-nav-link">
+      <a href="/Csharp-%E5%9F%BA%E7%A1%80.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            unity-tilemap&amp;角色移动&amp;刚体&amp;碰撞
+            Csharp-基础
           
         </div>
       </a>
     
     
-      <a href="/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html" class="article-nav-link">
+      <a href="/CSS%E8%AE%BE%E7%BD%AEdiv%E5%9E%82%E7%9B%B4%E6%A8%AA%E5%90%91%E5%B1%85%E4%B8%AD.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">React(5)-构建React应用的一般步骤</div>
+        <div class="article-nav-title">CSS设置div垂直横向居中</div>
       </a>
     
   </nav>

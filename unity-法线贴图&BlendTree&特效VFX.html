@@ -5,13 +5,13 @@
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
    
-  <meta name="keywords" content="c#," />
+  <meta name="keywords" content="unity," />
    
-  <meta name="description" content="c#学习笔记" />
+  <meta name="description" content="unity学习笔记" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Csharp学习笔记2 |  AwesoLynn
+    unity-法线贴图&amp;BlendTree&amp;特效VFX |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-Csharp学习笔记2" class="article article-type-post" itemscope
+  <article id="post-unity-法线贴图&amp;BlendTree&amp;特效VFX" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Csharp学习笔记2
+  unity-法线贴图&amp;BlendTree&amp;特效VFX
 </h1>
   
 
@@ -78,12 +78,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html" class="article-date">
-  <time datetime="2021-01-19T01:30:20.000Z" itemprop="datePublished">2021-01-19</time>
+      <a href="/unity-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE&BlendTree&%E7%89%B9%E6%95%88VFX.html" class="article-date">
+  <time datetime="2021-01-26T01:10:21.000Z" itemprop="datePublished">2021-01-26</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/C/">C#</a>
+    <a class="article-category-link" href="/categories/unity/">unity</a>
   </div>
 
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">270字</span>
+            <span class="post-count">713字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">2分钟</span>
         </span>
     </span>
 </div>
@@ -129,31 +129,45 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
-<li><p><code>public</code>：成员可由任何代码访问</p>
-</li>
-<li><p><code>private</code>：成员只能由类中的代码访问</p>
-</li>
-<li><p><code>protected</code>：成员只能由类或派生类中的代码访问</p>
-</li>
-</ul>
+      <h2 id="法线贴图"><a href="#法线贴图" class="headerlink" title="法线贴图"></a>法线贴图</h2><blockquote>
+<p>法线贴图：记录了一个需要进行光影变换的贴图上的各个点的凹凸情况的贴图，显示芯片根据贴图的内容来实时生成新的有光影变换的贴图，从而实现立体效果</p>
+</blockquote>
+<blockquote>
+<p>法线贴图不是真正的贴图，故不会直接贴到物体的表面，其作用就是记录每个点上法线的方向。</p>
+</blockquote>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>模型面数越高，可以表现的细节越多，效果越好，但面数多了，顶点数便多了，计算量变大了。为了能用尽可能简单的模型来做出更好的效果，最初提出纹理映射，但它只影响像素阶段输出的颜色值，不能让模型有凹凸的细节，故提出法线贴图解决此问题。</p>
 <a id="more"></a>
 
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
-<li><p><code>static</code>：若使用<code>static</code>关键字，该方法只能通过类访问，不能通过对象实例来访问</p>
+<p>最早在计算时需要逐顶点计算光照，然后每个像素的颜色在各个顶点的颜色之间插值，在此情况下，面数决定一切效果。但在像素着色器出现后，可以通过逐像素来计算光照效果。在计算时，会计算此像素所在面的法向量，此法向量也是由这个面周围的顶点的法线插值得来。当改变法线的方向，则可以改变这个点的光照结果。</p>
+<p>在平面的情况下，感觉物体的凹凸很大一部分取决于面的亮度，有了对比，就容易感觉有凹凸。因此通过改变法线来改变面上点的光照条件进而可以让观察者感觉这个面有凹凸</p>
+<p><a href="https://imgchr.com/i/sXFc0U" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/26/sXFc0U.png" alt="sXFc0U.png"></a></p>
+<h2 id="BlendTree"><a href="#BlendTree" class="headerlink" title="BlendTree"></a>BlendTree</h2><blockquote>
+<p>混合树(Blend Tree)按不同程度组合所有动画的各个部分来平滑混合多个动画。即将多个动画融合在一起按条件触发。</p>
+</blockquote>
+<ol>
+<li><code>Animator</code>选择新建混合树的状态，右键选择<code>Create New Blend Tree in State</code></li>
+</ol>
+<p><a href="https://imgchr.com/i/sXFRk4" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/26/sXFRk4.png" alt="sXFRk4.png"></a></p>
+<ol start="2">
+<li><p>双击<code>Blend Tree</code>打开<code>Inspector</code>在<code>Motion</code>处新建需要混合的多个动画。</p>
 </li>
-<li><p><code>virtual</code>：方法可以重写</p>
+<li><p>选择参数<code>Parameter</code>是通过速度<code>Speed</code>计算还是通过垂直加速度<code>verticalVelocity</code>，两个都是<code>Float</code>类型</p>
 </li>
-<li><p><code>abstract</code>：方法必须在非抽象的派生类中重写（只用于抽象类）</p>
+<li><p>在各个动画的<code>Threshold</code>设置不同的参数值来控制其出现的时间</p>
 </li>
-<li><p><code>override</code>：方法重写了一个基类方法（若方法被重写，必须使用该关键字）</p>
-</li>
-<li><p><code>extern</code>：方法定义放在其他地方</p>
-</li>
-<li><p><code>base</code>：调用重写或隐藏的基类方法，表示包含在派生类中的基类的实现代码</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;基类</span><br><span class="line">public class MyBaseClass&#123;</span><br><span class="line">    &#x2F;&#x2F;若子类可重写此方法，必须使用virtual关键字</span><br><span class="line">    public virtual void DoSomething()&#123;</span><br><span class="line">        &#x2F;&#x2F;方法内容</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;子类</span><br><span class="line">public class MyDerivedClass : MyBaseClass&#123;</span><br><span class="line">    &#x2F;&#x2F;重写基类方法必须使用override关键字</span><br><span class="line">    public override void DoSomething()&#123;</span><br><span class="line">        &#x2F;&#x2F;继承基类方法DoSomething()的已有内容</span><br><span class="line">        base.DoSomething();</span><br><span class="line">        &#x2F;&#x2F;重写方法其他独有功能</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</ol>
+<p><a href="https://imgchr.com/i/sXFg7F" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/26/sXFg7F.png" alt="sXFg7F.png"></a></p>
+<ol start="5">
+<li>在脚本中为动画参数赋值，即关联实际角色与动画设置的参数。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int fallID;</span><br><span class="line">&#x2F;&#x2F;fallID为Animator状态参数的编号</span><br><span class="line">fallID &#x3D; Animator.StringToHash(&quot;verticalVelocity&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;设置跳跃BlendTree的动画，其float值就是角色刚体y轴跳跃的加速度,</span><br><span class="line">anim.SetFloat(fallID, rb.velocity.y);</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决更换场景也不销毁某对象"><a href="#解决更换场景也不销毁某对象" class="headerlink" title="解决更换场景也不销毁某对象"></a>解决更换场景也不销毁某对象</h2><p>在代码中使用<code>DontDestroyOnLoad(gameObject)</code>方法</p>
+<h2 id="代码中给角色添加特效VFX"><a href="#代码中给角色添加特效VFX" class="headerlink" title="代码中给角色添加特效VFX"></a>代码中给角色添加特效VFX</h2><ol>
+<li>脚本中创建特效变量</li>
+<li>unity中将特效拖入对应变量中</li>
+<li>使用<code>Instantiate(origin,position,rotation)</code>方法替换当前角色的位置为特效动画</li>
+</ol>
 
       
       <!-- reward -->
@@ -219,14 +233,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/Csharp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/unity-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE&BlendTree&%E7%89%B9%E6%95%88VFX.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul>
 
 
     </footer>
@@ -237,19 +251,19 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B05.html" class="article-nav-link">
+      <a href="/unity-2D%E5%85%89%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E8%BD%AC%E5%8F%98%E6%96%B9%E5%90%91.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            unity学习笔记5
+            unity-2D光随鼠标移动转变方向
           
         </div>
       </a>
     
     
-      <a href="/unity%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html" class="article-nav-link">
+      <a href="/unity-2D%E5%9C%BA%E6%99%AF%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C&%E5%A4%9A%E4%B8%AA%E7%94%B5%E5%85%89%E6%BA%90%E9%83%A8%E5%88%86%E5%85%89%E6%BA%90%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">unity学习笔记4</div>
+        <div class="article-nav-title">unity-2D场景透视效果&amp;多个电光源部分光源失效的问题</div>
       </a>
     
   </nav>
