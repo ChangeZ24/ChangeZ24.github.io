@@ -285,7 +285,6 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>法线贴图不是真正的贴图，故不会直接贴到物体的表面，其作用就是记录每个点上法线的方向。</p>
 </blockquote>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>模型面数越高，可以表现的细节越多，效果越好，但面数多了，顶点数便多了，计算量变大了。为了能用尽可能简单的模型来做出更好的效果，最初提出纹理映射，但它只影响像素阶段输出的颜色值，不能让模型有凹凸的细节，故提出法线贴图解决此问题。</p>
       
       <a class="article-more-link" href="/unity-%E6%B3%95%E7%BA%BF%E8%B4%B4%E5%9B%BE&BlendTree&%E7%89%B9%E6%95%88VFX.html">阅读更多...</a>
       
@@ -363,10 +362,8 @@ var _hmt = _hmt || [];
       <h2 id="2D场景透视效果"><a href="#2D场景透视效果" class="headerlink" title="2D场景透视效果"></a>2D场景透视效果</h2><ol>
 <li>调整Camera的<code>Projection</code>为<code>Perspective</code><ul>
 <li><code>Perspective</code>接近真实摄像机，在3D视图中表现为以点发散的射线构成的画面<br><img src="https://s3.ax1x.com/2021/01/25/sqIAFs.png" alt="sqIAFs.png"></li>
-<li><code>Orthographic</code>为方形的摄像机，在3D视图中表现为方形垂直的射线构成的画面<br><img src="https://s3.ax1x.com/2021/01/25/sqIEYn.png" alt="sqIEYn.png"></li>
 </ul>
 </li>
-<li>调整景深，即调整不同背景图层<code>Position</code>的<code>z轴</code></li>
 </ol>
       
       <a class="article-more-link" href="/unity-2D%E5%9C%BA%E6%99%AF%E9%80%8F%E8%A7%86%E6%95%88%E6%9E%9C&%E5%A4%9A%E4%B8%AA%E7%94%B5%E5%85%89%E6%BA%90%E9%83%A8%E5%88%86%E5%85%89%E6%BA%90%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98.html">阅读更多...</a>
