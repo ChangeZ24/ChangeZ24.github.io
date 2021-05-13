@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2021-03-04T03:35:56.209Z</updated>
+  <updated>2021-05-13T14:43:04.353Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue运行单文件</title>
+    <link href="https://awesolynn.me/vue%E8%BF%90%E8%A1%8C%E5%8D%95%E6%96%87%E4%BB%B6.html"/>
+    <id>https://awesolynn.me/vue%E8%BF%90%E8%A1%8C%E5%8D%95%E6%96%87%E4%BB%B6.html</id>
+    <published>2021-05-13T14:39:29.000Z</published>
+    <updated>2021-05-13T14:43:04.353Z</updated>
+    
+    <summary type="html">
+    
+      vue运行单文件
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="https://awesolynn.me/categories/vue/"/>
+    
+    
+      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
+    
+  </entry>
   
   <entry>
     <title>新坑</title>
@@ -442,31 +463,6 @@
     
     
       <category term="正则表达式" scheme="https://awesolynn.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB安装手册</title>
-    <link href="https://awesolynn.me/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html"/>
-    <id>https://awesolynn.me/MongoDB%E5%AE%89%E8%A3%85%E6%89%8B%E5%86%8C.html</id>
-    <published>2020-03-08T08:32:19.000Z</published>
-    <updated>2020-04-02T07:04:59.180Z</updated>
-    
-    <summary type="html">
-    
-      The manual about installing MongoDB.
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://awesolynn.me/categories/MongoDB/"/>
-    
-    
-      <category term="Node.js" scheme="https://awesolynn.me/tags/Node-js/"/>
-    
-      <category term="Web" scheme="https://awesolynn.me/tags/Web/"/>
-    
-      <category term="MongoDB" scheme="https://awesolynn.me/tags/MongoDB/"/>
     
   </entry>
   
