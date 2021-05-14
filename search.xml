@@ -185,6 +185,19 @@
       </tags>
   </entry>
   <entry>
+    <title>JS真值Truthy和假值Falsy</title>
+    <url>/JS%E7%9C%9F%E5%80%BCTruthy%E5%92%8C%E5%81%87%E5%80%BCFalsy.html</url>
+    <content><![CDATA[<p>假值Falsy：<code>false</code>,<code>0</code>,<code>&quot;&quot;</code>,<code>null</code>,``ùndefined<code>,</code>NaN```<br>真值Truthy：除假值外均为真值。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;真值Truthy,以下均会被当作true执行if内的代码</span><br><span class="line">if (true)</span><br><span class="line">if (&#123;&#125;)</span><br><span class="line">if (42)</span><br><span class="line">if (&quot;foo&quot;)</span><br><span class="line">if (new Date())</span><br><span class="line">if (-Infinity)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;假值Falsy，以下均会被当作false跳过if内的代码</span><br><span class="line">if (false)</span><br><span class="line">if (null)</span><br><span class="line">if (undefined)</span><br><span class="line">if (0)</span><br><span class="line">if (0n)</span><br><span class="line">if (NaN)</span><br><span class="line">if (&#39;&#39;)</span><br><span class="line">if (&quot;&quot;)</span><br><span class="line">if (&#96;&#96;)</span><br><span class="line">if (document.all)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vue计算属性</title>
     <url>/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7.html</url>
     <content><![CDATA[<blockquote>
@@ -1580,8 +1593,8 @@
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
         <tag>Express</tag>
       </tags>
   </entry>
@@ -1619,8 +1632,8 @@
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -1711,8 +1724,8 @@
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -1741,8 +1754,8 @@
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -1771,9 +1784,9 @@
       </categories>
       <tags>
         <tag>web</tag>
+        <tag>JavaScript</tag>
         <tag>Node.js</tag>
         <tag>server</tag>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>

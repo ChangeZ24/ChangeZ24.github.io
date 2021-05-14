@@ -101,6 +101,27 @@
   </entry>
   
   <entry>
+    <title>JS真值Truthy和假值Falsy</title>
+    <link href="https://awesolynn.me/JS%E7%9C%9F%E5%80%BCTruthy%E5%92%8C%E5%81%87%E5%80%BCFalsy.html"/>
+    <id>https://awesolynn.me/JS%E7%9C%9F%E5%80%BCTruthy%E5%92%8C%E5%81%87%E5%80%BCFalsy.html</id>
+    <published>2021-05-14T07:26:35.000Z</published>
+    <updated>2021-05-14T17:33:47.964Z</updated>
+    
+    <summary type="html">
+    
+      JavaScript的真值Truthy和假值Falsy
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/categories/JavaScript/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Vue计算属性</title>
     <link href="https://awesolynn.me/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7.html"/>
     <id>https://awesolynn.me/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7.html</id>
@@ -418,31 +439,6 @@
       <category term="web" scheme="https://awesolynn.me/tags/web/"/>
     
       <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>React(5)-构建React应用的一般步骤</title>
-    <link href="https://awesolynn.me/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html"/>
-    <id>https://awesolynn.me/React-5-%E6%9E%84%E5%BB%BAReact%E5%BA%94%E7%94%A8%E7%9A%84%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4.html</id>
-    <published>2020-03-23T12:42:54.000Z</published>
-    <updated>2020-10-23T07:48:28.770Z</updated>
-    
-    <summary type="html">
-    
-      构建React应用的一般步骤
-    
-    </summary>
-    
-    
-      <category term="React" scheme="https://awesolynn.me/categories/React/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="React" scheme="https://awesolynn.me/tags/React/"/>
-    
-      <category term="SPA" scheme="https://awesolynn.me/tags/SPA/"/>
     
   </entry>
   
