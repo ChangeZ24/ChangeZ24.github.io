@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">604字</span>
+            <span class="post-count">704字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -164,15 +164,10 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Alt + Enter --&gt;</span><br><span class="line">&lt;input @keyup.alt.enter&#x3D;&quot;clear&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Ctrl + Click --&gt;</span><br><span class="line">&lt;div @click.ctrl&#x3D;&quot;doSomething&quot;&gt;Do something&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用<code>.exact</code>修饰符允许控制由精确的系统修饰符组合触发的事件。</p>
 </blockquote>
-<!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
-<p>&lt;button @click.ctrl=”onClick”&gt;A</button></p>
-<!-- 有且只有 Ctrl 被按下的时候才触发 -->
-<p>&lt;button @click.ctrl.exact=”onCtrlClick”&gt;A</button></p>
-<!-- 没有任何系统修饰符被按下的时候才触发 -->
-<p>&lt;button @click.exact=”onClick”&gt;A</button></p>
-<p>```</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&gt;</span><br><span class="line">&lt;button @click.ctrl&#x3D;&quot;onClick&quot;&gt;A&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&gt;</span><br><span class="line">&lt;button @click.ctrl.exact&#x3D;&quot;onCtrlClick&quot;&gt;A&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 没有任何系统修饰符被按下的时候才触发 --&gt;</span><br><span class="line">&lt;button @click.exact&#x3D;&quot;onClick&quot;&gt;A&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>鼠标按钮修饰符</p>
 </blockquote>

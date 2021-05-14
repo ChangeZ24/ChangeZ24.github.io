@@ -127,8 +127,10 @@ var _hmt = _hmt || [];
       
 
       
-      <p>假值Falsy：<code>false</code>,<code>0</code>,<code>&quot;&quot;</code>,<code>null</code>,``ùndefined<code>,</code>NaN```<br>真值Truthy：除假值外均为真值。</p>
+      <p>假值Falsy：<code>false</code>,<code>0</code>,<code>&quot;&quot;</code>,<code>null</code>,<code>undefined</code>,<code>NaN</code></p>
+<p>真值Truthy：除假值外均为真值。</p>
 <a id="more"></a>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;真值Truthy,以下均会被当作true执行if内的代码</span><br><span class="line">if (true)</span><br><span class="line">if (&#123;&#125;)</span><br><span class="line">if (42)</span><br><span class="line">if (&quot;foo&quot;)</span><br><span class="line">if (new Date())</span><br><span class="line">if (-Infinity)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;假值Falsy，以下均会被当作false跳过if内的代码</span><br><span class="line">if (false)</span><br><span class="line">if (null)</span><br><span class="line">if (undefined)</span><br><span class="line">if (0)</span><br><span class="line">if (0n)</span><br><span class="line">if (NaN)</span><br><span class="line">if (&#39;&#39;)</span><br><span class="line">if (&quot;&quot;)</span><br><span class="line">if (&#96;&#96;)</span><br><span class="line">if (document.all)</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->

@@ -22,17 +22,21 @@
 <p>Vue组件实例的作用域相互独立，不同组件之间的数据无法相互引用</p>
 </blockquote>
 <h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">父组件调用子组件，在子组件的&#96;&#96;&#96;props&#96;&#96;&#96;写入需要的属性。传递时，在父组件内调用的子组件中直接使用。</span><br><span class="line"></span><br><span class="line">可以传入静态的值：</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt; </span><br></pre></td></tr></table></figure>
-<p>//子组件<br>const app = Vue.createApp({})</p>
+<p>参数<code>props</code>用于父组件向子组件传递数据</p>
 </blockquote>
-<p>app.component(‘blog-post’, {<br>  props: [‘title’],<br>  template: <code>&lt;h4&gt;Vue组件通信&lt;/h4&gt;</code><br>})</p>
-<p>app.mount(‘#blog-post-demo’)</p>
-<p>//父组件<br><blog-post title="My journey with Vue"></blog-post></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">也可以通过&#96;&#96;&#96;v-bind&#96;&#96;&#96;或简写&#96;&#96;&#96;:&#96;&#96;&#96;动态赋值</span><br></pre></td></tr></table></figure>
-<p><blog-post :title="post.title"></blog-post></p>
-<p><blog-post :title="post.title + 'by' + post.author.name "></blog-post></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 除传递静态string值外，传入数据、布尔值、数组、对象等，即使传递静态数据也要使用&#96;&#96;&#96;v-bind&#96;&#96;&#96;告诉Vue。即&#96;&#96;&#96;&lt;blog-post :like&#x3D;&quot;42&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
+<p>父组件调用子组件，在子组件的<code>props</code>写入需要的属性。传递时，在父组件内调用的子组件中直接使用。</p>
+<p>可以传入静态的值：</p>
+<a id="more"></a>
 
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;子组件</span><br><span class="line">const app &#x3D; Vue.createApp(&#123;&#125;)</span><br><span class="line"></span><br><span class="line">app.component(&#39;blog-post&#39;, &#123;</span><br><span class="line">  props: [&#39;title&#39;],</span><br><span class="line">  template: &#96;&lt;h4&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h4&gt;&#96;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.mount(&#39;#blog-post-demo&#39;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;父组件</span><br><span class="line">&lt;blog-post title&#x3D;&quot;My journey with Vue&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>也可以通过<code>v-bind</code>或简写<code>:</code>动态赋值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post :title&#x3D;&quot;post.title&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line"></span><br><span class="line">&lt;blog-post :title&#x3D;&quot;post.title + &#39;by&#39; + post.author.name &quot;&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>除传递静态string值外，传入数据、布尔值、数组、对象等，即使传递静态数据也要使用<code>v-bind</code>告诉Vue。即<code>&lt;blog-post :like=&quot;42&quot;&gt;&lt;/blog-post&gt;</code></p>
+</blockquote>
 <p>所有props均为单项数据流，即父级prop的更新会向下流动到子组件，无法由子组件传递给父组件。</p>
 <h3 id="emit"><a href="#emit" class="headerlink" title="emit"></a>emit</h3><blockquote>
 <p>emit用于子组件向父组件传递数据</p>
@@ -94,15 +98,10 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- Alt + Enter --&gt;</span><br><span class="line">&lt;input @keyup.alt.enter&#x3D;&quot;clear&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Ctrl + Click --&gt;</span><br><span class="line">&lt;div @click.ctrl&#x3D;&quot;doSomething&quot;&gt;Do something&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用<code>.exact</code>修饰符允许控制由精确的系统修饰符组合触发的事件。</p>
 </blockquote>
-<!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
-<p>&lt;button @click.ctrl=”onClick”&gt;A</button></p>
-<!-- 有且只有 Ctrl 被按下的时候才触发 -->
-<p>&lt;button @click.ctrl.exact=”onCtrlClick”&gt;A</button></p>
-<!-- 没有任何系统修饰符被按下的时候才触发 -->
-<p>&lt;button @click.exact=”onClick”&gt;A</button></p>
-<p>```</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&gt;</span><br><span class="line">&lt;button @click.ctrl&#x3D;&quot;onClick&quot;&gt;A&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&gt;</span><br><span class="line">&lt;button @click.ctrl.exact&#x3D;&quot;onCtrlClick&quot;&gt;A&lt;&#x2F;button&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 没有任何系统修饰符被按下的时候才触发 --&gt;</span><br><span class="line">&lt;button @click.exact&#x3D;&quot;onClick&quot;&gt;A&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>鼠标按钮修饰符</p>
 </blockquote>
@@ -128,55 +127,59 @@
 <li><code>v-show</code>不支持<code>&lt;template&gt;</code>和<code>v-else</code></li>
 </ol>
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br><span class="line">### v-if和v-for不要同时用在同一元素上</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;v-for&#96;&#96;&#96;的优先级比&#96;&#96;&#96;v-if&#96;&#96;&#96;高</span><br><span class="line"></span><br><span class="line">1. 过滤列表中的项目，优先将过滤的项目替换为计算属性，使其返回过滤后的列表进行v-for </span><br></pre></td></tr></table></figure>
-<pre><code>&lt;ul&gt;
-    &lt;li
-        v-for=&quot;user in users&quot;
-        v-if=&quot;user.isActive&quot;
-        :key=&quot;user.id&quot;
+<p>使用<code>v-if</code>有更高的切换开销，若运行时条件很少改变，则选择<code>v-if</code>。<code>v-show</code>有更高的初始开销，若需要频繁的切换，则使用<code>v-show</code>更好。</p>
+</blockquote>
+<a id="more"></a>
 
-        {{ user.name }}
-    &lt;/li&gt;
-&lt;/ul&gt;
+<h3 id="v-if和v-for不要同时用在同一元素上"><a href="#v-if和v-for不要同时用在同一元素上" class="headerlink" title="v-if和v-for不要同时用在同一元素上"></a>v-if和v-for不要同时用在同一元素上</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">1. 过滤列表中的项目，优先将过滤的项目替换为计算属性，使其返回过滤后的列表进行v-for </span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+    <li
+        v-for="user in users"
+        v-if="user.isActive"
+        :key="user.id"
+    >
+        
+    </li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">无论列表数据量有多大，筛选后的列表有没有变化，都会在每次重新渲染时遍历整个列表。</span><br></pre></td></tr></table></figure>
 //改写后
-&lt;ul&gt;
-    &lt;li
-        v-for=&quot;user in activeUsers&quot;
-        :key=&quot;user.id&quot;
+<ul>
+    <li
+        v-for="user in activeUsers"
+        :key="user.id"
+    >
+        
+    </li>
+</ul>
 
-        {{ user.name }}
-    &lt;/li&gt;
-&lt;/ul&gt;</code></pre></blockquote>
-<pre><code>computed: {
-    activeUsers() {
-        return this.users.filter(user =&gt; user.isActive)
-    }
-}
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    改写后，过滤列表只会在筛选后列表发生变化时才会重新计算，过滤更高效。且在&#96;&#96;&#96;v-for&#96;&#96;&#96;遍历时，只会遍历选后的列表，渲染更高效。解耦渲染层的逻辑，可维护性更强。</span><br><span class="line"></span><br><span class="line">2. 避免渲染需要被隐藏的列表，将v-if移动到容器元素上。</span><br></pre></td></tr></table></figure>
-//改写前
-&lt;ul&gt;
-    &lt;li
-        v-for=&quot;user in users&quot;
-        v-if=&quot;shouldShowUsers&quot;
-        :key=&quot;user.id&quot;
-    &gt;
-        {{ user.name }}
-    &lt;/li&gt;
-&lt;/ul&gt;
+<p>computed: {<br>    activeUsers() {<br>        return this.users.filter(user =&gt; user.isActive)<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">改写后，过滤列表只会在筛选后列表发生变化时才会重新计算，过滤更高效。且在&#96;&#96;&#96;v-for&#96;&#96;&#96;遍历时，只会遍历选后的列表，渲染更高效。解耦渲染层的逻辑，可维护性更强。</span><br><span class="line"></span><br><span class="line">2. 避免渲染需要被隐藏的列表，将v-if移动到容器元素上。</span><br></pre></td></tr></table></figure>
+<p>//改写前</p>
+<ul>
+    <li
+        v-for="user in users"
+        v-if="shouldShowUsers"
+        :key="user.id"
+    >
+        
+    </li>
+</ul>
 
-//改写后
-&lt;ul v-if=&quot;shouldShowUsers&quot;&gt;
-    &lt;li
-        v-for=&quot;user in users&quot;
-        :key=&quot;user.id&quot;
-    &gt;
-        {{ user.name }}
-    &lt;/li&gt;
-&lt;/ul&gt;
+<p>//改写后</p>
+<ul v-if="shouldShowUsers">
+    <li
+        v-for="user in users"
+        :key="user.id"
+    >
+        
+    </li>
+</ul>
 ```
 
-改写后不需要对列表内每个用户都检查是否应该显示，而只检查一次，且不会```v-for```不应该显示的用户。</code></pre>]]></content>
+<p>改写后不需要对列表内每个用户都检查是否应该显示，而只检查一次，且不会<code>v-for</code>不应该显示的用户。</p>
+]]></content>
       <categories>
         <category>vue</category>
       </categories>
@@ -187,8 +190,10 @@
   <entry>
     <title>JS真值Truthy和假值Falsy</title>
     <url>/JS%E7%9C%9F%E5%80%BCTruthy%E5%92%8C%E5%81%87%E5%80%BCFalsy.html</url>
-    <content><![CDATA[<p>假值Falsy：<code>false</code>,<code>0</code>,<code>&quot;&quot;</code>,<code>null</code>,``ùndefined<code>,</code>NaN```<br>真值Truthy：除假值外均为真值。</p>
+    <content><![CDATA[<p>假值Falsy：<code>false</code>,<code>0</code>,<code>&quot;&quot;</code>,<code>null</code>,<code>undefined</code>,<code>NaN</code></p>
+<p>真值Truthy：除假值外均为真值。</p>
 <a id="more"></a>
+
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;真值Truthy,以下均会被当作true执行if内的代码</span><br><span class="line">if (true)</span><br><span class="line">if (&#123;&#125;)</span><br><span class="line">if (42)</span><br><span class="line">if (&quot;foo&quot;)</span><br><span class="line">if (new Date())</span><br><span class="line">if (-Infinity)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;假值Falsy，以下均会被当作false跳过if内的代码</span><br><span class="line">if (false)</span><br><span class="line">if (null)</span><br><span class="line">if (undefined)</span><br><span class="line">if (0)</span><br><span class="line">if (0n)</span><br><span class="line">if (NaN)</span><br><span class="line">if (&#39;&#39;)</span><br><span class="line">if (&quot;&quot;)</span><br><span class="line">if (&#96;&#96;)</span><br><span class="line">if (document.all)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>JavaScript</category>
@@ -1541,9 +1546,9 @@
         <category>MongoDB</category>
       </categories>
       <tags>
+        <tag>Node.js</tag>
         <tag>Web</tag>
         <tag>MongoDB</tag>
-        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
