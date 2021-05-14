@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2021-05-13T15:47:07.947Z</updated>
+  <updated>2021-05-14T07:12:27.483Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -17,9 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Vue计算属性</title>
+    <link href="https://awesolynn.me/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7.html"/>
+    <id>https://awesolynn.me/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7.html</id>
+    <published>2021-05-14T06:32:54.000Z</published>
+    <updated>2021-05-14T07:12:27.483Z</updated>
+    
+    <summary type="html">
+    
+      Vue计算属性
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="https://awesolynn.me/categories/vue/"/>
+    
+    
+      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
     <title>vue-data及methods</title>
-    <link href="https://awesolynn.me/vue-data%E5%8F%8Amethod.html"/>
-    <id>https://awesolynn.me/vue-data%E5%8F%8Amethod.html</id>
+    <link href="https://awesolynn.me/vue-data%E5%8F%8Amethods.html"/>
+    <id>https://awesolynn.me/vue-data%E5%8F%8Amethods.html</id>
     <published>2021-05-13T15:29:29.000Z</published>
     <updated>2021-05-13T15:47:07.947Z</updated>
     
@@ -438,31 +459,6 @@
       <category term="React" scheme="https://awesolynn.me/tags/React/"/>
     
       <category term="SPA" scheme="https://awesolynn.me/tags/SPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前后端分离与SPA的理解</title>
-    <link href="https://awesolynn.me/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%8ESPA%E7%9A%84%E7%90%86%E8%A7%A3.html"/>
-    <id>https://awesolynn.me/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%8ESPA%E7%9A%84%E7%90%86%E8%A7%A3.html</id>
-    <published>2020-03-13T13:57:28.000Z</published>
-    <updated>2020-04-07T10:11:16.590Z</updated>
-    
-    <summary type="html">
-    
-      前后端分离与SPA的理解
-    
-    </summary>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/categories/web/"/>
-    
-    
-      <category term="web" scheme="https://awesolynn.me/tags/web/"/>
-    
-      <category term="SPA" scheme="https://awesolynn.me/tags/SPA/"/>
-    
-      <category term="前后端分离" scheme="https://awesolynn.me/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/"/>
     
   </entry>
   
