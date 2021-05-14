@@ -91,6 +91,318 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-React-4-状态提升及组合继承" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html"
+    >React(4)-状态提升及组合</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html" class="article-date">
+  <time datetime="2020-03-22T15:14:32.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="状态提升"><a href="#状态提升" class="headerlink" title="状态提升"></a>状态提升</h2><p>React应用中，任何可变的数据应只有一个唯一数据源，此时state首先添加到需要渲染的组件中。但当多个组件需要共用反映同样的变化数据时，即其他组件也需要这个state时，需要将state提升到这些组件的共同父组件中。通过自顶向下的数据源，更新唯一的数据源state。</p>
+<p>在子组件中使用<code>this.props.xxx</code>代替<code>this.state</code>。在共同父组件中使用<code>state</code>更新子组件中的值。</p>
+      
+      <a class="article-more-link" href="/React-4-%E7%8A%B6%E6%80%81%E6%8F%90%E5%8D%87%E5%8F%8A%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-React-3-列表及简单表单" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/React-3-%E5%88%97%E8%A1%A8%E5%8F%8A%E7%AE%80%E5%8D%95%E8%A1%A8%E5%8D%95.html"
+    >React(3)-列表及简单表单</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-3-%E5%88%97%E8%A1%A8%E5%8F%8A%E7%AE%80%E5%8D%95%E8%A1%A8%E5%8D%95.html" class="article-date">
+  <time datetime="2020-03-19T08:39:35.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>使用<code>{}</code>在JSX构建一个元素集合。<br>使用JS的<code>map()</code>方法遍历数组，将数组中的元素变成<code>&lt;li&gt;</code>标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const number &#x3D; [1,2,3,4,5];</span><br><span class="line">const listitems &#x3D; numbers.map((number) &#x3D;&gt; </span><br><span class="line">    &lt;li&gt;&#123;number&#125;&lt;&#x2F;li&gt;</span><br><span class="line">);</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;ul&gt;&#123;listItems&#125;&lt;&#x2F;ul&gt;,</span><br><span class="line">document.getElementById(&#39;root&#39;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/React-3-%E5%88%97%E8%A1%A8%E5%8F%8A%E7%AE%80%E5%8D%95%E8%A1%A8%E5%8D%95.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-React-2-事件处理及条件渲染" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html"
+    >React(2)-事件处理及条件渲染</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html" class="article-date">
+  <time datetime="2020-03-17T12:34:54.000Z" itemprop="datePublished">2020-03-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><blockquote>
+<p>为了与传统HTML区别开，React事件命名采用小驼峰（camelCase）形式。<br>使用JSX语法时需要传入函数作为事件处理函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick&#x3D;&#123;function&#125;&gt;</span><br><span class="line">Function</span><br><span class="line">&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
+<li><p>阻止默认行为必须显式的使用<code>preventDefault</code></p>
+      
+      <a class="article-more-link" href="/React-2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%8F%8A%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-React-1-基础知识" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html"
+    >React(1)-基础知识</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="article-date">
+  <time datetime="2020-03-15T14:12:17.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><p>React是一个声明式，高效且灵活的用于构建用户界面的JavaScript库。使用React可以将一些简短、独立的代码片段组合成复杂的UI界面，这些代码片段称为“组件”。</p>
+<h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JSX是JavaScript的语法拓展，可以生成React“元素”。React认为渲染逻辑与其他UI逻辑内在耦合，故其没有采用将标记和逻辑分离在不同文件的方式，而是将他们共同存入“组件”的松散耦合单元中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;JSX语法</span><br><span class="line">&lt;div &#x2F;&gt;</span><br><span class="line">&#x2F;&#x2F;等同于</span><br><span class="line">React.createElement(&#39;div&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>在JSX中可以任意使用JavaScript表达式，只需要用大括号<code>{}</code>括起来。</p>
+      
+      <a class="article-more-link" href="/React-1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SPA/" rel="tag">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-前后端分离与SPA的理解" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -557,321 +869,6 @@ var _hmt = _hmt || [];
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Node-js-2-REPL-交互式解释器" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Node-js-2-REPL-%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8.html"
-    >Node.js(2)-REPL(交互式解释器)</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Node-js-2-REPL-%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8.html" class="article-date">
-  <time datetime="2020-02-23T09:09:06.000Z" itemprop="datePublished">2020-02-23</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
-<p>REPL 表示一个电脑环境类似 Windows 的 cmd 或 powershell 终端，Unix/Linux 的 shell。可进行一些读取、执行、打印、循环操作。</p>
-</blockquote>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$node    &#x2F;&#x2F;进入node REPL</span><br><span class="line">&gt; 1+6</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/Node-js-2-REPL-%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Node-js-1-创建应用" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Node-js-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.html"
-    >Node.js(1)-创建应用</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Node-js-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.html" class="article-date">
-  <time datetime="2020-02-23T08:46:50.000Z" itemprop="datePublished">2020-02-23</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Node.js 为运行在服务端的 JavaScript。它是一个基于 Chrome JavaScript 运行时建立的平台，也是一个事件驱动 I/O 服务端的 JavaScript，基于 Google 的 V8 引擎。</p>
-      
-      <a class="article-more-link" href="/Node-js-1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/server/" rel="tag">server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-纯HTML-CSS-JS实现九宫格拼图游戏" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html"
-    >纯HTML/CSS/JS实现九宫格拼图游戏</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html" class="article-date">
-  <time datetime="2020-02-20T17:14:50.000Z" itemprop="datePublished">2020-02-21</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web/">web</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://i.loli.net/2020/02/21/MBsWOjbg8ED7wLd.gif" alt="showall.gif"></p>
-<p>github地址：<a href="https://github.com/ChangeZ24/game-gridpuzzle" target="_blank" rel="noopener">https://github.com/ChangeZ24/game-gridpuzzle</a></p>
-<p>在线试玩地址： <a href="http://awesolynn.me/game-gridpuzzle/gridpuzzle.html">http://awesolynn.me/game-gridpuzzle/gridpuzzle.html</a></p>
-      
-      <a class="article-more-link" href="/%E7%BA%AFHTML-CSS-JS%E5%AE%9E%E7%8E%B0%E4%B9%9D%E5%AE%AB%E6%A0%BC%E6%8B%BC%E5%9B%BE%E6%B8%B8%E6%88%8F.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Grid-Puzzle/" rel="tag">Grid Puzzle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Hexo建站指南" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html"
-    >Hexo建站指南</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html" class="article-date">
-  <time datetime="2020-02-19T15:55:24.000Z" itemprop="datePublished">2020-02-19</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="下载安装必要工具"><a href="#下载安装必要工具" class="headerlink" title="下载安装必要工具"></a>下载安装必要工具</h2><h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><blockquote>
-<p>搭建网站需要进行版本管理，故下载 git 进行使用。</p>
-</blockquote>
-<blockquote>
-<p>下载网址： <a href="https://www.git-scm.com/download" target="_blank" rel="noopener">https://www.git-scm.com/download</a></p>
-</blockquote>
-<blockquote>
-<p>使用说明可参考 git 官方文档：<a href="https://www.git-scm.com/doc" target="_blank" rel="noopener">https://www.git-scm.com/doc</a></p>
-</blockquote>
-<ul>
-<li>安装时，一键 next 即可
-      
-      <a class="article-more-link" href="/Hexo%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8D%97.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
 
 
     </footer>
