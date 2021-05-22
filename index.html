@@ -137,7 +137,18 @@ var _hmt = _hmt || [];
       <blockquote>
 <p>webpack的编译分几个阶段进行，分别为创建对象阶段run、解析获取module阶段make、module分包阶段seal、输出打包后文件阶段emit</p>
 </blockquote>
-<h2 id="webpack流程图"><a href="#webpack流程图" class="headerlink" title="webpack流程图"></a>webpack流程图</h2><p><img src="https://i.loli.net/2021/05/22/OtqX5seK1fT6guZ.png" alt="webpack流程图"></p>
+<h2 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h2><ul>
+<li><p>module：webpack中用<code>require</code>或<code>import</code>引入的都叫module</p>
+</li>
+<li><p>chunk：module的一个集合，入口文件就算一个chunk</p>
+</li>
+<li><p>dependency：包含一个模块的基本信息，用来创建<code>module</code></p>
+</li>
+<li><p>moduleFactory：创建<code>module</code>对象的工厂类</p>
+</li>
+<li><p>assets：最后输出的资产文件</p>
+</li>
+</ul>
       
       <a class="article-more-link" href="/webpack-%E7%BC%96%E8%AF%91%E7%9A%84%E5%A4%9A%E4%B8%AA%E9%98%B6%E6%AE%B5.html">阅读更多...</a>
       
