@@ -91,6 +91,84 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-webpack-编译的多个阶段" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/webpack-%E7%BC%96%E8%AF%91%E7%9A%84%E5%A4%9A%E4%B8%AA%E9%98%B6%E6%AE%B5.html"
+    >webpack-编译的多个阶段</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/webpack-%E7%BC%96%E8%AF%91%E7%9A%84%E5%A4%9A%E4%B8%AA%E9%98%B6%E6%AE%B5.html" class="article-date">
+  <time datetime="2021-05-22T08:26:16.000Z" itemprop="datePublished">2021-05-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <blockquote>
+<p>webpack的编译分几个阶段进行，分别为创建对象阶段run、解析获取module阶段make、module分包阶段seal、输出打包后文件阶段emit</p>
+</blockquote>
+<h2 id="webpack流程图"><a href="#webpack流程图" class="headerlink" title="webpack流程图"></a>webpack流程图</h2><p><img src="https://i.loli.net/2021/05/22/OtqX5seK1fT6guZ.png" alt="webpack流程图"></p>
+      
+      <a class="article-more-link" href="/webpack-%E7%BC%96%E8%AF%91%E7%9A%84%E5%A4%9A%E4%B8%AA%E9%98%B6%E6%AE%B5.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-webpack-初识及初始化过程" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -771,86 +849,6 @@ var _hmt = _hmt || [];
       <h3 id="data"><a href="#data" class="headerlink" title="data"></a>data</h3><p>组件的<code>data</code>是一个<code>函数</code>，调用它返回一个<code>对象</code>，被vue封装后，以<code>$data</code>的形式存储在组件实例中</p>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        example: [2,3,1]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre><h3 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h3><p>组件的<code>methods</code>是一个包含方法的<code>对象</code>，自动绑定<code>this</code>，始终指向组件实例。定义时避免使用箭头函数，会影响<code>this</code>的指向</p>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">methods:&#123;</span><br><span class="line">    exampleFuction()&#123;</span><br><span class="line">        example[2] &#x3D; 3</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;可以在组件模版中被访问</span><br><span class="line">&lt;button @click&#x3D;&quot;exampleFuction&quot;&gt;Change example&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure></code></pre>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-vue运行单文件" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/vue%E8%BF%90%E8%A1%8C%E5%8D%95%E6%96%87%E4%BB%B6.html"
-    >vue运行单文件</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/vue%E8%BF%90%E8%A1%8C%E5%8D%95%E6%96%87%E4%BB%B6.html" class="article-date">
-  <time datetime="2021-05-13T14:39:29.000Z" itemprop="datePublished">2021-05-13</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <ol>
-<li><p>安装依赖<code>npm install -g @vue/cli-service-global</code></p>
-</li>
-<li><p>创建文件<code>xxx.vue</code></p>
-</li>
-<li><p>在文件目录运行<code>vue serve xxx.vue</code></p>
-</li>
-</ol>
-
       
       <!-- reward -->
       
