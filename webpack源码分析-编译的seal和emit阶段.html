@@ -5,13 +5,13 @@
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
    
-  <meta name="keywords" content="vue3，源码," />
+  <meta name="keywords" content="webpack," />
    
-  <meta name="description" content="初识Vue3源码" />
+  <meta name="description" content="编译的run和make阶段" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    vue3源码学习1 |  AwesoLynn
+    webpack源码分析-编译的seal和emit阶段 |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-vue3源码学习1" class="article article-type-post" itemscope
+  <article id="post-webpack源码分析-编译的seal和emit阶段" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  vue3源码学习1
+  webpack源码分析-编译的seal和emit阶段
 </h1>
   
 
@@ -78,12 +78,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/vue3%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A01.html" class="article-date">
-  <time datetime="2021-05-19T12:56:47.000Z" itemprop="datePublished">2021-05-19</time>
+      <a href="/webpack%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%BC%96%E8%AF%91%E7%9A%84seal%E5%92%8Cemit%E9%98%B6%E6%AE%B5.html" class="article-date">
+  <time datetime="2021-05-22T11:59:38.000Z" itemprop="datePublished">2021-05-22</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
   </div>
 
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">42字</span>
+            <span class="post-count">1.2k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -113,6 +113,8 @@ var _hmt = _hmt || [];
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -127,21 +129,71 @@ var _hmt = _hmt || [];
       
 
       
-      <p>下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b https:&#x2F;&#x2F;github.com&#x2F;vuejs&#x2F;vue-next.git</span><br></pre></td></tr></table></figure>
+      <blockquote>
+<p>webpack的编译分几个阶段进行，分别为创建对象阶段run、解析获取module阶段make、module分包阶段seal、输出打包后文件阶段emit</p>
+</blockquote>
+<h2 id="seal阶段"><a href="#seal阶段" class="headerlink" title="seal阶段"></a>seal阶段</h2><blockquote>
+<p>seal阶段主要对<code>modules</code>做分拣、拆包、封装。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>compile(callback) {<br>    // make 阶段开始<br>    this.hooks.make.callAsync(compilation, err =&gt; {<br>        if (err) return callback(err);<br>        // make 阶段结束<br>        compilation.finish(err =&gt; {<br>            if (err) return callback(err);<br>            // seal 阶段开始<br>            compilation.seal(err =&gt; {<br>            …</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">### 分包优化</span><br><span class="line"></span><br><span class="line">查看文件&#96;&#96;&#96;&#x2F;node_modules&#x2F;webpack&#x2F;lib&#x2F;Compilation.js&#96;&#96;&#96;中第1283行seal方法</span><br></pre></td></tr></table></figure>
+<p>seal(callback) {<br>    // 开始进行分包优化操作<br>    this.hooks.optimize.call();<br>    // 一系列的分包优化操作…<br>    while (<br>        this.hooks.optimizeModulesBasic.call(this.modules) ||<br>        this.hooks.optimizeModules.call(this.modules) ||<br>        this.hooks.optimizeModulesAdvanced.call(this.modules)<br>    ) {<br>        /* empty */<br>    }<br>    this.hooks.afterOptimizeModules.call(this.modules);</p>
+<pre><code>while (
+    this.hooks.optimizeChunksBasic.call(this.chunks, this.chunkGroups) ||
+    this.hooks.optimizeChunks.call(this.chunks, this.chunkGroups) ||
+    this.hooks.optimizeChunksAdvanced.call(this.chunks, this.chunkGroups)
+) {
+    /* empty */
+}
+this.hooks.afterOptimizeChunks.call(this.chunks, this.chunkGroups);
 
-<p>目录：</p>
-<a id="more"></a>
+this.hooks.optimizeTree.callAsync(this.chunks, this.modules, err =&gt; {
+    if (err) {
+        return callback(err);
+    }
 
-<p><img src="https://i.loli.net/2021/05/19/saSrTKyNbRA41B8.png" alt="总目录"></p>
-<p><img src="https://i.loli.net/2021/05/19/5G7fRioLh9ZBm1k.png" alt="package目录"></p>
-<p>安装依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd vue-next &amp;&amp; yarn --registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+    this.hooks.afterOptimizeTree.call(this.chunks, this.modules);
 
-<p>编译打包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br></pre></td></tr></table></figure>
+    while (
+        this.hooks.optimizeChunkModulesBasic.call(this.chunks, this.modules) ||
+        this.hooks.optimizeChunkModules.call(this.chunks, this.modules) ||
+        this.hooks.optimizeChunkModulesAdvanced.call(this.chunks, this.modules)
+    ) {
+        /* empty */
+    }
+    this.hooks.afterOptimizeChunkModules.call(this.chunks, this.modules);
 
+    const shouldRecord = this.hooks.shouldRecord.call() !== false;
 
+    this.hooks.reviveModules.call(this.modules, this.records);
+    this.hooks.optimizeModuleOrder.call(this.modules);
+    this.hooks.advancedOptimizeModuleOrder.call(this.modules);
+    this.hooks.beforeModuleIds.call(this.modules);
+    this.hooks.moduleIds.call(this.modules);
+    this.applyModuleIds();
+    this.hooks.optimizeModuleIds.call(this.modules);
+    this.hooks.afterOptimizeModuleIds.call(this.modules);
+
+    this.sortItemsWithModuleIds();
+
+    this.hooks.reviveChunks.call(this.chunks, this.records);
+    this.hooks.optimizeChunkOrder.call(this.chunks);
+    this.hooks.beforeChunkIds.call(this.chunks);
+    this.applyChunkIds();
+    this.hooks.optimizeChunkIds.call(this.chunks);
+    this.hooks.afterOptimizeChunkIds.call(this.chunks);
+    ...
+}</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### compilation调用createModuleAssets方法</span><br><span class="line"></span><br><span class="line">webpack调用&#96;&#96;&#96;createModuleAssets&#96;&#96;&#96;方法来提取资产文件最后输出到&#96;&#96;&#96;dist&#96;&#96;&#96;目录中，如css中引入的图片等，&#96;&#96;&#96;css-loader&#96;&#96;&#96;会将图片当成一个个&#96;&#96;&#96;module&#96;&#96;&#96;，用&#96;&#96;&#96;url-loader&#96;&#96;&#96;或&#96;&#96;&#96;file-loader&#96;&#96;&#96;提取出来当成css模块中资产文件输出到dist</span><br><span class="line"></span><br><span class="line">### compilation调用createChunkAssets方法</span><br><span class="line"></span><br><span class="line">查看文件&#96;&#96;&#96;&#x2F;node_modules&#x2F;webpack&#x2F;lib&#x2F;Compilation.js&#96;&#96;&#96;中第1395行seal方法</span><br></pre></td></tr></table></figure>
+<p>seal(callback) {<br>        // 分包优化操作<br>        …<br>        // 开始分拣 module 中的资产文件<br>        this.createModuleAssets();<br>        …<br>        if (this.hooks.shouldGenerateChunkAssets.call() !== false) {<br>            this.hooks.beforeChunkAssets.call();<br>            // 开始分拣当前 chunk 中的资产文件<br>            this.createChunkAssets();<br>            …<br>            });<br>        });<br>    });<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">方法&#96;&#96;&#96;createChunkAssets&#96;&#96;&#96;用来分拣&#96;&#96;&#96;dist&#x2F;main.js&#96;&#96;&#96;中的资产文件</span><br><span class="line"></span><br><span class="line">### 判断Chunk是否包含runtime代码</span><br><span class="line"></span><br><span class="line">查看文件&#96;&#96;&#96;&#x2F;node_modules&#x2F;webpack&#x2F;lib&#x2F;Compilation.js&#96;&#96;&#96;中第2111行createChunkAssets方法</span><br></pre></td></tr></table></figure>
+<p>createChunkAssets() {<br>    // 遍历所有的 chunk<br>    for (let i = 0; i &lt; this.chunks.length; i++) {<br>        const chunk = this.chunks[i];<br>        chunk.files = [];<br>        let source;<br>        let file;<br>        let filenameTemplate;<br>        try {<br>            // 判断 chunk 是否包含 runtime 代码并获取 chunk 模版<br>            const template = chunk.hasRuntime()<br>                ? this.mainTemplate<br>                : this.chunkTemplate;<br>            // 调用 chunk 模版的 getRenderManifest 方法获取当前 chunk 的所有资产文件<br>            const manifest = template.getRenderManifest({<br>                chunk,<br>                hash: this.hash,<br>                fullHash: this.fullHash,<br>                outputOptions,<br>                moduleTemplates: this.moduleTemplates,<br>                dependencyTemplates: this.dependencyTemplates<br>            }); // [{ render(), filenameTemplate, pathOptions, identifier, hash }]<br>            // 遍历所有的资产清单<br>            for (const fileManifest of manifest) {<br>                …<br>                // 开始执行渲染，获取最后能被浏览器识别的代码<br>                source = fileManifest.render();<br>                …<br>                // 开始提交最终打包完毕的资产信息<br>                this.emitAsset(file, source, assetInfo);<br>                …<br>            }<br>        }<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">webpack判断&#96;&#96;&#96;chunk&#96;&#96;&#96;是否是&#96;&#96;&#96;runtime&#96;&#96;&#96;，即webpack启动代码（最终能被浏览器识别的&#96;&#96;&#96;import&#96;&#96;&#96;、&#96;&#96;&#96;require&#96;&#96;&#96;、&#96;&#96;&#96;export&#96;&#96;&#96;，默认为&#96;&#96;&#96;webpackjsonp&#96;&#96;&#96;）。</span><br><span class="line"></span><br><span class="line">如果包含&#96;&#96;&#96;runtime&#96;&#96;&#96;则用&#96;&#96;&#96;mainTemplate&#96;&#96;&#96;生成最终代码，不包含则用&#96;&#96;&#96;chunkTemplate&#96;&#96;&#96;生成。</span><br><span class="line"></span><br><span class="line">二者区别仅为是否包含&#96;&#96;&#96;runtime&#96;&#96;&#96;代码</span><br><span class="line"></span><br><span class="line">至此，&#96;&#96;&#96;seal&#96;&#96;&#96;阶段结束。</span><br><span class="line"></span><br><span class="line">## emit阶段</span><br><span class="line"></span><br><span class="line">&gt; emit阶段根据配置输出文件</span><br><span class="line"></span><br><span class="line">seal阶段结束，代码回到&#96;&#96;&#96;&#x2F;node_modules&#x2F;webpack&#x2F;lib&#x2F;Compiler.js&#96;&#96;&#96;660行&#96;&#96;&#96;run&#96;&#96;&#96;方法</span><br></pre></td></tr></table></figure>
+<p>compile(callback) {<br>    …<br>    // seal 阶段开始<br>    compilation.seal(err =&gt; {<br>        if (err) return callback(err);<br>        // seal 阶段结束<br>        this.hooks.afterCompile.callAsync(compilation, err =&gt; {<br>            if (err) return callback(err);<br>            // 回到 run方法<br>            return callback(null, compilation);<br>        });<br>    });<br>    …<br>}<br>//run方法<br>run(callback) {const onCompiled = (err, compilation) =&gt; {<br>        // seal 结束后回到了 run 方法，并准备执行 emitAssets<br>        this.emitAssets(compilation, err =&gt; {<br>            …<br>        });<br>    };<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### compiler.emitAssets输出打包过后文件</span><br><span class="line"></span><br><span class="line">查看文件&#96;&#96;&#96;&#x2F;node_modules&#x2F;webpack&#x2F;lib&#x2F;Compiler.js&#96;&#96;&#96;的&#96;&#96;&#96;emitAssets&#96;&#96;&#96;方法</span><br></pre></td></tr></table></figure>
+<p>emitAssets(compilation, callback) {<br>    let outputPath; // 输出目录地址<br>    const emitFiles = err =&gt; {<br>        // 遍历所有的资产文件<br>        asyncLib.forEachLimit(<br>            compilation.getAssets(),<br>            15,<br>            ({ name: file, source }, callback) =&gt; {<br>                let targetFile = file;<br>            …<br>            // 使用 webpack 的文件输出系统开始写文件到 outputPath<br>            this.outputFileSystem.writeFile(targetPath, content, err =&gt; {<br>                if (err) return callback(err);<br>                this.hooks.assetEmitted.callAsync(file, content, callback);<br>            });<br>            …<br>    }</p>
+<pre><code>
+至此，```emit```阶段结束</code></pre>
       
       <!-- reward -->
       
@@ -206,14 +258,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/vue3%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A01.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/webpack%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%BC%96%E8%AF%91%E7%9A%84seal%E5%92%8Cemit%E9%98%B6%E6%AE%B5.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
 
 
     </footer>
@@ -224,19 +276,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/webpack%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.html" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            webpack源码分析-初始化过程
-          
-        </div>
-      </a>
     
-    
-      <a href="/Vue%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E9%A1%B5%E7%AD%BE%E7%BC%93%E5%AD%98%E9%A1%B5%E9%9D%A2%E5%86%85%E5%AE%B9.html" class="article-nav-link">
+      <a href="/webpack%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E7%BC%96%E8%AF%91%E7%9A%84run%E5%92%8Cmake%E9%98%B6%E6%AE%B5.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Vue动态切换页签缓存页面内容</div>
+        <div class="article-nav-title">webpack源码分析-编译的run和make阶段</div>
       </a>
     
   </nav>
