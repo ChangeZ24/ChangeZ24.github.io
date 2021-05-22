@@ -1862,8 +1862,8 @@ this.hooks.optimizeTree.callAsync(this.chunks, this.modules, err =&gt; {
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
         <tag>Express</tag>
       </tags>
   </entry>
@@ -1901,8 +1901,8 @@ this.hooks.optimizeTree.callAsync(this.chunks, this.modules, err =&gt; {
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -1993,8 +1993,8 @@ this.hooks.optimizeTree.callAsync(this.chunks, this.modules, err =&gt; {
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -2023,8 +2023,8 @@ this.hooks.optimizeTree.callAsync(this.chunks, this.modules, err =&gt; {
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -2053,8 +2053,8 @@ this.hooks.optimizeTree.callAsync(this.chunks, this.modules, err =&gt; {
       </categories>
       <tags>
         <tag>web</tag>
-        <tag>Node.js</tag>
         <tag>JavaScript</tag>
+        <tag>Node.js</tag>
         <tag>server</tag>
       </tags>
   </entry>
