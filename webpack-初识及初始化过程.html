@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="webpack," />
+   
+  <meta name="description" content="初识webpack及初始化过程" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    webpack-初识及初始化过程 |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="https://sm.ms/image/pAvQcIxbGHSsYMr" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-webpack-初识及初始化过程" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  webpack-初识及初始化过程
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/webpack-%E5%88%9D%E8%AF%86%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.html" class="article-date">
+  <time datetime="2021-05-22T03:28:39.000Z" itemprop="datePublished">2021-05-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <blockquote>
+<p>webpack是现代<code>JavaScript</code>应用程序的静态模块打包器。通过递归地构建依赖关系图，将应用程序需要的每个模块打包成一个或多个bundle</p>
+</blockquote>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><ol>
+<li><p>使用<code>npm init</code>命令初始化工程</p>
+</li>
+<li><p>在src目录创建入口文件index.js</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import $ from &#39;jquery&#39;; &#x2F;&#x2F; 引入 jquery 第三方库</span><br><span class="line">$(&#39;#app&#39;).text(&#39;hello webpack!&#39;); &#x2F;&#x2F; 使用 jquery 输出 hello webpack</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<ol start="3">
+<li><p>使用<code>npm install jquery --registry https://registry.npm.taobao.org</code>安装jquery</p>
+</li>
+<li><p>使用<code>npm install -D webpack@4.44.1 webpack-cli --registry https://registry.npm.taobao.org</code>安装webpack</p>
+</li>
+<li><p>使用<code>npx webpack</code>编译打包。可看到目录中生成了<code>dist/main.js</code>文件</p>
+</li>
+<li><p>创建浏览器入口index.html文件</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;utf-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;webpack基础用法&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;!-- 创建挂载点 --&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;app&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;!-- 引入入口js文件 --&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;.&#x2F;dist&#x2F;main.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>可在编译器浏览index.html文件输出的hello webpack</li>
+</ol>
+<h2 id="webpack流程图"><a href="#webpack流程图" class="headerlink" title="webpack流程图"></a>webpack流程图</h2><p><img src="https://i.loli.net/2021/05/22/OtqX5seK1fT6guZ.png" alt="webpack流程图"></p>
+<h2 id="分析webpack如何将index-js编译为浏览器可识别的dist-main-js代码"><a href="#分析webpack如何将index-js编译为浏览器可识别的dist-main-js代码" class="headerlink" title="分析webpack如何将index.js编译为浏览器可识别的dist/main.js代码"></a>分析webpack如何将index.js编译为浏览器可识别的dist/main.js代码</h2><h3 id="webpack-cli"><a href="#webpack-cli" class="headerlink" title="webpack-cli"></a>webpack-cli</h3><p>在基础用法第5步，使用命令<code>npx webpack</code>编译打包，node会自动执行<code>/node_modules/webpack/bin/webpack.js</code>文件，从<code>133行</code>到<code>149行</code>看出<code>webpack</code>是最后交给<code>webpack-cli</code>命令来执行，即执行<code>npx webpack</code>和<code>npx webpack-cli</code>的结果是一样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 判断是否安装了 webpack-cli，如果没有安装就引导安装，确保存在 webpack-cli</span><br><span class="line">const packageName &#x3D; &#39;webpack-cli&#39;;</span><br><span class="line">&#x2F;&#x2F; 执行 webpack-cli</span><br><span class="line">runCommand(packageManager, installOptions.concat(packageName))</span><br><span class="line">  .then(() &#x3D;&gt; &#123;</span><br><span class="line">    require(packageName); &#x2F;&#x2F; eslint-disable-line</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch((error) &#x3D;&gt; &#123;</span><br><span class="line">    console.error(error);</span><br><span class="line">    process.exitCode &#x3D; 1;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>分析<code>node_modules/webpack-cli/bin/cli.js</code>文件可发现<code>webpack-cli</code>负责接受用户输入的命令，获取自定义配置文件<code>webpack.config,js</code>或<code>webpackfile.js</code>。创建一个webpack编译器对象<code>compiler</code>并执行<code>compiler</code>对象的<code>run</code>方法。</p>
+<h3 id="加载默认配置webpackOptionsDefaulter"><a href="#加载默认配置webpackOptionsDefaulter" class="headerlink" title="加载默认配置webpackOptionsDefaulter"></a>加载默认配置webpackOptionsDefaulter</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>try {<br>   const webpack = require(“webpack”); // 引入 webpack<br>   compiler = webpack(options); // 创建 webpack 编译器对象 compiler<br>} catch (err) {……}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">引入webpack，并返回webpack编译器对象compiler</span><br><span class="line"></span><br><span class="line">查看文件&#96;&#96;&#96;node_modules&#x2F;webpack&#x2F;lib&#x2F;webpack.js&#96;&#96;&#96;第25行</span><br></pre></td></tr></table></figure>
+<p>const webpack = (options, callback) =&gt; {<br>  // 加载 webpack 默认配置<br>  options = new webpackOptionsDefaulter().process(options);<br>        // 创建 webpack 编译器对象 compiler<br>        compiler = new Compiler(options.context);<br>        compiler.options = options;<br>        // 初始化 webpack 的 log 系统、watch 系统、file 系统<br>        new NodeEnvironmentPlugin({<br>            infrastructureLogging: options.infrastructureLogging<br>        }).apply(compiler);<br>        // 开始加载插件<br>        if (options.plugins &amp;&amp; Array.isArray(options.plugins)) {<br>            for (const plugin of options.plugins) {<br>                if (typeof plugin === “function”) {<br>                    plugin.call(compiler, compiler);<br>                } else {<br>                    plugin.apply(compiler);<br>                }<br>            }<br>        }<br>        compiler.hooks.environment.call();<br>        compiler.hooks.afterEnvironment.call();<br>        //根据 wbepack 的默认配置做 webpack 的初始化操作<br>        compiler.options = new webpackOptionsApply().process(options, compiler);<br>  if (callback) {<br>        …<br>        // 开始编译<br>        compiler.run(callback);<br>    }<br>    // 返回编译器对象<br>    return compiler;<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查看&#96;&#96;&#96;node_modules&#x2F;webpack&#x2F;lib&#x2F;webpackOptionsDefaulter.js&#96;&#96;&#96;文件第30行，查看&#96;&#96;&#96;webpackOptionsDefaulter&#96;&#96;&#96;定义</span><br></pre></td></tr></table></figure>
+<p>class webpackOptionsDefaulter extends OptionsDefaulter {<br>    constructor() {<br>        super();<br>        // 设置默认的入口文件为 “src/index.js” 文件<br>        this.set(“entry”, “./src”);</p>
+<pre><code>    // 设置默认的开发模式为：测试环境 “eval” 生产环境 “false”
+    this.set(&quot;devtool&quot;, &quot;make&quot;, options =&gt;
+        options.mode === &quot;development&quot; ? &quot;eval&quot; : false
+    );
+    // 设置默认上下文目录为 process.cwd()
+    this.set(&quot;context&quot;, process.cwd());
+    // 设置 webpack 的默认 target 为 “web”
+    this.set(&quot;target&quot;, &quot;web&quot;);
+    ...
+    // 设置 webpack 的默认输出路径为 “dist” 目录
+    this.set(&quot;output.path&quot;, path.join(process.cwd(), &quot;dist&quot;));
+
+    .........
+}</code></pre><p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">由上看出，当没有对webpack做任何配置时，webpack会读取默认配置信息，即默认入口文件&#96;&#96;&#96;src&#x2F;index.js&#96;&#96;&#96;，默认开发环境、上下文目录、默认target、默认输出路径。</span><br><span class="line"></span><br><span class="line">即在基础使用中，没有做任何配置，故webpack默认读取&#96;&#96;&#96;src&#x2F;index.js&#96;&#96;&#96;文件打包输出到&#96;&#96;&#96;dist&#96;&#96;&#96;目录</span><br><span class="line"></span><br><span class="line">### 创建Compiler对象</span><br><span class="line"></span><br><span class="line">&gt; 对象&#96;&#96;&#96;Compiler&#96;&#96;&#96;类似&#96;&#96;&#96;webpack&#96;&#96;&#96;的司机，控制webpack使用</span><br></pre></td></tr></table></figure>
+<p>const webpack = (options, callback) =&gt; {<br>  // 创建 webpack 编译器对象 compiler<br>  compiler = new Compiler(options.context);</p>
+<p>  ……<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">它的方法有</span><br><span class="line"></span><br><span class="line">1. run：启动编译</span><br><span class="line"></span><br><span class="line">2. newCompilation：创建编译器</span><br><span class="line"></span><br><span class="line">3. emitAssets：处理编译后结果。</span><br><span class="line"></span><br><span class="line">### 创建node环境</span><br></pre></td></tr></table></figure>
+<p>const webpack = (options, callback) =&gt; {<br>    …<br>    // 初始化 webpack 的 log 系统、watch 系统、file 系统<br>    new NodeEnvironmentPlugin({<br>        infrastructureLogging: options.infrastructureLogging<br>    }).apply(compiler);<br>    …<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查看&#96;&#96;&#96;node_modules&#x2F;webpack&#x2F;lib&#x2F;node&#x2F;NodeEnvironmentPlugin.js&#96;&#96;&#96;文件第14行</span><br></pre></td></tr></table></figure>
+<p>class NodeEnvironmentPlugin {<br>    apply(compiler) {<br>        // 创建 webpack 中的 log 系统<br>        compiler.infrastructureLogger = createConsoleLogger(<br>            Object.assign(<br>                {<br>                    level: “info”,<br>                    debug: false,<br>                    console: nodeConsole<br>                },<br>                this.options.infrastructureLogging<br>            )<br>        );<br>        // 创建 webpack 中的 file 读取系统<br>        compiler.inputFileSystem = new CachedInputFileSystem(<br>            new NodeJsInputFileSystem(),<br>            60000<br>        );<br>        const inputFileSystem = compiler.inputFileSystem;<br>        // 创建 webpack 中的 file 输出系统<br>        compiler.outputFileSystem = new NodeOutputFileSystem();<br>        // 创建 webpack 中的 watch 监听文件系统<br>        compiler.watchFileSystem = new NodeWatchFileSystem(<br>            compiler.inputFileSystem<br>        );<br>        …<br>    }<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">通过&#96;&#96;&#96;NodeEnvironmentPlugin&#96;&#96;&#96;创建文件系统，使&#96;&#96;&#96;webpack&#96;&#96;&#96;可以读取、编译、输出文件，同时输出一些log文件</span><br><span class="line"></span><br><span class="line">### 加载plugins</span><br></pre></td></tr></table></figure>
+<p>const webpack = (options, callback) =&gt; {<br>    …<br>    // 开始加载插件<br>    if (options.plugins &amp;&amp; Array.isArray(options.plugins)) {<br>        for (const plugin of options.plugins) {<br>            // 如果插件是一个方法<br>            if (typeof plugin === “function”) {<br>                plugin.call(compiler, compiler);<br>            // 插件为一个对象的时候<br>            } else {<br>                plugin.apply(compiler);<br>            }<br>        }<br>    }<br>    …<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 自定义插件</span><br><span class="line"></span><br><span class="line">1. 提供配置文件&#96;&#96;&#96;webpack.config.js&#96;&#96;&#96;给&#96;&#96;&#96;webpack</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;创建配置文件</span><br><span class="line">touch webpack.config.js</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>导入一个对象</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  plugins: [],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建plugins目录</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir plugins</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>在plugins目录中创建文件function-webpack-plugin.js</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">touch plugins&#x2F;function-webpack-plugin.js</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;文件内容</span><br><span class="line">module.exports &#x3D; function (compiler) &#123;</span><br><span class="line">  &#x2F;&#x2F; 利用 webpack 的 log 系统输出一句话</span><br><span class="line">  compiler.infrastructureLogger(&#39;Customer&#39;, &#39;error&#39;, [</span><br><span class="line">    &#39;我是自定义Function插件&#39;,</span><br><span class="line">  ]);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>在plugins目录中创建文件object-webpack-plugin.js</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class ObjectwebpackPlugin &#123;</span><br><span class="line">  apply(compiler) &#123;</span><br><span class="line">    &#x2F;&#x2F; 同样利用 webpack 的 log 系统输出一句话</span><br><span class="line">    compiler.infrastructureLogger(&#39;Customer&#39;, &#39;error&#39;, [</span><br><span class="line">      &#39;我是自定义Object插件&#39;,</span><br><span class="line">    ]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">module.exports &#x3D; ObjectwebpackPlugin;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>在webpack.config.js使用4、5中插件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    require(&#39;.&#x2F;plugins&#x2F;function-webpack-plugin&#39;), &#x2F;&#x2F; 引用 function 方式插件</span><br><span class="line">    new (require(&#39;.&#x2F;plugins&#x2F;object-webpack-plugin&#39;))(), &#x2F;&#x2F; 引用 object 方式插件</span><br><span class="line">  ],</span><br><span class="line">  infrastructureLogging: &#123;</span><br><span class="line">    debug: true, &#x2F;&#x2F; 开启 webpack 的 log 系统</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>执行命令<code>npx webpack</code></li>
+</ol>
+<p><img src="https://i.loli.net/2021/05/22/XolRx52HTQWpPwy.png" alt="结果"></p>
+<h3 id="根据默认配置初始化webpack"><a href="#根据默认配置初始化webpack" class="headerlink" title="根据默认配置初始化webpack"></a>根据默认配置初始化webpack</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const webpackOptionsApply &#x3D; require(&quot;.&#x2F;webpackOptionsApply&quot;);</span><br><span class="line">...</span><br><span class="line">const webpack &#x3D; (options, callback) &#x3D;&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">  &#x2F;&#x2F; 根据默认配置初始化 webpack</span><br><span class="line">  compiler.options &#x3D; new webpackOptionsApply().process(options, compiler);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看文件<code>node_modules/webpack/lib/webpackOptionsApply.js</code>第55行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">process(options, compiler) &#123;</span><br><span class="line">    let ExternalsPlugin;</span><br><span class="line">    &#x2F;&#x2F; 初始化 webpack 的输出路径</span><br><span class="line">    compiler.outputPath &#x3D; options.output.path;</span><br><span class="line">    &#x2F;&#x2F; 初始化 webpack 的 records 路径</span><br><span class="line">    compiler.recordsInputPath &#x3D; options.recordsInputPath || options.recordsPath;</span><br><span class="line">    compiler.recordsOutputPath &#x3D;</span><br><span class="line">        options.recordsOutputPath || options.recordsPath;</span><br><span class="line">    &#x2F;&#x2F; 设置当前编译器的 name</span><br><span class="line">    compiler.name &#x3D; options.name;</span><br><span class="line">        switch (options.target) &#123;</span><br><span class="line">            case &quot;web&quot;:</span><br><span class="line">                &#x2F;&#x2F; 添加浏览器环境的模块生成器模版</span><br><span class="line">                JsonpTemplatePlugin &#x3D; require(&quot;.&#x2F;web&#x2F;JsonpTemplatePlugin&quot;);</span><br><span class="line">                NodeSourcePlugin &#x3D; require(&quot;.&#x2F;node&#x2F;NodeSourcePlugin&quot;);</span><br><span class="line">                new JsonpTemplatePlugin().apply(compiler);</span><br><span class="line">                new FetchCompileWasmTemplatePlugin(&#123;</span><br><span class="line">                    mangleImports: options.optimization.mangleWasmImports</span><br><span class="line">                &#125;).apply(compiler);</span><br><span class="line">                &#x2F;&#x2F; 将模块到一个方法中的模版</span><br><span class="line">                new FunctionModulePlugin().apply(compiler);</span><br><span class="line">                new NodeSourcePlugin(options.node).apply(compiler);</span><br><span class="line">                new LoaderTargetPlugin(options.target).apply(compiler);</span><br><span class="line">                break;</span><br><span class="line">      ...</span><br><span class="line">    &#x2F;&#x2F; 入口文件加载插件</span><br><span class="line">    new EntryOptionPlugin().apply(compiler);</span><br><span class="line">    &#x2F;&#x2F; 执行 compiler 对象中的 entryOption 钩子函数</span><br><span class="line">    compiler.hooks.entryOption.call(options.context, options.entry);</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>webpackOptionsApply的责任为根据webapck的配置信息加载一些插件。</p>
+</blockquote>
+<p>如上代码中<code>入口文件加载插件</code>到<code>执行compiler对象中的entryOption钩子函数</code>部分，这里执行了<code>compiler</code>对象中的<code>entryOption</code>钩子函数。</p>
+<p>查看文件<code>node_modules/webpack/lib/EntryOptionPlugin.js</code>第20行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">const itemToPlugin &#x3D; (context, item, name) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; 多入口的时候</span><br><span class="line">    if (Array.isArray(item)) &#123;</span><br><span class="line">        return new MultiEntryPlugin(context, item, name);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 单入口的时候</span><br><span class="line">    return new SingleEntryPlugin(context, item, name);</span><br><span class="line">&#125;;</span><br><span class="line">module.exports &#x3D; class EntryOptionPlugin &#123;</span><br><span class="line">    apply(compiler) &#123;</span><br><span class="line">        &#x2F;&#x2F; 监听 compiler 对象中的 entryOption 钩子函数</span><br><span class="line">        compiler.hooks.entryOption.tap(&quot;EntryOptionPlugin&quot;, (context, entry) &#x3D;&gt; &#123;</span><br><span class="line">             &#x2F;&#x2F; entry 可以为一个 string 或数组，名称默认为 “main”</span><br><span class="line">            if (typeof entry &#x3D;&#x3D;&#x3D; &quot;string&quot; || Array.isArray(entry)) &#123;</span><br><span class="line">                itemToPlugin(context, entry, &quot;main&quot;).apply(compiler);</span><br><span class="line">            &#125; else if (typeof entry &#x3D;&#x3D;&#x3D; &quot;object&quot;) &#123; &#x2F;&#x2F; entry 可以为一个 object</span><br><span class="line">                for (const name of Object.keys(entry)) &#123;</span><br><span class="line">                    itemToPlugin(context, entry[name], name).apply(compiler);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else if (typeof entry &#x3D;&#x3D;&#x3D; &quot;function&quot;) &#123; &#x2F;&#x2F; entry 还可以为一个方法</span><br><span class="line">                new DynamicEntryPlugin(context, entry).apply(compiler);</span><br><span class="line">            &#125;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>EntryOptionPlugin监听<code>compiler</code>对象中的<code>entryOption</code>钩子函数的执行</p>
+<p>原基础应用使用的是单入口项目，故在此使用的是SIngleEntryPlugin插件，查看文件<code>node_modules/webpack/lib/SingleEntryPlugin.js</code>第40行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class SingleEntryPlugin &#123;</span><br><span class="line">    constructor(context, entry, name) &#123;</span><br><span class="line">        this.context &#x3D; context; &#x2F;&#x2F; 当前 webpack 的上下文目录</span><br><span class="line">        this.entry &#x3D; entry; &#x2F;&#x2F; 入口文件</span><br><span class="line">        this.name &#x3D; name; &#x2F;&#x2F; 入口文件的名称</span><br><span class="line">    &#125;</span><br><span class="line">    apply(compiler) &#123;</span><br><span class="line">    ...</span><br><span class="line">        &#x2F;&#x2F; 监听 compiler 对象的 make 操作</span><br><span class="line">        compiler.hooks.make.tapAsync(</span><br><span class="line">            &quot;SingleEntryPlugin&quot;,</span><br><span class="line">            (compilation, callback) &#x3D;&gt; &#123;</span><br><span class="line">                const &#123; entry, name, context &#125; &#x3D; this;</span><br><span class="line">                const dep &#x3D; SingleEntryPlugin.createDependency(entry, name);</span><br><span class="line">                &#x2F;&#x2F; 把入口文件当成一个 dependency 添加到 webpack 进行编译</span><br><span class="line">                compilation.addEntry(context, dep, name, callback);</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">...</span><br><span class="line">module.exports &#x3D; SingleEntryPlugin;</span><br></pre></td></tr></table></figure>
+
+<p>到此，webpack的初始化过程结束。<code>webpack</code>在<code>SingleEntryPlugin</code>停止运行等待<code>compiler</code>的<code>make</code>操作的执行，即<code>run</code>方法，webpack编译的开始。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/webpack-%E5%88%9D%E8%AF%86%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/vue3%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A01.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">vue3源码学习1</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>
