@@ -91,6 +91,86 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-webpack-dev-server搭建简易mock服务器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/webpack-dev-server%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93mock%E6%9C%8D%E5%8A%A1%E5%99%A8.html"
+    >webpack-dev-server搭建简易mock服务器</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/webpack-dev-server%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93mock%E6%9C%8D%E5%8A%A1%E5%99%A8.html" class="article-date">
+  <time datetime="2021-05-25T05:06:45.000Z" itemprop="datePublished">2021-05-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><blockquote>
+<p>用来快速开发应用，仅用于development环境</p>
+</blockquote>
+<p>webpack-dev-server是第三方依赖库，依赖<code>webpack-dev-middleware</code>（负责把webpack打包后的文件存放在内存中供外界访问）。</p>
+<p>下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack-dev-server --registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/webpack-dev-server%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93mock%E6%9C%8D%E5%8A%A1%E5%99%A8.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-webpack-配置参数解析（下）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -789,84 +869,6 @@ var _hmt = _hmt || [];
 <p>可以传入静态的值：</p>
       
       <a class="article-more-link" href="/Vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Vue事件处理修饰符" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/Vue%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E4%BF%AE%E9%A5%B0%E7%AC%A6.html"
-    >Vue事件处理修饰符</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/Vue%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E4%BF%AE%E9%A5%B0%E7%AC%A6.html" class="article-date">
-  <time datetime="2021-05-14T09:31:10.000Z" itemprop="datePublished">2021-05-14</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><blockquote>
-<p>在事件处理程序中调用<code>event.preventDefault()</code>或<code>event.stopPropagation()</code>是非常常见的需求。因此推荐使用事件修饰符处理。尽管可以在方法中实现这点，但更好的方式是：方法只有纯粹的数据逻辑，而不是去处理<code>DOM</code>事件细节。</p>
-</blockquote>
-<p>修饰符是由点开头的指令后缀来表示的。使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。</p>
-      
-      <a class="article-more-link" href="/Vue%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E4%BF%AE%E9%A5%B0%E7%AC%A6.html">阅读更多...</a>
       
       
       <!-- reward -->

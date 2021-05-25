@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>webpack-dev-server搭建简易mock服务器</title>
+    <url>/webpack-dev-server%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93mock%E6%9C%8D%E5%8A%A1%E5%99%A8.html</url>
+    <content><![CDATA[<h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><blockquote>
+<p>用来快速开发应用，仅用于development环境</p>
+</blockquote>
+<p>webpack-dev-server是第三方依赖库，依赖<code>webpack-dev-middleware</code>（负责把webpack打包后的文件存放在内存中供外界访问）。</p>
+<p>下载：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -D webpack-dev-server --registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="devServer"><a href="#devServer" class="headerlink" title="devServer"></a>devServer</h3><blockquote>
+<p>对象，webpack的一个配置选项，主要为<code>webpack-dev-server</code>的参数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path &#x3D; require(&#39;path&#39;);</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    contentBase: path.join(__dirname, &#39;dist&#39;),</span><br><span class="line">    compress: true, &#x2F;&#x2F; 该选项为 true，如果访问服务器的文件，将压缩 dist 目录底下的所有文件给到访问者</span><br><span class="line">    port: 8888,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><ul>
+<li>host: 指定一个host，默认为<code>localhost</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">    host: &#39;0.0.0.0&#39;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>port: 设置服务器的端口，默认为<code>8080</code></p>
+</li>
+<li><p>allowedHost: 字符串数组，用于添加白名单，允许开发服务器访问</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">    host: &quot;0.0.0.0&quot;, &#x2F;&#x2F; 如果你希望服务器外部可访问</span><br><span class="line">    allowedHosts: [</span><br><span class="line">        &quot;www.baidu.com&quot; &#x2F;&#x2F; 添加白名单</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>disableHostCheck: 是否关闭白名单校验，默认为<code>false</code>，此项设为<code>true</code>则不需要设置<code>allowedHost</code></p>
+</li>
+<li><p>before: function，在服务其他中间件之前，提供执行自定义中间件的功能，可以用来配置自定义处理程序</p>
+</li>
+<li><p>after: function，用法与<code>before</code>一致，表示在服务其他中间件之后执行自定义中间件的功能</p>
+</li>
+<li><p>compress: 默认为<code>false</code>，用于对服务器的文件和处理结果的压缩</p>
+</li>
+<li><p>contentBase: 默认为<code>process.cwd()</code>，<code>express</code>的功能，利用express指定某目录为静态目录</p>
+</li>
+<li><p>contentBasePublicPath: 表示静态公共目录的访问path</p>
+</li>
+<li><p>historyApiFallback: 当后端路由没有命中，就会自动重定向到<code>index.html</code></p>
+</li>
+<li><p>hot: 默认为<code>false</code>，启用webpack的模块热替换功能</p>
+<ul>
+<li><p>hot reload: 热载入，需要打开hot生效，即当webpack监听到文件变化，打包编译后通知<code>webpack-dev-server</code>,客户端收到<code>webpack-dev-server</code>消息后更新局部模块。</p>
+</li>
+<li><p>live load: 实时更新，webpack-dev-server默认开启，即客户端刷新整个页面。</p>
+</li>
+</ul>
+</li>
+<li><p>open: 字符串或对象，默认<code>false</code>禁用。告诉dev-server在server启动后打开浏览器</p>
+</li>
+<li><p>overlay: <code>boolean</code>或对象形式，默认为<code>false</code>。将webpack报错信息显示到浏览器</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">    ...</span><br><span class="line">    overlay: true, &#x2F;&#x2F; 把 webpack 的报错和警告信息显示在浏览器</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;或分开显示error和warning</span><br><span class="line">overlay: &#123;</span><br><span class="line">  warnings: true, &#x2F;&#x2F; 是否显示 warnings</span><br><span class="line">  errors: true &#x2F;&#x2F; 是否显示 errors</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="搭建mock服务器"><a href="#搭建mock服务器" class="headerlink" title="搭建mock服务器"></a>搭建mock服务器</h2><ol>
+<li><p>新建mock目录</p>
+</li>
+<li><p>编写mock接口函数</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">module.exports &#x3D; function (req,res,next)&#123;</span><br><span class="line">    const &#123; name &#125; &#x3D; req.query; &#x2F;&#x2F;接受参数name  </span><br><span class="line">    let result &#x3D; &#96;$&#123;name&#125;，请回应我～&#96;; &#x2F;&#x2F;返回result</span><br><span class="line">    res.json(&#123; msg: result &#125;); &#x2F;&#x2F;json格式返回result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改<code>webpack.config.js</code>文件用<code>webpack-dev-server</code>加载此函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">        disableHostCheck: true, &#x2F;&#x2F;关闭白名单校验</span><br><span class="line">        before(app, devServer, compiler)&#123;</span><br><span class="line">            const glob &#x3D; require(&quot;glob&quot;);</span><br><span class="line">            const mockPaths &#x3D; &#96;$&#123;path.join(__dirname,&#39;.&#x2F;mock&#39;)&#125;&#x2F;*.js&#96;;&#x2F;&#x2F;获取所有mock函数</span><br><span class="line">            glob(mockPaths,function(er,files)&#123;</span><br><span class="line">                files.forEach((mockFile) &#x3D;&gt; &#123;&#x2F;&#x2F; 遍历所有mock函数</span><br><span class="line">                    const mockFunc &#x3D; require(mockFile); &#x2F;&#x2F; 获取当前mock函数</span><br><span class="line">                    const methodName &#x3D; path.basename(mockFile).split(&quot;.&quot;)[0];&#x2F;&#x2F;获取当前mock名称</span><br><span class="line">                    app.all(&quot;&#x2F;&quot; + methodName, mockFunc); &#x2F;&#x2F; 添加mock函数到服务器</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>使用命令<code>npx webpack-dev-server</code>启动，访问链接<code>http://localhost:8080/responseByName?name=lynn</code>查看效果</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/25/gzQEZR.png" alt="mock回应"></p>
+<ol start="5">
+<li>编写对接接口并处理返回值渲染页面</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;入口文件src&#x2F;index.js</span><br><span class="line">import &#123;webpackSay&#125; from &quot;..&#x2F;library&quot;; &#x2F;&#x2F;引入 library 的 webpackSay 方法</span><br><span class="line">import Vue from &quot;vue&quot;; &#x2F;&#x2F;导入vue</span><br><span class="line">import noticeWebpack from &quot;$NOTICE&quot;; &#x2F;&#x2F;导入noticeWebpack组件</span><br><span class="line"></span><br><span class="line">document.write(&quot;hello webpack!&quot;);</span><br><span class="line">&#x2F;&#x2F;按需引入demo.js文件</span><br><span class="line">import(&quot;.&#x2F;demo&quot;).then((result) &#x3D;&gt; &#123;</span><br><span class="line">    result.default();</span><br><span class="line">    webpackSay(); &#x2F;&#x2F;执行 webpackSay方法</span><br><span class="line">    &#x2F;&#x2F; 通知webpack函数</span><br><span class="line">    function renderNotice()&#123;</span><br><span class="line">        const noticeRootEle &#x3D; document.createElement(&quot;div&quot;);</span><br><span class="line">        document.body.append(noticeRootEle);</span><br><span class="line">        new Vue(&#123;</span><br><span class="line">            render: (h) &#x3D;&gt; h(noticeWebpack)</span><br><span class="line">        &#125;).$mount(noticeRootEle);</span><br><span class="line">    &#125;</span><br><span class="line">    renderNotice();</span><br><span class="line">    &#x2F;&#x2F; mock服务器对接接口，渲染页面</span><br><span class="line">    responseMsg(&#39;Lynn&#39;).then((msg) &#x3D;&gt; &#123;</span><br><span class="line">        writeToPage(&#96;喂喂喂： $&#123;msg&#125;&#96;);</span><br><span class="line">    &#125;).catch((e) &#x3D;&gt;&#123;</span><br><span class="line">        writeToPage(&#39;喂喂喂，听不到我嘛～&#39;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;** </span><br><span class="line"> * 对话函数</span><br><span class="line"> * @param name</span><br><span class="line"> *&#x2F;</span><br><span class="line">function responseMsg(name)&#123;</span><br><span class="line">    return new Promise((resolve,reject) &#x3D;&gt;&#123;</span><br><span class="line">        const request &#x3D; new XMLHttpRequest();</span><br><span class="line">        request.onreadystatechange &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">            if(request.readyState &#x3D;&#x3D;&#x3D; 4 &amp;&amp; request.status &#x3D;&#x3D;&#x3D; 200)&#123;</span><br><span class="line">                const result &#x3D; JSON.parse(request.responseText);</span><br><span class="line">                resolve(result.msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        request.onerror &#x3D; (error) &#x3D;&gt; &#123;</span><br><span class="line">            reject(error);</span><br><span class="line">        &#125;;</span><br><span class="line">        request.open(&#39;GET&#39;,&#96;&#x2F;responseByName?name&#x3D;$&#123;name&#125;&#96;);</span><br><span class="line">        request.setRequestHeader(&#39;accept&#39;, &#39;application&#x2F;json&#39;); &#x2F;&#x2F; 添加请求头 accept 为 application&#x2F;json</span><br><span class="line">        request.send(null);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;** </span><br><span class="line"> * 打印msg到页面</span><br><span class="line"> * @param msg</span><br><span class="line"> *&#x2F;</span><br><span class="line">function writeToPage(msg)&#123;</span><br><span class="line">    const ele &#x3D; document.createElement(&#39;div&#39;);</span><br><span class="line">    ele.innerText &#x3D; msg;</span><br><span class="line">    document.body.append(ele);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>使用命令<code>npx webpack-dev-server</code>启动，查看效果</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/25/gzw8gA.png" alt="mock效果"></p>
+]]></content>
+      <categories>
+        <category>webpack</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>webpack-配置参数解析（下）</title>
     <url>/webpack-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90%EF%BC%88%E4%B8%8B%EF%BC%89.html</url>
     <content><![CDATA[<h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><blockquote>
