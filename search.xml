@@ -1,6 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>结合Vue3-demo项目分析源码（一）</title>
+    <url>/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>从0搭建简易vue3项目</title>
+    <url>/%E4%BB%8E0%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93vue3%E9%A1%B9%E7%9B%AE.html</url>
+    <content><![CDATA[<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li><p>创建目录，使用<code>npm init -y</code>初始化项目</p>
+</li>
+<li><p>使用<code>npm install -D xxx ...</code>命令安装webpack相关依赖</p>
+<ul>
+<li><p>webpack：webpack编译打包核心库</p>
+</li>
+<li><p>webpack-cli：webpack指令库</p>
+</li>
+<li><p>webpack-dev-server：webpack开发者服务框架</p>
+</li>
+<li><p>webpack-chain：webpack配置工具</p>
+</li>
+</ul>
+</li>
+<li><p>创建webpack配置文件<code>webpack.config.js</code></p>
+</li>
+</ol>
+<a id="more"></a>
+
+<ol start="4">
+<li>在<code>package.json</code>的<code>scripts</code>字段声明<code>build</code>和<code>dev</code>脚本</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;build&quot;: &quot;rimraf dist &amp;&amp; webpack --mode&#x3D;production&quot;,</span><br><span class="line">&quot;dev&quot;: &quot;webpack serve --mode&#x3D;development&quot;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>创建<code>src</code>目录和入口文件<code>src/main.js</code></p>
+</li>
+<li><p>配置<code>webpack.config.js</code></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const path &#x3D; require(&quot;path&quot;);</span><br><span class="line">const config &#x3D; new (require(&quot;webpack-chain&quot;))();</span><br><span class="line">config</span><br><span class="line">.context(path.resolve(__dirname, &quot;.&quot;)) &#x2F;&#x2F; webpack 上下文目录为项目根目录</span><br><span class="line">.entry(&quot;app&quot;) &#x2F;&#x2F; 入口文件名称为 app</span><br><span class="line">.add(&quot;.&#x2F;src&#x2F;main.js&quot;) &#x2F;&#x2F; 入口文件为 .&#x2F;src&#x2F;main.js</span><br><span class="line">.end()</span><br><span class="line">.output.path(path.join(__dirname, &quot;.&#x2F;dist&quot;)) &#x2F;&#x2F; webpack 输出的目录为根目录的 dist 目录</span><br><span class="line">.filename(&quot;[name].[hash:8].js&quot;) &#x2F;&#x2F; 打包出来的 bundle 名称为 &quot;[name].[hash:8].js&quot;</span><br><span class="line">.publicPath(&quot;&#x2F;&quot;) &#x2F;&#x2F; publicpath 配置为 &quot;&#x2F;&quot;</span><br><span class="line">.end();</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><p>安装Vue3相关依赖</p>
+<ul>
+<li><p>vue：Vue3源码</p>
+</li>
+<li><p>vue-loader：.vue文件webpack加载器</p>
+</li>
+<li><p>@vue/compiler-sfc：vue-loader用来解析sfc（Single File Component）插件</p>
+</li>
+<li><p>html-webpack-plugin：webpack插件用来自动注入chunks到模版html文件</p>
+</li>
+</ul>
+</li>
+<li><p>创建公共目录<code>public</code>和项目入口页面<code>public/index.html</code></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;noscript&gt;your browser should support javascript!&lt;&#x2F;noscript&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;app&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;!-- html-webpack-plugin 将自动引入入口文件 --&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>在<code>webpack.config.js</code>文件中配置vue工具(<code>webpack.config.js</code>最终文件见文末附录)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">.resolve.extensions.add(&quot;.js&quot;)</span><br><span class="line">.add(&quot;.vue&quot;) &#x2F;&#x2F; 配置以 .js 等结尾的文件当模块使用的时候都可以省略后缀</span><br><span class="line">.end()</span><br><span class="line">.end()</span><br><span class="line">.module.rule(&quot;vue&quot;) &#x2F;&#x2F; vue-loader 相关配置</span><br><span class="line">.test(&#x2F;\.vue$&#x2F;) &#x2F;&#x2F; 匹配 .vue 文件</span><br><span class="line">.use(&quot;vue-loader&quot;)</span><br><span class="line">.loader(&quot;vue-loader&quot;)</span><br><span class="line">.end()</span><br><span class="line">.end()</span><br><span class="line">.end()</span><br><span class="line">.plugin(&quot;vue-loader-plugin&quot;) &#x2F;&#x2F; vue-loader 必须要添加 vue-loader-plugin</span><br><span class="line">.use(require(&quot;vue-loader&quot;).VueLoaderPlugin, [])</span><br><span class="line">.end()</span><br><span class="line">.plugin(&quot;html&quot;) &#x2F;&#x2F; 添加 html-webpack-plugin 插件</span><br><span class="line">.use(require(&quot;html-webpack-plugin&quot;), [</span><br><span class="line">&#123;</span><br><span class="line">    template: path.resolve(__dirname, &quot;.&#x2F;public&#x2F;index.html&quot;), &#x2F;&#x2F; 指定模版文件</span><br><span class="line">    chunks: [&quot;app&quot;], &#x2F;&#x2F; 指定需要加载的 chunk</span><br><span class="line">    inject: &quot;body&quot;, &#x2F;&#x2F; 指定 script 脚本注入的位置为 body</span><br><span class="line">&#125;,</span><br><span class="line">])</span><br><span class="line">.end()</span><br><span class="line">.devServer.host(&quot;0.0.0.0&quot;) &#x2F;&#x2F; 服务器外部可访问</span><br><span class="line">.disableHostCheck(true) &#x2F;&#x2F; 关闭白名单校验</span><br><span class="line">.contentBase(path.resolve(__dirname, &quot;.&#x2F;public&quot;)) &#x2F;&#x2F; 设置一个 express 静态目录</span><br><span class="line">.historyApiFallback(&#123;</span><br><span class="line">disableDotRule: true, &#x2F;&#x2F; 禁止在链接中使用 &quot;.&quot; 符号</span><br><span class="line">rewrites: [</span><br><span class="line">    &#123; from: &#x2F;^\&#x2F;$&#x2F;, to: &quot;&#x2F;index.html&quot; &#125;, &#x2F;&#x2F; 将所有的 404 响应重定向到 index.html 页面</span><br><span class="line">],</span><br><span class="line">&#125;)</span><br><span class="line">.port(8080) &#x2F;&#x2F; 当前端口号</span><br><span class="line">.hot(true) &#x2F;&#x2F; 打开页面热载功能</span><br><span class="line">.sockPort(&quot;location&quot;) &#x2F;&#x2F; 设置成平台自己的端口</span><br><span class="line">.open(true);</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>创建sfc组件<code>src/App.vue</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &#123;&#123; msg &#125;&#125;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;app&quot;,</span><br><span class="line">  props: [&quot;msg&quot;],</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>在入口文件<code>src/main.js</code>中引入<code>App.vue</code>组件，并将其挂载到<code>id=app</code>的节点上</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; createApp &#125; from &quot;vue&quot;; &#x2F;&#x2F; 引入 Vue 3 源码</span><br><span class="line">import App from &quot;.&#x2F;App&quot;; &#x2F;&#x2F; 引入 App.vue 组件</span><br><span class="line">const app &#x3D; createApp(App, &#123; msg: &quot;hello Vue 3&quot; &#125;); &#x2F;&#x2F; 渲染 App 组件，并传递 msg 参数 “hello Vue”</span><br><span class="line">app.mount(&quot;#app&quot;); &#x2F;&#x2F; 渲染 App</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>使用命令<code>npm run dev</code>运行项目</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/26/2pH9aV.png" alt="运行项目"></p>
+<ol start="13">
+<li>下载Vue3源码</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b https:&#x2F;&#x2F;github.com&#x2F;vuejs&#x2F;vue-next.git</span><br></pre></td></tr></table></figure>
+
+<p>目录：</p>
+<p><img src="https://i.loli.net/2021/05/19/saSrTKyNbRA41B8.png" alt="总目录"></p>
+<p><img src="https://i.loli.net/2021/05/19/5G7fRioLh9ZBm1k.png" alt="package目录"></p>
+<ol start="14">
+<li>安装Vue3依赖</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd vue-next &amp;&amp; yarn --registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<ol start="15">
+<li><p>使用命令<code>yarn build</code>编译Vue3源码并打包</p>
+</li>
+<li><p>使用命令<code>yarn dev --s</code>启动源码开发环境</p>
+</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/26/2pH6Ln.png" alt="启动源码"></p>
+<ol start="17">
+<li>修改vue的<code>demo</code>项目<code>webpack.config.js</code>文件，引入vue源码文件<code>vue-next/packages/vue/dist/vue.global.js</code>。(<code>webpack.config.js</code>最终文件见文末附录)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">.devServer.host(&quot;0.0.0.0&quot;) &#x2F;&#x2F; 服务器外部可访问</span><br><span class="line">.disableHostCheck(true) &#x2F;&#x2F; 关闭白名单校验</span><br><span class="line">.contentBase([</span><br><span class="line">path.resolve(__dirname, &quot;.&#x2F;public&quot;),</span><br><span class="line">path.resolve(__dirname, &quot;..&#x2F;vue-next&quot;),</span><br><span class="line">]) &#x2F;&#x2F; 设置一个 express 静态目录</span><br><span class="line">.historyApiFallback(&#123;</span><br><span class="line">disableDotRule: true, &#x2F;&#x2F; 禁止在链接中使用 &quot;.&quot; 符号</span><br><span class="line">rewrites: [</span><br><span class="line">    &#123; from: &#x2F;^\&#x2F;$&#x2F;, to: &quot;&#x2F;index.html&quot; &#125;, &#x2F;&#x2F; 将所有的 404 响应重定向到 index.html 页面</span><br><span class="line">],</span><br><span class="line">&#125;)</span><br><span class="line">.port(8080) &#x2F;&#x2F; 当前端口号</span><br><span class="line">.hot(true) &#x2F;&#x2F; 打开页面热载功能</span><br><span class="line">.sockPort(&quot;location&quot;) &#x2F;&#x2F; 设置成平台自己的端口</span><br><span class="line">.open(true);</span><br><span class="line"></span><br><span class="line">config.externals(&#123;</span><br><span class="line">vue: &quot;Vue&quot;, &#x2F;&#x2F; 告诉 webpack，让它在加载 vue 模块的时候去 CDN 全局变量里面找 Vue</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="18">
+<li>启动demo项目，在url后添加<code>/packages/vue/dist/vue.global.js</code>查看源码文件（可使用同样方法输入其他文件相对路径查看）</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/26/2pqfv4.png" alt="源码文件"></p>
+<ol start="19">
+<li>在demo项目<code>public/index.html</code>中以<code>CDN</code>形式导入本地vue3源码</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;!-- 以 CDN 形式导入我们本地的 Vue 3 源码 --&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;&#x2F;packages&#x2F;vue&#x2F;dist&#x2F;vue.global.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;&#x2F;head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;noscript&gt;your browser should support javascript!&lt;&#x2F;noscript&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;app&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;!-- html-webpack-plugin 将自动引入入口文件 --&gt;</span><br><span class="line">  &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="20">
+<li>启动后可在浏览器开发者工具中查看源码进行断点调试。</li>
+</ol>
+<p><img src="https://z3.ax1x.com/2021/05/26/2pL1RU.png" alt="源码调试"></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="webpack-config-js文件"><a href="#webpack-config-js文件" class="headerlink" title="webpack.config.js文件"></a>webpack.config.js文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const config &#x3D; new (require(&quot;webpack-chain&quot;))</span><br><span class="line">const path &#x3D; require(&quot;path&quot;);</span><br><span class="line">&#x2F;&#x2F; const isDev &#x3D; !!process.env.WEBPACK_DEV_SERVER; &#x2F;&#x2F; 判断是否是开发环境</span><br><span class="line"></span><br><span class="line">config</span><br><span class="line">.context(path.resolve(__dirname,&quot;.&quot;))&#x2F;&#x2F;上下文目录</span><br><span class="line">.entry(&quot;app&quot;)&#x2F;&#x2F;入口文件名称</span><br><span class="line">.add(&quot;.&#x2F;src&#x2F;main.js&quot;)&#x2F;&#x2F;入口文件为.&#x2F;src&#x2F;main.js</span><br><span class="line">.end()</span><br><span class="line">.output.path(path.join(__dirname,&quot;.&#x2F;dist&quot;))&#x2F;&#x2F;输出目录为dist</span><br><span class="line">.filename(&quot;[name].[hash:8].js&quot;)&#x2F;&#x2F;打包出的bundle名称</span><br><span class="line">.publicPath(&quot;&#x2F;&quot;)&#x2F;&#x2F;公共目录</span><br><span class="line">.end()</span><br><span class="line">.resolve.extensions.add(&quot;.js&quot;)</span><br><span class="line">.add(&quot;.vue&quot;)</span><br><span class="line">.end()</span><br><span class="line">.end()</span><br><span class="line">.module.rule(&quot;vue&quot;)</span><br><span class="line">.test(&#x2F;\.vue$&#x2F;)</span><br><span class="line">.use(&quot;vue-loader&quot;)</span><br><span class="line">.loader(&quot;vue-loader&quot;)</span><br><span class="line">.end()</span><br><span class="line">.end()</span><br><span class="line">.end()</span><br><span class="line">.plugin(&quot;vue-loader-plugin&quot;)</span><br><span class="line">.use(require(&quot;vue-loader&quot;).VueLoaderPlugin,[])</span><br><span class="line">.end()</span><br><span class="line">.plugin(&quot;html&quot;)</span><br><span class="line">.use(require(&quot;html-webpack-plugin&quot;),[</span><br><span class="line">    &#123;</span><br><span class="line">        template: path.resolve(__dirname,&quot;.&#x2F;public&#x2F;index.html&quot;),&#x2F;&#x2F;指定模版文件</span><br><span class="line">        chunks: [&quot;app&quot;],&#x2F;&#x2F;指定需要加在的chunk</span><br><span class="line">        inject: &quot;body&quot;&#x2F;&#x2F;指定script脚本注入的位置为body</span><br><span class="line">    &#125;</span><br><span class="line">])</span><br><span class="line">.end()</span><br><span class="line">.devServer.disableHostCheck(true)</span><br><span class="line">.contentBase(</span><br><span class="line">    [</span><br><span class="line">        path.resolve(__dirname,&quot;.&#x2F;public&quot;),</span><br><span class="line">        path.resolve(__dirname,&quot;..&#x2F;vue-next&#x2F;vue-next&quot;)</span><br><span class="line">    ]</span><br><span class="line">)&#x2F;&#x2F;设置express静态目录</span><br><span class="line">.historyApiFallback(&#123;</span><br><span class="line">    disableDotRule: true,</span><br><span class="line">    rewrites:[</span><br><span class="line">        &#123;</span><br><span class="line">            from: &#x2F;ˆ\&#x2F;$&#x2F;,</span><br><span class="line">            to: &quot;index.html&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">&#125;)</span><br><span class="line">.port(8080)</span><br><span class="line">.hot(true)</span><br><span class="line">.sockPort(&quot;location&quot;)</span><br><span class="line">.open(true)</span><br><span class="line">.end()</span><br><span class="line">.devtool(&#39;eval-source-map&#39;);</span><br><span class="line"></span><br><span class="line">config.externals(&#123;</span><br><span class="line">    vue: &quot;Vue&quot;,&#x2F;&#x2F;告诉webpack，在加载vue模块时去CDN全局变量里找Vue</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F; config.when(</span><br><span class="line">&#x2F;&#x2F;     !isDev,</span><br><span class="line">&#x2F;&#x2F;     ()&#x3D;&gt;&#123;</span><br><span class="line">&#x2F;&#x2F;         &#x2F;&#x2F; 生产环境配置</span><br><span class="line">&#x2F;&#x2F;         config.devtool(null) &#x2F;&#x2F; 生产不生成 source-map，默认行为</span><br><span class="line">&#x2F;&#x2F;     &#125;,</span><br><span class="line">&#x2F;&#x2F;     ()&#x3D;&gt;&#123;</span><br><span class="line">&#x2F;&#x2F;         &#x2F;&#x2F; 开发环境配置</span><br><span class="line">&#x2F;&#x2F;         config.devtool(&#39;eval-source-map&#39;) &#x2F;&#x2F; 获取完整的 source-map，并且用 eval 函数执行</span><br><span class="line">&#x2F;&#x2F;     &#125;</span><br><span class="line">&#x2F;&#x2F; );</span><br><span class="line"></span><br><span class="line">module.exports &#x3D; config.toConfig();</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>近期问题分析及解决</title>
+    <url>/%E8%BF%91%E6%9C%9F%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E5%8F%8A%E8%A7%A3%E5%86%B3.html</url>
+    <content><![CDATA[<h2 id="使用命令npm-run-dev运行时提示报错Cannot-find-module-39-webpack-cli-bin-config-yargs"><a href="#使用命令npm-run-dev运行时提示报错Cannot-find-module-39-webpack-cli-bin-config-yargs" class="headerlink" title="使用命令npm run dev运行时提示报错Cannot find module &#39;webpack-cli/bin/config-yargs"></a>使用命令<code>npm run dev</code>运行时提示报错<code>Cannot find module &#39;webpack-cli/bin/config-yargs</code></h2><p>本地package版本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;webpack&quot;: &quot;^5.37.1&quot;,</span><br><span class="line">&quot;webpack-chain&quot;: &quot;^6.5.1&quot;,</span><br><span class="line">&quot;webpack-cli&quot;: &quot;^4.7.0&quot;,</span><br><span class="line">&quot;webpack-dev-server&quot;: &quot;^3.11.2&quot;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>webpack-cli的新版本对webpack-dev-server版本不兼容，卸载后重装webpack-cli提示和webpack有冲突，需要全部重装合适版本，很麻烦。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>将<code>package.json</code>中<code>dev</code>的命令由<code>webpack-dev-server --mode=development --progess</code>改为<code>webpack serve --mode=development</code>后，运行<code>npm run dev</code>成功。</p>
+<h2 id="webpack配置外部扩展externals"><a href="#webpack配置外部扩展externals" class="headerlink" title="webpack配置外部扩展externals"></a>webpack配置外部扩展externals</h2><h2 id="ES6字符串模版语法-和’"><a href="#ES6字符串模版语法-和’" class="headerlink" title="ES6字符串模版语法`和’"></a>ES6字符串模版语法`和’</h2>]]></content>
+      <categories>
+        <category>debug</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+        <tag>webpack</tag>
+        <tag>debug</tag>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>webpack-dev-server搭建简易mock服务器</title>
     <url>/webpack-dev-server%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93mock%E6%9C%8D%E5%8A%A1%E5%99%A8.html</url>
     <content><![CDATA[<h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><blockquote>
@@ -650,31 +795,6 @@
       </categories>
       <tags>
         <tag>webpack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue3源码学习1</title>
-    <url>/vue3%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A01.html</url>
-    <content><![CDATA[<p>下载</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b https:&#x2F;&#x2F;github.com&#x2F;vuejs&#x2F;vue-next.git</span><br></pre></td></tr></table></figure>
-
-<p>目录：</p>
-<a id="more"></a>
-
-<p><img src="https://i.loli.net/2021/05/19/saSrTKyNbRA41B8.png" alt="总目录"></p>
-<p><img src="https://i.loli.net/2021/05/19/5G7fRioLh9ZBm1k.png" alt="package目录"></p>
-<p>安装依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd vue-next &amp;&amp; yarn --registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>编译打包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn build</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2193,9 +2313,9 @@
         <category>MongoDB</category>
       </categories>
       <tags>
+        <tag>Node.js</tag>
         <tag>Web</tag>
         <tag>MongoDB</tag>
-        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
