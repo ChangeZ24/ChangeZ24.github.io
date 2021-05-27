@@ -163,7 +163,7 @@ var _hmt = _hmt || [];
 <h3 id="mountomponent"><a href="#mountomponent" class="headerlink" title="mountomponent()"></a>mountomponent()</h3><p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/renderer.ts</code>第1220行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">const mountComponent: MountComponentFn &#x3D; (</span><br><span class="line">    initialVNode,</span><br><span class="line">    container,</span><br><span class="line">    anchor,</span><br><span class="line">    parentComponent,</span><br><span class="line">    parentSuspense,</span><br><span class="line">    isSVG,</span><br><span class="line">    optimized</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;创建组件实例</span><br><span class="line">    const instance: ComponentInternalInstance &#x3D; (initialVNode.component &#x3D; createComponentInstance(</span><br><span class="line">        initialVNode,</span><br><span class="line">        parentComponent,</span><br><span class="line">        parentSuspense</span><br><span class="line">    ))</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;设置组件实例</span><br><span class="line">    setupComponent(instance)</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;处理setup方法</span><br><span class="line">    setupRenderEffect(</span><br><span class="line">        instance,</span><br><span class="line">        initialVNode,</span><br><span class="line">        container,</span><br><span class="line">        anchor,</span><br><span class="line">        parentSuspense,</span><br><span class="line">        isSVG,</span><br><span class="line">        optimized</span><br><span class="line">    )</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="createComponentInstance"><a href="#createComponentInstance" class="headerlink" title="createComponentInstance()"></a>createComponentInstance()</h3><blockquote>
+<h4 id="createComponentInstance"><a href="#createComponentInstance" class="headerlink" title="createComponentInstance()"></a>createComponentInstance()</h4><blockquote>
 <p>创建组件实例</p>
 </blockquote>
 <p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/component.ts</code>第405行</p>
@@ -258,6 +258,15 @@ var _hmt = _hmt || [];
   
   
   <nav class="article-nav">
+    
+      <a href="/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%89%EF%BC%89.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            结合Vue3-demo项目分析源码（三）
+          
+        </div>
+      </a>
     
     
       <a href="/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89.html" class="article-nav-link">
