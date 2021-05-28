@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="unity," />
+   
+  <meta name="description" content="unity学习笔记" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    unity-收集&amp;tilemap拼接缝隙&amp;collider碰撞摩擦&amp;敌人 |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="https://imgtu.com/i/2FcoWj" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-unity-收集&amp;tilemap拼接缝隙&amp;collider碰撞摩擦&amp;敌人" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  unity-收集&amp;tilemap拼接缝隙&amp;collider碰撞摩擦&amp;敌人
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/4000927129.html" class="article-date">
+  <time datetime="2021-01-17T07:48:53.000Z" itemprop="datePublished">2021-01-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/unity/">unity</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.1k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">4分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="创建收集内容"><a href="#创建收集内容" class="headerlink" title="创建收集内容"></a>创建收集内容</h2><ol>
+<li>新建收集object</li>
+<li>添加sprite和动画</li>
+<li>移动至合适位置</li>
+<li>设置collider碰撞体</li>
+<li>设置isTrigger，使之碰撞时触发一些改变</li>
+<li>为object设置特有tag，便于写脚本时获取该object</li>
+<li>编写脚本实现计数、销毁等操作<a id="more"></a>
+
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private void OnTriggerEnter2D(Collider2D collision)</span><br><span class="line">    &#123;</span><br><span class="line">        if (collision.tag.Equals(&quot;Cherry&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            cherry++;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (collision.tag.Equals(&quot;Gem&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            gem++;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="一些记录"><a href="#一些记录" class="headerlink" title="一些记录"></a>一些记录</h3><p>is Trigger: 触发器 触发后会发生一些改变</p>
+<p>inspector中: <code>Tag</code>、<code>Layer</code></p>
+<p>Perfabs: 一个预置，类似于一个模版</p>
+<h2 id="瓦片地图出现拼接缝隙"><a href="#瓦片地图出现拼接缝隙" class="headerlink" title="瓦片地图出现拼接缝隙"></a>瓦片地图出现拼接缝隙</h2><p>将<code>tilemap</code>的<code>grid</code>中<code>cellsize</code>改为0.99</p>
+<h2 id="解决两个collider碰撞摩擦的问题-material材质"><a href="#解决两个collider碰撞摩擦的问题-material材质" class="headerlink" title="解决两个collider碰撞摩擦的问题(material材质)"></a>解决两个collider碰撞摩擦的问题(material材质)</h2><ol>
+<li>创建<code>physical material 2d</code></li>
+<li>修改摩擦力<code>friction</code>为0</li>
+<li>将材质放入需要的collider里的material中</li>
+</ol>
+<h2 id="解决角色可多次跳的问题"><a href="#解决角色可多次跳的问题" class="headerlink" title="解决角色可多次跳的问题"></a>解决角色可多次跳的问题</h2><blockquote>
+<p>设置角色只有触碰地面才可以跳跃，无法在空中跳跃</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public LayerMask ground;&#x2F;&#x2F;图层</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;角色跳跃</span><br><span class="line">if (Input.GetButtonDown(&quot;Jump&quot;) &amp;&amp; coll.IsTouchingLayers(ground))</span><br><span class="line">&#123;</span><br><span class="line">    rb.velocity &#x3D; new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);</span><br><span class="line">    anim.SetBool(&quot;jumping&quot;, true);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><ol>
+<li>新建UI画布<code>canvas</code></li>
+<li>在<code>canvas</code>内添加需要的内容</li>
+<li>需要变化的变量在脚本中实现，unity中新建的UI是什么选项，脚本中就按该关键字获取UI</li>
+<li>在unity脚本框内拖入相应的ui选项</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">using UnityEngine.UI</span><br><span class="line"></span><br><span class="line">public Text CherryNumber;&#x2F;&#x2F;新建Text类</span><br><span class="line"></span><br><span class="line">CherryNumber.text &#x3D; cherry.ToString();&#x2F;&#x2F;将实际cherry值传给unity的Text类中</span><br></pre></td></tr></table></figure>
+
+<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="创建敌人"><a href="#创建敌人" class="headerlink" title="创建敌人"></a>创建敌人</h3><ol>
+<li>新建角色sprite</li>
+<li>添加动画</li>
+<li>添加刚体</li>
+<li>添加collider。<code>circle</code>最好，可以保证移动时不翻转</li>
+<li>给敌人加标签，便于编写脚本时获取</li>
+</ol>
+<h3 id="踩敌人消灭"><a href="#踩敌人消灭" class="headerlink" title="踩敌人消灭"></a>踩敌人消灭</h3><blockquote>
+<p>判断角色是下落状态时，碰撞到敌人则destroy敌人</p>
+</blockquote>
+<h3 id="受伤"><a href="#受伤" class="headerlink" title="受伤"></a>受伤</h3><ol>
+<li>添加受伤动画</li>
+<li>在<code>Animator</code>添加hurt标志，调整不同状态转换的条件</li>
+<li>编写受伤脚本</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[SerializeField]private bool isHurt;&#x2F;&#x2F;判断是否受伤</span><br><span class="line">&#x2F;&#x2F;受伤动画转换</span><br><span class="line">else if (isHurt)</span><br><span class="line">&#123;</span><br><span class="line">    anim.SetBool(&quot;hurt&quot;, true);</span><br><span class="line">    anim.SetFloat(&quot;running&quot;, 0);&#x2F;&#x2F;保证受伤后处于静止状态而不是跑步状态</span><br><span class="line">    if (Mathf.Abs(rb.velocity.x) &lt; 0.1) &#123;&#x2F;&#x2F;判断角色是否已经反弹结束处于静止状态</span><br><span class="line">        isHurt &#x3D; false;</span><br><span class="line">        anim.SetBool(&quot;hurt&quot;, false);</span><br><span class="line">        anim.SetBool(&quot;idle&quot;, true);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;消灭敌人</span><br><span class="line">private void OnCollisionEnter2D(Collision2D collision)&#x2F;&#x2F;当该刚体碰撞另一个刚体时调用的函数</span><br><span class="line">&#123;</span><br><span class="line">    if (collision.gameObject.tag.Equals(&quot;Enemies&quot;)) &#123; &#x2F;&#x2F;函数代表的是整个碰撞器&#x2F;刚体，故需要.gameObject获其角色类</span><br><span class="line">    	&#x2F;&#x2F;消灭敌人</span><br><span class="line">        if (anim.GetBool(&quot;falling&quot;))</span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(collision.gameObject);</span><br><span class="line">            &#x2F;&#x2F;增加消灭后再次小跳的效果</span><br><span class="line">            rb.velocity &#x3D; new Vector2(rb.velocity.x, jumpForce * Time.deltaTime);</span><br><span class="line">            anim.SetBool(&quot;jumping&quot;, true);</span><br><span class="line">        &#125;else if(transform.position.x &lt; collision.gameObject.transform.position.x)</span><br><span class="line">        &#123;&#x2F;&#x2F;增加受伤反弹的效果</span><br><span class="line">            rb.velocity &#x3D; new Vector2(-5, rb.velocity.y);</span><br><span class="line">            isHurt &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">        else if (transform.position.x &gt; collision.gameObject.transform.position.x)</span><br><span class="line">        &#123;</span><br><span class="line">            rb.velocity &#x3D; new Vector2(5, rb.velocity.y);</span><br><span class="line">            isHurt &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="敌人移动AI"><a href="#敌人移动AI" class="headerlink" title="敌人移动AI"></a>敌人移动AI</h3><ol>
+<li>敌人角色下创建两个<code>GameObject</code>表示左右边界，设置移动边界位置（此时角色与边界为父子关系）</li>
+<li>新建敌人脚本</li>
+<li>新建两个<code>Transform</code>类表示左右边界，并在unity中拖入边界Object完成关联</li>
+<li>在脚本中在start时获取边界的x值，然后将其边界Object销毁，保证其不随敌人角色移动</li>
+<li>编写自动移动脚本</li>
+<li>在unity设置初始speed使之移动<br>（以下均可选）</li>
+<li>添加跳跃动画</li>
+<li>设置相关条件，并编写动画切换脚本</li>
+<li>在<code>Animation</code>界面静止状态最后一秒新建事件<code>event</code>，设置其事件函数为移动的movement。使敌人角色在播放完静止动画后执行移动函数，进行跳跃等其他动作。此时不需要在update中每秒执行movement函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">private Rigidbody2D rb;</span><br><span class="line">&#x2F;&#x2F;左右的行动边界</span><br><span class="line">public Transform leftPoint,rightPoint;</span><br><span class="line">private bool isFaceLeft &#x3D; true;</span><br><span class="line">public float speed;</span><br><span class="line">private float leftx, rightx;&#x2F;&#x2F;用于保存左右边界的x值</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;敌人移动</span><br><span class="line">void Movement()</span><br><span class="line">&#123;</span><br><span class="line">    if (isFaceLeft)</span><br><span class="line">    &#123;</span><br><span class="line">        rb.velocity &#x3D; new Vector2(-speed, rb.velocity.y);</span><br><span class="line">        if(transform.position.x &lt; leftx)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;控制敌人面向右边，即掉头</span><br><span class="line">            transform.localScale &#x3D; new Vector3(-1, 1, 1);</span><br><span class="line">            isFaceLeft &#x3D; false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        rb.velocity &#x3D; new Vector2(speed, rb.velocity.y);</span><br><span class="line">        if (transform.position.x &gt; rightx)</span><br><span class="line">        &#123;</span><br><span class="line">            transform.localScale &#x3D; new Vector3(1, 1, 1);</span><br><span class="line">            isFaceLeft &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/4000927129.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/post/2320782257.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            unity-调用其他类&amp;敌人death动画
+          
+        </div>
+      </a>
+    
+    
+      <a href="/post/3315830508.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Csharp-基础</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="vue," />
+   
+  <meta name="description" content="结合Vue3-demo项目分析源码" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    结合Vue3-demo项目分析源码（二） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="https://imgtu.com/i/2FcoWj" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-结合Vue3-demo项目分析源码（二）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  结合Vue3-demo项目分析源码（二）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/1384730263.html" class="article-date">
+  <time datetime="2021-05-26T08:29:32.000Z" itemprop="datePublished">2021-05-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.6k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>接<a href="https://awesolynn.me/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89.html">结合Vue3-demo项目分析源码（一）</a>，创建完App组件，开始使用<code>mount</code>方法渲染app</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="mount"><a href="#mount" class="headerlink" title="mount()"></a>mount()</h3><blockquote>
+<p>渲染app</p>
+</blockquote>
+<p>查看源码项目<code>vue-next/packages/runtime-dom/src/index.ts</code>中<code>createApp()</code>，其中<code>app.mount</code>被重写了。</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">app.mount &#x3D; (containerOrSelector: Element | string): any &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;根据传递的选择器获取dom元素</span><br><span class="line">    const container &#x3D; normalizeContainer(containerOrSelector)</span><br><span class="line">    if (!container) return</span><br><span class="line">    const component &#x3D; app._component    &#x2F;&#x2F;若不存在，使用app根组件</span><br><span class="line">    if (!isFunction(component) &amp;&amp; !component.render &amp;&amp; !component.template) &#123;</span><br><span class="line">      component.template &#x3D; container.innerHTML</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; clear content before mounting</span><br><span class="line">    container.innerHTML &#x3D; &#39;&#39;</span><br><span class="line">    &#x2F;&#x2F;调用app对象原始mount方法，传递给当前根节点元素</span><br><span class="line">    const proxy &#x3D; mount(container)</span><br><span class="line">    container.removeAttribute(&#39;v-cloak&#39;)</span><br><span class="line">    container.setAttribute(&#39;data-v-app&#39;, &#39;&#39;)</span><br><span class="line">    return proxy</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可见，重写的<code>mount()</code>根据传递的选择器找到dom元素，调用原始<code>mount</code>方法，传递给当前根节点元素。</p>
+<p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/apiCreateApp.ts</code>第227行原始<code>mount</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">mount(rootContainer: HostElement, isHydrate?: boolean): any &#123;</span><br><span class="line">if (!isMounted) &#123;&#x2F;&#x2F;第一次渲染</span><br><span class="line">    &#x2F;&#x2F;创建Vnode节点</span><br><span class="line">    const vnode &#x3D; createVNode(</span><br><span class="line">        rootComponent as ConcreteComponent,</span><br><span class="line">        rootProps</span><br><span class="line">    )</span><br><span class="line">    &#x2F;&#x2F; store app context on the root VNode.</span><br><span class="line">    &#x2F;&#x2F; this will be set on the root instance on initial mount.</span><br><span class="line">    vnode.appContext &#x3D; context&#x2F;&#x2F;节点上下文为根节点上下文</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; HMR root reload</span><br><span class="line">    if (__DEV__) &#123;</span><br><span class="line">        context.reload &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">            render(cloneVNode(vnode), rootContainer)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;支持自定义渲染</span><br><span class="line">    if (isHydrate &amp;&amp; hydrate) &#123;</span><br><span class="line">        &#x2F;&#x2F;自定义渲染</span><br><span class="line">        hydrate(vnode as VNode&lt;Node, Element&gt;, rootContainer as any)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F;默认渲染</span><br><span class="line">        render(vnode, rootContainer)</span><br><span class="line">    &#125;</span><br><span class="line">    isMounted &#x3D; true</span><br><span class="line">    app._container &#x3D; rootContainer</span><br><span class="line">    &#x2F;&#x2F; for devtools and telemetry</span><br><span class="line">    ;(rootContainer as any).__vue_app__ &#x3D; app</span><br><span class="line"></span><br><span class="line">    if (__DEV__ || __FEATURE_PROD_DEVTOOLS__) &#123;</span><br><span class="line">        devtoolsInitApp(app, version)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return vnode.component!.proxy</span><br><span class="line">&#125; else if (__DEV__) &#123;</span><br><span class="line">    &#x2F;&#x2F;多次调用mount方法报错</span><br><span class="line">    warn(</span><br><span class="line">    &#96;App has already been mounted.\n&#96; +</span><br><span class="line">        &#96;If you want to remount the same app, move your app creation logic &#96; +</span><br><span class="line">        &#96;into a factory function and create fresh app instances for each &#96; +</span><br><span class="line">        &#96;mount - e.g. \&#96;const createMyApp &#x3D; () &#x3D;&gt; createApp(App)\&#96;&#96;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原始<code>mount</code>方法主要创建一个<code>vnode</code>节点，调用<code>render()</code>方法渲染。</p>
+<h3 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h3><blockquote>
+<p>渲染节点</p>
+</blockquote>
+<p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/renderer.ts</code>第2182行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const render: RootRenderFunction &#x3D; (vnode, container) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;若当前节点为null，则卸载节点</span><br><span class="line">    if (vnode &#x3D;&#x3D; null) &#123;</span><br><span class="line">        if (container._vnode) &#123;</span><br><span class="line">            unmount(container._vnode, null, null, true)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F;使用patch方法对比新老节点</span><br><span class="line">        patch(container._vnode || null, vnode, container)</span><br><span class="line">    &#125;</span><br><span class="line">    flushPostFlushCbs()</span><br><span class="line">    container._vnode &#x3D; vnode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="patch"><a href="#patch" class="headerlink" title="patch()"></a>patch()</h3><blockquote>
+<p>对比新老节点，根据节点类型的不同做不同处理</p>
+</blockquote>
+<p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/renderer.ts</code>第448行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">const patch: PatchFn &#x3D; (</span><br><span class="line">    n1,</span><br><span class="line">    n2,</span><br><span class="line">    container,</span><br><span class="line">    anchor &#x3D; null,</span><br><span class="line">    parentComponent &#x3D; null,</span><br><span class="line">    parentSuspense &#x3D; null,</span><br><span class="line">    isSVG &#x3D; false,</span><br><span class="line">    optimized &#x3D; false</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; patching &amp; not same type, unmount old tree</span><br><span class="line">    &#x2F;&#x2F;对比新老节点，若类型一样，则卸载老节点</span><br><span class="line">    if (n1 &amp;&amp; !isSameVNodeType(n1, n2)) &#123;</span><br><span class="line">        anchor &#x3D; getNextHostNode(n1)</span><br><span class="line">        &#x2F;&#x2F;卸载老节点</span><br><span class="line">        unmount(n1, parentComponent, parentSuspense, true)</span><br><span class="line">        n1 &#x3D; null</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (n2.patchFlag &#x3D;&#x3D;&#x3D; PatchFlags.BAIL) &#123;</span><br><span class="line">        optimized &#x3D; false</span><br><span class="line">        n2.dynamicChildren &#x3D; null</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const &#123; type, ref, shapeFlag &#125; &#x3D; n2</span><br><span class="line">    &#x2F;&#x2F;根据当前节点类型不同做不同处理</span><br><span class="line">    switch (type) &#123;</span><br><span class="line">        case Text:  &#x2F;&#x2F;文本节点TextNode</span><br><span class="line">            processText(n1, n2, container, anchor)</span><br><span class="line">            break</span><br><span class="line">        case Comment:   &#x2F;&#x2F; 文档注释节点</span><br><span class="line">            processCommentNode(n1, n2, container, anchor)</span><br><span class="line">            break</span><br><span class="line">        case Static:    &#x2F;&#x2F;svg等静态节点</span><br><span class="line">            if (n1 &#x3D;&#x3D; null) &#123;</span><br><span class="line">                mountStaticNode(n2, container, anchor, isSVG)</span><br><span class="line">            &#125; else if (__DEV__) &#123;</span><br><span class="line">                patchStaticNode(n1, n2, container, isSVG)</span><br><span class="line">            &#125;</span><br><span class="line">            break</span><br><span class="line">      case Fragment:    &#x2F;&#x2F;片段节点</span><br><span class="line">        processFragment(</span><br><span class="line">            n1,</span><br><span class="line">            n2,</span><br><span class="line">            container,</span><br><span class="line">            anchor,</span><br><span class="line">            parentComponent,</span><br><span class="line">            parentSuspense,</span><br><span class="line">            isSVG,</span><br><span class="line">            optimized</span><br><span class="line">        )</span><br><span class="line">        break</span><br><span class="line">      default: </span><br><span class="line">        &#x2F;&#x2F;普通的dom节点-div、span等</span><br><span class="line">        if (shapeFlag &amp; ShapeFlags.ELEMENT) &#123;</span><br><span class="line">            processElement(</span><br><span class="line">            n1,</span><br><span class="line">            n2,</span><br><span class="line">            container,</span><br><span class="line">            anchor,</span><br><span class="line">            parentComponent,</span><br><span class="line">            parentSuspense,</span><br><span class="line">            isSVG,</span><br><span class="line">            optimized</span><br><span class="line">            )</span><br><span class="line">        &#125; else if (shapeFlag &amp; ShapeFlags.COMPONENT) &#123;&#x2F;&#x2F;Vue组件</span><br><span class="line">            processComponent(</span><br><span class="line">            n1,</span><br><span class="line">            n2,</span><br><span class="line">            container,</span><br><span class="line">            anchor,</span><br><span class="line">            parentComponent,</span><br><span class="line">            parentSuspense,</span><br><span class="line">            isSVG,</span><br><span class="line">            optimized</span><br><span class="line">            )</span><br><span class="line">        &#125; else if (shapeFlag &amp; ShapeFlags.TELEPORT) &#123;&#x2F;&#x2F;TELEPORT类型</span><br><span class="line">            ;(type as typeof TeleportImpl).process(</span><br><span class="line">            n1 as TeleportVNode,</span><br><span class="line">            n2 as TeleportVNode,</span><br><span class="line">            container,</span><br><span class="line">            anchor,</span><br><span class="line">            parentComponent,</span><br><span class="line">            parentSuspense,</span><br><span class="line">            isSVG,</span><br><span class="line">            optimized,</span><br><span class="line">            internals</span><br><span class="line">            )</span><br><span class="line">        &#125; else if (__FEATURE_SUSPENSE__ &amp;&amp; shapeFlag &amp; ShapeFlags.SUSPENSE) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125; else if (__DEV__) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; set ref</span><br><span class="line">    if (ref !&#x3D; null &amp;&amp; parentComponent) &#123;</span><br><span class="line">        setRef(ref, n1 &amp;&amp; n1.ref, parentSuspense, n2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据<code>main.js</code>中代码得知，<code>app</code>为<code>vue</code>组件节点，故下一步到<code>processComponent()</code>方法</p>
+<h3 id="processComponent"><a href="#processComponent" class="headerlink" title="processComponent()"></a>processComponent()</h3><p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/renderer.ts</code>第1185行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">const processComponent &#x3D; (</span><br><span class="line">    n1: VNode | null,</span><br><span class="line">    n2: VNode,</span><br><span class="line">    container: RendererElement,</span><br><span class="line">    anchor: RendererNode | null,</span><br><span class="line">    parentComponent: ComponentInternalInstance | null,</span><br><span class="line">    parentSuspense: SuspenseBoundary | null,</span><br><span class="line">    isSVG: boolean,</span><br><span class="line">    optimized: boolean</span><br><span class="line">  ) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;老节点是否为null(第一次进来的老节点一定是null)</span><br><span class="line">    if (n1 &#x3D;&#x3D; null) &#123;</span><br><span class="line">        &#x2F;&#x2F; 是否是COMPONENT_KEPT_ALIVE类型的节点</span><br><span class="line">        if (n2.shapeFlag &amp; ShapeFlags.COMPONENT_KEPT_ALIVE) &#123;</span><br><span class="line">            ;(parentComponent!.ctx as KeepAliveContext).activate(</span><br><span class="line">                n2,</span><br><span class="line">                container,</span><br><span class="line">                anchor,</span><br><span class="line">                isSVG,</span><br><span class="line">                optimized</span><br><span class="line">            )</span><br><span class="line">        &#125; else &#123; &#x2F;&#x2F;普通组件</span><br><span class="line">            mountComponent(</span><br><span class="line">                n2,</span><br><span class="line">                container,</span><br><span class="line">                anchor,</span><br><span class="line">                parentComponent,</span><br><span class="line">                parentSuspense,</span><br><span class="line">                isSVG,</span><br><span class="line">                optimized</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;&#x2F;&#x2F;若老节点不为空，更新组件</span><br><span class="line">        updateComponent(n1, n2, optimized)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>app为首次渲染为null且为普通组件，故调用<code>mountomponent()</code>方法</p>
+<h3 id="mountomponent"><a href="#mountomponent" class="headerlink" title="mountomponent()"></a>mountomponent()</h3><p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/renderer.ts</code>第1220行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">const mountComponent: MountComponentFn &#x3D; (</span><br><span class="line">    initialVNode,</span><br><span class="line">    container,</span><br><span class="line">    anchor,</span><br><span class="line">    parentComponent,</span><br><span class="line">    parentSuspense,</span><br><span class="line">    isSVG,</span><br><span class="line">    optimized</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;创建组件实例</span><br><span class="line">    const instance: ComponentInternalInstance &#x3D; (initialVNode.component &#x3D; createComponentInstance(</span><br><span class="line">        initialVNode,</span><br><span class="line">        parentComponent,</span><br><span class="line">        parentSuspense</span><br><span class="line">    ))</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;设置组件实例</span><br><span class="line">    setupComponent(instance)</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;处理setup方法</span><br><span class="line">    setupRenderEffect(</span><br><span class="line">        instance,</span><br><span class="line">        initialVNode,</span><br><span class="line">        container,</span><br><span class="line">        anchor,</span><br><span class="line">        parentSuspense,</span><br><span class="line">        isSVG,</span><br><span class="line">        optimized</span><br><span class="line">    )</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="createComponentInstance"><a href="#createComponentInstance" class="headerlink" title="createComponentInstance()"></a>createComponentInstance()</h4><blockquote>
+<p>创建组件实例</p>
+</blockquote>
+<p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/component.ts</code>第405行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">export function createComponentInstance(</span><br><span class="line">  vnode: VNode,</span><br><span class="line">  parent: ComponentInternalInstance | null,</span><br><span class="line">  suspense: SuspenseBoundary | null</span><br><span class="line">) &#123;</span><br><span class="line">  const type &#x3D; vnode.type as ConcreteComponent</span><br><span class="line">  &#x2F;&#x2F; inherit parent app context - or - if root, adopt from root vnode</span><br><span class="line">  const appContext &#x3D;</span><br><span class="line">    (parent ? parent.appContext : vnode.appContext) || emptyAppContext</span><br><span class="line"></span><br><span class="line">  const instance: ComponentInternalInstance &#x3D; &#123;</span><br><span class="line">    uid: uid++, &#x2F;&#x2F;唯一标识</span><br><span class="line">    vnode,  &#x2F;&#x2F;当前组件的vnode节点</span><br><span class="line">    type,   &#x2F;&#x2F;组件类型</span><br><span class="line">    parent, &#x2F;&#x2F;父组件</span><br><span class="line">    appContext, &#x2F;&#x2F;app上下文</span><br><span class="line">    root: null!, &#x2F;&#x2F; to be immediately set</span><br><span class="line">    next: null,</span><br><span class="line">    subTree: null!, &#x2F;&#x2F; will be set synchronously right after creation</span><br><span class="line">    update: null!, &#x2F;&#x2F; will be set synchronously right after creation</span><br><span class="line">    render: null,</span><br><span class="line">    proxy: null,    &#x2F;&#x2F;组件实例代理对象（组件里用this访问的即为此对象</span><br><span class="line">    exposed: null,</span><br><span class="line">    withProxy: null,</span><br><span class="line">    effects: null,</span><br><span class="line">    provides: parent ? parent.provides : Object.create(appContext.provides),</span><br><span class="line">    accessCache: null!,</span><br><span class="line">    renderCache: [],</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; local resovled assets</span><br><span class="line">    components: null,</span><br><span class="line">    directives: null,</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; resolved props and emits options</span><br><span class="line">    propsOptions: normalizePropsOptions(type, appContext),</span><br><span class="line">    emitsOptions: normalizeEmitsOptions(type, appContext),</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; emit</span><br><span class="line">    emit: null as any, &#x2F;&#x2F; to be set immediately</span><br><span class="line">    emitted: null,</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; state</span><br><span class="line">    ctx: EMPTY_OBJ,</span><br><span class="line">    data: EMPTY_OBJ,</span><br><span class="line">    props: EMPTY_OBJ,</span><br><span class="line">    attrs: EMPTY_OBJ,</span><br><span class="line">    slots: EMPTY_OBJ,</span><br><span class="line">    refs: EMPTY_OBJ,</span><br><span class="line">    setupState: EMPTY_OBJ,</span><br><span class="line">    setupContext: null,</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; suspense related</span><br><span class="line">    suspense,</span><br><span class="line">    suspenseId: suspense ? suspense.pendingId : 0,</span><br><span class="line">    asyncDep: null,</span><br><span class="line">    asyncResolved: false,</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; lifecycle hooks</span><br><span class="line">    &#x2F;&#x2F; not using enums here because it results in computed properties</span><br><span class="line">    isMounted: false,</span><br><span class="line">    isUnmounted: false,</span><br><span class="line">    isDeactivated: false,</span><br><span class="line">    bc: null,</span><br><span class="line">    c: null,</span><br><span class="line">    bm: null,</span><br><span class="line">    m: null,</span><br><span class="line">    bu: null,</span><br><span class="line">    u: null,</span><br><span class="line">    um: null,</span><br><span class="line">    bum: null,</span><br><span class="line">    da: null,</span><br><span class="line">    a: null,</span><br><span class="line">    rtg: null,</span><br><span class="line">    rtc: null,</span><br><span class="line">    ec: null</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">  instance.root &#x3D; parent ? parent.root : instance</span><br><span class="line">  instance.emit &#x3D; emit.bind(null, instance)</span><br><span class="line">  ...</span><br><span class="line">  &#x2F;&#x2F;返回实例</span><br><span class="line">  return instance</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>组件实例中<code>proxy</code>即为在组件里用<code>this</code>访问的对象。Vue只暴露组件实例的一部分属性供访问，这些属性只能通过代理对象<code>proxy</code>获取。</p>
+<p>在<code>App.vue</code>中加入代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &quot;app&quot;,</span><br><span class="line">    props: [&quot;msg&quot;],</span><br><span class="line">    created()&#123;</span><br><span class="line">        console.log(this)</span><br><span class="line">        console.log(&quot;this对象如上&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>则在浏览其中可看到：</p>
+<p><img src="https://z3.ax1x.com/2021/05/26/29INWQ.png" alt="this对象"></p>
+<h2 id="附录-Vue3流程图"><a href="#附录-Vue3流程图" class="headerlink" title="附录-Vue3流程图"></a>附录-Vue3流程图</h2><p><img src="https://z3.ax1x.com/2021/05/26/2pvc1f.md.jpg" alt="vue流程图"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/1384730263.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/post/530050501.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            结合Vue3-demo项目分析源码（三）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/post/1654628943.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">结合Vue3-demo项目分析源码（一）</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>
