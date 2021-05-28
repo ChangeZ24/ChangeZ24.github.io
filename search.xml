@@ -3,7 +3,7 @@
   <entry>
     <title>结合Vue3-demo项目分析源码（五）</title>
     <url>/post/3341038055.html</url>
-    <content><![CDATA[<p>接<a href="https://awesolynn.me/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%89%EF%BC%89.html">结合Vue3-demo项目分析源码（四）</a>，整个组件的创建涉及到两个生命周期<code>beforeCreated</code>和<code>created</code>，到<code>created</code>才算组件创建完成，此时进入组件的渲染过程。</p>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/2830824608.html">结合Vue3-demo项目分析源码（四）</a>，整个组件的创建涉及到两个生命周期<code>beforeCreated</code>和<code>created</code>，到<code>created</code>才算组件创建完成，此时进入组件的渲染过程。</p>
 ]]></content>
       <categories>
         <category>vue</category>
@@ -15,7 +15,7 @@
   <entry>
     <title>结合Vue3-demo项目分析源码（四）</title>
     <url>/post/2830824608.html</url>
-    <content><![CDATA[<p>接<a href="https://awesolynn.me/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%89%EF%BC%89.html">结合Vue3-demo项目分析源码（三）</a>，回到方法<code>setupStatefulComponent()</code></p>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/530050501.html">结合Vue3-demo项目分析源码（三）</a>，回到方法<code>setupStatefulComponent()</code></p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>查看文件<code>vue-next/vue-next/packages/runtime-core/src/component.ts</code>第538行</p>
 <a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function setupStatefulComponent(</span><br><span class="line">  instance: ComponentInternalInstance,</span><br><span class="line">  isSSR: boolean</span><br><span class="line">) &#123;</span><br><span class="line">  const Component &#x3D; instance.type as ComponentOptions</span><br><span class="line">  &#x2F;&#x2F; 1. 创建当前组件实例的代理对象</span><br><span class="line">  instance.proxy &#x3D; new Proxy(instance.ctx, PublicInstanceProxyHandlers)</span><br><span class="line">  &#x2F;&#x2F; 2. 如果组件提供了 setup 方法</span><br><span class="line">     const &#123; setup &#125; &#x3D; Component</span><br><span class="line">  if (setup) &#123;</span><br><span class="line">    &#x2F;&#x2F; setup 的上下文对象</span><br><span class="line">    const setupContext &#x3D; (instance.setupContext &#x3D;</span><br><span class="line">      setup.length &gt; 1 ? createSetupContext(instance) : null)</span><br><span class="line"></span><br><span class="line">    currentInstance &#x3D; instance</span><br><span class="line">    pauseTracking()</span><br><span class="line">    &#x2F;&#x2F; 调用 setup 方法，获取返回值 setupResult</span><br><span class="line">    const setupResult &#x3D; callWithErrorHandling(</span><br><span class="line">      setup,</span><br><span class="line">      instance,</span><br><span class="line">      ErrorCodes.SETUP_FUNCTION,</span><br><span class="line">      [__DEV__ ? shallowReadonly(instance.props) : instance.props, setupContext]</span><br><span class="line">    )</span><br><span class="line">    resetTracking()</span><br><span class="line">    currentInstance &#x3D; null</span><br><span class="line">        &#x2F;&#x2F; 处理 setup 方法返回值</span><br><span class="line">    if (isPromise(setupResult)) &#123;</span><br><span class="line">      if (isSSR) &#123;</span><br><span class="line">        &#x2F;&#x2F; return the promise so server-renderer can wait on it</span><br><span class="line">        return setupResult.then((resolvedResult: unknown) &#x3D;&gt; &#123;</span><br><span class="line">          handleSetupResult(instance, resolvedResult, isSSR)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; else if (__FEATURE_SUSPENSE__) &#123;</span><br><span class="line">        &#x2F;&#x2F; async setup returned Promise.</span><br><span class="line">        &#x2F;&#x2F; bail here and wait for re-entry.</span><br><span class="line">        instance.asyncDep &#x3D; setupResult</span><br><span class="line">      &#125; else if (__DEV__) &#123;</span><br><span class="line">        warn(</span><br><span class="line">          &#96;setup() returned a Promise, but the version of Vue you are using &#96; +</span><br><span class="line">            &#96;does not support it yet.&#96;</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      &#x2F;&#x2F; 返回值为非 promise 对象的类型时候，调用 handleSetupResult 方法处理返回值</span><br><span class="line">      handleSetupResult(instance, setupResult, isSSR)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    &#x2F;&#x2F; 完成组件的创建</span><br><span class="line">    finishComponentSetup(instance, isSSR)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -100,7 +100,7 @@
   <entry>
     <title>结合Vue3-demo项目分析源码（三）</title>
     <url>/post/530050501.html</url>
-    <content><![CDATA[<p>接<a href="https://awesolynn.me/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%BA%8C%EF%BC%89.html">结合Vue3-demo项目分析源码（二）</a>，创建完App实例，开始创建组件。接上篇<code>mountComponent()</code>方法，调用了<code>createComponentInstance</code>方法创建了一个初始化状态的组件实例<code>instance</code>，接下来就根据组件的定义设置此组件实例</p>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/1384730263.html">结合Vue3-demo项目分析源码（二）</a>，创建完App实例，开始创建组件。接上篇<code>mountComponent()</code>方法，调用了<code>createComponentInstance</code>方法创建了一个初始化状态的组件实例<code>instance</code>，接下来就根据组件的定义设置此组件实例</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const mountComponent: MountComponentFn &#x3D; (</span><br><span class="line">    ...</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;创建组件实例</span><br><span class="line">    const instance: ComponentInternalInstance &#x3D; (initialVNode.component &#x3D; createComponentInstance(...))</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;设置组件实例</span><br><span class="line">    setupComponent(instance)</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;处理setup方法</span><br><span class="line">    setupRenderEffect(instance, initialVNode, container, anchor, parentSuspense,isSVG, optimized)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
@@ -211,7 +211,7 @@
   <entry>
     <title>结合Vue3-demo项目分析源码（二）</title>
     <url>/post/1384730263.html</url>
-    <content><![CDATA[<p>接<a href="https://awesolynn.me/%E7%BB%93%E5%90%88Vue3-demo%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%EF%BC%88%E4%B8%80%EF%BC%89.html">结合Vue3-demo项目分析源码（一）</a>，创建完App组件，开始使用<code>mount</code>方法渲染app</p>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/1654628943.html">结合Vue3-demo项目分析源码（一）</a>，创建完App组件，开始使用<code>mount</code>方法渲染app</p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="mount"><a href="#mount" class="headerlink" title="mount()"></a>mount()</h3><blockquote>
 <p>渲染app</p>
 </blockquote>
@@ -269,7 +269,7 @@
   <entry>
     <title>结合Vue3-demo项目分析源码（一）</title>
     <url>/post/1654628943.html</url>
-    <content><![CDATA[<p>Vue3-demo项目即为先前<a href="https://awesolynn.me/%E4%BB%8E0%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93vue3%E9%A1%B9%E7%9B%AE.html">从0搭建简易vue3项目</a>中搭建的demo</p>
+    <content><![CDATA[<p>Vue3-demo项目即为先前<a href="https://awesolynn.me/post/876416960.html">从0搭建简易vue3项目</a>中搭建的demo</p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>入口文件<code>main.js</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; createApp &#125; from &quot;vue&quot;;&#x2F;&#x2F;引入Vue3源码</span><br><span class="line">import App from &quot;.&#x2F;App&quot;;&#x2F;&#x2F;引入App.vue组件</span><br><span class="line">const app &#x3D; createApp(App,&#123;msg:&quot;Hello Vue&quot;&#125;)&#x2F;&#x2F;创建App组件，传递msg参数</span><br><span class="line"></span><br><span class="line">app.mount(&quot;#app&quot;)&#x2F;&#x2F;渲染app，将其挂载到id&#x3D;app的节点上</span><br></pre></td></tr></table></figure>
 
@@ -2632,9 +2632,9 @@
         <category>MongoDB</category>
       </categories>
       <tags>
+        <tag>Node.js</tag>
         <tag>Web</tag>
         <tag>MongoDB</tag>
-        <tag>Node.js</tag>
       </tags>
   </entry>
   <entry>
@@ -2876,8 +2876,8 @@
       <tags>
         <tag>web</tag>
         <tag>Node.js</tag>
-        <tag>JavaScript</tag>
         <tag>server</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
