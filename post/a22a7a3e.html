@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="vue," />
+   
+  <meta name="description" content="结合Vue3-demo项目分析源码" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    结合Vue3-demo项目分析源码（六） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-结合Vue3-demo项目分析源码（六）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  结合Vue3-demo项目分析源码（六）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/a22a7a3e.html" class="article-date">
+  <time datetime="2021-05-28T13:23:03.000Z" itemprop="datePublished">2021-05-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.4k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">11分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>接<a href="https://awesolynn.me/post/3341038055.html">结合Vue3-demo项目分析源码（五）</a>，完成组件的渲染，结束<code>mounted</code>生命周期。此时可以在页面看到内容了。当添加事件修改数据时，Vue进入组件更新过程。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="MVVM模型"><a href="#MVVM模型" class="headerlink" title="MVVM模型"></a>MVVM模型</h3><p><img src="https://z3.ax1x.com/2021/05/29/2APBIx.png" alt="mvvm模型"></p>
+<a id="more"></a>
+
+<ul>
+<li><p>Model（模型）：表示应用程序核心</p>
+</li>
+<li><p>View（视图）：显示数据（数据库记录）</p>
+</li>
+<li><p>ViewModel（视图模型）：暴露公共属性和命令的视图的抽象</p>
+</li>
+</ul>
+<p>按登陆demo理解:</p>
+<p>App.vue：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;!-- 登录成功后的提示 --&gt;</span><br><span class="line">    &lt;div v-if&#x3D;&quot;isLogin&quot;&gt;欢迎你：&#123;&#123; user.name &#125;&#125;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;!-- 登录操作 --&gt;</span><br><span class="line">    &lt;div v-else&gt;</span><br><span class="line">      用户名：</span><br><span class="line">      &lt;input name&#x3D;&quot;name&quot; v-model&#x3D;&quot;user.name&quot; &#x2F;&gt;</span><br><span class="line">      &lt;br &#x2F;&gt;</span><br><span class="line">      密码：</span><br><span class="line">      &lt;input name&#x3D;&quot;pwd&quot; v-model&#x3D;&quot;user.pwd&quot; type&#x3D;&quot;password&quot; &#x2F;&gt;</span><br><span class="line">      &lt;br &#x2F;&gt;</span><br><span class="line">      &lt;button @click&#x3D;&quot;onLogin&quot;&gt;去登录&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; ref, reactive &#125; from &quot;vue&quot;;</span><br><span class="line">import * as UserModel from &quot;.&#x2F;UserModel&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;app&quot;,</span><br><span class="line">  props: [&quot;msg&quot;],</span><br><span class="line">  setup() &#123;</span><br><span class="line">    let isLogin &#x3D; ref(false); &#x2F;&#x2F; 是否已经登录</span><br><span class="line">    let user &#x3D; reactive(&#123;</span><br><span class="line">      name: &quot;&quot;, &#x2F;&#x2F; 用户名</span><br><span class="line">      pwd: &quot;&quot;, &#x2F;&#x2F; 密码</span><br><span class="line">    &#125;);</span><br><span class="line">    const onLogin &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; 去登录</span><br><span class="line">      UserModel.login(user.name, user.pwd).then(</span><br><span class="line">        (res) &#x3D;&gt; &#123;</span><br><span class="line">          &#x2F;&#x2F; 登录成功</span><br><span class="line">          if (res) &#123;</span><br><span class="line">            isLogin.value &#x3D; true;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        (errorMsg) &#x3D;&gt; &#123;</span><br><span class="line">          &#x2F;&#x2F; 登录失败</span><br><span class="line">          alert(errorMsg);</span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line">    &#125;;</span><br><span class="line">    return &#123;</span><br><span class="line">      isLogin,</span><br><span class="line">      user,</span><br><span class="line">      onLogin,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>UserModel.js:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 登录业务逻辑</span><br><span class="line"> * @param &#123;*&#125; name 用户名</span><br><span class="line"> * @param &#123;*&#125; pwd 密码</span><br><span class="line"> *&#x2F;</span><br><span class="line">export function login(name, pwd) &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    if (&quot;123456&quot; &#x3D;&#x3D;&#x3D; pwd) &#123;</span><br><span class="line">      resolve(true);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      reject(&quot;用户名或密码错误&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>成功：</p>
+<p><img src="https://z3.ax1x.com/2021/05/29/2AiGTI.png" alt="2AiGTI.png"></p>
+<p>失败：</p>
+<p><img src="https://z3.ax1x.com/2021/05/29/2AiYkt.png" alt="2AiYkt.png"></p>
+<p>由上，<code>UserModel</code>为<code>MVVM</code>的<code>Model</code>，用来处理用户的业务逻辑；<code>App.vue</code>组件为<code>MVVM</code>的<code>View</code>，作为视图显示内容；而<code>setupState</code>为<code>MVVM</code>的<code>ViewModel</code>，用来驱动视图显示。</p>
+<h3 id="分析实现代码"><a href="#分析实现代码" class="headerlink" title="分析实现代码"></a>分析实现代码</h3><h4 id="ref"><a href="#ref" class="headerlink" title="ref()"></a>ref()</h4><p>由上，<code>let isLogin = ref(false);</code>，<code>isLogin</code>是经过<code>ref</code>方法返回的对象。当点击登陆按钮时，<code>isLogin.value</code>属性被设置成<code>true</code></p>
+<p>查看文件<code>vue-next/packages/reactivity/src/ref.ts</code>第41行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">export function ref(value?: unknown) &#123;</span><br><span class="line">  return createRef(value)</span><br><span class="line">&#125;</span><br><span class="line">function createRef(rawValue: unknown, shallow &#x3D; false) &#123;</span><br><span class="line">  ...</span><br><span class="line">  &#x2F;&#x2F;创建并返回一个RefImpl对象</span><br><span class="line">  return new RefImpl(rawValue, shallow)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;RefImpl对象</span><br><span class="line">class RefImpl&lt;T&gt; &#123;</span><br><span class="line">  private _value: T</span><br><span class="line"></span><br><span class="line">  public readonly __v_isRef &#x3D; true</span><br><span class="line"></span><br><span class="line">  constructor(private _rawValue: T, public readonly _shallow &#x3D; false) &#123;</span><br><span class="line">    this._value &#x3D; _shallow ? _rawValue : convert(_rawValue)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get value() &#123;</span><br><span class="line">    track(toRaw(this), TrackOpTypes.GET, &#39;value&#39;)</span><br><span class="line">    return this._value</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  set value(newVal) &#123;</span><br><span class="line">    &#x2F;&#x2F;对比新老数据，不一样时set</span><br><span class="line">    if (hasChanged(toRaw(newVal), this._rawValue)) &#123;</span><br><span class="line">      &#x2F;&#x2F;将新数据赋给原始值</span><br><span class="line">      this._rawValue &#x3D; newVal</span><br><span class="line">      this._value &#x3D; this._shallow ? newVal : convert(newVal)</span><br><span class="line">      &#x2F;&#x2F;调用trigger方法告诉Vue有数据更新</span><br><span class="line">      trigger(toRaw(this), TriggerOpTypes.SET, &#39;value&#39;, newVal)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="trigger"><a href="#trigger" class="headerlink" title="trigger()"></a>trigger()</h4><p>查看文件<code>vue-next/packages/reactivity/src/effect.ts</code>第167行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">export function trigger(</span><br><span class="line">  target: object,</span><br><span class="line">  type: TriggerOpTypes,</span><br><span class="line">  key?: unknown,</span><br><span class="line">  newValue?: unknown,</span><br><span class="line">  oldValue?: unknown,</span><br><span class="line">  oldTarget?: Map&lt;unknown, unknown&gt; | Set&lt;unknown&gt;</span><br><span class="line">) &#123;</span><br><span class="line">  &#x2F;&#x2F;根据target获取所有依赖当前target的组件</span><br><span class="line">  const depsMap &#x3D; targetMap.get(target)</span><br><span class="line">  ...</span><br><span class="line">  &#x2F;&#x2F;调用组件update方法</span><br><span class="line">  const run &#x3D; (effect: ReactiveEffect) &#x3D;&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">    if (effect.options.scheduler) &#123;</span><br><span class="line">      effect.options.scheduler(effect)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      effect()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;循环遍历所有组件的update方法</span><br><span class="line">  effects.forEach(run)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由上，<code>trigger</code>方法获取了依赖<code>isLogin</code>的所有组件<code>depsMap</code>，并遍历所有组件执行这些组件的<code>update</code>方法。<code>update</code>方法即在<a href="https://awesolynn.me/post/3341038055.html">结合Vue3-demo项目分析源码（五）</a>中提到的<code>setupRenderEffect</code>中由<code>effect</code>方法定义的<code>instance.update</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">const setupRenderEffect: SetupRenderEffectFn &#x3D; (</span><br><span class="line">    instance,</span><br><span class="line">    initialVNode,</span><br><span class="line">    container,</span><br><span class="line">    anchor,</span><br><span class="line">    parentSuspense,</span><br><span class="line">    isSVG,</span><br><span class="line">    optimized</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; create reactive effect for rendering</span><br><span class="line">    &#x2F;&#x2F;定义组件的update方法，通过响应式来调用渲染组件</span><br><span class="line">    instance.update &#x3D; effect(function componentEffect() &#123;</span><br><span class="line">      &#x2F;&#x2F;组件第一次渲染</span><br><span class="line">      if (!instance.isMounted) &#123;</span><br><span class="line">        ...</span><br><span class="line">      &#x2F;&#x2F;若不是第一次渲染  </span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        ...</span><br><span class="line">        let &#123; next, bu, u, parent, vnode &#125; &#x3D; instance</span><br><span class="line">        let originNext &#x3D; next</span><br><span class="line">        let vnodeHook: VNodeHook | null | undefined</span><br><span class="line">        &#x2F;&#x2F; beforeUpdate hook</span><br><span class="line">        &#x2F;&#x2F;调用beforeUpdate生命周期</span><br><span class="line">        if (bu) &#123;</span><br><span class="line">          invokeArrayFns(bu)</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 调用vnode的onVnodeBeforeUpdate钩子函数</span><br><span class="line">        if ((vnodeHook &#x3D; next.props &amp;&amp; next.props.onVnodeBeforeUpdate)) &#123;</span><br><span class="line">          invokeVNodeHook(vnodeHook, parent, next, vnode)</span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">        &#x2F;&#x2F; 获取一个新节点</span><br><span class="line">        const nextTree &#x3D; renderComponentRoot(instance)</span><br><span class="line">        &#x2F;&#x2F; 老节点</span><br><span class="line">        const prevTree &#x3D; instance.subTree</span><br><span class="line">        instance.subTree &#x3D; nextTree</span><br><span class="line">        ...</span><br><span class="line">        &#x2F;&#x2F;使用patch对比新老节点</span><br><span class="line">        patch(</span><br><span class="line">          prevTree,</span><br><span class="line">          nextTree,</span><br><span class="line">          &#x2F;&#x2F; parent may have changed if it&#39;s in a teleport</span><br><span class="line">          hostParentNode(prevTree.el!)!,</span><br><span class="line">          &#x2F;&#x2F; anchor may have changed if it&#39;s in a fragment</span><br><span class="line">          getNextHostNode(prevTree),</span><br><span class="line">          instance,</span><br><span class="line">          parentSuspense,</span><br><span class="line">          isSVG</span><br><span class="line">        )</span><br><span class="line">        ...</span><br><span class="line">        next.el &#x3D; nextTree.el</span><br><span class="line">        &#x2F;&#x2F; updated hook</span><br><span class="line">        &#x2F;&#x2F;调用updated生命周期</span><br><span class="line">        if (u) &#123;</span><br><span class="line">          queuePostRenderEffect(u, parentSuspense)</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 调用vnode的onVnodeUpdated钩子函数</span><br><span class="line">        if ((vnodeHook &#x3D; next.props &amp;&amp; next.props.onVnodeUpdated)) &#123;</span><br><span class="line">          queuePostRenderEffect(() &#x3D;&gt; &#123;</span><br><span class="line">            invokeVNodeHook(vnodeHook!, parent, next!, vnode)</span><br><span class="line">          &#125;, parentSuspense)</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 组件更新结束</span><br><span class="line">        ...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, __DEV__ ? createDevEffectOptions(instance) : prodEffectOptions)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于更新非首次渲染，故调用了<code>beforeUpdate</code>生命周期。接着使用<code>onVnodeBeforeUpdate</code>钩子函数，其作用与<code>beforeUpdate</code>生命周期类似。然后<code>update</code>调用<code>renderComponentRoot</code>方法，根据组件的不同类型调用<code>render</code>方法创建并返回一个<code>vnode</code>节点，即上述代码的<code>nextTree</code>变量。然后将新节点<code>nextTree</code>和老节点<code>prevTree</code>传入<code>patch</code>方法对比</p>
+<p>由于更新后改变的元素是<code>v-if</code>和<code>v-else</code>绑定的两个<code>div</code>节点，属于<code>ELEMENT</code>类型，按<a href="https://awesolynn.me/post/1384730263.html">结合Vue3-demo项目分析源码（二）</a>中分析，<code>ELEMENT</code>类型调用方法<code>processElement</code>。由于更新非第一次渲染，故按<a href="https://awesolynn.me/post/3341038055.html">结合Vue3-demo项目分析源码（五）</a>中分析，非首次渲染调用<code>patchElement</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const processElement &#x3D; (</span><br><span class="line">  n1: VNode | null,</span><br><span class="line">  n2: VNode,</span><br><span class="line">  container: RendererElement,</span><br><span class="line">  anchor: RendererNode | null,</span><br><span class="line">  parentComponent: ComponentInternalInstance | null,</span><br><span class="line">  parentSuspense: SuspenseBoundary | null,</span><br><span class="line">  isSVG: boolean,</span><br><span class="line">  optimized: boolean</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">  isSVG &#x3D; isSVG || (n2.type as string) &#x3D;&#x3D;&#x3D; &#39;svg&#39;</span><br><span class="line">  &#x2F;&#x2F;组件第一次渲染时</span><br><span class="line">  if (n1 &#x3D;&#x3D; null) &#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    patchElement(n1, n2, parentComponent, parentSuspense, isSVG, optimized)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="patchElement"><a href="#patchElement" class="headerlink" title="patchElement()"></a>patchElement()</h4><p>查看文件<code>vue-next/packages/runtime-core/src/renderer.ts</code>第857行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">const patchElement &#x3D; (</span><br><span class="line">  n1: VNode,</span><br><span class="line">  n2: VNode,</span><br><span class="line">  parentComponent: ComponentInternalInstance | null,</span><br><span class="line">  parentSuspense: SuspenseBoundary | null,</span><br><span class="line">  isSVG: boolean,</span><br><span class="line">  optimized: boolean</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">  ...</span><br><span class="line">  if (patchFlag &gt; 0) &#123;</span><br><span class="line">    &#x2F;&#x2F; the presence of a patchFlag means this element&#39;s render code was</span><br><span class="line">    &#x2F;&#x2F; generated by the compiler and can take the fast path.</span><br><span class="line">    &#x2F;&#x2F; in this path old node and new node are guaranteed to have the same shape</span><br><span class="line">    &#x2F;&#x2F; (i.e. at the exact same position in the source template)</span><br><span class="line">    &#x2F;&#x2F;依次对比两个元素的属性值，判断有不一样的属性时替换新属性</span><br><span class="line">    if (patchFlag &amp; PatchFlags.FULL_PROPS) &#123;</span><br><span class="line">      &#x2F;&#x2F; element props contain dynamic keys, full diff needed</span><br><span class="line">      patchProps(</span><br><span class="line">        el,</span><br><span class="line">        n2,</span><br><span class="line">        oldProps,</span><br><span class="line">        newProps,</span><br><span class="line">        parentComponent,</span><br><span class="line">        parentSuspense,</span><br><span class="line">        isSVG</span><br><span class="line">      )</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      &#x2F;&#x2F;对比两个元素的class属性</span><br><span class="line">      &#x2F;&#x2F; class</span><br><span class="line">      &#x2F;&#x2F; this flag is matched when the element has dynamic class bindings.</span><br><span class="line">      if (patchFlag &amp; PatchFlags.CLASS) &#123;</span><br><span class="line">        &#x2F;&#x2F;class有变化时替换新的class</span><br><span class="line">        if (oldProps.class !&#x3D;&#x3D; newProps.class) &#123;</span><br><span class="line">          hostPatchProp(el, &#39;class&#39;, null, newProps.class, isSVG)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; style</span><br><span class="line">      &#x2F;&#x2F; this flag is matched when the element has dynamic style bindings</span><br><span class="line">      &#x2F;&#x2F;对比两个元素的style属性有没有不同</span><br><span class="line">      if (patchFlag &amp; PatchFlags.STYLE) &#123;</span><br><span class="line">        hostPatchProp(el, &#39;style&#39;, oldProps.style, newProps.style, isSVG)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; props</span><br><span class="line">      &#x2F;&#x2F; This flag is matched when the element has dynamic prop&#x2F;attr bindings</span><br><span class="line">      &#x2F;&#x2F; other than class and style. The keys of dynamic prop&#x2F;attrs are saved for</span><br><span class="line">      &#x2F;&#x2F; faster iteration.</span><br><span class="line">      &#x2F;&#x2F; Note dynamic keys like :[foo]&#x3D;&quot;bar&quot; will cause this optimization to</span><br><span class="line">      &#x2F;&#x2F; bail out and go through a full diff because we need to unset the old key</span><br><span class="line">      &#x2F;&#x2F;对比两个元素的属性值有没有不同</span><br><span class="line">      if (patchFlag &amp; PatchFlags.PROPS) &#123;</span><br><span class="line">        &#x2F;&#x2F; if the flag is present then dynamicProps must be non-null</span><br><span class="line">        const propsToUpdate &#x3D; n2.dynamicProps!</span><br><span class="line">        for (let i &#x3D; 0; i &lt; propsToUpdate.length; i++) &#123;</span><br><span class="line">          const key &#x3D; propsToUpdate[i]</span><br><span class="line">          const prev &#x3D; oldProps[key]</span><br><span class="line">          const next &#x3D; newProps[key]</span><br><span class="line">          if (</span><br><span class="line">            next !&#x3D;&#x3D; prev ||</span><br><span class="line">            (hostForcePatchProp &amp;&amp; hostForcePatchProp(el, key))</span><br><span class="line">          ) &#123;</span><br><span class="line">            hostPatchProp(</span><br><span class="line">              el,</span><br><span class="line">              key,</span><br><span class="line">              prev,</span><br><span class="line">              next,</span><br><span class="line">              isSVG,</span><br><span class="line">              n1.children as VNode[],</span><br><span class="line">              parentComponent,</span><br><span class="line">              parentSuspense,</span><br><span class="line">              unmountChildren</span><br><span class="line">            )</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; text</span><br><span class="line">    &#x2F;&#x2F; This flag is matched when the element has only dynamic text children.</span><br><span class="line">    &#x2F;&#x2F;对比两个元素的文本内容有没有不同</span><br><span class="line">    if (patchFlag &amp; PatchFlags.TEXT) &#123;</span><br><span class="line">      &#x2F;&#x2F;若有不同，则替换成新的文本</span><br><span class="line">      if (n1.children !&#x3D;&#x3D; n2.children) &#123;</span><br><span class="line">        hostSetElementText(el, n2.children as string)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; </span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码表示，当出现两个新老节点时，会判断两个元素的<code>class</code>、<code>style</code>、<code>文本值TEXT</code>等是否一致，若有不同，则替换为新的属性。其中，判断是否一致的逻辑即为<code>差分算法</code>。</p>
+<p>如上述对比两个元素的<code>sytle</code>属性，调用方法<code>hotPatchProp</code>方法</p>
+<p>查看文件<code>vue-next/packages/runtime-dom/src/patchProp.ts</code>第16行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">export const patchProp: DOMRendererOptions[&#39;patchProp&#39;] &#x3D; (</span><br><span class="line">  el,</span><br><span class="line">  key,</span><br><span class="line">  prevValue,</span><br><span class="line">  nextValue,</span><br><span class="line">  isSVG &#x3D; false,</span><br><span class="line">  prevChildren,</span><br><span class="line">  parentComponent,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  unmountChildren</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">  switch (key) &#123;</span><br><span class="line">    ...</span><br><span class="line">    case &#39;style&#39;:</span><br><span class="line">      patchStyle(el, prevValue, nextValue)</span><br><span class="line">      break</span><br><span class="line">   ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 对比 style</span><br><span class="line">export function patchStyle(el: Element, prev: Style, next: Style) &#123;</span><br><span class="line">  const style &#x3D; (el as HTMLElement).style</span><br><span class="line">  &#x2F;&#x2F; 如果新节点没有 style 属性的话就直接移除 style 属性</span><br><span class="line">  if (!next) &#123;</span><br><span class="line">    el.removeAttribute(&#39;style&#39;)</span><br><span class="line">  &#x2F;&#x2F; 如果新节点的 style 属性是原始文本类型</span><br><span class="line">  &#125; else if (isString(next)) &#123;</span><br><span class="line">    &#x2F;&#x2F; 判断两个 style 属性文本是否一致</span><br><span class="line">    if (prev !&#x3D;&#x3D; next) &#123;</span><br><span class="line">      style.cssText &#x3D; next</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">      &#x2F;&#x2F; 如果新节点中 style 属性是一个对象形式</span><br><span class="line">    for (const key in next) &#123;</span><br><span class="line">      &#x2F;&#x2F; 设置 style 属性</span><br><span class="line">      setStyle(style, key, next[key])</span><br><span class="line">    &#125;</span><br><span class="line">    if (prev &amp;&amp; !isString(prev)) &#123;</span><br><span class="line">      for (const key in prev) &#123;</span><br><span class="line">        if (next[key] &#x3D;&#x3D; null) &#123;</span><br><span class="line">          setStyle(style, key, &#39;&#39;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="差分算法"><a href="#差分算法" class="headerlink" title="差分算法"></a>差分算法</h4><p>概念：</p>
+<p>a数列：<code>a[1],a[2],a[3],...,a[n]</code></p>
+<p>创建b数列，令<code>b[i] = a[i] - a[i-1]</code>，则<code>b[1] = a[1]</code>、<code>b[2] = a[2] - a[1]</code>等</p>
+<p>则<code>a[i] = b[1] + b[2] + ... + b[i]</code></p>
+<p>即<code>a[i] = a[1] + a[2] - a[1] + a[3] - a[2] + ... + b[i] - b[i-1]</code></p>
+<p>因此，b数组为a数组的<code>差分数组</code>，a数组为b数组的<code>前缀和数组</code></p>
+<p>以上，Vue3源码分析结束。</p>
+<h2 id="附录-Vue3流程图"><a href="#附录-Vue3流程图" class="headerlink" title="附录-Vue3流程图"></a>附录-Vue3流程图</h2><p><img src="https://z3.ax1x.com/2021/05/26/2pvc1f.md.jpg" alt="vue流程图"></p>
+<p>a[l,r]+c</p>
+<p>b[l] + c = a[l] - a[l-1] + c</p>
+<p>b[r] = a[r] - a[r-1]</p>
+<p>b[r+1] - c = a[r+1] - a[r] -c</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/a22a7a3e.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/post/3341038055.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">结合Vue3-demo项目分析源码（五）</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>
