@@ -5,13 +5,13 @@
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
    
-  <meta name="keywords" content="web,Node.js,server,Express," />
+  <meta name="keywords" content="Gist,导航,优化,页面跳转," />
    
-  <meta name="description" content="Node.js Express基础" />
+  <meta name="description" content="Gist网站实现(3)-创建导航优化页面跳转" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Node.js(5)-Express基础 |  AwesoLynn
+    Gist网站实现(3)-创建导航优化页面跳转 |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-Node-js-5-Express" class="article article-type-post" itemscope
+  <article id="post-Gist网站实现-3-创建导航优化页面跳转" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Node.js(5)-Express基础
+  Gist网站实现(3)-创建导航优化页面跳转
 </h1>
   
 
@@ -78,12 +78,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/post/1628986583.html" class="article-date">
-  <time datetime="2020-02-26T14:13:57.000Z" itemprop="datePublished">2020-02-26</time>
+      <a href="/post/130e4ba5.html" class="article-date">
+  <time datetime="2020-03-01T05:58:40.000Z" itemprop="datePublished">2020-03-01</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+    <a class="article-category-link" href="/categories/Express/">Express</a>
   </div>
 
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">625字</span>
+            <span class="post-count">110字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">1分钟</span>
         </span>
     </span>
 </div>
@@ -129,44 +129,13 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Express 是一个简洁灵活的 Node.js Web 应用框架，其特点为：</p>
-<ul>
-<li><p>可以设置中间件来响应 HTTP 请求</p>
-</li>
-<li><p>定义了路由表用于执行不同的 HTTP 请求动作</p>
-</li>
-<li><p>可以通过向模板传递参数来动态渲染 HTML 页面</p>
+      <h2 id="创建导航优化页面跳转"><a href="#创建导航优化页面跳转" class="headerlink" title="创建导航优化页面跳转"></a>创建导航优化页面跳转</h2><h3 id="创建导航"><a href="#创建导航" class="headerlink" title="创建导航"></a>创建导航</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">  head</span><br><span class="line">    title&#x3D; title</span><br><span class="line">    link(rel&#x3D;&#39;stylesheet&#39;, href&#x3D;&#39;&#x2F;stylesheets&#x2F;style.css&#39;)</span><br><span class="line">  body</span><br><span class="line">    div.menu</span><br><span class="line">      a(href&#x3D;&quot;&#x2F;&quot;) 首页</span><br><span class="line">      -if(user &amp;&amp; user.login)</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;gists&#x2F;main&quot;) 我的代码</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;logout&quot;) 退出登陆#&#123;user.login&#125;</span><br><span class="line">      -else</span><br><span class="line">        a(href&#x3D;&quot;&#x2F;users&#x2F;login&quot;) 登陆</span><br><span class="line">    block content</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+<h4 id="添加导航样式"><a href="#添加导航样式" class="headerlink" title="添加导航样式"></a>添加导航样式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.menu &gt; * &#123;</span><br><span class="line">  margin-right: 10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p>请求发送到服务器，服务端在监听处理请求时的过程很复杂，若将这些负责的业务拆分成子部分，则每个子部份就是一个中间件，类似一个流水线工作流程。</p>
-<blockquote>
-<p>function(req, res, next)</p>
-</blockquote>
-<blockquote>
-<p>若符合 function 中的条件，则执行对应的 end()函数结束此次路由，若不符合条件，则执行 next()函数进入 function2</p>
-</blockquote>
-<blockquote>
-<p>类同与异步的 promise.then().then()</p>
-</blockquote>
-<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p>
-<p><img src="https://i.loli.net/2020/03/16/amscOKBu1qZRNSD.jpg" alt="中间件"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> var express &#x3D; require(&#39;express&#39;);</span><br><span class="line"> var app &#x3D; express();</span><br><span class="line"></span><br><span class="line"> app.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;&#x2F;&#x2F;function(req, res, next)为中间件</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 当前中间件函数没有结束请求&#x2F;响应循环，调用next(), 将控制权传递给下一个中间件函数继续往下处理，否则页面到此会被挂起</span><br><span class="line">    next();&#x2F;&#x2F;有next()才会往下进行下一个中间件，否则一直被挂起</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;next()代表的下一个中间件</span><br><span class="line">app.get(&#39;&#x2F;end&#39;, function(req, res) &#123;</span><br><span class="line">    &#x2F;&#x2F;此时没有next(),故到此结束</span><br><span class="line">    res.send(&#39;-----END-----&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
-
-<h3 id="错误中间件"><a href="#错误中间件" class="headerlink" title="错误中间件"></a>错误中间件</h3><blockquote>
-<p>function(err, req, res, next)</p>
-</blockquote>
-<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p>
-<p><img src="https://i.loli.net/2020/03/16/AKTki9687StbFu5.jpg" alt="错误中间件"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.use(function(err, req, res, next) &#123;&#x2F;&#x2F;function(err, req, res, next)为错误处理中间件</span><br><span class="line">  console.error(err.stack);</span><br><span class="line">  res.status(500).send(&#39;Something broke!&#39;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;另一种写法</span><br><span class="line">app.use(function(req, res, next) &#123;</span><br><span class="line">  next(new Error(&quot;XXX error&quot;));&#x2F;&#x2F;next()将请求交给新建的错误处理中间件。</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="单文件-Express-app"><a href="#单文件-Express-app" class="headerlink" title="单文件 Express app"></a>单文件 Express app</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const express &#x3D; require(&#39;express&#39;)</span><br><span class="line">const app &#x3D; express()</span><br><span class="line">const port &#x3D; 3000</span><br><span class="line"></span><br><span class="line">app.get(&#39;&#x2F;&#39;, (req, res) &#x3D;&gt; res.send(&#39;Hello World!&#39;))</span><br><span class="line"></span><br><span class="line">app.listen(port, () &#x3D;&gt; console.log(&#96;Example app listening on port &#96;+ port));</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2020/03/16/Of4DapRuvUVq5mE.jpg" alt="output"></p>
-<h2 id="使用-Express-generate-生成-Express-项目"><a href="#使用-Express-generate-生成-Express-项目" class="headerlink" title="使用 Express generate 生成 Express 项目"></a>使用 Express generate 生成 Express 项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Node.js v8.2.0直接使用npx命令使用生成器</span><br><span class="line">$ npx express-generator</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;之前版本先安装生成器包</span><br><span class="line">$ npm install -g express-generator</span><br><span class="line">$ express</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;生成项目myapp</span><br><span class="line">&#x2F;&#x2F;将view引擎设置成pug，jade已不被支持</span><br><span class="line">$ express --view&#x3D;pug myapp</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">&#x2F;&#x2F;安装依赖</span><br><span class="line">$ cd myapp</span><br><span class="line">$ npm install</span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">$ set DEBUG&#x3D;myapp:*</span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;打开页面http:&#x2F;&#x2F;localhost:3000&#x2F;查看结果</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2020/03/16/BNmsdbH4D3yvjqU.jpg" alt="express"></p>
+<p><img src="https://s1.ax1x.com/2020/03/19/8sOeBj.jpg" alt="8sOeBj.jpg"></p>
+<p><img src="https://s1.ax1x.com/2020/03/19/8sO13T.jpg" alt="8sO13T.jpg"></p>
 
       
       <!-- reward -->
@@ -232,14 +201,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/1628986583.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/130e4ba5.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
 
 
     </footer>
@@ -250,19 +219,19 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/post/3bcbab20.html" class="article-nav-link">
+      <a href="/post/bf43cd72.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Gist网站实现(1)-通过第三方登陆GitHub
+            Gist网站实现(4)-我的代码页面输入合法性检测
           
         </div>
       </a>
     
     
-      <a href="/post/3550571859.html" class="article-nav-link">
+      <a href="/post/a4d55a1a.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Node.js(4)-模块及文件系统</div>
+        <div class="article-nav-title">Gist网站实现(2)-通过会话和session绑定登陆状态及登入登出跳转</div>
       </a>
     
   </nav>

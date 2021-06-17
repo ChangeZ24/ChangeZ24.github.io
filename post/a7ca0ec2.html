@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="web,Node.js,gist,Express,Mongoose,JavaScript," />
+   
+  <meta name="description" content="使用Mongoose数据库实现简单的增删改查" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Gist网站实现(5)-使用Mongoose数据库实现简单的增删改查 |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Gist网站实现-5-使用数据库实现简单的增删改查" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Gist网站实现(5)-使用Mongoose数据库实现简单的增删改查
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/a7ca0ec2.html" class="article-date">
+  <time datetime="2020-03-09T07:02:45.000Z" itemprop="datePublished">2020-03-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Express/">Express</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.4k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><blockquote>
+<p>关系数据库： MySQL、PostgreSQL  </p>
+</blockquote>
+<blockquote>
+<p>文档数据库： mongoDB、CouchDB</p>
+</blockquote>
+<p>区别在于<strong><em>schema</em></strong>：</p>
+<ul>
+<li><p>关系数据库在插入数居前，需要先建立表结构，预先制定好字段和类型，即schema。一张表里的字段结构是一致的，一条数据，就是一个记录</p>
+</li>
+<li><p>文档数据库按文档组织数据，数据格式无需提前声明，各个文档内也无关联。</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h3 id="Mongoose"><a href="#Mongoose" class="headerlink" title="Mongoose"></a>Mongoose</h3><p>Mongoose优化了MongoDB，解决对象建模的一系列问题</p>
+<p>核心概念：</p>
+<ul>
+<li><p>Schema：类似关系数据库建表时的字段设置。描述数据规范，类型、长度等</p>
+</li>
+<li><p>Model：从schema产生的构造器，通过model可以得到document。类似SSM中的sevice层，调用数据库component。可以创建、删除、查找等</p>
+</li>
+<li><p>Document：Document是Model的Instance实例，Document里存的都是数据。</p>
+</li>
+</ul>
+<h3 id="使用Mongoose存储数据"><a href="#使用Mongoose存储数据" class="headerlink" title="使用Mongoose存储数据"></a>使用Mongoose存储数据</h3><h4 id="导入Mongoose模块"><a href="#导入Mongoose模块" class="headerlink" title="导入Mongoose模块"></a>导入Mongoose模块</h4><ol>
+<li><p>新建文件mongoose.js，作为连接数据库的模块用于被其他模块导入</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    const mongoose &#x3D; require(&#39;mongoose&#39;);</span><br><span class="line">    mongoose.connect(&#39;mongodb:&#x2F;&#x2F;localhost&#x2F;nodegist&#39;,</span><br><span class="line">    &#123;</span><br><span class="line">    useNewUrlParser:true, useUnifiedTopology:true</span><br><span class="line">&#125;, </span><br><span class="line">err &#x3D;&gt;&#123;</span><br><span class="line">        if(err)&#123;</span><br><span class="line">            console.log(&#39;db error ......&#39;);</span><br><span class="line">            process.exit();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#x2F;&#x2F;将连接数据库服务装载入模块，可供其他地方导入使用</span><br><span class="line">module.exports &#x3D; mongoose;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>mongoose.connect(url,options)：连接mongoose数据库<ul>
+<li>options可选</li>
+<li><code>useNewUrlParser</code>：底层MongoDB已经废弃当前连接字符串解析器。因为这是一个重大的改变，添加了<code>useNewUrlParser</code>标记，则当在用户如果遇到bug，允许用户在新的解析器中返回旧的解析器。因此除非连接阻止设置，否则你应该设置<code>useNewUrlParser: true</code></li>
+<li><code>useUnifiedTopology</code>：当出现“当前服务器发现和监视引擎已弃用，将在将来的版本中删除”的连接MongoDB错误时。要使用新的服务器发现和监视引擎，按提示，要将选项<code>useUnifiedTopology:true</code>传递给mongoclient构造函数，即connect函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>导入mongoose模块，设计schema创建model及document</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const mg &#x3D; require(&quot;..&#x2F;lib&#x2F;mongoose&quot;);</span><br><span class="line">&#x2F;&#x2F;创建model</span><br><span class="line">&#x2F;&#x2F;每调用一次就要创建一次model</span><br><span class="line">const Gist &#x3D; mg.model( &#39;Gist&#39; , &#123;</span><br><span class="line">    name: &#123;type:String&#125;,</span><br><span class="line">    type: &#123;type:String&#125;,</span><br><span class="line">    code: &#123;type:String&#125;,</span><br><span class="line">    author_id: &#123;type:String&#125;,</span><br><span class="line">    author: &#123;type:mg.Schema.Types.ObjectId, ref: &#39;Author&#39;&#125;,</span><br><span class="line">    created_at: &#123;type:String&#125;</span><br><span class="line">&#125; );</span><br><span class="line">&#x2F;&#x2F;创建document</span><br><span class="line">const gist &#x3D; new Gist(&#123;</span><br><span class="line">  name:req.body.name,</span><br><span class="line">  type:req.body.type,</span><br><span class="line">  code:req.body.code,</span><br><span class="line">  author_id:req.session.user.id,</span><br><span class="line">  author:req.session.user._id,</span><br><span class="line">  created_at:Date.now() </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建保存逻辑<br> 使用<code>await gist.save()</code>保存gist。</p>
+<p> <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdeqsua9h4j30i206wwew.jpg" alt="保存"></p>
+</li>
+<li><p>优化mongoose创建model逻辑<br> 由于2中创建model时，每调用一次Gist的model就要创建一次model，不灵活，故将创建schema逻辑独立出来创建为模块，当使用时，直接使用<code>require</code>调用即可。</p>
+</li>
+<li><p>优化跳转逻辑，使保存后跳转至“我的代码”页面<br> 使用<code>res.redirect</code>设置页面跳转。</p>
+</li>
+</ol>
+<h4 id="展示数据"><a href="#展示数据" class="headerlink" title="展示数据"></a>展示数据</h4><ol>
+<li><p>在“我的代码”页面，使用mongoose的find逻辑对已保存的数据进行展示</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  const Gist &#x3D; require(&quot;..&#x2F;model&#x2F;Gist&quot;);</span><br><span class="line">  &#x2F;&#x2F;设置显示时按创建时间逆序排序展示</span><br><span class="line">  const gists &#x3D; await Gist.find().sort(&#123;&#39;created_at&#39;:-1&#125;);</span><br><span class="line">  &#x2F;&#x2F;将gists信息传入页面</span><br><span class="line">  res.render(&#39;gists&#39;,&#123;</span><br><span class="line">  user:req.session.user,</span><br><span class="line">  gists</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设计“我的代码”页面上代码的展示样式。<br> <img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfskc7w8rj30ko0bwgmb.jpg" alt="我的代码"></p>
+</li>
+</ol>
+<h4 id="使用update逻辑修改数据"><a href="#使用update逻辑修改数据" class="headerlink" title="使用update逻辑修改数据"></a>使用update逻辑修改数据</h4><ol>
+<li><p>增加修改代码功能，通过点击修改按钮，跳转至修改页面</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;从路径中获取需要修改的代码片段id</span><br><span class="line">router.get(&#39;&#x2F;modify&#x2F;:id&#39;,async(req,res)&#x3D;&gt;&#123;</span><br><span class="line">    const id &#x3D; req.params.id;</span><br><span class="line">    const Gist &#x3D; require(&quot;..&#x2F;model&#x2F;Gist&quot;);</span><br><span class="line">    &#x2F;&#x2F;通过id查询要修改的gist</span><br><span class="line">    const gist &#x3D; await Gist.findById(id);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;增加校验：是否存在此gist，是否为当前登陆用户所提交的gist</span><br><span class="line">    if(!gist) throw(new Error(&quot;gist not found!&quot;));</span><br><span class="line">    if(gist.author_id !&#x3D; req.session.user.id) throw(new Error(&quot;只允许修改自己提交的代码！&quot;));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;修改更新代码</span><br><span class="line">    res.render(&#39;modify&#39;,&#123;gist,user:req.session.user&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建修改代码页面，并增加相关样式。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;update&#x2F;&quot;+gist.id, method&#x3D;&quot;post&quot;)</span><br><span class="line">        div</span><br><span class="line">            input(name&#x3D;&quot;name&quot; value&#x3D;gist.name)</span><br><span class="line">            select(name&#x3D;&quot;type&quot;)</span><br><span class="line">                each thetype in [&quot;php&quot;,&quot;javascript&quot;,&quot;go&quot;,&quot;python&quot;]</span><br><span class="line">                    -if(gist.type&#x3D;&#x3D;thetype)</span><br><span class="line">                        option(value&#x3D;thetype selected&#x3D;&quot;true&quot;) #&#123;thetype&#125;</span><br><span class="line">                    -else</span><br><span class="line">                        option(value&#x3D;thetype) #&#123;thetype&#125;</span><br><span class="line">        div</span><br><span class="line">            textarea(name&#x3D;&quot;code&quot;, cols&#x3D;&quot;30&quot;, rows&#x3D;&quot;10&quot;) #&#123;gist.code&#125;</span><br><span class="line">        div</span><br><span class="line">            button(type&#x3D;&quot;submit&quot;) 保存修改</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>input：代码名，直接从url中获取</p>
+</li>
+<li><p>select：从gist中获取并将其选中</p>
+<blockquote>
+<p>写的时候忘了截图了= =。最终的样子就是表单填了内容的样子。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>添加修改代码update逻辑，修改后点击提交按钮，更新数据库内容<br>修改代码页面update逻辑与modify逻辑几乎一样，仅添加了对输入框、选择框等的校验。并将新修改的内容更新。   </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if( !req.body.name )  throw( new Error(&#39;名称不能为空&#39;) );</span><br><span class="line">if( !req.body.type )  throw( new Error(&#39;类型不能为空&#39;) );</span><br><span class="line">if( !req.body.code )  throw( new Error(&#39;代码不能为空&#39;) );</span><br><span class="line"></span><br><span class="line">    gist.name &#x3D; req.body.name;</span><br><span class="line">    gist.type &#x3D; req.body.type;</span><br><span class="line">    gist.code &#x3D; req.body.code;</span><br><span class="line">    gist.author_id &#x3D; req.session.user.id;</span><br><span class="line">    gist.created_at &#x3D; Date.now() ;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><ol>
+<li><p>增加删除代码功能<br> 删除代码使用mongoose的<code>deleteOne()</code>函数直接删除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">router.get(&#39;&#x2F;remove&#x2F;:id&#39;, async(req,res)&#x3D;&gt;&#123;</span><br><span class="line">        const id &#x3D; req.params.id;</span><br><span class="line">        const Gist &#x3D; require(&quot;..&#x2F;model&#x2F;Gist&quot;);</span><br><span class="line">        const gist &#x3D; await Gist.findById(id);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;增加校验：是否存在此gist？是否为当前登陆用户所提交的gist</span><br><span class="line">        if(!gist) throw(new Error(&quot;gist not found!&quot;));</span><br><span class="line">        if(gist.author_id !&#x3D; req.session.user.id) throw(new Error(&quot;只允许修改自己提交的代码！&quot;));</span><br><span class="line">  </span><br><span class="line">        await gist.deleteOne();</span><br><span class="line">        res.redirect(&#39;&#x2F;gists&#x2F;main&#39;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除代码时添加提醒是否删除<br>在点击按钮时使用<code>javascript:function()</code>调用js函数添加弹窗提醒</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a.btn.btn-danger(href&#x3D;(&quot;javascript:remove_gist(&#39;&quot;+gist.id+&quot;&#39;);void(0);&quot;)) 删除</span><br><span class="line">    &#x2F;&#x2F;删除提醒弹窗</span><br><span class="line">    function remove_gist(id)&#123;</span><br><span class="line">        &#x2F;&#x2F;若点击确定删除，则执行remove删除逻辑</span><br><span class="line">        if(confirm(&quot;真的要删除吗？本操作无法恢复&quot;))&#123;</span><br><span class="line">        location &#x3D; &#39;&#x2F;gists&#x2F;remove&#x2F;&#39;+id;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdftawhffrj311a09ywfp.jpg" alt="删除"></p>
+</li>
+</ol>
+<h4 id="搜索数据"><a href="#搜索数据" class="headerlink" title="搜索数据"></a>搜索数据</h4><ol>
+<li><p>创建搜索逻辑</p>
+<ul>
+<li><p>添加搜索组件，将搜索条件search传入逻辑</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">form(action&#x3D;&quot;&#x2F;gists&#x2F;main&quot;)</span><br><span class="line">    input(type&#x3D;&#39;search&#39;, placeholder&#x3D;&#39;关键字&#39;, name&#x3D;&quot;search&quot;, value&#x3D;search)</span><br><span class="line">    button(type&#x3D;&#39;submit&#39;) 搜索</span><br></pre></td></tr></table></figure></li>
+<li><p>实现搜索逻辑</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const gists &#x3D; await Gist.find(search).sort(&#123;&#39;created_at&#39;:-1&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfsjpkacuj30ms09kjs8.jpg" alt="搜索"></p>
+</li>
+</ul>
+</li>
+<li><p>优化逻辑，设计查询条件（name、code）</p>
+<ul>
+<li><p>查询条件是js对象，需满足查询<code>name</code>or<code>code</code>，且查询的范围必须为该用户可查看的范围。</p>
+</li>
+<li><p>查询条件使用正则表达式，则其查询对象的key为<code>{$regex: new RegExp( search, &#39;i&#39;)}</code></p>
+<ul>
+<li>$regex: 启用正则表达式，冒号后面是值</li>
+<li>new RegExp(): js中创建正则表达式</li>
+<li>search: 规则，描述字符串的特征</li>
+<li>i: 正则表达式参数，i表示忽略大小写</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const search &#x3D; req.query.search ? </span><br><span class="line">  &#123;</span><br><span class="line">    &#x2F;&#x2F;查询条件必须为当前用户可看范围，使用and</span><br><span class="line">    $and:[</span><br><span class="line">      &#x2F;&#x2F;查询条件name和code为or关系</span><br><span class="line">      &#123;</span><br><span class="line">        $or:[</span><br><span class="line">          &#123;name:&#123;$regex:new RegExp(req.query.search,&#39;i&#39;)&#125;&#125;,</span><br><span class="line">          &#123;code:&#123;$regex:new RegExp(req.query.search,&#39;i&#39;)&#125;&#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">      ,&#123;&#39;author_id&#39;:req.session.user.id&#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125; </span><br><span class="line">  :&#123;&#39;author_id&#39;:req.session.user.id&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="展示gist详细信息"><a href="#展示gist详细信息" class="headerlink" title="展示gist详细信息"></a>展示gist详细信息</h4><p>展示gist详细信息，需要同时展示作者信息，故需要多个实体。</p>
+<h5 id="多实体功能实现方法"><a href="#多实体功能实现方法" class="headerlink" title="多实体功能实现方法"></a>多实体功能实现方法</h5><p>对于多实体的功能有三种实现方式：Map、Subdocument、Populate。</p>
+<ul>
+<li>Map：保存作者信息时，直接使用Map类型，在取数据时，使用get方法。</li>
+<li>Subdocument：在建立gist的Schema前，建立author的Schema，在gist中直接使用authorSchema嵌套。<ul>
+<li>这种方式数据更规范。</li>
+<li>当其parent Document的save、validate中间件触发时，Subdocument的中间件也被触发。故对数据的控制更有力（有点类似父类和子类）。</li>
+<li>访问数据时，直接使用.即可。</li>
+</ul>
+</li>
+<li>Populate：Populate的实现是在gist里只存入供查询的author的id（此id为标识author的id，不是人为定义的id）。在查完gist后，再通过此id将author的内容进行扩展。扩展的方法是通过gist的model里为author设置的ref参数，至此就获得了author的全部信息（类似一种二次查询）。<ul>
+<li>Map和Subdocument的问题是都把信息嵌入了document中，若有修改时，则需要全部修改，不够灵活。</li>
+<li>此种方法author的信息也是需要存入数据库以供populate查询。</li>
+<li>传输时，只传输标识author的id</li>
+</ul>
+</li>
+</ul>
+<h5 id="展示gist详细信息实现步骤（该部分使用Populate方式实现）"><a href="#展示gist详细信息实现步骤（该部分使用Populate方式实现）" class="headerlink" title="展示gist详细信息实现步骤（该部分使用Populate方式实现）"></a>展示gist详细信息实现步骤（该部分使用Populate方式实现）</h5><ol>
+<li><p>创建Author的Shema  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const mg &#x3D; require(&quot;..&#x2F;lib&#x2F;mongoose&quot;);</span><br><span class="line"></span><br><span class="line">const AuthorSchema &#x3D; new mg.Schema(&#123;</span><br><span class="line">    name:&#123;type:String&#125;,</span><br><span class="line">    avatar:&#123;type:String&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const Author &#x3D; mg.model(&#39;Author&#39;,AuthorSchema);</span><br><span class="line"></span><br><span class="line">module.exports&#x3D;Author;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将author信息存入数据库</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const Author &#x3D; require(&quot;..&#x2F;model&#x2F;Author&quot;);</span><br><span class="line">&#x2F;&#x2F;将用户数据存入数据库</span><br><span class="line">const user_data &#x3D; user.data;</span><br><span class="line">let author &#x3D; await Author.findOne(&#123;&quot;id&quot;:user_data.id&#125;);</span><br><span class="line">if(!author)&#123;&#x2F;&#x2F;如果用户不存在，则新建一个用户</span><br><span class="line">  author &#x3D; new Author(&#123;</span><br><span class="line">    id:user_data.id,</span><br><span class="line">    name:user_data.name,</span><br><span class="line">    avatar:user_data.avatar_url</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;else&#123;&#x2F;&#x2F;若存在，则更新为最新信息</span><br><span class="line">  author.name &#x3D; user_data.name;</span><br><span class="line">  author.avatar &#x3D; user_data.avatar_url;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">await author.save();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;将用户_id存入session</span><br><span class="line">req.session.user &#x3D; user.data;</span><br><span class="line">req.session.user._id &#x3D; author._id;</span><br></pre></td></tr></table></figure></li>
+<li><p>展示gist详细信息及作者信息</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extends layout</span><br><span class="line">block content</span><br><span class="line">    .d-flex.justify-content-between</span><br><span class="line">        h4 #&#123;gist.name&#125;</span><br><span class="line">            span.badge.badge-secondary #&#123;gist.type&#125;</span><br><span class="line">        div #&#123;gist.author.name&#125;</span><br><span class="line"></span><br><span class="line">    pre</span><br><span class="line">        code#thecode.tcode(class&#x3D;gist.type) #&#123;gist.code&#125;</span><br><span class="line"></span><br><span class="line">    .form-group.row</span><br><span class="line">        a.btn.btn-primary(href&#x3D;(&quot;&#x2F;gists&#x2F;main&quot;) style&#x3D;&quot;&quot;) 返回上页</span><br></pre></td></tr></table></figure>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdftsrilknj31xo0ekdho.jpg" alt="详细信息展示"></p>
+</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/a7ca0ec2.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mongoose/" rel="tag">Mongoose</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/post/40b522ab.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Gist网站实现(6)-使用BootStrap优化网站样式
+          
+        </div>
+      </a>
+    
+    
+      <a href="/post/2734088481.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">MongoDB安装手册</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

@@ -5,13 +5,13 @@
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
    
-  <meta name="keywords" content="web,Node.js,server,Express," />
+  <meta name="keywords" content="web,Node.js,gist,Express,BootStrap,JavaScript," />
    
-  <meta name="description" content="Node.js Express基础" />
+  <meta name="description" content="Gist网站实现(6)-使用BootStrap优化网站样式" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Node.js(5)-Express基础 |  AwesoLynn
+    Gist网站实现(6)-使用BootStrap优化网站样式 |  AwesoLynn
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-Node-js-5-Express" class="article article-type-post" itemscope
+  <article id="post-Gist网站实现-6-使用BootStrap优化网站样式" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Node.js(5)-Express基础
+  Gist网站实现(6)-使用BootStrap优化网站样式
 </h1>
   
 
@@ -78,12 +78,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/post/1628986583.html" class="article-date">
-  <time datetime="2020-02-26T14:13:57.000Z" itemprop="datePublished">2020-02-26</time>
+      <a href="/post/40b522ab.html" class="article-date">
+  <time datetime="2020-03-10T13:03:35.000Z" itemprop="datePublished">2020-03-10</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Node-js/">Node.js</a>
+    <a class="article-category-link" href="/categories/Express/">Express</a>
   </div>
 
       
@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">625字</span>
+            <span class="post-count">406字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">1分钟</span>
         </span>
     </span>
 </div>
@@ -129,44 +129,40 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Express 是一个简洁灵活的 Node.js Web 应用框架，其特点为：</p>
+      <h2 id="BootStrap"><a href="#BootStrap" class="headerlink" title="BootStrap"></a>BootStrap</h2><p>BootStrap是一个前端组件库，包括一系列CSS和jQuery实现的组件，非常流行。</p>
 <ul>
-<li><p>可以设置中间件来响应 HTTP 请求</p>
-</li>
-<li><p>定义了路由表用于执行不同的 HTTP 请求动作</p>
-</li>
-<li><p>可以通过向模板传递参数来动态渲染 HTML 页面</p>
-<a id="more"></a>
-
-</li>
+<li>通过Reboot清理统一了各个浏览器的样式</li>
+<li>通过Layout提供了一个支持复杂布局的网格结构</li>
+<li>通过Component提供了一系列常用的增强组件</li>
+<li>通过其生态提供了大量风格各异的主题</li>
 </ul>
-<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p>请求发送到服务器，服务端在监听处理请求时的过程很复杂，若将这些负责的业务拆分成子部分，则每个子部份就是一个中间件，类似一个流水线工作流程。</p>
-<blockquote>
-<p>function(req, res, next)</p>
-</blockquote>
-<blockquote>
-<p>若符合 function 中的条件，则执行对应的 end()函数结束此次路由，若不符合条件，则执行 next()函数进入 function2</p>
-</blockquote>
-<blockquote>
-<p>类同与异步的 promise.then().then()</p>
-</blockquote>
-<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p>
-<p><img src="https://i.loli.net/2020/03/16/amscOKBu1qZRNSD.jpg" alt="中间件"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> var express &#x3D; require(&#39;express&#39;);</span><br><span class="line"> var app &#x3D; express();</span><br><span class="line"></span><br><span class="line"> app.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;&#x2F;&#x2F;function(req, res, next)为中间件</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 当前中间件函数没有结束请求&#x2F;响应循环，调用next(), 将控制权传递给下一个中间件函数继续往下处理，否则页面到此会被挂起</span><br><span class="line">    next();&#x2F;&#x2F;有next()才会往下进行下一个中间件，否则一直被挂起</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;next()代表的下一个中间件</span><br><span class="line">app.get(&#39;&#x2F;end&#39;, function(req, res) &#123;</span><br><span class="line">    &#x2F;&#x2F;此时没有next(),故到此结束</span><br><span class="line">    res.send(&#39;-----END-----&#39;);</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure>
+<h3 id="优化网站样式"><a href="#优化网站样式" class="headerlink" title="优化网站样式"></a>优化网站样式</h3><h4 id="选择网站主题"><a href="#选择网站主题" class="headerlink" title="选择网站主题"></a>选择网站主题</h4><p>在<a href="https://bootswatch.com/" target="_blank" rel="noopener">BootStrap网站主题</a>页面选择主题，在选择主题的<code>download</code>下拉按钮下，右键点击<code>bootstrap.min.css</code>选择复制链接。</p>
+<a id="more"></a>
+<p><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdftz1qmj0j312i0qw7qd.jpg" alt="选择主题"></p>
+<h4 id="导入BootStrap"><a href="#导入BootStrap" class="headerlink" title="导入BootStrap"></a>导入BootStrap</h4><p>由于Express使用的是pug(原jade)模版，故需要将html转换为pug(jade)语法。可使用<a href="http://html2jade.org/" target="_blank" rel="noopener">在线转换网站</a>，进行转换。</p>
+<p>把 CSS 放到 head 标签里边，而 JS 放到 body 结束之前。 这样页面在载入时不会丢失样式，又不会因为 JS 文件延迟页面显示速度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--CSS--&gt;</span><br><span class="line">link(rel&#x3D;&#39;stylesheet&#39;, href&#x3D;&#39;https:&#x2F;&#x2F;bootswatch.com&#x2F;4&#x2F;cyborg&#x2F;bootstrap.min.css&#39;)</span><br><span class="line">&lt;!--JavaScript--&gt;</span><br><span class="line">script(src&#x3D;&#39;https:&#x2F;&#x2F;stackpath.bootstrapcdn.com&#x2F;bootstrap&#x2F;4.4.1&#x2F;js&#x2F;bootstrap.min.js&#39;, integrity&#x3D;&#39;sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6&#39;, crossorigin&#x3D;&#39;anonymous&#39;)</span><br></pre></td></tr></table></figure>
 
-<h3 id="错误中间件"><a href="#错误中间件" class="headerlink" title="错误中间件"></a>错误中间件</h3><blockquote>
-<p>function(err, req, res, next)</p>
-</blockquote>
-<p><a href="https://study.163.com/course/courseMain.htm?courseId=1209581854" target="_blank" rel="noopener">下图参考 easy 老师方糖全站课堂内容：</a></p>
-<p><img src="https://i.loli.net/2020/03/16/AKTki9687StbFu5.jpg" alt="错误中间件"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.use(function(err, req, res, next) &#123;&#x2F;&#x2F;function(err, req, res, next)为错误处理中间件</span><br><span class="line">  console.error(err.stack);</span><br><span class="line">  res.status(500).send(&#39;Something broke!&#39;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;另一种写法</span><br><span class="line">app.use(function(req, res, next) &#123;</span><br><span class="line">  next(new Error(&quot;XXX error&quot;));&#x2F;&#x2F;next()将请求交给新建的错误处理中间件。</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="单文件-Express-app"><a href="#单文件-Express-app" class="headerlink" title="单文件 Express app"></a>单文件 Express app</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const express &#x3D; require(&#39;express&#39;)</span><br><span class="line">const app &#x3D; express()</span><br><span class="line">const port &#x3D; 3000</span><br><span class="line"></span><br><span class="line">app.get(&#39;&#x2F;&#39;, (req, res) &#x3D;&gt; res.send(&#39;Hello World!&#39;))</span><br><span class="line"></span><br><span class="line">app.listen(port, () &#x3D;&gt; console.log(&#96;Example app listening on port &#96;+ port));</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2020/03/16/Of4DapRuvUVq5mE.jpg" alt="output"></p>
-<h2 id="使用-Express-generate-生成-Express-项目"><a href="#使用-Express-generate-生成-Express-项目" class="headerlink" title="使用 Express generate 生成 Express 项目"></a>使用 Express generate 生成 Express 项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Node.js v8.2.0直接使用npx命令使用生成器</span><br><span class="line">$ npx express-generator</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;之前版本先安装生成器包</span><br><span class="line">$ npm install -g express-generator</span><br><span class="line">$ express</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;生成项目myapp</span><br><span class="line">&#x2F;&#x2F;将view引擎设置成pug，jade已不被支持</span><br><span class="line">$ express --view&#x3D;pug myapp</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">&#x2F;&#x2F;安装依赖</span><br><span class="line">$ cd myapp</span><br><span class="line">$ npm install</span><br><span class="line">&#x2F;&#x2F;运行</span><br><span class="line">$ set DEBUG&#x3D;myapp:*</span><br><span class="line">$ npm start</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;打开页面http:&#x2F;&#x2F;localhost:3000&#x2F;查看结果</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2020/03/16/BNmsdbH4D3yvjqU.jpg" alt="express"></p>
+<h4 id="修改相关样式样式"><a href="#修改相关样式样式" class="headerlink" title="修改相关样式样式"></a>修改相关样式样式</h4><ol>
+<li><p>点击模版页面的preview按钮进入模版组件样式页面。<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfu8qr2z9j30ic0lkmz1.jpg" alt="组件样式"></p>
+</li>
+<li><p>选择对应的样式，在右边点击<code>&lt;&gt;</code>按钮复制html代码。通过<a href="http://html2jade.org/" target="_blank" rel="noopener">在线转换网站</a>进行pug(jade)语法转换<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfu8staglj31h2046mxo.jpg" alt="选择样式"><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfu8v2ztmj31370u0dm0.jpg" alt="代码"></p>
+</li>
+<li><p>将转换后的语法放在页面对应位置。<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuaw7442j318g0mq0yl.jpg" alt="设置样式"></p>
+</li>
+<li><p>进行样式调整</p>
+</li>
+</ol>
+<h4 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h4><ol>
+<li><p>主页及登陆页面<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuyduf7uj31lq0c6dh6.jpg" alt="未登陆"><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuwkzf39j31ly0ee0ui.jpg" alt="已登陆"><br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfuym3mi7j31m00dq75l.jpg" alt="登陆页面"></p>
+</li>
+<li><p>我的代码页面<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfucqf6eaj317y0u0gqp.jpg" alt="我的代码"></p>
+</li>
+<li><p>修改代码页面<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfugunak0j31ly0psjua.jpg" alt="修改代码"></p>
+</li>
+<li><p>查看代码详情<br><img src="https://tva1.sinaimg.cn/large/00831rSTgy1gdfud4r6qzj31ly0j4mzm.jpg" alt="查看代码"></p>
+</li>
+</ol>
 
       
       <!-- reward -->
@@ -232,14 +228,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/1628986583.html" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/40b522ab.html" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BootStrap/" rel="tag">BootStrap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/" rel="tag">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gist/" rel="tag">gist</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
 
 
     </footer>
@@ -250,19 +246,19 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/post/3bcbab20.html" class="article-nav-link">
+      <a href="/post/2092262605.html" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Gist网站实现(1)-通过第三方登陆GitHub
+            正则表达式学习笔记
           
         </div>
       </a>
     
     
-      <a href="/post/3550571859.html" class="article-nav-link">
+      <a href="/post/a7ca0ec2.html" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Node.js(4)-模块及文件系统</div>
+        <div class="article-nav-title">Gist网站实现(5)-使用Mongoose数据库实现简单的增删改查</div>
       </a>
     
   </nav>
