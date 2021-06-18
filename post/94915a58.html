@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="面经,http,HTML,CSS,JavaScript,浏览器," />
+   
+  <meta name="description" content="前端面经学习总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端面经总结（四） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-前端面经总结（四）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端面经总结（四）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/94915a58.html" class="article-date">
+  <time datetime="2021-06-16T10:49:56.000Z" itemprop="datePublished">2021-06-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="typeof和instance-of区别"><a href="#typeof和instance-of区别" class="headerlink" title="typeof和instance of区别"></a>typeof和instance of区别</h3><p>二者都用来判断变量是否为空</p>
+<ul>
+<li><p>typeof返回值为字符串，说明变量的数据类型</p>
+</li>
+<li><p>instanceof判断变量是否属于某个对象的实例。判断逻辑为从当前引用的proto一层一层顺着原型链向上找，若能找到对应的prototype则返回true</p>
+</li>
+</ul>
+<h3 id="深拷贝-浅拷贝"><a href="#深拷贝-浅拷贝" class="headerlink" title="深拷贝/浅拷贝"></a>深拷贝/浅拷贝</h3><ul>
+<li>浅拷贝：只是拷贝了基本类型的数据，而引用类型数据，复制后也会发生引用。即浅拷贝仅指向被复制的内存地址，若原地址对象改变，则复制后的对象也相应改变。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用&#x3D;直接赋值</span><br><span class="line">let newArr &#x3D; arr;</span><br><span class="line">&#x2F;&#x2F;使用slice()</span><br><span class="line">let newArr &#x3D; arr.slice();</span><br><span class="line">&#x2F;&#x2F;使用concat()</span><br><span class="line">let newArr &#x3D;  arr.concat();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>深拷贝：创建新对象，属性中引用的其他对象也会被克隆，且不再指向原对象地址。使用JSON.parse()/JSON.stringfy()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用JSON.stringify和JSON.parse</span><br><span class="line">var newArr &#x3D; JSON.parse(JSON.stringify(arr));&#x2F;&#x2F;该方法可以拷贝数组和对象，但不能拷贝函数。对于RegExp类型和Function类型无法完全满足，且不支持有循环引用的对象。</span><br><span class="line">&#x2F;&#x2F;拷贝时判断属性类型</span><br><span class="line">var deepCopy &#x3D; function(obj) &#123;</span><br><span class="line">    &#x2F;&#x2F; 只拷贝对象</span><br><span class="line">    if (typeof obj !&#x3D;&#x3D; &#39;object&#39;) return;</span><br><span class="line">    &#x2F;&#x2F; 根据obj的类型判断是新建一个数组还是一个对象</span><br><span class="line">    var newObj &#x3D; obj instanceof Array ? [] : &#123;&#125;;</span><br><span class="line">        for (var key in obj) &#123;</span><br><span class="line">            &#x2F;&#x2F; 遍历obj,并且判断是obj的属性才拷贝</span><br><span class="line">            if (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">                &#x2F;&#x2F; 判断属性值的类型，如果是对象递归调用深拷贝</span><br><span class="line">                newObj[key] &#x3D; typeof obj[key] &#x3D;&#x3D;&#x3D; &#39;object&#39; ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  return newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="深拷贝用法"><a href="#深拷贝用法" class="headerlink" title="深拷贝用法"></a>深拷贝用法</h4><ol>
+<li>解决循环引用</li>
+</ol>
+<p>使用哈希表存储已拷贝过的对象，再进行循环检测，检测到当前对象已存在于哈希表中则直接取出该值并返回</p>
+<ol start="2">
+<li>深拷贝只能拷贝一层原型链的属性和方法</li>
+</ol>
+<h3 id="es6新特性"><a href="#es6新特性" class="headerlink" title="es6新特性"></a>es6新特性</h3><ol>
+<li><p>let/const/var</p>
+<ul>
+<li><p>let：块级作用域，没有变量提升，函数内部使用let后，对函数外部无影响，必须先声明后使用。</p>
+</li>
+<li><p>const：定义的变量不可修改，必须初始化，块级作用域，没有变量提升</p>
+</li>
+<li><p>var：定义的变量可以修改，不初始化默认为<code>undefined</code>，不会报错，存在变量提升，不是块级作用域，其声明变量是全局的。</p>
+</li>
+</ul>
+</li>
+<li><p>展开运算符…</p>
+</li>
+<li><p>箭头函数，即匿名函数，不能作为构造函数。</p>
+<ul>
+<li>和普通函数区别：不能作为构造函数，不能被<code>new</code>，没有<code>arguments</code>实参集合，也没有自己的<code>this</code>，箭头函数的<code>this</code>继承当前上下文中的<code>this</code>，且不能使用<code>call</code>/<code>apply</code>/<code>bind</code>改变<code>this</code></li>
+</ul>
+</li>
+<li><p>模版字面量，即包含嵌入式表达式的字符串字面量，使用倒引号<code>(``)</code></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let message &#x3D; &#96;$&#123;student.name&#125; please see $&#123;teacher.name&#125; in $&#123;teacher.room&#125; to pick up your report card.&#96;;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>数组/对象解构，提取值并赋值</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const point &#x3D; [10, 25, -34];</span><br><span class="line">const [x, y, z] &#x3D; point;</span><br><span class="line">console.log(x, y, z);</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>for…of循环，可以循环任何可迭代类型的数据，<code>String</code>/<code>Array</code>/<code>Map</code>/<code>Set</code>，不包含<code>Object</code>，默认情况下对象不可迭代</li>
+</ol>
+<h3 id="和-区别"><a href="#和-区别" class="headerlink" title="==和===区别"></a>==和===区别</h3><ol>
+<li><p>=：赋值</p>
+</li>
+<li><p>==：返回布尔值，允许不同数据类型的比较，若不同类型先默认转换为相同的数据类型，若为对象比较，则比较空间地址</p>
+</li>
+<li><p>===：数据和数据类型完全相等</p>
+</li>
+</ol>
+<h3 id="call-bind-apply区别"><a href="#call-bind-apply区别" class="headerlink" title="call/bind/apply区别"></a>call/bind/apply区别</h3><ol>
+<li><p>call/apply第一个参数相同，即指定的对象，为该函数的执行上下文</p>
+</li>
+<li><p>call/apply第二个参数不同，call传入的是所有的参数，apply传入参数的数组</p>
+</li>
+<li><p>bind返回执行上下文被改变的函数而不会立即执行，call/apply直接执行该函数</p>
+</li>
+</ol>
+<h3 id="js继承方法"><a href="#js继承方法" class="headerlink" title="js继承方法"></a>js继承方法</h3><ol>
+<li><p>原型链继承：父类的实例作为子类的原型</p>
+</li>
+<li><p>构造继承：使用父类的构造函数来继承，相当于复制父类的实例属性给子类</p>
+</li>
+<li><p>实例继承：为父类实例添加新特性作为子类实例返回</p>
+</li>
+<li><p>拷贝继承：把父类中的属性或方法复制给子类</p>
+</li>
+<li><p>组合继承：通过调用父类构造函数，继承父类的属性并保留传参，通过将父类实例作为子类原型实现函数复用，会调用两次父类构造函数，一次创建子类原型，一次子类构造函数内部</p>
+</li>
+<li><p>寄生组合继承：通过借用构造函数来继承属性，通过原型链的混成形式继承方法。相当于借用构造函数+浅拷贝父类的原型对象，不会初始化两次实例方法和属性</p>
+</li>
+</ol>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>一种特殊的函数，绑定了外部环境变量的函数，允许在一个内层函数中访问到其外层函数的作用域。可以保护变量不受外界污染，一直存在内存中</p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>除<code>null</code>和<code>undefined</code>外，每个对象都有原型，可以理解为对象的默认属性和方法。</p>
+<p>原型链依赖对象的<code>_proto_</code>指向，当访问对象的成员时，若自身没有，则去原型链指向对象的构造函数的<code>prototype</code>中一层一层找，找到后使用，没找到则返回<code>undefined</code>或报错。</p>
+<h3 id="浏览器渲染的流程"><a href="#浏览器渲染的流程" class="headerlink" title="浏览器渲染的流程"></a>浏览器渲染的流程</h3><ol>
+<li><p>将html代码按深度优先比例生成dom树</p>
+</li>
+<li><p>渲染css文件生成css渲染树</p>
+</li>
+<li><p>dom树和css渲染树生成render树</p>
+</li>
+<li><p>浏览器通过render树将所有节点位置计算出来呈现到屏幕上</p>
+</li>
+</ol>
+<h3 id="从输入url到页面发生了什么"><a href="#从输入url到页面发生了什么" class="headerlink" title="从输入url到页面发生了什么"></a>从输入url到页面发生了什么</h3><ol>
+<li><p>输入url，浏览器查找当前url是否存在缓存，并比较缓存是否过期</p>
+</li>
+<li><p>若没有缓存，DNS解析url查找对应IP</p>
+</li>
+<li><p>根据IP通过三次握手建立TCP连接</p>
+</li>
+<li><p>HTTP发起请求，服务器处理请求，浏览器接受响应</p>
+</li>
+<li><p>渲染页面构造DOM树和CSS渲染树</p>
+</li>
+<li><p>四次挥手关闭TCP连接，浏览器将渲染结果呈现在屏幕上</p>
+</li>
+</ol>
+<h3 id="跨域方法"><a href="#跨域方法" class="headerlink" title="跨域方法"></a>跨域方法</h3><ol>
+<li>通过jsonp跨域-只能处理get</li>
+</ol>
+<p>动态创建<code>script</code>标签，利用<code>script</code>的<code>src</code>不受同源策略限制，故可以请求第三方服务器资源内容</p>
+<ol start="2">
+<li>document.domain+iframe跨域：仅限主域相同，子域不同的场景</li>
+</ol>
+<p>两个页面都通过js强者设置document.domain为基础主域实现同域</p>
+<ol start="3">
+<li>window.name+iframe跨域：name在不同页面加载后依然存在</li>
+</ol>
+<p>通过<code>iframe</code>的<code>src</code>属性由外域转本地域。跨域数据由<code>iframe</code>的<code>window.name</code>从外域传入本地域</p>
+<ol start="4">
+<li><p>使用postMessage(data, origin)跨域：html5的新特性</p>
+</li>
+<li><p>使用CORS跨域资源共享跨域</p>
+</li>
+</ol>
+<p>服务器设置<code>Access-Control-Allow-Origin</code>HTTP响应头后，浏览器允许跨域请求</p>
+<ol start="6">
+<li><p>使用websocket协议跨域</p>
+</li>
+<li><p>通过node.js中间件代理跨域：启动一个代理服务器，实现数据的转发。</p>
+</li>
+</ol>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>一种约定，同源指<code>协议</code>/<code>域名</code>/<code>端口</code>三者相同</p>
+<p>限制：</p>
+<ol>
+<li><p>Cookie/LocalStorage/IndexDB无法读取</p>
+</li>
+<li><p>DOM和JS对象无法获得</p>
+</li>
+<li><p>Ajax请求无法发送</p>
+</li>
+</ol>
+<h3 id="前端优化"><a href="#前端优化" class="headerlink" title="前端优化"></a>前端优化</h3><ol>
+<li><p>减少HTTP请求</p>
+</li>
+<li><p>页面设计时简化页面</p>
+</li>
+<li><p>合理设置HTTP缓存</p>
+</li>
+<li><p>资源合并压缩</p>
+</li>
+<li><p>多图片网页使用图片懒加载</p>
+</li>
+<li><p>减少DOM操作</p>
+</li>
+<li><p>JS中避免嵌套循环和死循环</p>
+</li>
+</ol>
+<h3 id="ajax步骤"><a href="#ajax步骤" class="headerlink" title="ajax步骤"></a>ajax步骤</h3><ol>
+<li><p>创建ajax实例</p>
+</li>
+<li><p>执行open确定要访问的连接和同步异步</p>
+</li>
+<li><p>监听请求状态</p>
+</li>
+<li><p>发送请求</p>
+</li>
+</ol>
+<h3 id="移动端兼容"><a href="#移动端兼容" class="headerlink" title="移动端兼容"></a>移动端兼容</h3><ol>
+<li><p>设置缓存，手机页面在第一次加载会进行缓存，每次刷新会使用缓存而不会重新向服务器发送请求，不使用缓存设置<code>no-cache</code></p>
+</li>
+<li><p>添加点击事件时引用fastclick.js文件，解决延迟问题</p>
+</li>
+<li><p>设置meta中的viewport</p>
+</li>
+</ol>
+<h3 id="同步-异步"><a href="#同步-异步" class="headerlink" title="同步/异步"></a>同步/异步</h3><ul>
+<li><p>同步：在同一时间内做一件事</p>
+</li>
+<li><p>异步：在同一时间内做多件事，常见的异步任务：定时器/ajax/事件绑定/回调函数/async await/promise。实现方式：回调函数/发布订阅/事件绑定/promise</p>
+</li>
+</ul>
+<h4 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h4><blockquote>
+<p>异步编程的一种解决方案</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var promise &#x3D; new Promise(function(resolve, reject)&#123;</span><br><span class="line"></span><br><span class="line">    if (&#x2F;* 异步操作成功 *&#x2F;) &#123;</span><br><span class="line">        resolve(value);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        reject(error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>resolve：将Promise对象状态由未完成变为成功，在异步操作成功时调用，将异步操作的结果作为参数传递出去</p>
+</li>
+<li><p>reject：将Promise对象状态由未完成变为失败，在异步操作失败时调用，传递错误error</p>
+</li>
+<li><p>then：then方法在Promise实例生成后分别指定两种状态回调函数。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let promise &#x3D; new Promise(function(resolve, reject)&#123;</span><br><span class="line">    console.log(&quot;AAA&quot;);</span><br><span class="line">    resolve()</span><br><span class="line">&#125;);</span><br><span class="line">promise.then(() &#x3D;&gt; console.log(&quot;BBB&quot;));</span><br><span class="line">console.log(&quot;CCC&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; AAA</span><br><span class="line">&#x2F;&#x2F; CCC</span><br><span class="line">&#x2F;&#x2F; BBB</span><br></pre></td></tr></table></figure>
+
+<p>Promise优点是可以解决回调/链式调用/减少嵌套。缺点为无法检测进行状态/新建立刻执行且无法取消/内部错误无法抛出。</p>
+<h4 id="Promise-all-Promise-race"><a href="#Promise-all-Promise-race" class="headerlink" title="Promise.all/Promise.race"></a>Promise.all/Promise.race</h4><ul>
+<li><p>Promise.all：将多个Promise实例包装成一个新的Promise实例，成功时返回结果数组，结果顺序与数组中数据顺序一致，失败时返回最先reject的值</p>
+</li>
+<li><p>Promise.race：多个Promise哪个结果先到达，则返回此结果，不考虑结果本身成功或失败。</p>
+</li>
+</ul>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><ul>
+<li><p>async：异步，必定返回Promise</p>
+</li>
+<li><p>await：等待。</p>
+<ul>
+<li><p>await命令后接Promise对象，返回该对象的结果</p>
+</li>
+<li><p>await命令后接非Promise对象，返回对应的值</p>
+</li>
+<li><p>await命令后接thenable对象(定义then方法的对象)，await将其等同于Promise对象</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">    return new Promise(function(resolve, reject) &#123;</span><br><span class="line">        setTimeout(resolve,ms);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function handle()&#123;</span><br><span class="line">    console.log(&quot;AAA&quot;)</span><br><span class="line">    await sleep(5000)</span><br><span class="line">    console.log(&quot;BBB&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handle();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; AAA</span><br><span class="line">&#x2F;&#x2F; BBB (5000ms后)</span><br></pre></td></tr></table></figure>
+
+<h3 id="DOM-diff原理"><a href="#DOM-diff原理" class="headerlink" title="DOM diff原理"></a>DOM diff原理</h3><ol>
+<li><p>从根节点开始遍历所有节点</p>
+</li>
+<li><p>对于不同类型的标签，删除原标签，新建标签</p>
+</li>
+<li><p>对于类型相同属性不同的标签，只修改属性</p>
+</li>
+<li><p>对于同一个父节点下的复数同类型标签(列表类型)，基于key对比修改</p>
+</li>
+</ol>
+<p>完全的DOM diff算法事件复杂度为O(n3)，Vue中将其简化，只对比同级元素，将时间复杂度降低至O(n)</p>
+<h3 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h3><ul>
+<li><p>进程：并发执行的程序在执行过程中分配和管理资源的基本单位，一个程序至少一个进程</p>
+</li>
+<li><p>线程：是进程的一个执行单元，处理器调度的基本单位。一个进程至少一个线程。</p>
+</li>
+</ul>
+<p>区别：</p>
+<ol>
+<li><p>进程之间是独立的地址空间，同一进程的线程共享进程的地址空间</p>
+</li>
+<li><p>进程之间资源独立，同一进程的线程共享进程的资源</p>
+</li>
+<li><p>每个独立的进程有一个程序入口，线程不能独立执行，必须依存在程序中</p>
+</li>
+<li><p>进程是分配和管理资源的基本单位，线程是处理器调度的基本单位</p>
+</li>
+</ol>
+<h3 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h3><ul>
+<li><p>宏任务：由Node/浏览器发起的任务，每次从宏任务事件队列中获取一个放入执行栈中执行</p>
+<ul>
+<li><p>script</p>
+</li>
+<li><p>setTimeout/setInterval</p>
+</li>
+<li><p>I/O</p>
+</li>
+<li><p>UI交互事件</p>
+</li>
+<li><p>postMessage()</p>
+</li>
+<li><p>setImmediate: 遇到setTimeout，先于它执行</p>
+</li>
+</ul>
+</li>
+<li><p>微任务：由JavaScript发起的任务，当前任务执行后立刻执行，无需等渲染。</p>
+<ul>
+<li><p>Promise</p>
+</li>
+<li><p>process.nextTick</p>
+</li>
+<li><p>Object.observe</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="代码输出判断"><a href="#代码输出判断" class="headerlink" title="代码输出判断"></a>代码输出判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;主线程执行，输出start</span><br><span class="line">console.log(&#39;start&#39;)</span><br><span class="line">&#x2F;&#x2F;宏任务1，放入宏任务队列</span><br><span class="line">setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;setTimeout&#39;)</span><br><span class="line">&#125;, 0)</span><br><span class="line">&#x2F;&#x2F;new Promise执行输出Promise</span><br><span class="line">new Promise((resolve) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;promise&#39;)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;)&#x2F;&#x2F;then为微任务1，放入微任务队列</span><br><span class="line">  .then(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;then1&#39;)</span><br><span class="line">  &#125;)&#x2F;&#x2F;then为微任务2，放入微任务队列</span><br><span class="line">  .then(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;then2&#39;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#x2F;&#x2F;输出end</span><br><span class="line">console.log(&#39;end&#39;)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>循环1:start -&gt; promise -&gt; end</p>
+</li>
+<li><p>执行微任务队列：then1 -&gt; then2</p>
+</li>
+<li><p>执行宏任务队列：setTimeout</p>
+</li>
+</ol>
+<h4 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h4><ol>
+<li><p>执行一个宏任务</p>
+</li>
+<li><p>执行中遇到宏任务，将其放入宏任务队列，遇到微任务，将其放入微任务队列</p>
+</li>
+<li><p>宏任务执行完毕，立即执行微任务队列中所有微任务</p>
+</li>
+<li><p>全部微任务执行完毕，检查渲染，完毕后开始下一个宏任务</p>
+</li>
+</ol>
+<h4 id="nextTick作用"><a href="#nextTick作用" class="headerlink" title="$nextTick作用"></a>$nextTick作用</h4><p>vm.$nextTick接受一个回调函数作为参数，用于将回调延迟到下次DOM更新周期(下次微任务执行时更新DOM)后进行，即将回调函数添加到微任务中。</p>
+<h3 id="判断变量是对象还是数组"><a href="#判断变量是对象还是数组" class="headerlink" title="判断变量是对象还是数组"></a>判断变量是对象还是数组</h3><p>使用<code>array instanceof Array</code>方法，返回true则为数组，否则对象</p>
+<p>不能使用<code>typeof</code>，它判断对象和数组都返回<code>Object</code>，只用来判断基本类型<code>Boolean</code>/<code>Number</code>/<code>Symbol</code>/<code>Undefined</code>/<code>String</code>，其他引用类型，除了<code>function</code>外其他都返回<code>object</code></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/94915a58.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/post/fb0f9f1f.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端面经总结（五）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/post/7475bf8d.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">剑指offer（三）-链表</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

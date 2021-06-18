@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2021-05-29T07:28:42.940Z</updated>
+  <updated>2021-06-17T06:16:08.622Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -15,6 +15,327 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端面经总结（五）</title>
+    <link href="https://awesolynn.me/post/fb0f9f1f.html"/>
+    <id>https://awesolynn.me/post/fb0f9f1f.html</id>
+    <published>2021-06-17T01:02:58.000Z</published>
+    <updated>2021-06-17T06:16:08.622Z</updated>
+    
+    <summary type="html">
+    
+      前端面经学习总结
+    
+    </summary>
+    
+    
+      <category term="面经" scheme="https://awesolynn.me/categories/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="面经" scheme="https://awesolynn.me/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+      <category term="http" scheme="https://awesolynn.me/tags/http/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面经总结（四）</title>
+    <link href="https://awesolynn.me/post/94915a58.html"/>
+    <id>https://awesolynn.me/post/94915a58.html</id>
+    <published>2021-06-16T10:49:56.000Z</published>
+    <updated>2021-06-16T13:20:08.695Z</updated>
+    
+    <summary type="html">
+    
+      前端面经学习总结
+    
+    </summary>
+    
+    
+      <category term="面经" scheme="https://awesolynn.me/categories/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="面经" scheme="https://awesolynn.me/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+      <category term="http" scheme="https://awesolynn.me/tags/http/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer（三）-链表</title>
+    <link href="https://awesolynn.me/post/7475bf8d.html"/>
+    <id>https://awesolynn.me/post/7475bf8d.html</id>
+    <published>2021-06-16T03:18:26.000Z</published>
+    <updated>2021-06-17T06:16:14.522Z</updated>
+    
+    <summary type="html">
+    
+      算法刷题-字符串
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://awesolynn.me/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="算法" scheme="https://awesolynn.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="字符串" scheme="https://awesolynn.me/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面经总结（三）</title>
+    <link href="https://awesolynn.me/post/23bc433d.html"/>
+    <id>https://awesolynn.me/post/23bc433d.html</id>
+    <published>2021-06-15T10:18:26.000Z</published>
+    <updated>2021-06-17T01:02:44.377Z</updated>
+    
+    <summary type="html">
+    
+      前端面经学习总结
+    
+    </summary>
+    
+    
+      <category term="面经" scheme="https://awesolynn.me/categories/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="面经" scheme="https://awesolynn.me/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+      <category term="http" scheme="https://awesolynn.me/tags/http/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer（二）-字符串</title>
+    <link href="https://awesolynn.me/post/1b6cf8a2.html"/>
+    <id>https://awesolynn.me/post/1b6cf8a2.html</id>
+    <published>2021-06-15T03:14:30.000Z</published>
+    <updated>2021-06-16T03:19:25.223Z</updated>
+    
+    <summary type="html">
+    
+      算法刷题-字符串
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://awesolynn.me/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="算法" scheme="https://awesolynn.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="字符串" scheme="https://awesolynn.me/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer（一）-数组</title>
+    <link href="https://awesolynn.me/post/1858604b.html"/>
+    <id>https://awesolynn.me/post/1858604b.html</id>
+    <published>2021-06-10T09:43:25.000Z</published>
+    <updated>2021-06-15T10:11:55.428Z</updated>
+    
+    <summary type="html">
+    
+      算法刷题-数组
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://awesolynn.me/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="算法" scheme="https://awesolynn.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数组" scheme="https://awesolynn.me/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>近期知识点总结</title>
+    <link href="https://awesolynn.me/post/a3c7594b.html"/>
+    <id>https://awesolynn.me/post/a3c7594b.html</id>
+    <published>2021-06-10T09:18:45.000Z</published>
+    <updated>2021-06-17T06:16:16.413Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;js基本类型&lt;/p&gt;
+&lt;p&gt;基本类型：string null undefined number boolean symbol（es6引入）复杂类型：object array date regexp function 基本包装类型：boolean number string
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端面经总结（二）</title>
+    <link href="https://awesolynn.me/post/45e5d827.html"/>
+    <id>https://awesolynn.me/post/45e5d827.html</id>
+    <published>2021-06-09T07:37:42.000Z</published>
+    <updated>2021-06-15T10:19:35.822Z</updated>
+    
+    <summary type="html">
+    
+      前端面经学习总结
+    
+    </summary>
+    
+    
+      <category term="面经" scheme="https://awesolynn.me/categories/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="面经" scheme="https://awesolynn.me/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+      <category term="http" scheme="https://awesolynn.me/tags/http/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面经总结（一）</title>
+    <link href="https://awesolynn.me/post/5eb40cb7.html"/>
+    <id>https://awesolynn.me/post/5eb40cb7.html</id>
+    <published>2021-06-08T05:41:28.000Z</published>
+    <updated>2021-06-09T09:52:46.170Z</updated>
+    
+    <summary type="html">
+    
+      前端面经学习总结
+    
+    </summary>
+    
+    
+      <category term="面经" scheme="https://awesolynn.me/categories/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="面经" scheme="https://awesolynn.me/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+      <category term="http" scheme="https://awesolynn.me/tags/http/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript自检问答</title>
+    <link href="https://awesolynn.me/post/a80967e6.html"/>
+    <id>https://awesolynn.me/post/a80967e6.html</id>
+    <published>2021-06-03T07:21:41.000Z</published>
+    <updated>2021-06-09T07:38:07.091Z</updated>
+    
+    <summary type="html">
+    
+      JavaScript基础问答
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/categories/JavaScript/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript算法题整理（二）</title>
+    <link href="https://awesolynn.me/post/81ec75ea.html"/>
+    <id>https://awesolynn.me/post/81ec75ea.html</id>
+    <published>2021-06-03T05:02:14.000Z</published>
+    <updated>2021-06-15T03:18:33.348Z</updated>
+    
+    <summary type="html">
+    
+      算法题练习整理
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://awesolynn.me/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="算法" scheme="https://awesolynn.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript算法题整理（一）</title>
+    <link href="https://awesolynn.me/post/b1fa9932.html"/>
+    <id>https://awesolynn.me/post/b1fa9932.html</id>
+    <published>2021-06-02T05:15:25.000Z</published>
+    <updated>2021-06-15T03:18:20.866Z</updated>
+    
+    <summary type="html">
+    
+      算法题练习整理
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="https://awesolynn.me/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="算法" scheme="https://awesolynn.me/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>结合Vue3-demo项目分析源码（六）</title>
@@ -187,258 +508,6 @@
       <category term="debug" scheme="https://awesolynn.me/tags/debug/"/>
     
       <category term="ES6" scheme="https://awesolynn.me/tags/ES6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack-dev-server搭建简易mock服务器</title>
-    <link href="https://awesolynn.me/post/328527238.html"/>
-    <id>https://awesolynn.me/post/328527238.html</id>
-    <published>2021-05-25T05:06:45.000Z</published>
-    <updated>2021-05-28T08:03:46.390Z</updated>
-    
-    <summary type="html">
-    
-      使用webpack-dev-server搭建简易mock服务器
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack-配置参数解析（下）</title>
-    <link href="https://awesolynn.me/post/2741042691.html"/>
-    <id>https://awesolynn.me/post/2741042691.html</id>
-    <published>2021-05-24T09:04:34.000Z</published>
-    <updated>2021-05-28T08:03:46.392Z</updated>
-    
-    <summary type="html">
-    
-      webpack配置resolve、plugins解析
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack-配置参数解析（中）</title>
-    <link href="https://awesolynn.me/post/641273569.html"/>
-    <id>https://awesolynn.me/post/641273569.html</id>
-    <published>2021-05-24T06:59:47.000Z</published>
-    <updated>2021-05-28T08:03:46.393Z</updated>
-    
-    <summary type="html">
-    
-      webpack配置module解析
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack-配置参数解析（上）</title>
-    <link href="https://awesolynn.me/post/467442022.html"/>
-    <id>https://awesolynn.me/post/467442022.html</id>
-    <published>2021-05-24T04:36:57.000Z</published>
-    <updated>2021-05-28T08:03:46.391Z</updated>
-    
-    <summary type="html">
-    
-      webpack配置entry、contex、mode、output解析
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack源码分析-编译的seal和emit阶段</title>
-    <link href="https://awesolynn.me/post/769148052.html"/>
-    <id>https://awesolynn.me/post/769148052.html</id>
-    <published>2021-05-22T11:59:38.000Z</published>
-    <updated>2021-05-28T08:03:46.396Z</updated>
-    
-    <summary type="html">
-    
-      编译的run和make阶段
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack源码分析-编译的run和make阶段</title>
-    <link href="https://awesolynn.me/post/2637109507.html"/>
-    <id>https://awesolynn.me/post/2637109507.html</id>
-    <published>2021-05-22T08:26:16.000Z</published>
-    <updated>2021-05-28T08:03:46.395Z</updated>
-    
-    <summary type="html">
-    
-      编译的run和make阶段
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>webpack源码分析-初始化过程</title>
-    <link href="https://awesolynn.me/post/4111585367.html"/>
-    <id>https://awesolynn.me/post/4111585367.html</id>
-    <published>2021-05-22T03:28:39.000Z</published>
-    <updated>2021-05-28T08:03:46.394Z</updated>
-    
-    <summary type="html">
-    
-      初识webpack及初始化过程
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/categories/webpack/"/>
-    
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue动态切换页签缓存页面内容</title>
-    <link href="https://awesolynn.me/post/2684937453.html"/>
-    <id>https://awesolynn.me/post/2684937453.html</id>
-    <published>2021-05-14T17:15:01.000Z</published>
-    <updated>2021-05-28T08:03:46.374Z</updated>
-    
-    <summary type="html">
-    
-      Vue动态切换页签缓存页面内容
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/categories/vue/"/>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue组件通信</title>
-    <link href="https://awesolynn.me/post/943587192.html"/>
-    <id>https://awesolynn.me/post/943587192.html</id>
-    <published>2021-05-14T10:12:43.000Z</published>
-    <updated>2021-05-28T08:03:46.376Z</updated>
-    
-    <summary type="html">
-    
-      Vue组件通信-props和emit的理解
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/categories/vue/"/>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue事件处理修饰符</title>
-    <link href="https://awesolynn.me/post/2636759885.html"/>
-    <id>https://awesolynn.me/post/2636759885.html</id>
-    <published>2021-05-14T09:31:10.000Z</published>
-    <updated>2021-05-28T08:03:46.374Z</updated>
-    
-    <summary type="html">
-    
-      Vue事件处理的事件修饰符、按键修饰符、系统修饰键
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/categories/vue/"/>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue条件渲染区分</title>
-    <link href="https://awesolynn.me/post/4085137225.html"/>
-    <id>https://awesolynn.me/post/4085137225.html</id>
-    <published>2021-05-14T07:34:50.000Z</published>
-    <updated>2021-05-28T08:03:46.375Z</updated>
-    
-    <summary type="html">
-    
-      Vue条件渲染区分v-if和v-show
-    
-    </summary>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/categories/vue/"/>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JS真值Truthy和假值Falsy</title>
-    <link href="https://awesolynn.me/post/3652898665.html"/>
-    <id>https://awesolynn.me/post/3652898665.html</id>
-    <published>2021-05-14T07:26:35.000Z</published>
-    <updated>2021-05-28T08:03:46.362Z</updated>
-    
-    <summary type="html">
-    
-      JavaScript的真值Truthy和假值Falsy
-    
-    </summary>
-    
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/categories/JavaScript/"/>
-    
-    
-      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
     
   </entry>
   

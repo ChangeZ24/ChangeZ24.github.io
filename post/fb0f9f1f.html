@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="面经,http,HTML,CSS,JavaScript,浏览器," />
+   
+  <meta name="description" content="前端面经学习总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端面经总结（五） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-前端面经总结（五）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端面经总结（五）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/fb0f9f1f.html" class="article-date">
+  <time datetime="2021-06-17T01:02:58.000Z" itemprop="datePublished">2021-06-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.3k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>Vue是一个渐进性框架，可以把一个页面分割成多个组件，当其他页面有类似功能时，直接让封装的组件复用。Vue是构建页面的声明式框架，不关心具体实现，只关心图层</p>
+<h3 id="v-model原理"><a href="#v-model原理" class="headerlink" title="v-model原理"></a>v-model原理</h3><p>绑定数据并监听数据改变。初始化时使用Object.defineProperty/Proxy（2.0/3.0）重新定义data中属性，当页面使用对应属性时，手机当前组件的watcher，若属性变化则通知相关依赖进行更新操作。</p>
+<p>Object.defineProperty缺点</p>
+<ol>
+<li><p>无法检测到对象属性的动态添加和删除</p>
+</li>
+<li><p>无法检测到数组下标和length属性的变更</p>
+</li>
+</ol>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
+<li><p>beforeCreate：在<code>beforeCreated</code>方法中无法访问<code>data</code>、<code>computed</code>、<code>methods</code>、<code>watch</code>等属性，只能访问<code>props</code>、<code>attrs</code>、<code>setupState</code>等内容。</p>
+</li>
+<li><p>created阶段，组件初始化，当组件完成初始化并设置完成后到达此阶段</p>
+</li>
+<li><p>beforeMount阶段：当组件为第一次渲染时，首先调用生命周期beforeMount方法。生命周期<code>beforeMount</code>在<code>created</code>之后，但两者差别不大，平时可以在这两个生命周期做一些渲染前的准备工作。如网络请求，页面初始数据的操作等</p>
+</li>
+<li><p>Mount阶段：vue实例挂载到真实DOM上，表示组件渲染工作完成</p>
+</li>
+<li><p>beforeUpdate阶段：响应式数据更新时调用，发生在虚拟DOM打补丁之前，适合在更新之前访问现有的DOM，比如手动移除已添加的事件监听器</p>
+</li>
+<li><p>Updated阶段：虚拟DOM重新渲染和打补丁后调用，组件新的DOM更新</p>
+</li>
+<li><p>beforeDestroy阶段：实例销毁前调用，常用于销毁定时器，解绑事件</p>
+</li>
+<li><p>Destroy阶段：实例销毁后调用。</p>
+</li>
+</ul>
+<h3 id="Vue和React区别"><a href="#Vue和React区别" class="headerlink" title="Vue和React区别"></a>Vue和React区别</h3><ul>
+<li><p>React整体时函数式思想，把组件设计成纯组件，状态和逻辑通过参数传入，故在react中时单项数据流</p>
+</li>
+<li><p>Vue是响应式思想，基于数据可变，通过对每个属性建立watcher监听，当属性变化时，响应式的更新</p>
+</li>
+</ul>
+<h3 id="Vuex流程"><a href="#Vuex流程" class="headerlink" title="Vuex流程"></a>Vuex流程</h3><p>一种专为vue使用的状态管理模式，采用集中式存储管理应用所有组件的状态，并通过相应的规则保证状态以一种可预测的方式发生变化</p>
+<p>主要包括3个部分</p>
+<ul>
+<li><p>state：驱动应用的数据源</p>
+</li>
+<li><p>view：以声明的方式将state映射到视图</p>
+</li>
+<li><p>actions：响应在view上用户输入导致的变化</p>
+</li>
+</ul>
+<p>流程：</p>
+<ol>
+<li><p>页面通过mapAction异步提交事件到action。</p>
+</li>
+<li><p>action通过commit把对应参数同步提交到mutation</p>
+</li>
+<li><p>mutation修改state中对应的值</p>
+</li>
+<li><p>通过getter把对应的值传出去</p>
+</li>
+<li><p>在页面计算属性中通过mapGetter动态获取state中的值</p>
+</li>
+</ol>
+<p>状态和属性</p>
+<ul>
+<li><p>state：保存共有数据，数据是响应的</p>
+</li>
+<li><p>getter：对state进行计算操作，主要用来过滤一些数据</p>
+</li>
+<li><p>mutations：定义方法动态修改state中的数据，通过commit提交方法，方法必须是同步的</p>
+</li>
+<li><p>actions：将mutations里的处理数据的方法变成异步的，即异步操作数据</p>
+</li>
+<li><p>modules：模块化vuex</p>
+</li>
+</ul>
+<p>若没有vuex发生的情况</p>
+<ol>
+<li><p>遇到多个组件共享状态时，传参的方法对于多层嵌套的组件会很繁琐，且对兄弟组件件的状态传递无能为力。</p>
+</li>
+<li><p>当不同视图的行为需要变更同一个状态时，通过采用父子组件直接引用或通过事件来变更和同步状态的多份拷贝会导致很多无法维护的代码</p>
+</li>
+</ol>
+<h3 id="vue-router路由的两种方式"><a href="#vue-router路由的两种方式" class="headerlink" title="vue-router路由的两种方式"></a>vue-router路由的两种方式</h3><p>vue-router是但也应用的路径管理器，用于设定访问路径，并将路由和组件映射起来。</p>
+<ol>
+<li><p>hash：使用URL的hash来模拟一个完整的URL。改变hash不会重新加载页面。通过hash锚点值的改变渲染指定dom位置的不同数据</p>
+</li>
+<li><p>history：在配置路由规则时，加入mode：“history”即可。此模式充分利用history.pushState API完成URL跳转且无需重新加载页面。此方式需要在服务端增加一个覆盖所有情况的候选资源，若URL匹配不到任何静态资源，则返回同一个index.html页面。</p>
+</li>
+</ol>
+<h3 id="route和-router区别"><a href="#route和-router区别" class="headerlink" title="$route和$router区别"></a>$route和$router区别</h3><ol>
+<li><p>$route是路由信息对象，包括path/params/hash/query/fullPath/matched/name等路由信息参数</p>
+</li>
+<li><p>$router是路由实例对象，包括了路由的跳转方法，钩子函数等</p>
+</li>
+</ol>
+<h3 id="vue-router守卫"><a href="#vue-router守卫" class="headerlink" title="vue-router守卫"></a>vue-router守卫</h3><ol>
+<li><p>全局前置守卫：通过在main.js入口文件定义router.beforeEach</p>
+</li>
+<li><p>路由独享守卫：在路由配置上直接定义beforeEnter</p>
+</li>
+<li><p>组件内守卫：在路由组件内直接定义beforeRouterEnter/beforeRouteUpdate等</p>
+<ul>
+<li><p>to：即将进入的目标（路由对象）</p>
+</li>
+<li><p>from：当前导航正要离开的路由</p>
+</li>
+<li><p>next：function。调用该方法来resolve钩子，即通过此函数跳转路由，若不用则拦截，执行效果依赖next方法的调用参数</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h3><p>axios是请求后台资源的模块，通过npm install命令安装</p>
+<p>实现登陆功能</p>
+<ol>
+<li><p>跨域，现在config/index.js文件中设置跨域</p>
+</li>
+<li><p>js使用import将axios导入，通过.get/.post发送请求，若成功，调用.then函数中内容，若失败，调用.catch函数中内内容</p>
+</li>
+</ol>
+<h3 id="vue项目性能优化"><a href="#vue项目性能优化" class="headerlink" title="vue项目性能优化"></a>vue项目性能优化</h3><ol>
+<li><p>模版内不要写太多表达式</p>
+</li>
+<li><p>虚幻调用子组件时添加key</p>
+</li>
+<li><p>频繁切换使用v-show，不频繁切换使用v-if</p>
+</li>
+<li><p>按需加载，用require或import按需加载需要的组件</p>
+</li>
+<li><p>路由懒加载（用到时再加载）</p>
+</li>
+</ol>
+<h3 id="v-if和v-show区别"><a href="#v-if和v-show区别" class="headerlink" title="v-if和v-show区别"></a>v-if和v-show区别</h3><ol>
+<li><p>v-if控制dom节点的存在与否来控制元素的显示；v-show通过设置dom元素的display样式隐藏来控制元素显示</p>
+</li>
+<li><p>v-if切换有局部编译/卸载的过程，初始条件为假时什么也不做，只有条件第一次为真时才开始局部编译</p>
+</li>
+<li><p>v-if有更高的切换消耗，v-show有更高的初始渲染消耗</p>
+</li>
+</ol>
+<h3 id="常见的兼容问题"><a href="#常见的兼容问题" class="headerlink" title="常见的兼容问题"></a>常见的兼容问题</h3><p>浏览器默认的margin和padding不同。 解决方案是加一个全局的*{margin:0;padding:0;}来统一。</p>
+<h3 id="vue2和vue3区别"><a href="#vue2和vue3区别" class="headerlink" title="vue2和vue3区别"></a>vue2和vue3区别</h3><ol>
+<li><p>vue3支持多个根节点，vue2只能有一个根节点</p>
+</li>
+<li><p>增加组合式api，将相同功能的变量进行集中管理</p>
+</li>
+<li><p>自定义渲染其，可用于app/小城需和游戏开发</p>
+</li>
+<li><p>使用ts重写了源码</p>
+</li>
+<li><p>数据响应重新实现，使用proxy替代了Object.defineProperty</p>
+</li>
+</ol>
+<h3 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h3><ol>
+<li><p>父子组件</p>
+<ul>
+<li><p>通过v-bind属性绑定的方式，将data属性的值传给子组件</p>
+</li>
+<li><p>子组件通过props属性接收父组件传递的数据，该属性的值为数组</p>
+</li>
+</ul>
+</li>
+<li><p>兄弟组件</p>
+<ul>
+<li><p>使用eventBus，穿件VUe实例，使各兄弟公用一个事件机制，传递数据放通过事件触发bus.$emit方法，接收数据方通过mounted触发bus.$on接收数据。</p>
+</li>
+<li><p>借助父组件，让两个兄弟组件可以联动，子组件A将值传递给父组件，父组件再将值传递给子组件B</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><h3 id="生命周期-1"><a href="#生命周期-1" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
+<li><p>Mounting：已插入真实DOM</p>
+</li>
+<li><p>Updating：正在被重新渲染</p>
+</li>
+<li><p>Unmounting：已移除真实DOM</p>
+</li>
+</ul>
+<h3 id="子组件向父组件传值"><a href="#子组件向父组件传值" class="headerlink" title="子组件向父组件传值"></a>子组件向父组件传值</h3><p>父组件通过props向子组件传值，子组件调用父组件给他的函数给父组件传值</p>
+<h3 id="setState"><a href="#setState" class="headerlink" title="setState"></a>setState</h3><p>setState通过一个队列机制实现state更新，当执行setState时，会将需要更新的state很后放入状态队列<br>而不会立即更新this.state，队列机制可以高效地批量更新state。如果不通过setState而直接修改this.state的值<br>那么该state将不会被放入状态队列中。当下次调用setState并对状态队列进行合并时，就会忽略之前修改的state，造成不可预知的错误</p>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="webpack打包体积大"><a href="#webpack打包体积大" class="headerlink" title="webpack打包体积大"></a>webpack打包体积大</h3><ol>
+<li><p>异步加载模块</p>
+</li>
+<li><p>提取第三方库</p>
+</li>
+<li><p>代码压缩</p>
+</li>
+<li><p>去除不必要的插件</p>
+</li>
+</ol>
+<h3 id="优化webpack构建性能"><a href="#优化webpack构建性能" class="headerlink" title="优化webpack构建性能"></a>优化webpack构建性能</h3><ol>
+<li><p>减少代码体积</p>
+</li>
+<li><p>减少目录检索范围</p>
+</li>
+<li><p>减少检索路径</p>
+</li>
+</ol>
+<h3 id="移动端性能优化"><a href="#移动端性能优化" class="headerlink" title="移动端性能优化"></a>移动端性能优化</h3><ol>
+<li><p>按需加载，懒加载</p>
+</li>
+<li><p>资源预加载</p>
+</li>
+<li><p>图片压缩处理，使用base64内嵌图片</p>
+</li>
+<li><p>合理缓存dom对象</p>
+</li>
+<li><p>使用touchstart代替click，减少300ms的延迟</p>
+</li>
+<li><p>不滥用web字体</p>
+</li>
+<li><p>尽量使用事件代理，避免直接事件绑定</p>
+</li>
+<li><p>使用viewport固定屏幕渲染，加速页面渲染内容</p>
+</li>
+</ol>
+<h3 id="vue的spa优化"><a href="#vue的spa优化" class="headerlink" title="vue的spa优化"></a>vue的spa优化</h3><ol>
+<li><p>减少入口文件体积</p>
+</li>
+<li><p>静态资源本地缓存</p>
+</li>
+<li><p>开启gzip压缩</p>
+</li>
+</ol>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>尽可能避开互联网有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输更快更稳定</p>
+<p>基本原理是广泛使用各种缓存服务器，将这些缓存服务器分不到用户访问相对的地区或网络中，当用户访问网络时、利用全局负载技术将用户访问指向距离最近的缓存服务器，由该服务器直接响应用户的饿请求</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/fb0f9f1f.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/post/94915a58.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">前端面经总结（四）</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

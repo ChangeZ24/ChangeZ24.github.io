@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="面经,http,HTML,CSS,JavaScript,浏览器," />
+   
+  <meta name="description" content="前端面经学习总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端面经总结（一） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-前端面经总结（一）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端面经总结（一）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/5eb40cb7.html" class="article-date">
+  <time datetime="2021-06-08T05:41:28.000Z" itemprop="datePublished">2021-06-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.9k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">17分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="http和https"><a href="#http和https" class="headerlink" title="http和https"></a>http和https</h3><blockquote>
+<p>http： 超文本传输协议，一种网络协议，一个客户端和服务器端请求和应答的标准（TCP）。</p>
+</blockquote>
+<blockquote>
+<p>https：http的安全版，以安全为目标的HTTP通道。即在HTTP下加入SSL层。用于建立一个信息安全通道，来确保数据的传输以及网站的真实性</p>
+</blockquote>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ol>
+<li><p>http传输的数据是未加密的，是明文。https传输的数据通过SSL协议进行了加密处理，安全性更高。</p>
+</li>
+<li><p>https需要ca证书，http不需要。</p>
+</li>
+<li><p>http协议的端口是80，https协议的端口为443.</p>
+</li>
+<li><p>http的链接是无状态的，https的链接由SSL和HTTP协议构建。</p>
+</li>
+</ol>
+<h4 id="https协议工作原理"><a href="#https协议工作原理" class="headerlink" title="https协议工作原理"></a>https协议工作原理</h4><ol>
+<li><p>客户端使用https url访问服务器，要求web服务器建立ssl链接</p>
+</li>
+<li><p>web服务器收到请求，将网站包含公钥的证书返回给客户端</p>
+</li>
+<li><p>客户端和web服务器协商ssl链接的安全等级，即加密登记</p>
+</li>
+<li><p>协商一致后，建立会话密钥，通过网站公钥加密会话密钥传送给网站</p>
+</li>
+<li><p>web服务器使用自己的私钥解密会话密钥</p>
+</li>
+<li><p>web服务器通过会话密钥加密与客户端间的通信</p>
+</li>
+</ol>
+<h4 id="https协议优缺点"><a href="#https协议优缺点" class="headerlink" title="https协议优缺点"></a>https协议优缺点</h4><ol>
+<li><p>优点：加密传输，身份认证，确保数据正确安全的发送</p>
+</li>
+<li><p>缺点</p>
+<ul>
+<li><p>https握手阶段较费时，页面加载时间延长50%，增加10%～20%耗电</p>
+</li>
+<li><p>https缓存不如http高效，增加了数据开销</p>
+</li>
+<li><p>ssl证书有费用</p>
+</li>
+<li><p>ssl证书需要绑定ip，不能在同一个ip绑定多个域名</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="tcp三次握手"><a href="#tcp三次握手" class="headerlink" title="tcp三次握手"></a>tcp三次握手</h3><ol>
+<li><p>客户端发请求连接服务端</p>
+</li>
+<li><p>服务端确认连接，并发送请求链接客户端</p>
+</li>
+<li><p>客户端确认连接</p>
+</li>
+</ol>
+<p>同一个域名也需要三次握手</p>
+<h3 id="tcp和udp区别"><a href="#tcp和udp区别" class="headerlink" title="tcp和udp区别"></a>tcp和udp区别</h3><ol>
+<li><p>tcp面向连接，udp无连接，发送数据前不需要先建立连接</p>
+</li>
+<li><p>tcp提供可靠服务，无差错，不丢失，不重复，按序到达。udp尽最大努力交付，不可靠。</p>
+</li>
+<li><p>tcp面向字节流，udp面向报文会丢包。</p>
+</li>
+<li><p>tcp只能1对1，udp支持1对1，1对多</p>
+</li>
+<li><p>tcp首部20字节，udp8字节</p>
+</li>
+</ol>
+<h3 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h3><blockquote>
+<p>websocket是HTML5中的协议，基于HTTP协议，支持持久性连接。匀速服务端主动向客户端推送数据，且在Websocket API中浏览器和服务器只需要完成一次握手即可创建持久性的连接，开始双向数据传输</p>
+</blockquote>
+<p>建立一个<code>WebSocket</code>连接，客户端浏览器首先要向服务器发起一个<code>HTTP</code>请求，这个请求和通常的 HTTP 请求不同，包含了一些附加头信息，其中附加头信息<code>Upgrade: WebSocket</code>表明这是一个申请协议升级的<code>HTTP</code>请求，服务器端解析这些附加的头信息然后产生应答信息返回给客户端，客户端和服务器端的WebSocket连接就建立起来了，双方就可以通过这个连接通道自由的传递信息，并且这个连接会持续存在直到客户端或者服务器端的某一方主动的关闭连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Upgrade:webSocket</span><br><span class="line">Connection:Upgrade</span><br></pre></td></tr></table></figure>
+
+<h4 id="websocket和socket区别"><a href="#websocket和socket区别" class="headerlink" title="websocket和socket区别"></a>websocket和socket区别</h4><blockquote>
+<p>socket是应用层与TCP/IP协议族通信的中间软件抽象层，是一组接口。当两台主机通信时，socket来组织数据，以符合指定的协议。</p>
+</blockquote>
+<p>websocket是应用层协议，socket是传输控制层协议。</p>
+<h3 id="http中keep-alive模式"><a href="#http中keep-alive模式" class="headerlink" title="http中keep-alive模式"></a>http中keep-alive模式</h3><blockquote>
+<p>keep-alive模式即持久连接、连接重用。keep-alive模式使客户端到服务端的连接持续有效，当出现对服务器的后继请求时，keep-alive避免了建立或重新建立连接。且HTTP1.1中的keep-alive将多个请求合并为一个，即发送多个request接受多个response。但每个request只能对应一个response。。</p>
+</blockquote>
+<p>http1.0中keep-alive模式默认关闭，需要在http头加入<code>Connection:Keep-Alive</code>启用。http1.1中默认启用keep-alive，需要加入<code>Connection:close</code>才关闭。</p>
+<p>启用keep-alive模式避免了建立/释放连接的开销，故更高效，性能更高。</p>
+<h4 id="与tcp中keep-alive的区别"><a href="#与tcp中keep-alive的区别" class="headerlink" title="与tcp中keep-alive的区别"></a>与tcp中keep-alive的区别</h4><p>tcp中keep-alive是一种检测tcp连接状况的定时器，用于检测连接是否丢失，即连接建立后长时间不发送数据或隔很长时间才发送数据，当超过一定时间后（tcp_keepalive_time），tcp发送一个数据为空的报文，若回应了则对方在线，连接可以继续保持，若多次发送均未回应，则说明连接丢失，不需要保持连接。</p>
+<p>http中keep-alive模式是为了使连接的时间更长一些，以便在一个连接传送多个http，提高效率。</p>
+<h3 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h3><blockquote>
+<p>http2.0是基于1999年发布的http1.0的首次更新。</p>
+</blockquote>
+<p>新特性：</p>
+<ul>
+<li><p>提升访问速度：请求资源所需时间更少，访问速度更快</p>
+</li>
+<li><p>允许多路复用：在一个HTTP的连接上，多路“HTTP消息”同时工作。</p>
+</li>
+</ul>
+<p>流程：建立tcp连接后，可乱序交错发出多个由二进制帧组成的信息流，每个流都有独一无二的标识和优先级，在接收端接受到信息流后，根据帧头的信息组装成完整的数据。</p>
+<ul>
+<li><p>二进制分帧：新增二进制分帧层将所有传输信息分割为更小的消息和帧，并对他们采取二进制的编码封装。其中首部信息header封装到Headers帧中，request body封装到Data帧中。</p>
+</li>
+<li><p>首部压缩：http/2使用hpack算法来减少传输的header大小。通讯双方格子缓存一份头部字段表，避免了重复header的传输，也减少了需要传输的大小。</p>
+</li>
+</ul>
+<blockquote>
+<p>hpack算法使用一份索引表定义常用的http Header，将常用的http Header存在表里。请求时只需要发送表里的索引位置。同时将字符串进行霍夫曼编码来压缩字符串大小。</p>
+</blockquote>
+<ul>
+<li>服务器端推送：服务器可以对一个客户端请求发送多个响应，服务器向客户端推送资源无需客户端明确地请求。并且，服务端推送能把客户端所需要的资源伴随着index.html一起发送到客户端，省去了客户端重复请求的步骤。</li>
+</ul>
+<h3 id="http状态码"><a href="#http状态码" class="headerlink" title="http状态码"></a>http状态码</h3><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>1**：信息，服务器收到请求，需要请求者继续执行操作</li>
+<li>2**：成功，操作被成功接收并处理</li>
+<li>3**：重定向，需要进一步的操作以完成请求</li>
+<li>4**：客户端错误，请求包含语法错误或无法完成请求</li>
+<li>5**：服务器错误，服务器在处理请求的过程中发生了错误</li>
+</ul>
+<h4 id="常用状态码"><a href="#常用状态码" class="headerlink" title="常用状态码"></a>常用状态码</h4><ol>
+<li><p>200：请求成功，一般用于GET、POST请求</p>
+</li>
+<li><p>206：服务器成功处理了部分GET请求。可用于下载工具断点续传或将大文档分解为多个下载段同时下载。</p>
+</li>
+<li><p>301：永久重定向。被请求的资源已永久移动到新位置，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替</p>
+</li>
+<li><p>302：临时重定向。被请求的资源临时从不同的URI响应请求，客户端应继续使用原有URI。</p>
+</li>
+<li><p>304：Not Modified未修改。所请求的资源未修改。如果客户端发送了一个带条件的GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个304状态码。</p>
+<p> 解决：</p>
+<ul>
+<li><p>设置强制不缓存<code>Cache-Control=no-cache</code></p>
+</li>
+<li><p>及时定期更新页面内容</p>
+</li>
+<li><p>同步更新CDN缓存</p>
+<p>Cache-Control属性：常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。</p>
+<blockquote>
+<p>cache-control是一个通用消息头字段被用于HTTP请求和响应中，通过指定指令来实现缓存机制，这个缓存指令是单向的</p>
+</blockquote>
+</li>
+<li><p>no-cache：客户端请求携带此字段，则经过缓存服务器时不读缓存资源。</p>
+</li>
+<li><p>no-store：告知服务器/客户端/中间服务器，请求/响应信息中有机密信息，无需响应。</p>
+</li>
+<li><p>max-age：最大缓存市场。标识客户端不接收age大于此设定时间的响应。</p>
+</li>
+<li><p>min-fresh：最小缓存时长</p>
+</li>
+<li><p>no-transform：缓存不能改变实体主题的媒体类型。</p>
+</li>
+<li><p>等。。。</p>
+</li>
+</ul>
+</li>
+<li><p>400：请求无效。</p>
+<p> 原因：前端提交数据的字段名称和类型与后端的实体不一致，或前端提交的数据不是<code>json</code>字符串类型。</p>
+<p> 解决：保持数据字段的一致性，将数据通过<code>JSON.stringify</code>实现序列化。</p>
+</li>
+<li><p>401：未授权，当前请求需要用户验证。</p>
+</li>
+<li><p>403：禁止访问，服务器得到请求但拒绝执行。</p>
+</li>
+<li><p>404：文件未找到，无效链接。原因有url拼写错误或页面不存在等</p>
+</li>
+<li><p>500：内部服务器错误。</p>
+</li>
+<li><p>502：无效网关。</p>
+</li>
+</ol>
+<h3 id="实用的BOM属性方法。"><a href="#实用的BOM属性方法。" class="headerlink" title="实用的BOM属性方法。"></a>实用的BOM属性方法。</h3><blockquote>
+<p>BOM：浏览器对象</p>
+</blockquote>
+<ol>
+<li><p>location对象</p>
+<ul>
+<li><p>location.href: 返回/设置当前文档的URL</p>
+</li>
+<li><p>location.search: 返回URL中查询字符串部分。即返回包括<code>?</code>及其后面的部分。</p>
+</li>
+<li><p>location.hash: 返回URL中<code>#</code>后面的内容，若没有返回空</p>
+</li>
+<li><p>location.host: 返回URL的域名部分。</p>
+</li>
+<li><p>location.pathname: 返回URL域名后的部分，即<code>/</code>后的内容</p>
+</li>
+<li><p>location.port: 返回URL的端口部分</p>
+</li>
+<li><p>location.reload(): 重载当前页面</p>
+</li>
+</ul>
+</li>
+<li><p>history对象</p>
+<ul>
+<li><p>history.go(num): 前进/后退<code>num</code>页</p>
+</li>
+<li><p>history.back(): 后退一页</p>
+</li>
+<li><p>history.forward(): 前进一页</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么fetch发送2次请求"><a href="#为什么fetch发送2次请求" class="headerlink" title="为什么fetch发送2次请求"></a>为什么fetch发送2次请求</h3><p>使用<code>fetch</code>的<code>post</code>请求时，<code>fetch</code>第一次发送<code>Options</code>请求询问服务器是否支持修改的请求头，若支持，<code>fetch</code>第二次发送真正的请求。</p>
+<h3 id="cookie、session、localStorage、sessionStorage区别"><a href="#cookie、session、localStorage、sessionStorage区别" class="headerlink" title="cookie、session、localStorage、sessionStorage区别"></a>cookie、session、localStorage、sessionStorage区别</h3><ul>
+<li><p>cookie：用来跟踪浏览器用户身份的会话方式。<code>cookie</code>可以在前后端进行用户的身份认证，标记用户。以文本的方式保存在客户端每次请求都带着<code>cookie</code></p>
+</li>
+<li><p>session：用来跟踪浏览器用户身份的会话方式。<code>session</code>由<code>cookie</code>进行标记</p>
+</li>
+<li><p>localStorage：本地存储，是WebStorage的API，使用<code>window.localStorage</code>获取。</p>
+</li>
+<li><p>sessionStorage：会话存储，是WebStorage的API，使用<code>window.sessionStorage</code>获取。</p>
+</li>
+</ul>
+<h4 id="cookie与session区别"><a href="#cookie与session区别" class="headerlink" title="cookie与session区别"></a>cookie与session区别</h4><ol>
+<li><p>保持状态：<code>cookie</code>保存在浏览器端。<code>session</code>保存在服务器端。</p>
+</li>
+<li><p>存储内容：<code>cookie</code>只能保存字符串类型，以文本的方式。<code>session</code>通过类似哈希表的数据结构保存，支持任何类型的对象</p>
+</li>
+<li><p>存储大小：单个<code>cookie</code>保存的数据不能超过<code>4kb</code>。<code>session</code>大小没有限制。</p>
+</li>
+<li><p>安全性：<code>session</code>安全性大于<code>cookie</code>。</p>
+<p> 原因：<code>sessionID</code>保存在<code>cookie</code>中，且<code>sessionID</code>有人登陆或启动<code>session_start</code>才会有，第二次启用时，前一次的<code>session</code>过期，<code>sessionID</code>失效，且<code>sessionID</code>是加密的。</p>
+</li>
+<li><p>使用方式：</p>
+<ul>
+<li><p>cookie：若浏览器中未设置过期时间，<code>cookie</code>保存在内存中，生命周期随浏览器的关闭而结束，即<code>会话cookie</code>。若浏览器中设置了过期时间，<code>cookie</code>保存在硬盘中，关闭浏览器后<code>cookie</code>仍存在，仅当过期时间结束才消失</p>
+</li>
+<li><p>session：服务器收到请求创建<code>session</code>，首先检查客户端请求是否包含<code>sessionID</code>，若有，则根据该id返回对应<code>session</code>对象。若没有，则创建新的<code>session</code>对象并使用<code>cookie</code>方式存储<code>sessionID</code>并在本次响应中返回给客户端。</p>
+</li>
+</ul>
+</li>
+<li><p>应用场景：</p>
+<ul>
+<li><p>cookie：判断用户是否登陆过，以便下次登陆；保存上次登陆的时间等信息；保存上次查看的页面；浏览计数</p>
+</li>
+<li><p>session：保存每个用户的专用信息，变量的值保存在服务端，通过<code>sessionID</code>来区分不同用户。</p>
+</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>cookie：大小受限、用户可以禁用<code>cookie</code>、安全性较低、每次访问都要传送，浪费带宽、<code>cookie</code>数据有路径概念，可以限制<code>cookie</code>只属于某个路径下。</p>
+</li>
+<li><p>session：保存的东西越多越占内存，服务器的内存压力较大、依赖于<code>cookie</code>，若禁用<code>cookie</code>，需要使用URL重写，不安全、创建<code>session</code>变量随意性大，过度使用导致代码不可读且不好维护。</p>
+<p>  如果用户禁用<code>cookie</code>，则要使用URL重写，可以通过<code>response.encodeURL(url)</code>进行实现；API对<code>encodeURL</code>的结束为，当浏览器支持<code>cookie</code>时，url不做任何处理；当浏览器不支持<code>cookie</code>的时候，将会重写URL将<code>sessionID</code>拼接到访问地址后。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="cookie、localStorage、sessionStorage区别"><a href="#cookie、localStorage、sessionStorage区别" class="headerlink" title="cookie、localStorage、sessionStorage区别"></a>cookie、localStorage、sessionStorage区别</h4><ol>
+<li><p>生命周期</p>
+<ul>
+<li><p>cookie：若浏览器中未设置过期时间，<code>cookie</code>保存在内存中，生命周期随浏览器的关闭而结束，即<code>会话cookie</code>。若浏览器中设置了过期时间，<code>cookie</code>保存在硬盘中，关闭浏览器后<code>cookie</code>仍存在，仅当过期时间结束才消失</p>
+</li>
+<li><p>localStorage：除非被清除，否则永久保存</p>
+</li>
+<li><p>sessionStorage：仅当前会话有效，关闭页面或浏览器后被清除。</p>
+</li>
+</ul>
+</li>
+<li><p>数据大小：<code>cookie</code>最大为<code>4kb</code>。<code>localStorage</code>和<code>sessionStorage</code>最大为<code>5MB</code></p>
+</li>
+<li><p>与服务器通信：</p>
+<ul>
+<li><p>cookie：携带在<code>HTTP</code>头上</p>
+</li>
+<li><p>localStorage/sessionStorage：仅在客户端保存，不参与和服务器的通信</p>
+</li>
+</ul>
+</li>
+<li><p>用途：</p>
+<ul>
+<li><p>cookie：判断用户是否登陆过，以便下次登陆；保存上次登陆的时间等信息；保存上次查看的页面；浏览计数</p>
+</li>
+<li><p>localStorage：用于长期登陆且判断用户是否已登陆。适合长期保存在本地的数据</p>
+</li>
+<li><p>sessionStorage：用于敏感账号一次性登陆。</p>
+</li>
+</ul>
+</li>
+<li><p>与cookie相比优点：存储空间更大；节省网络流量；显示速度更快；安全性比<code>cookie</code>高；数据操作比<code>cookie</code>方便</p>
+</li>
+</ol>
+<h3 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h3><blockquote>
+<p>iframe创建包含另一个文档的内联框架。</p>
+</blockquote>
+<p>缺点：</p>
+<ul>
+<li><p>阻塞主页面的<code>onload</code>事件</p>
+</li>
+<li><p>搜索引擎无法解读此种页面，不利于<code>SEO</code></p>
+</li>
+<li><p>iframe和主页面共享连接吃，浏览器对相同区域有限制，故会影响性能。</p>
+</li>
+</ul>
+<h3 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h3><blockquote>
+<p>XSS攻击(Cross-Site scripting)指跨站脚本攻击，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息，如cookie、sessionID等，危害数据安全。</p>
+</blockquote>
+<h4 id="分类-1"><a href="#分类-1" class="headerlink" title="分类"></a>分类</h4><p>XSS攻击可分为存储型、反射型、DOM型。</p>
+<ul>
+<li><p>存储型：恶意代码提交到目标网站数据库，用户打开网站，服务端将代码从<code>数据库</code>取出拼接到HTML中返回给浏览器，进而攻击目标网站。常见于带用户保存数据的网站功能：论坛发帖、商品评论、用户私信等。</p>
+</li>
+<li><p>反射型：构造包含恶意代码的特殊<code>URL</code>。用户打开<code>URL</code>时，<code>服务端</code>将代码从<code>URL</code>取出拼接到HTML中返回给浏览器，进而攻击。常见于通过<code>URL</code>传递参数的功能，如网站搜索、跳转等。</p>
+</li>
+<li><p>DOM型：构造包含恶意代码的特殊<code>URL</code>，用户打开<code>URL</code>，浏览器接受响应解析执行，前端<code>JavaScript</code>取出<code>URL</code>中的恶意代码执行，进而攻击。</p>
+</li>
+</ul>
+<p>DOM型XSS属于前端<code>JavaScript</code>自身的安全漏洞，取出和执行都由<code>浏览器端</code>完成。其他两种存储型和反射型都属于<code>服务器</code>端的安全漏洞。</p>
+<h4 id="预防"><a href="#预防" class="headerlink" title="预防"></a>预防</h4><blockquote>
+<p>预防主要从输入过滤、防止HTML出现注入、防止JavaScript执行恶意代码三方面入手。</p>
+</blockquote>
+<ol>
+<li>存储型攻击和发射型攻击</li>
+</ol>
+<ul>
+<li><p>纯前端渲染，将代码与数据分开</p>
+<p>  浏览器加载<code>静态HTML</code>，然后再执行<code>HTML</code>中的<code>JavaScript</code>。<code>JavaScript</code>通过<code>Ajax</code>加载业务数据，调用<code>DOM API</code>更新到页面。</p>
+</li>
+<li><p>转义HTML</p>
+<p>  使用合适的转义库/模版引擎，对HTML模版各处插入点充分转义。</p>
+</li>
+</ul>
+<ol start="2">
+<li>DOM型攻击</li>
+</ol>
+<p>小心使用<code>.innerHTML</code>、<code>outerHTML</code>、<code>document.write()</code>等方法，避免将不可信的数据插入HTML页面。若使用前端框架，小心使用<code>v-html</code>/<code>dangerouslySetInnerHTML</code>功能。DOM中的内联事件监听器，如<code>onclick</code>、<code>onload</code>、<code>location</code>等，以及<code>&lt;a&gt;</code>中的<code>href</code>，和JavaScript的<code>setTimeout()</code>、<code>setInterval()</code>等均可将字符串当作代码运行。故避免将不可信的数据传递给以上API。</p>
+<ol start="3">
+<li>其他措施</li>
+</ol>
+<ul>
+<li><p>使用<code>CSP(Content Security Policy)</code>防范</p>
+</li>
+<li><p>控制输入内容长度</p>
+</li>
+<li><p>使用<code>HTTP-only Cookie</code>：禁止<code>JavaScript</code>读取敏感<code>Cookie</code>。</p>
+</li>
+<li><p>使用验证码</p>
+</li>
+</ul>
+<p>总结：防范XSS攻击可以利用<strong>模版引擎</strong>、<strong>避免内联事件</strong>、<strong>避免拼接HTML</strong>、通过<strong>CSP/输入长度配置/接口安全措施</strong>等方法<strong>增加攻击难度，降低攻击后果</strong>、使用<strong>XSS扫描工具</strong>自动<strong>检测发现潜在的XSS漏洞</strong>。</p>
+<h3 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h3><blockquote>
+<p>CSRF(Cross-Site request forgery)跨站请求伪造：诱导用户进入第三方网站，攻击者向被攻击网站发送跨站请求，利用获取的注册凭证，绕过后台用户验证，冒充用户对被攻击网站执行某种操作的目的。</p>
+</blockquote>
+<h4 id="分类-2"><a href="#分类-2" class="headerlink" title="分类"></a>分类</h4><ol>
+<li><p>GET类型：一个HTTP请求即可</p>
+</li>
+<li><p>POST类型：通常使用一个自动提交的表单。</p>
+</li>
+<li><p>链接类型：需要用户点击链接触发。</p>
+</li>
+</ol>
+<h4 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h4><p>CSRF的特点有<strong>通常发生在第三方域名</strong>，且<strong>不能获取到Cookie等信息，仅使用Cookie</strong>。</p>
+<ul>
+<li><p>阻止不明外域的访问</p>
+<ul>
+<li><p>同源检测</p>
+<p>  服务器可以通过解析Header中<code>Origin Header</code>和<code>Referer Header</code>的域名确定请求的来源域。</p>
+<p>  若<code>Origin Header</code>存在，直接使用其中的字段确认来源域名。</p>
+<p>  若<code>Origin Header</code>不存在(IE11同源策略、302重定向)使用<code>Referer Header</code>中链接的<code>Origin</code>部分可以得知请求的来源域名。</p>
+<p>  通过设置<code>Referrer Policy</code>的策略为<code>same-origin</code>，对于同源的链接和引用，会发送<code>Referer</code>，referer值为<code>Host</code>不带<code>Path</code>。跨域访问不携带<code>Referer</code>。</p>
+<p>  此方法相对简单，能防范大多数CSRF攻击，若有较多用户输入内容的网站，则需要额外的防护措施</p>
+</li>
+<li><p>Samesite Cookie</p>
+<p>  为<code>Set-Cookie</code>响应头新增<code>Samesite</code>属性，用来表明此<code>Cookie</code>为<code>同站Cookie</code>，且只能作为<code>第一方Cookie</code>。</p>
+<ul>
+<li><p>Samesite=Strict</p>
+<p>  严格模式，表明此<code>Cookie</code>在任何情况下都不可能作为<code>第三方Cookie</code>。即若网站a识别用户是否登陆的<code>Cookie</code>被设为<code>Strict</code>，其他外链发起的请求都不会带上此<code>Cookie</code>，则用户从其他外链进入网站a都不会是登陆状态。</p>
+</li>
+<li><p>Samesite=Lax</p>
+<p>  宽松模式，若该请求<strong>改变了当前页面或打开了新页面</strong>且同时为<code>GET请求</code>，则此<code>Cookie</code>可以作为<code>第三方Cookie</code>，在链接跳转时仍会带上此<code>Cookie</code>，但对于<code>异步请求</code>或<code>POST请求</code>则不会带。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>提交时要求附加本域才能获取的信息</p>
+<ul>
+<li><p>CSRF Token（存在<code>session</code>中，避免存入<code>cookie</code>后被冒用）</p>
+<ol>
+<li><p>将<code>CSRF Token</code>输出到页面</p>
+</li>
+<li><p>页面提交的请求携带此<code>Token</code></p>
+</li>
+<li><p>服务器验证<code>Token</code>是否正确</p>
+<p>此方法实现复杂，需要每个页面都写入<code>Token</code>，每个<code>Form/ajax</code>请求都携带<code>Token</code>，后端对每个接口都校验，工作量巨大且有可能遗漏。</p>
+</li>
+</ol>
+</li>
+<li><p>双重Cookie验证（要求<code>ajax</code>和<code>表单</code>请求携带一个<code>Cookie</code>中的值）</p>
+<ol>
+<li><p>用户访问页面向请求域名注入一个<code>Cookie</code>，内容为随机字符串</p>
+</li>
+<li><p>前端向后端发起请求时取出<code>Cookie</code>添加到<code>URL</code>的参数中</p>
+</li>
+<li><p>后端接口验证<code>Cookie</code>中的字段与<code>URL</code>参数中的字段是否一致，不一致则拒绝。</p>
+<p>此方法无需使用<code>session</code>，适用面广，易于实施，且存在客户端中，没有服务器压力，且实施成本更低，可以在前后端统一拦截校验。但它在Cookie中加了额外的字段，若有其他漏洞，攻击者可以注入Cookie，此方式失效。且难于做到子域名的隔离。</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/5eb40cb7.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/post/45e5d827.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端面经总结（二）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/post/a80967e6.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JavaScript自检问答</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

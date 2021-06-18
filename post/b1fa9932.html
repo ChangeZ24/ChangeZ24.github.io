@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="算法,JavaScript," />
+   
+  <meta name="description" content="算法题练习整理" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    JavaScript算法题整理（一） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-JavaScript算法题整理（一）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  JavaScript算法题整理（一）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/b1fa9932.html" class="article-date">
+  <time datetime="2021-06-02T05:15:25.000Z" itemprop="datePublished">2021-06-02</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">14分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>好几年没碰算法题，头次打开一脸懵逼。为了面试刷起来，以下为整理：</p>
+<h2 id="JavaScript算法题"><a href="#JavaScript算法题" class="headerlink" title="JavaScript算法题"></a>JavaScript算法题</h2><h3 id="dom-节点查找"><a href="#dom-节点查找" class="headerlink" title="dom 节点查找"></a>dom 节点查找</h3><p><strong>描述</strong></p>
+<p>查找两个节点的最近的一个共同父节点，可以包括节点自身</p>
+<p><strong>输入描述</strong></p>
+<p>oNode1 和 oNode2 在同一文档中，且不会为相同的节点</p>
+<blockquote>
+<p>获取node父节点，可以使用<code>node.parentNode</code></p>
+</blockquote>
+<p><strong>分析</strong></p>
+<a id="more"></a>
+<p>若oNode1节点的父节点包含oNode2，则此父节点为共同父节点。以此类推。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function commonParentNode(oNode1, oNode2) &#123;</span><br><span class="line">    let parent1 &#x3D; oNode1.parentNode;</span><br><span class="line">    let parent2 &#x3D; oNode2.parentNode;</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(parent1.contains(oNode2))&#123;</span><br><span class="line">            return parent2;</span><br><span class="line">        &#125;</span><br><span class="line">        if(parent2.containw(oNode1))&#123;</span><br><span class="line">            return parent1;</span><br><span class="line">        &#125;</span><br><span class="line">        parent1 &#x3D; parent1.parentNode;</span><br><span class="line">        parent2 &#x3D; parent2.parentNode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h3><p><strong>描述</strong><br>用 JavaScript 实现斐波那契数列函数,返回第n个斐波那契数。 f(1) = 1, f(2) = 1 等</p>
+<blockquote>
+<p>斐波那契数列，<code>f(0)=0,f(1)=1,f(2)=f(0)+(1)=1,...,f(n)=f(n-1)+f(n-2)</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function fibonacci(n) &#123;</span><br><span class="line">    return n&lt;&#x3D;2 ? 1 : fibonacci(n-1) + fibonacci(n-2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串统计"><a href="#字符串统计" class="headerlink" title="字符串统计"></a>字符串统计</h3><p><strong>描述</strong><br>统计字符串中每个字符的出现频率，返回一个 Object，key 为统计字符，value 为出现频率</p>
+<ol>
+<li>不限制 key 的顺序</li>
+<li>输入的字符串参数不会为空</li>
+<li>忽略空白字符</li>
+</ol>
+<p><strong>示例1</strong><br>输入：</p>
+<p>‘hello world’</p>
+<p>输出：</p>
+<p>{h: 1, e: 1, l: 3, o: 2, w: 1, r: 1, d: 1}</p>
+<p><strong>分析</strong></p>
+<ol>
+<li><p>字符串分离字符可以使用<code>split</code>方法，也可以使用正则表达式<code>str.replace(/\s/,&#39;&#39;);</code>去除字符串中的空格。</p>
+</li>
+<li><p>判断对象中是否已含有指定对象x可以直接<code>object[x]!==undefined</code>，也可以使用对象的<code>hasOwnProperty()</code>方法，如<code>object.hasOwnProperty(x)</code>判断</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function count(str) &#123;</span><br><span class="line">    let count &#x3D; &#123;&#125;;</span><br><span class="line">    let arr &#x3D; str.split(&quot;&quot;);&#x2F;&#x2F;将字符串分离为字符数组，也可以使用正则表达式分离</span><br><span class="line">    for(let i &#x3D; 0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        if(arr[i]!&#x3D;&#x3D;&quot;&quot;|| arr[i]!&#x3D;&#x3D; &quot; &quot;)&#123;&#x2F;&#x2F;用split(&quot;&quot;)分离的数组会带空格，故需要排除空格的情况</span><br><span class="line">            if(count[arr[i]] !&#x3D;&#x3D; undefined)&#123;&#x2F;&#x2F;此处可以使用对象的hasOwnProperty()方法看对象中是否已包含此字符</span><br><span class="line">                count[arr[i]]++;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                count[arr[i]] &#x3D; 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数组元素"><a href="#删除数组元素" class="headerlink" title="删除数组元素"></a>删除数组元素</h3><p><strong>描述</strong></p>
+<p>删除数组 arr 最后一个元素。不要直接修改数组 arr，结果返回新的数组</p>
+<p><strong>示例1</strong></p>
+<p>输入：</p>
+<p>[1, 2, 3, 4]</p>
+<p>输出：</p>
+<p>[1, 2, 3]</p>
+<p><strong>分析</strong> </p>
+<p>不修改原数组arr，则需要将原数组copy一份到新数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function truncate(arr) &#123;</span><br><span class="line">    var newArr &#x3D; JSON.parse(JSON.stringify(arr));</span><br><span class="line">    newArr.pop();</span><br><span class="line">    return newArr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="可能涉及的知识点"><a href="#可能涉及的知识点" class="headerlink" title="可能涉及的知识点"></a>可能涉及的知识点</h4><ol>
+<li>数组的深拷贝和浅拷贝</li>
+</ol>
+<ul>
+<li>浅拷贝：如果数组元素是基本类型，就会拷贝一份，互不影响，而如果是对象或者数组，就会只拷贝对象和数组的引用，无论对新旧数组的哪一个进行了修改，两者都会发生变化。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用&#x3D;直接赋值</span><br><span class="line">let newArr &#x3D; arr;</span><br><span class="line">&#x2F;&#x2F;使用slice()</span><br><span class="line">let newArr &#x3D; arr.slice();</span><br><span class="line">&#x2F;&#x2F;使用concat()</span><br><span class="line">let newArr &#x3D;  arr.concat();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>深拷贝：完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用JSON.stringify和JSON.parse</span><br><span class="line">var newArr &#x3D; JSON.parse(JSON.stringify(arr));&#x2F;&#x2F;该方法可以拷贝数组和对象，但不能拷贝函数。对于RegExp类型和Function类型无法完全满足，且不支持有循环引用的对象。</span><br><span class="line">&#x2F;&#x2F;拷贝时判断属性类型</span><br><span class="line">var deepCopy &#x3D; function(obj) &#123;</span><br><span class="line">    &#x2F;&#x2F; 只拷贝对象</span><br><span class="line">    if (typeof obj !&#x3D;&#x3D; &#39;object&#39;) return;</span><br><span class="line">    &#x2F;&#x2F; 根据obj的类型判断是新建一个数组还是一个对象</span><br><span class="line">    var newObj &#x3D; obj instanceof Array ? [] : &#123;&#125;;</span><br><span class="line">        for (var key in obj) &#123;</span><br><span class="line">            &#x2F;&#x2F; 遍历obj,并且判断是obj的属性才拷贝</span><br><span class="line">            if (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">                &#x2F;&#x2F; 判断属性值的类型，如果是对象递归调用深拷贝</span><br><span class="line">                newObj[key] &#x3D; typeof obj[key] &#x3D;&#x3D;&#x3D; &#39;object&#39; ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  return newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>数组的常用方法</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>concat(arrayX,arrayX,…,arrayX)</td>
+<td>连接两个或更多的数组，并返回结果。</td>
+</tr>
+<tr>
+<td>join(&amp;separator)</td>
+<td>把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>删除并返回数组的最后一个元素</td>
+</tr>
+<tr>
+<td>push(newelement1,…,newelementX)</td>
+<td>向数组的末尾添加一个或更多元素，并返回新的长度。</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>颠倒数组中元素的顺序。</td>
+</tr>
+<tr>
+<td>shift()</td>
+<td>删除并返回数组的第一个元素</td>
+</tr>
+<tr>
+<td>slice(start,&amp;end)</td>
+<td>从某个已有的数组返回选定的元素</td>
+</tr>
+<tr>
+<td>sort(&amp;sortby-fn)</td>
+<td>对数组的元素进行排序</td>
+</tr>
+<tr>
+<td>splice(index,howmany,item1,…,itemX)</td>
+<td>删除元素，并向数组添加新元素。</td>
+</tr>
+<tr>
+<td>toSource()</td>
+<td>返回该对象的源代码。</td>
+</tr>
+<tr>
+<td>toString()</td>
+<td>把数组转换为字符串，并返回结果。</td>
+</tr>
+<tr>
+<td>toLocaleString()</td>
+<td>把数组转换为本地数组，并返回结果。</td>
+</tr>
+<tr>
+<td>unshift(newelement1,…,newelementX)</td>
+<td>向数组的开头添加一个或更多元素，并返回新的长度。</td>
+</tr>
+<tr>
+<td>valueOf()</td>
+<td>返回数组对象的原始值</td>
+</tr>
+</tbody></table>
+<h3 id="正确的使用-parseInt"><a href="#正确的使用-parseInt" class="headerlink" title="正确的使用 parseInt"></a>正确的使用 parseInt</h3><p><strong>描述</strong></p>
+<p>修改 js 代码中 parseInt 的调用方式，使之通过全部测试用例</p>
+<p><strong>示例1</strong></p>
+<p>输入：</p>
+<p>‘12’</p>
+<p>输出：</p>
+<p>12</p>
+<p><strong>示例2</strong></p>
+<p>输入：</p>
+<p>‘12px’</p>
+<p>输出：</p>
+<p>12</p>
+<p><strong>示例3</strong></p>
+<p>输入：</p>
+<p>‘0x12’</p>
+<p>输出：</p>
+<p>0</p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>方法<code>parseInt()</code>若前面以<code>0x</code>开头，<code>parseInt()</code>会把它的其余部分解析为十六进制的整数。</p>
+<p>方法<code>parseInt(string, radix)</code>的<code>radix</code>参数表示要解析的数字的基数。该值介于 2 ~ 36 之间。故可以设置<code>radix</code>为<code>10</code>将所有传入的字符串都以<code>十进制</code>方式解析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function parse2Int(num) &#123;</span><br><span class="line">    return parseInt(num,10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用arguments"><a href="#使用arguments" class="headerlink" title="使用arguments"></a>使用arguments</h3><p><strong>描述</strong></p>
+<p>函数 useArguments 可以接收 1 个及以上的参数。请实现函数 useArguments，返回所有调用参数相加后的结果。本题的测试参数全部为 Number 类型，不需考虑参数转换。</p>
+<p><strong>示例1</strong></p>
+<p>输入：</p>
+<p>1, 2, 3, 4</p>
+<p>输出：</p>
+<p>10</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function useArguments() &#123;</span><br><span class="line">    let sum &#x3D; 0;</span><br><span class="line">    for(let i &#x3D; 0;i&lt;arguments.length;i++)&#123;</span><br><span class="line">        sum +&#x3D; arguments[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="涉及知识点"><a href="#涉及知识点" class="headerlink" title="涉及知识点"></a>涉及知识点</h4><p>JavaScript函数传参</p>
+<ol>
+<li>显式参数Parameters</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function fn(parameter1,...,parameterx)&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>JS定义显式参数时不需要指定数据类型。</p>
+</blockquote>
+<ol start="2">
+<li>隐式参数Arguments</li>
+</ol>
+<blockquote>
+<p>JS函数有内置的对象<code>arguments</code>，包含了函数调用的参数数组。</p>
+</blockquote>
+<p>JS函数对隐式参数没有类型和个数检测。若函数在调用时没有提供隐式参数，则参数默认值均为<code>undefined</code></p>
+<ol start="3">
+<li>ES6函数可以自带默认参数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function myFunction(x, y &#x3D; 10) &#123;</span><br><span class="line">    &#x2F;&#x2F; y is 10 if not passed or undefined</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">myFunction(0, 2) &#x2F;&#x2F; 输出 2</span><br><span class="line">myFunction(5); &#x2F;&#x2F; 输出 15, y 参数的默认值</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>传递参数</li>
+</ol>
+<ul>
+<li>通过值传参</li>
+</ul>
+<p>函数中调用的参数是隐式参数，其通过值来传递，函数仅是获得值。若函数修改参数的值，不会修改显式参数的初始值（在函数外定义），隐式参数的改变在函数外不可见</p>
+<ul>
+<li>通过对象传参</li>
+</ul>
+<p>JS中可以引用对象的值，在函数内部修改对象的属性会修改其初始的值，即修改对象属性可作用于函数外部。</p>
+<h3 id="函数传参"><a href="#函数传参" class="headerlink" title="函数传参"></a>函数传参</h3><p><strong>描述</strong></p>
+<p>将数组 arr 中的元素作为调用函数 fn 的参数</p>
+<p><strong>示例1</strong></p>
+<p>输入：</p>
+<p>function (greeting, name, punctuation) {return greeting + ‘, ‘ + name + (punctuation || ‘!’);}, [‘Hello’, ‘Ellie’, ‘!’]</p>
+<p>输出：</p>
+<p>Hello, Ellie!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function argsAsArray(fn, arr) &#123;</span><br><span class="line">    return fn.apply(this,arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="涉及到的知识点"><a href="#涉及到的知识点" class="headerlink" title="涉及到的知识点"></a>涉及到的知识点</h4><ol>
+<li>JS函数调用</li>
+</ol>
+<blockquote>
+<p>JS函数有4中调用方式，不同点在于<code>this</code>的初始化</p>
+</blockquote>
+<ul>
+<li>作为函数调用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function myFunction(a, b) &#123;</span><br><span class="line">    return a * b;</span><br><span class="line">&#125;</span><br><span class="line">myFunction(10, 2);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此种方式默认的全局对象是什么，函数就属于什么对象的函数，即<code>this</code>指向全局对象</p>
+</blockquote>
+<ul>
+<li>作为方法调用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var myObject &#x3D; &#123;</span><br><span class="line">    firstName:&quot;John&quot;,</span><br><span class="line">    lastName: &quot;Doe&quot;,</span><br><span class="line">    fullName: function () &#123;</span><br><span class="line">        return this.firstName + &quot; &quot; + this.lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">myObject.fullName();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此种方式的<code>this</code>为<code>myObject</code>对象。</p>
+</blockquote>
+<ul>
+<li>使用构造函数调用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 构造函数:</span><br><span class="line">function myFunction(arg1, arg2) &#123;</span><br><span class="line">    this.firstName &#x3D; arg1;</span><br><span class="line">    this.lastName  &#x3D; arg2;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; This    creates a new object</span><br><span class="line">var x &#x3D; new myFunction(&quot;John&quot;,&quot;Doe&quot;);</span><br><span class="line">x.firstName;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>构造函数的调用会创建一个新的对象，新对象继承构造函数的属性和方法，故<code>this</code>的值在函数调用实例话对象时创建，即在构造函数调用时被创建</p>
+</blockquote>
+<ul>
+<li>作为函数方法调用函数</li>
+</ul>
+<blockquote>
+<p>JS函数有其自己的属性和方法，<code>call()</code>和<code>apply()</code>是预定义的函数方法，可用于调用函数，其第一个参数必须为对象本身。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function myFunction(a, b) &#123;</span><br><span class="line">    return a * b;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;call方法</span><br><span class="line">myObject &#x3D; myFunction.call(myObject,10,2);</span><br><span class="line">&#x2F;&#x2F;apply方法</span><br><span class="line">myArray &#x3D; [10,2];</span><br><span class="line">myObject &#x3D; myFunction.apply(myObject,myArray);</span><br></pre></td></tr></table></figure>
+
+<p>由此可看出，<code>apply()</code>方法传入的第二个参数为参数数组，而<code>call()</code>方法直接传入所有的参数。这为二者的区别。</p>
+<p>在JavaScript严格模式(strict mode)下, 在调用函数时第一个参数会成为<code>this</code>的值， 即使该参数不是一个对象。<br>在JavaScript非严格模式(non-strict mode)下, 如果第一个参数的值是<code>null</code>或<code>undefined</code>, 它将使用全局对象替代。</p>
+<h3 id="二进制转换"><a href="#二进制转换" class="headerlink" title="二进制转换"></a>二进制转换</h3><ol>
+<li>二进制转十进制</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;parseInt方法</span><br><span class="line">function base10(str) &#123;</span><br><span class="line">    return parseInt(str,2);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;一般方法</span><br><span class="line">function base10(str) &#123;</span><br><span class="line">    var sum &#x3D; 0;</span><br><span class="line">    var arr &#x3D; str.split(&quot;&quot;).reverse();&#x2F;&#x2F;避免pow()内写一大串</span><br><span class="line">    for(var i&#x3D; 0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        sum +&#x3D; arr[i]* Math.pow(2,i)</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>十进制转二进制</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let num &#x3D; 100;</span><br><span class="line">num.toString(2);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>其他</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">parseInt(num,8);   &#x2F;&#x2F;八进制转十进制</span><br><span class="line">parseInt(num,16);   &#x2F;&#x2F;十六进制转十进制</span><br><span class="line">parseInt(num).toString(8)  &#x2F;&#x2F;十进制转八进制</span><br><span class="line">parseInt(num).toString(16)   &#x2F;&#x2F;十进制转十六进制</span><br><span class="line">parseInt(num,2).toString(8)   &#x2F;&#x2F;二进制转八进制</span><br><span class="line">parseInt(num,2).toString(16)  &#x2F;&#x2F;二进制转十六进制</span><br><span class="line">parseInt(num,8).toString(2)   &#x2F;&#x2F;八进制转二进制</span><br><span class="line">parseInt(num,8).toString(16)  &#x2F;&#x2F;八进制转十六进制</span><br><span class="line">parseInt(num,16).toString(2)  &#x2F;&#x2F;十六进制转二进制</span><br><span class="line">parseInt(num,16).toString(8)  &#x2F;&#x2F;十六进制转八进制</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-apply-调用函数"><a href="#使用-apply-调用函数" class="headerlink" title="使用 apply 调用函数"></a>使用 apply 调用函数</h3><p><strong>描述</strong></p>
+<p>实现函数 callIt，调用之后满足如下条件</p>
+<p>1、返回的结果为调用 fn 之后的结果</p>
+<p>2、fn 的调用参数为 callIt 的第一个参数之后的全部参数</p>
+<p><strong>分析</strong></p>
+<p>隐式参数<code>arguments</code>不是数组，需要将它先转化为数组。</p>
+<blockquote>
+<p>转化<code>arguments</code>：<code>let args = Array.prototype.slice.call(arguments,0);</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function callIt(fn) &#123;</span><br><span class="line">    let args &#x3D; Array.prototype.slice.call(arguments,1);&#x2F;&#x2F;截取第一个参数之后的参数。</span><br><span class="line">    return fn.apply(this,args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p><strong>描述</strong></p>
+<p>找出对象 obj 不在原型链上的属性(注意这题测试例子的冒号后面也有一个空格~)</p>
+<p>1、返回数组，格式为 key: value</p>
+<p>2、结果数组不要求顺序</p>
+<p><strong>示例1</strong></p>
+<p>输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var C &#x3D; function() &#123;this.foo &#x3D; &#39;bar&#39;; this.baz &#x3D; &#39;bim&#39;;&#125;; </span><br><span class="line">C.prototype.bop &#x3D; &#39;bip&#39;; </span><br><span class="line">iterate(new C());</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<p>[“foo: bar”, “baz: bim”]</p>
+<p><strong>分析</strong></p>
+<p>对象不属于原型链上的属性，即实例属性，可以通过方法<code>hasOwnProperty()</code>方法找出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function iterate(obj) &#123;</span><br><span class="line">    let arr &#x3D; [];</span><br><span class="line">    for( let ele in obj)&#123;</span><br><span class="line">        if(obj.hasOwnProperty(ele))&#123;</span><br><span class="line">            arr.push(ele+&quot;: &quot;+obj[ele]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;更快的解法，使用Object.keys()返回可枚举的实例属性数组</span><br><span class="line">function iterate(obj) &#123;</span><br><span class="line">    return Object.keys(obj).map(function(key) &#123;</span><br><span class="line">        return key + &quot;: &quot; + obj[key];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间格式化"><a href="#时间格式化" class="headerlink" title="时间格式化"></a>时间格式化</h3><p><strong>描述</strong></p>
+<p>按所给的时间格式输出指定的时间</p>
+<p>格式说明–对于 2014.09.05 13:14:20</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yyyy: 年份，2014</span><br><span class="line">yy: 年份，14</span><br><span class="line">MM: 月份，补满两位，09</span><br><span class="line">M: 月份, 9</span><br><span class="line">dd: 日期，补满两位，05</span><br><span class="line">d: 日期, 5</span><br><span class="line">HH: 24制小时，补满两位，13</span><br><span class="line">H: 24制小时，13</span><br><span class="line">hh: 12制小时，补满两位，01</span><br><span class="line">h: 12制小时，1</span><br><span class="line">mm: 分钟，补满两位，14</span><br><span class="line">m: 分钟，14</span><br><span class="line">ss: 秒，补满两位，20</span><br><span class="line">s: 秒，20</span><br><span class="line">w: 星期，为 [&#39;日&#39;, &#39;一&#39;, &#39;二&#39;, &#39;三&#39;, &#39;四&#39;, &#39;五&#39;, &#39;六&#39;] 中的某一个，本 demo 结果为 五</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例1</strong></p>
+<p>输入：</p>
+<p>formatDate(new Date(1409894060000), ‘yyyy-MM-dd HH:mm:ss 星期w’)</p>
+<p>输出：</p>
+<p>2014-09-05 13:14:20 星期五</p>
+<p><strong>分析</strong></p>
+<p>使用<code>Date</code>对象的各个<code>getXXX()</code>方法获得相应的年月日等值，再通过<code>str.replace()</code>方法替换格式中的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">function formatDate(date,formate)&#123;</span><br><span class="line">    let year &#x3D; date.getFullYear(),</span><br><span class="line">        month &#x3D; date.getMonth()+1,</span><br><span class="line">        day &#x3D; date.getDate(),</span><br><span class="line">        week &#x3D; date.getDay(),</span><br><span class="line">        weekStr &#x3D; [&quot;日&quot;,&quot;一&quot;,&quot;二&quot;,&quot;三&quot;,&quot;四&quot;,&quot;五&quot;,&quot;六&quot;],</span><br><span class="line">        hour &#x3D; date.getHours(),</span><br><span class="line">        minute &#x3D; date.getMinutes(),</span><br><span class="line">        seconds &#x3D; date.getSeconds();</span><br><span class="line">    let format0 &#x3D; function(num)&#123;</span><br><span class="line">        if(num &lt; 10)&#123;</span><br><span class="line">            return 0 + &quot;&quot; + num;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    let dateObj &#x3D; &#123;</span><br><span class="line">        &quot;yyyy&quot;: year,</span><br><span class="line">        &quot;yy&quot;: year%100,</span><br><span class="line">        &quot;MM&quot;: format0(month),</span><br><span class="line">        &quot;M&quot;: month,</span><br><span class="line">        &quot;dd&quot;: format0(day),</span><br><span class="line">        &quot;d&quot;: day,</span><br><span class="line">        &quot;w&quot;: weekStr[week],</span><br><span class="line">        &quot;HH&quot;: format0(hour),</span><br><span class="line">        &quot;H&quot;: hour,</span><br><span class="line">        &quot;hh&quot;:format0(hour%12),</span><br><span class="line">        &quot;h&quot;: hour%12,</span><br><span class="line">        &quot;mm&quot;: format0(minute),</span><br><span class="line">        &quot;m&quot;: minute,</span><br><span class="line">        &quot;ss&quot;: format0(seconds),</span><br><span class="line">         &quot;s&quot;: seconds</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    for(let obj in dateObj)&#123;</span><br><span class="line">        formate &#x3D; formate.replace(obj,dateObj[obj]);</span><br><span class="line">    &#125;</span><br><span class="line">    return formate;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/b1fa9932.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/post/81ec75ea.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            JavaScript算法题整理（二）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/post/a22a7a3e.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">结合Vue3-demo项目分析源码（六）</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

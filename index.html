@@ -91,7 +91,7 @@ var _hmt = _hmt || [];
     
     
     
-    <article id="post-结合Vue3-demo项目分析源码（六）" class="article article-type-post" itemscope
+    <article id="post-前端面经总结（五）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -99,8 +99,8 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/post/a22a7a3e.html"
-    >结合Vue3-demo项目分析源码（六）</a
+  <a class="article-title" href="/post/fb0f9f1f.html"
+    >前端面经总结（五）</a
   >
 </h2>
   
@@ -110,12 +110,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/post/a22a7a3e.html" class="article-date">
-  <time datetime="2021-05-28T13:23:03.000Z" itemprop="datePublished">2021-05-28</time>
+      <a href="/post/fb0f9f1f.html" class="article-date">
+  <time datetime="2021-06-17T01:02:58.000Z" itemprop="datePublished">2021-06-17</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
   </div>
 
       
@@ -134,489 +134,228 @@ var _hmt = _hmt || [];
       
 
       
-      <p>接<a href="https://awesolynn.me/post/3341038055.html">结合Vue3-demo项目分析源码（五）</a>，完成组件的渲染，结束<code>mounted</code>生命周期。此时可以在页面看到内容了。当添加事件修改数据时，Vue进入组件更新过程。</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="MVVM模型"><a href="#MVVM模型" class="headerlink" title="MVVM模型"></a>MVVM模型</h3><p><img src="https://z3.ax1x.com/2021/05/29/2APBIx.png" alt="mvvm模型"></p>
-      
-      <a class="article-more-link" href="/post/a22a7a3e.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-结合Vue3-demo项目分析源码（五）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/3341038055.html"
-    >结合Vue3-demo项目分析源码（五）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/3341038055.html" class="article-date">
-  <time datetime="2021-05-28T07:10:02.000Z" itemprop="datePublished">2021-05-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>接<a href="https://awesolynn.me/post/2830824608.html">结合Vue3-demo项目分析源码（四）</a>，完成组件的创建，包含创建组件实例<code>createComponentInstance</code>和设置组件实例<code>setupComponent</code>两个步骤。整个组件的创建过程涉及到两个生命周期<code>beforeCreated</code>和<code>created</code>，到<code>created</code>才算组件创建完成，此时进入组件的渲染过程。回到<code>mountComponent()</code>方法，查看方法<code>setupRenderEffect()</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const mountComponent: MountComponentFn &#x3D; (</span><br><span class="line">    ...</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;创建组件实例</span><br><span class="line">    const instance: ComponentInternalInstance &#x3D; (initialVNode.component &#x3D; createComponentInstance(...))</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;设置组件实例</span><br><span class="line">    setupComponent(instance)</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;处理setup方法</span><br><span class="line">    setupRenderEffect(instance, initialVNode, container, anchor, parentSuspense,isSVG, optimized)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/post/3341038055.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-结合Vue3-demo项目分析源码（四）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/2830824608.html"
-    >结合Vue3-demo项目分析源码（四）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/2830824608.html" class="article-date">
-  <time datetime="2021-05-27T12:30:15.000Z" itemprop="datePublished">2021-05-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>接<a href="https://awesolynn.me/post/530050501.html">结合Vue3-demo项目分析源码（三）</a>，完成了组件的初始化，认识了各种类型的组件、浅层响应式对象即全局api。回到方法<code>setupStatefulComponent()</code>继续组件的创建。</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>查看文件<code>vue-next/packages/runtime-core/src/component.ts</code>第538行</p>
-      
-      <a class="article-more-link" href="/post/2830824608.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-结合Vue3-demo项目分析源码（三）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/530050501.html"
-    >结合Vue3-demo项目分析源码（三）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/530050501.html" class="article-date">
-  <time datetime="2021-05-26T11:56:35.000Z" itemprop="datePublished">2021-05-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>接<a href="https://awesolynn.me/post/1384730263.html">结合Vue3-demo项目分析源码（二）</a>，创建完App实例，开始创建组件。接上篇<code>mountComponent()</code>方法，调用了<code>createComponentInstance</code>方法创建了一个初始化状态的组件实例<code>instance</code>，接下来就根据组件的定义调用方法<code>setupComponent()</code>设置此组件实例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const mountComponent: MountComponentFn &#x3D; (</span><br><span class="line">    ...</span><br><span class="line">) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;创建组件实例</span><br><span class="line">    const instance: ComponentInternalInstance &#x3D; (initialVNode.component &#x3D; createComponentInstance(...))</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;设置组件实例</span><br><span class="line">    setupComponent(instance)</span><br><span class="line">    ...</span><br><span class="line">    &#x2F;&#x2F;处理setup方法</span><br><span class="line">    setupRenderEffect(instance, initialVNode, container, anchor, parentSuspense,isSVG, optimized)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/post/530050501.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-结合Vue3-demo项目分析源码（二）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/1384730263.html"
-    >结合Vue3-demo项目分析源码（二）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/1384730263.html" class="article-date">
-  <time datetime="2021-05-26T08:29:32.000Z" itemprop="datePublished">2021-05-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>接<a href="https://awesolynn.me/post/1654628943.html">结合Vue3-demo项目分析源码（一）</a>，创建完App组件，开始使用<code>mount</code>方法渲染app</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="mount"><a href="#mount" class="headerlink" title="mount()"></a>mount()</h3><blockquote>
-<p>渲染app</p>
-</blockquote>
-<p>查看源码项目<code>vue-next/packages/runtime-dom/src/index.ts</code>中<code>createApp()</code>，其中<code>app.mount</code>被重写了。</p>
-      
-      <a class="article-more-link" href="/post/1384730263.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-结合Vue3-demo项目分析源码（一）" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/1654628943.html"
-    >结合Vue3-demo项目分析源码（一）</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/1654628943.html" class="article-date">
-  <time datetime="2021-05-26T07:33:53.000Z" itemprop="datePublished">2021-05-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>Vue3-demo项目即为先前<a href="https://awesolynn.me/post/876416960.html">从0搭建简易vue3项目</a>中搭建的demo</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>入口文件<code>main.js</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createApp &#125; from &quot;vue&quot;;&#x2F;&#x2F;引入Vue3源码</span><br><span class="line">import App from &quot;.&#x2F;App&quot;;&#x2F;&#x2F;引入App.vue组件</span><br><span class="line">const app &#x3D; createApp(App,&#123;msg:&quot;Hello Vue&quot;&#125;)&#x2F;&#x2F;创建App组件，传递msg参数</span><br><span class="line"></span><br><span class="line">app.mount(&quot;#app&quot;)&#x2F;&#x2F;渲染app，将其挂载到id&#x3D;app的节点上</span><br></pre></td></tr></table></figure>
-
-<p>通过在浏览器上不同位置打断点，可以按步骤流程分析Vue源码的实现流程。</p>
-      
-      <a class="article-more-link" href="/post/1654628943.html">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-从0搭建简易vue3项目" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/876416960.html"
-    >从0搭建简易vue3项目</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/876416960.html" class="article-date">
-  <time datetime="2021-05-26T05:50:47.000Z" itemprop="datePublished">2021-05-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
-<li><p>创建目录，使用<code>npm init -y</code>初始化项目</p>
+      <p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>Vue是一个渐进性框架，可以把一个页面分割成多个组件，当其他页面有类似功能时，直接让封装的组件复用。Vue是构建页面的声明式框架，不关心具体实现，只关心图层</p>
+<h3 id="v-model原理"><a href="#v-model原理" class="headerlink" title="v-model原理"></a>v-model原理</h3><p>绑定数据并监听数据改变。初始化时使用Object.defineProperty/Proxy（2.0/3.0）重新定义data中属性，当页面使用对应属性时，手机当前组件的watcher，若属性变化则通知相关依赖进行更新操作。</p>
+<p>Object.defineProperty缺点</p>
+<ol>
+<li><p>无法检测到对象属性的动态添加和删除</p>
 </li>
-<li><p>使用<code>npm install -D xxx ...</code>命令安装webpack相关依赖</p>
+<li><p>无法检测到数组下标和length属性的变更</p>
+</li>
+</ol>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
+<li><p>beforeCreate：在<code>beforeCreated</code>方法中无法访问<code>data</code>、<code>computed</code>、<code>methods</code>、<code>watch</code>等属性，只能访问<code>props</code>、<code>attrs</code>、<code>setupState</code>等内容。</p>
+</li>
+<li><p>created阶段，组件初始化，当组件完成初始化并设置完成后到达此阶段</p>
+</li>
+<li><p>beforeMount阶段：当组件为第一次渲染时，首先调用生命周期beforeMount方法。生命周期<code>beforeMount</code>在<code>created</code>之后，但两者差别不大，平时可以在这两个生命周期做一些渲染前的准备工作。如网络请求，页面初始数据的操作等</p>
+</li>
+<li><p>Mount阶段：vue实例挂载到真实DOM上，表示组件渲染工作完成</p>
+</li>
+<li><p>beforeUpdate阶段：响应式数据更新时调用，发生在虚拟DOM打补丁之前，适合在更新之前访问现有的DOM，比如手动移除已添加的事件监听器</p>
+</li>
+<li><p>Updated阶段：虚拟DOM重新渲染和打补丁后调用，组件新的DOM更新</p>
+</li>
+<li><p>beforeDestroy阶段：实例销毁前调用，常用于销毁定时器，解绑事件</p>
+</li>
+<li><p>Destroy阶段：实例销毁后调用。</p>
+</li>
+</ul>
+<h3 id="Vue和React区别"><a href="#Vue和React区别" class="headerlink" title="Vue和React区别"></a>Vue和React区别</h3><ul>
+<li><p>React整体时函数式思想，把组件设计成纯组件，状态和逻辑通过参数传入，故在react中时单项数据流</p>
+</li>
+<li><p>Vue是响应式思想，基于数据可变，通过对每个属性建立watcher监听，当属性变化时，响应式的更新</p>
+</li>
+</ul>
+<h3 id="Vuex流程"><a href="#Vuex流程" class="headerlink" title="Vuex流程"></a>Vuex流程</h3><p>一种专为vue使用的状态管理模式，采用集中式存储管理应用所有组件的状态，并通过相应的规则保证状态以一种可预测的方式发生变化</p>
+<p>主要包括3个部分</p>
 <ul>
-<li><p>webpack：webpack编译打包核心库</p>
+<li><p>state：驱动应用的数据源</p>
 </li>
-<li><p>webpack-cli：webpack指令库</p>
+<li><p>view：以声明的方式将state映射到视图</p>
 </li>
-<li><p>webpack-dev-server：webpack开发者服务框架</p>
+<li><p>actions：响应在view上用户输入导致的变化</p>
 </li>
-<li><p>webpack-chain：webpack配置工具</p>
+</ul>
+<p>流程：</p>
+<ol>
+<li><p>页面通过mapAction异步提交事件到action。</p>
+</li>
+<li><p>action通过commit把对应参数同步提交到mutation</p>
+</li>
+<li><p>mutation修改state中对应的值</p>
+</li>
+<li><p>通过getter把对应的值传出去</p>
+</li>
+<li><p>在页面计算属性中通过mapGetter动态获取state中的值</p>
+</li>
+</ol>
+<p>状态和属性</p>
+<ul>
+<li><p>state：保存共有数据，数据是响应的</p>
+</li>
+<li><p>getter：对state进行计算操作，主要用来过滤一些数据</p>
+</li>
+<li><p>mutations：定义方法动态修改state中的数据，通过commit提交方法，方法必须是同步的</p>
+</li>
+<li><p>actions：将mutations里的处理数据的方法变成异步的，即异步操作数据</p>
+</li>
+<li><p>modules：模块化vuex</p>
+</li>
+</ul>
+<p>若没有vuex发生的情况</p>
+<ol>
+<li><p>遇到多个组件共享状态时，传参的方法对于多层嵌套的组件会很繁琐，且对兄弟组件件的状态传递无能为力。</p>
+</li>
+<li><p>当不同视图的行为需要变更同一个状态时，通过采用父子组件直接引用或通过事件来变更和同步状态的多份拷贝会导致很多无法维护的代码</p>
+</li>
+</ol>
+<h3 id="vue-router路由的两种方式"><a href="#vue-router路由的两种方式" class="headerlink" title="vue-router路由的两种方式"></a>vue-router路由的两种方式</h3><p>vue-router是但也应用的路径管理器，用于设定访问路径，并将路由和组件映射起来。</p>
+<ol>
+<li><p>hash：使用URL的hash来模拟一个完整的URL。改变hash不会重新加载页面。通过hash锚点值的改变渲染指定dom位置的不同数据</p>
+</li>
+<li><p>history：在配置路由规则时，加入mode：“history”即可。此模式充分利用history.pushState API完成URL跳转且无需重新加载页面。此方式需要在服务端增加一个覆盖所有情况的候选资源，若URL匹配不到任何静态资源，则返回同一个index.html页面。</p>
+</li>
+</ol>
+<h3 id="route和-router区别"><a href="#route和-router区别" class="headerlink" title="$route和$router区别"></a>$route和$router区别</h3><ol>
+<li><p>$route是路由信息对象，包括path/params/hash/query/fullPath/matched/name等路由信息参数</p>
+</li>
+<li><p>$router是路由实例对象，包括了路由的跳转方法，钩子函数等</p>
+</li>
+</ol>
+<h3 id="vue-router守卫"><a href="#vue-router守卫" class="headerlink" title="vue-router守卫"></a>vue-router守卫</h3><ol>
+<li><p>全局前置守卫：通过在main.js入口文件定义router.beforeEach</p>
+</li>
+<li><p>路由独享守卫：在路由配置上直接定义beforeEnter</p>
+</li>
+<li><p>组件内守卫：在路由组件内直接定义beforeRouterEnter/beforeRouteUpdate等</p>
+<ul>
+<li><p>to：即将进入的目标（路由对象）</p>
+</li>
+<li><p>from：当前导航正要离开的路由</p>
+</li>
+<li><p>next：function。调用该方法来resolve钩子，即通过此函数跳转路由，若不用则拦截，执行效果依赖next方法的调用参数</p>
 </li>
 </ul>
 </li>
-<li><p>创建webpack配置文件<code>webpack.config.js</code></p>
+</ol>
+<h3 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h3><p>axios是请求后台资源的模块，通过npm install命令安装</p>
+<p>实现登陆功能</p>
+<ol>
+<li><p>跨域，现在config/index.js文件中设置跨域</p>
+</li>
+<li><p>js使用import将axios导入，通过.get/.post发送请求，若成功，调用.then函数中内容，若失败，调用.catch函数中内内容</p>
 </li>
 </ol>
-      
-      <a class="article-more-link" href="/post/876416960.html">阅读更多...</a>
-      
+<h3 id="vue项目性能优化"><a href="#vue项目性能优化" class="headerlink" title="vue项目性能优化"></a>vue项目性能优化</h3><ol>
+<li><p>模版内不要写太多表达式</p>
+</li>
+<li><p>虚幻调用子组件时添加key</p>
+</li>
+<li><p>频繁切换使用v-show，不频繁切换使用v-if</p>
+</li>
+<li><p>按需加载，用require或import按需加载需要的组件</p>
+</li>
+<li><p>路由懒加载（用到时再加载）</p>
+</li>
+</ol>
+<h3 id="v-if和v-show区别"><a href="#v-if和v-show区别" class="headerlink" title="v-if和v-show区别"></a>v-if和v-show区别</h3><ol>
+<li><p>v-if控制dom节点的存在与否来控制元素的显示；v-show通过设置dom元素的display样式隐藏来控制元素显示</p>
+</li>
+<li><p>v-if切换有局部编译/卸载的过程，初始条件为假时什么也不做，只有条件第一次为真时才开始局部编译</p>
+</li>
+<li><p>v-if有更高的切换消耗，v-show有更高的初始渲染消耗</p>
+</li>
+</ol>
+<h3 id="常见的兼容问题"><a href="#常见的兼容问题" class="headerlink" title="常见的兼容问题"></a>常见的兼容问题</h3><p>浏览器默认的margin和padding不同。 解决方案是加一个全局的*{margin:0;padding:0;}来统一。</p>
+<h3 id="vue2和vue3区别"><a href="#vue2和vue3区别" class="headerlink" title="vue2和vue3区别"></a>vue2和vue3区别</h3><ol>
+<li><p>vue3支持多个根节点，vue2只能有一个根节点</p>
+</li>
+<li><p>增加组合式api，将相同功能的变量进行集中管理</p>
+</li>
+<li><p>自定义渲染其，可用于app/小城需和游戏开发</p>
+</li>
+<li><p>使用ts重写了源码</p>
+</li>
+<li><p>数据响应重新实现，使用proxy替代了Object.defineProperty</p>
+</li>
+</ol>
+<h3 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h3><ol>
+<li><p>父子组件</p>
+<ul>
+<li><p>通过v-bind属性绑定的方式，将data属性的值传给子组件</p>
+</li>
+<li><p>子组件通过props属性接收父组件传递的数据，该属性的值为数组</p>
+</li>
+</ul>
+</li>
+<li><p>兄弟组件</p>
+<ul>
+<li><p>使用eventBus，穿件VUe实例，使各兄弟公用一个事件机制，传递数据放通过事件触发bus.$emit方法，接收数据方通过mounted触发bus.$on接收数据。</p>
+</li>
+<li><p>借助父组件，让两个兄弟组件可以联动，子组件A将值传递给父组件，父组件再将值传递给子组件B</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><h3 id="生命周期-1"><a href="#生命周期-1" class="headerlink" title="生命周期"></a>生命周期</h3><ul>
+<li><p>Mounting：已插入真实DOM</p>
+</li>
+<li><p>Updating：正在被重新渲染</p>
+</li>
+<li><p>Unmounting：已移除真实DOM</p>
+</li>
+</ul>
+<h3 id="子组件向父组件传值"><a href="#子组件向父组件传值" class="headerlink" title="子组件向父组件传值"></a>子组件向父组件传值</h3><p>父组件通过props向子组件传值，子组件调用父组件给他的函数给父组件传值</p>
+<h3 id="setState"><a href="#setState" class="headerlink" title="setState"></a>setState</h3><p>setState通过一个队列机制实现state更新，当执行setState时，会将需要更新的state很后放入状态队列<br>而不会立即更新this.state，队列机制可以高效地批量更新state。如果不通过setState而直接修改this.state的值<br>那么该state将不会被放入状态队列中。当下次调用setState并对状态队列进行合并时，就会忽略之前修改的state，造成不可预知的错误</p>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="webpack打包体积大"><a href="#webpack打包体积大" class="headerlink" title="webpack打包体积大"></a>webpack打包体积大</h3><ol>
+<li><p>异步加载模块</p>
+</li>
+<li><p>提取第三方库</p>
+</li>
+<li><p>代码压缩</p>
+</li>
+<li><p>去除不必要的插件</p>
+</li>
+</ol>
+<h3 id="优化webpack构建性能"><a href="#优化webpack构建性能" class="headerlink" title="优化webpack构建性能"></a>优化webpack构建性能</h3><ol>
+<li><p>减少代码体积</p>
+</li>
+<li><p>减少目录检索范围</p>
+</li>
+<li><p>减少检索路径</p>
+</li>
+</ol>
+<h3 id="移动端性能优化"><a href="#移动端性能优化" class="headerlink" title="移动端性能优化"></a>移动端性能优化</h3><ol>
+<li><p>按需加载，懒加载</p>
+</li>
+<li><p>资源预加载</p>
+</li>
+<li><p>图片压缩处理，使用base64内嵌图片</p>
+</li>
+<li><p>合理缓存dom对象</p>
+</li>
+<li><p>使用touchstart代替click，减少300ms的延迟</p>
+</li>
+<li><p>不滥用web字体</p>
+</li>
+<li><p>尽量使用事件代理，避免直接事件绑定</p>
+</li>
+<li><p>使用viewport固定屏幕渲染，加速页面渲染内容</p>
+</li>
+</ol>
+<h3 id="vue的spa优化"><a href="#vue的spa优化" class="headerlink" title="vue的spa优化"></a>vue的spa优化</h3><ol>
+<li><p>减少入口文件体积</p>
+</li>
+<li><p>静态资源本地缓存</p>
+</li>
+<li><p>开启gzip压缩</p>
+</li>
+</ol>
+<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>尽可能避开互联网有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输更快更稳定</p>
+<p>基本原理是广泛使用各种缓存服务器，将这些缓存服务器分不到用户访问相对的地区或网络中，当用户访问网络时、利用全局负载技术将用户访问指向距离最近的缓存服务器，由该服务器直接响应用户的饿请求</p>
+
       
       <!-- reward -->
       
@@ -628,7 +367,7 @@ var _hmt = _hmt || [];
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
 
 
     </footer>
@@ -645,7 +384,7 @@ var _hmt = _hmt || [];
 
 </article>
     
-    <article id="post-近期问题分析及解决" class="article article-type-post" itemscope
+    <article id="post-前端面经总结（四）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -653,8 +392,8 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/post/900994060.html"
-    >近期问题分析及解决</a
+  <a class="article-title" href="/post/94915a58.html"
+    >前端面经总结（四）</a
   >
 </h2>
   
@@ -664,12 +403,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/post/900994060.html" class="article-date">
-  <time datetime="2021-05-26T04:21:50.000Z" itemprop="datePublished">2021-05-26</time>
+      <a href="/post/94915a58.html" class="article-date">
+  <time datetime="2021-06-16T10:49:56.000Z" itemprop="datePublished">2021-06-16</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/debug/">debug</a>
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
   </div>
 
       
@@ -688,11 +427,312 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="使用命令npm-run-dev运行时提示报错Cannot-find-module-39-webpack-cli-bin-config-yargs"><a href="#使用命令npm-run-dev运行时提示报错Cannot-find-module-39-webpack-cli-bin-config-yargs" class="headerlink" title="使用命令npm run dev运行时提示报错Cannot find module &#39;webpack-cli/bin/config-yargs"></a>使用命令<code>npm run dev</code>运行时提示报错<code>Cannot find module &#39;webpack-cli/bin/config-yargs</code></h2><p>本地package版本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;webpack&quot;: &quot;^5.37.1&quot;,</span><br><span class="line">&quot;webpack-chain&quot;: &quot;^6.5.1&quot;,</span><br><span class="line">&quot;webpack-cli&quot;: &quot;^4.7.0&quot;,</span><br><span class="line">&quot;webpack-dev-server&quot;: &quot;^3.11.2&quot;</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/post/900994060.html">阅读更多...</a>
-      
+      <p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="typeof和instance-of区别"><a href="#typeof和instance-of区别" class="headerlink" title="typeof和instance of区别"></a>typeof和instance of区别</h3><p>二者都用来判断变量是否为空</p>
+<ul>
+<li><p>typeof返回值为字符串，说明变量的数据类型</p>
+</li>
+<li><p>instanceof判断变量是否属于某个对象的实例。判断逻辑为从当前引用的proto一层一层顺着原型链向上找，若能找到对应的prototype则返回true</p>
+</li>
+</ul>
+<h3 id="深拷贝-浅拷贝"><a href="#深拷贝-浅拷贝" class="headerlink" title="深拷贝/浅拷贝"></a>深拷贝/浅拷贝</h3><ul>
+<li>浅拷贝：只是拷贝了基本类型的数据，而引用类型数据，复制后也会发生引用。即浅拷贝仅指向被复制的内存地址，若原地址对象改变，则复制后的对象也相应改变。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用&#x3D;直接赋值</span><br><span class="line">let newArr &#x3D; arr;</span><br><span class="line">&#x2F;&#x2F;使用slice()</span><br><span class="line">let newArr &#x3D; arr.slice();</span><br><span class="line">&#x2F;&#x2F;使用concat()</span><br><span class="line">let newArr &#x3D;  arr.concat();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>深拷贝：创建新对象，属性中引用的其他对象也会被克隆，且不再指向原对象地址。使用JSON.parse()/JSON.stringfy()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用JSON.stringify和JSON.parse</span><br><span class="line">var newArr &#x3D; JSON.parse(JSON.stringify(arr));&#x2F;&#x2F;该方法可以拷贝数组和对象，但不能拷贝函数。对于RegExp类型和Function类型无法完全满足，且不支持有循环引用的对象。</span><br><span class="line">&#x2F;&#x2F;拷贝时判断属性类型</span><br><span class="line">var deepCopy &#x3D; function(obj) &#123;</span><br><span class="line">    &#x2F;&#x2F; 只拷贝对象</span><br><span class="line">    if (typeof obj !&#x3D;&#x3D; &#39;object&#39;) return;</span><br><span class="line">    &#x2F;&#x2F; 根据obj的类型判断是新建一个数组还是一个对象</span><br><span class="line">    var newObj &#x3D; obj instanceof Array ? [] : &#123;&#125;;</span><br><span class="line">        for (var key in obj) &#123;</span><br><span class="line">            &#x2F;&#x2F; 遍历obj,并且判断是obj的属性才拷贝</span><br><span class="line">            if (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">                &#x2F;&#x2F; 判断属性值的类型，如果是对象递归调用深拷贝</span><br><span class="line">                newObj[key] &#x3D; typeof obj[key] &#x3D;&#x3D;&#x3D; &#39;object&#39; ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  return newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="深拷贝用法"><a href="#深拷贝用法" class="headerlink" title="深拷贝用法"></a>深拷贝用法</h4><ol>
+<li>解决循环引用</li>
+</ol>
+<p>使用哈希表存储已拷贝过的对象，再进行循环检测，检测到当前对象已存在于哈希表中则直接取出该值并返回</p>
+<ol start="2">
+<li>深拷贝只能拷贝一层原型链的属性和方法</li>
+</ol>
+<h3 id="es6新特性"><a href="#es6新特性" class="headerlink" title="es6新特性"></a>es6新特性</h3><ol>
+<li><p>let/const/var</p>
+<ul>
+<li><p>let：块级作用域，没有变量提升，函数内部使用let后，对函数外部无影响，必须先声明后使用。</p>
+</li>
+<li><p>const：定义的变量不可修改，必须初始化，块级作用域，没有变量提升</p>
+</li>
+<li><p>var：定义的变量可以修改，不初始化默认为<code>undefined</code>，不会报错，存在变量提升，不是块级作用域，其声明变量是全局的。</p>
+</li>
+</ul>
+</li>
+<li><p>展开运算符…</p>
+</li>
+<li><p>箭头函数，即匿名函数，不能作为构造函数。</p>
+<ul>
+<li>和普通函数区别：不能作为构造函数，不能被<code>new</code>，没有<code>arguments</code>实参集合，也没有自己的<code>this</code>，箭头函数的<code>this</code>继承当前上下文中的<code>this</code>，且不能使用<code>call</code>/<code>apply</code>/<code>bind</code>改变<code>this</code></li>
+</ul>
+</li>
+<li><p>模版字面量，即包含嵌入式表达式的字符串字面量，使用倒引号<code>(``)</code></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let message &#x3D; &#96;$&#123;student.name&#125; please see $&#123;teacher.name&#125; in $&#123;teacher.room&#125; to pick up your report card.&#96;;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>数组/对象解构，提取值并赋值</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const point &#x3D; [10, 25, -34];</span><br><span class="line">const [x, y, z] &#x3D; point;</span><br><span class="line">console.log(x, y, z);</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>for…of循环，可以循环任何可迭代类型的数据，<code>String</code>/<code>Array</code>/<code>Map</code>/<code>Set</code>，不包含<code>Object</code>，默认情况下对象不可迭代</li>
+</ol>
+<h3 id="和-区别"><a href="#和-区别" class="headerlink" title="==和===区别"></a>==和===区别</h3><ol>
+<li><p>=：赋值</p>
+</li>
+<li><p>==：返回布尔值，允许不同数据类型的比较，若不同类型先默认转换为相同的数据类型，若为对象比较，则比较空间地址</p>
+</li>
+<li><p>===：数据和数据类型完全相等</p>
+</li>
+</ol>
+<h3 id="call-bind-apply区别"><a href="#call-bind-apply区别" class="headerlink" title="call/bind/apply区别"></a>call/bind/apply区别</h3><ol>
+<li><p>call/apply第一个参数相同，即指定的对象，为该函数的执行上下文</p>
+</li>
+<li><p>call/apply第二个参数不同，call传入的是所有的参数，apply传入参数的数组</p>
+</li>
+<li><p>bind返回执行上下文被改变的函数而不会立即执行，call/apply直接执行该函数</p>
+</li>
+</ol>
+<h3 id="js继承方法"><a href="#js继承方法" class="headerlink" title="js继承方法"></a>js继承方法</h3><ol>
+<li><p>原型链继承：父类的实例作为子类的原型</p>
+</li>
+<li><p>构造继承：使用父类的构造函数来继承，相当于复制父类的实例属性给子类</p>
+</li>
+<li><p>实例继承：为父类实例添加新特性作为子类实例返回</p>
+</li>
+<li><p>拷贝继承：把父类中的属性或方法复制给子类</p>
+</li>
+<li><p>组合继承：通过调用父类构造函数，继承父类的属性并保留传参，通过将父类实例作为子类原型实现函数复用，会调用两次父类构造函数，一次创建子类原型，一次子类构造函数内部</p>
+</li>
+<li><p>寄生组合继承：通过借用构造函数来继承属性，通过原型链的混成形式继承方法。相当于借用构造函数+浅拷贝父类的原型对象，不会初始化两次实例方法和属性</p>
+</li>
+</ol>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>一种特殊的函数，绑定了外部环境变量的函数，允许在一个内层函数中访问到其外层函数的作用域。可以保护变量不受外界污染，一直存在内存中</p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>除<code>null</code>和<code>undefined</code>外，每个对象都有原型，可以理解为对象的默认属性和方法。</p>
+<p>原型链依赖对象的<code>_proto_</code>指向，当访问对象的成员时，若自身没有，则去原型链指向对象的构造函数的<code>prototype</code>中一层一层找，找到后使用，没找到则返回<code>undefined</code>或报错。</p>
+<h3 id="浏览器渲染的流程"><a href="#浏览器渲染的流程" class="headerlink" title="浏览器渲染的流程"></a>浏览器渲染的流程</h3><ol>
+<li><p>将html代码按深度优先比例生成dom树</p>
+</li>
+<li><p>渲染css文件生成css渲染树</p>
+</li>
+<li><p>dom树和css渲染树生成render树</p>
+</li>
+<li><p>浏览器通过render树将所有节点位置计算出来呈现到屏幕上</p>
+</li>
+</ol>
+<h3 id="从输入url到页面发生了什么"><a href="#从输入url到页面发生了什么" class="headerlink" title="从输入url到页面发生了什么"></a>从输入url到页面发生了什么</h3><ol>
+<li><p>输入url，浏览器查找当前url是否存在缓存，并比较缓存是否过期</p>
+</li>
+<li><p>若没有缓存，DNS解析url查找对应IP</p>
+</li>
+<li><p>根据IP通过三次握手建立TCP连接</p>
+</li>
+<li><p>HTTP发起请求，服务器处理请求，浏览器接受响应</p>
+</li>
+<li><p>渲染页面构造DOM树和CSS渲染树</p>
+</li>
+<li><p>四次挥手关闭TCP连接，浏览器将渲染结果呈现在屏幕上</p>
+</li>
+</ol>
+<h3 id="跨域方法"><a href="#跨域方法" class="headerlink" title="跨域方法"></a>跨域方法</h3><ol>
+<li>通过jsonp跨域-只能处理get</li>
+</ol>
+<p>动态创建<code>script</code>标签，利用<code>script</code>的<code>src</code>不受同源策略限制，故可以请求第三方服务器资源内容</p>
+<ol start="2">
+<li>document.domain+iframe跨域：仅限主域相同，子域不同的场景</li>
+</ol>
+<p>两个页面都通过js强者设置document.domain为基础主域实现同域</p>
+<ol start="3">
+<li>window.name+iframe跨域：name在不同页面加载后依然存在</li>
+</ol>
+<p>通过<code>iframe</code>的<code>src</code>属性由外域转本地域。跨域数据由<code>iframe</code>的<code>window.name</code>从外域传入本地域</p>
+<ol start="4">
+<li><p>使用postMessage(data, origin)跨域：html5的新特性</p>
+</li>
+<li><p>使用CORS跨域资源共享跨域</p>
+</li>
+</ol>
+<p>服务器设置<code>Access-Control-Allow-Origin</code>HTTP响应头后，浏览器允许跨域请求</p>
+<ol start="6">
+<li><p>使用websocket协议跨域</p>
+</li>
+<li><p>通过node.js中间件代理跨域：启动一个代理服务器，实现数据的转发。</p>
+</li>
+</ol>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>一种约定，同源指<code>协议</code>/<code>域名</code>/<code>端口</code>三者相同</p>
+<p>限制：</p>
+<ol>
+<li><p>Cookie/LocalStorage/IndexDB无法读取</p>
+</li>
+<li><p>DOM和JS对象无法获得</p>
+</li>
+<li><p>Ajax请求无法发送</p>
+</li>
+</ol>
+<h3 id="前端优化"><a href="#前端优化" class="headerlink" title="前端优化"></a>前端优化</h3><ol>
+<li><p>减少HTTP请求</p>
+</li>
+<li><p>页面设计时简化页面</p>
+</li>
+<li><p>合理设置HTTP缓存</p>
+</li>
+<li><p>资源合并压缩</p>
+</li>
+<li><p>多图片网页使用图片懒加载</p>
+</li>
+<li><p>减少DOM操作</p>
+</li>
+<li><p>JS中避免嵌套循环和死循环</p>
+</li>
+</ol>
+<h3 id="ajax步骤"><a href="#ajax步骤" class="headerlink" title="ajax步骤"></a>ajax步骤</h3><ol>
+<li><p>创建ajax实例</p>
+</li>
+<li><p>执行open确定要访问的连接和同步异步</p>
+</li>
+<li><p>监听请求状态</p>
+</li>
+<li><p>发送请求</p>
+</li>
+</ol>
+<h3 id="移动端兼容"><a href="#移动端兼容" class="headerlink" title="移动端兼容"></a>移动端兼容</h3><ol>
+<li><p>设置缓存，手机页面在第一次加载会进行缓存，每次刷新会使用缓存而不会重新向服务器发送请求，不使用缓存设置<code>no-cache</code></p>
+</li>
+<li><p>添加点击事件时引用fastclick.js文件，解决延迟问题</p>
+</li>
+<li><p>设置meta中的viewport</p>
+</li>
+</ol>
+<h3 id="同步-异步"><a href="#同步-异步" class="headerlink" title="同步/异步"></a>同步/异步</h3><ul>
+<li><p>同步：在同一时间内做一件事</p>
+</li>
+<li><p>异步：在同一时间内做多件事，常见的异步任务：定时器/ajax/事件绑定/回调函数/async await/promise。实现方式：回调函数/发布订阅/事件绑定/promise</p>
+</li>
+</ul>
+<h4 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h4><blockquote>
+<p>异步编程的一种解决方案</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var promise &#x3D; new Promise(function(resolve, reject)&#123;</span><br><span class="line"></span><br><span class="line">    if (&#x2F;* 异步操作成功 *&#x2F;) &#123;</span><br><span class="line">        resolve(value);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        reject(error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>resolve：将Promise对象状态由未完成变为成功，在异步操作成功时调用，将异步操作的结果作为参数传递出去</p>
+</li>
+<li><p>reject：将Promise对象状态由未完成变为失败，在异步操作失败时调用，传递错误error</p>
+</li>
+<li><p>then：then方法在Promise实例生成后分别指定两种状态回调函数。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let promise &#x3D; new Promise(function(resolve, reject)&#123;</span><br><span class="line">    console.log(&quot;AAA&quot;);</span><br><span class="line">    resolve()</span><br><span class="line">&#125;);</span><br><span class="line">promise.then(() &#x3D;&gt; console.log(&quot;BBB&quot;));</span><br><span class="line">console.log(&quot;CCC&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; AAA</span><br><span class="line">&#x2F;&#x2F; CCC</span><br><span class="line">&#x2F;&#x2F; BBB</span><br></pre></td></tr></table></figure>
+
+<p>Promise优点是可以解决回调/链式调用/减少嵌套。缺点为无法检测进行状态/新建立刻执行且无法取消/内部错误无法抛出。</p>
+<h4 id="Promise-all-Promise-race"><a href="#Promise-all-Promise-race" class="headerlink" title="Promise.all/Promise.race"></a>Promise.all/Promise.race</h4><ul>
+<li><p>Promise.all：将多个Promise实例包装成一个新的Promise实例，成功时返回结果数组，结果顺序与数组中数据顺序一致，失败时返回最先reject的值</p>
+</li>
+<li><p>Promise.race：多个Promise哪个结果先到达，则返回此结果，不考虑结果本身成功或失败。</p>
+</li>
+</ul>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><ul>
+<li><p>async：异步，必定返回Promise</p>
+</li>
+<li><p>await：等待。</p>
+<ul>
+<li><p>await命令后接Promise对象，返回该对象的结果</p>
+</li>
+<li><p>await命令后接非Promise对象，返回对应的值</p>
+</li>
+<li><p>await命令后接thenable对象(定义then方法的对象)，await将其等同于Promise对象</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">    return new Promise(function(resolve, reject) &#123;</span><br><span class="line">        setTimeout(resolve,ms);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">async function handle()&#123;</span><br><span class="line">    console.log(&quot;AAA&quot;)</span><br><span class="line">    await sleep(5000)</span><br><span class="line">    console.log(&quot;BBB&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">handle();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; AAA</span><br><span class="line">&#x2F;&#x2F; BBB (5000ms后)</span><br></pre></td></tr></table></figure>
+
+<h3 id="DOM-diff原理"><a href="#DOM-diff原理" class="headerlink" title="DOM diff原理"></a>DOM diff原理</h3><ol>
+<li><p>从根节点开始遍历所有节点</p>
+</li>
+<li><p>对于不同类型的标签，删除原标签，新建标签</p>
+</li>
+<li><p>对于类型相同属性不同的标签，只修改属性</p>
+</li>
+<li><p>对于同一个父节点下的复数同类型标签(列表类型)，基于key对比修改</p>
+</li>
+</ol>
+<p>完全的DOM diff算法事件复杂度为O(n3)，Vue中将其简化，只对比同级元素，将时间复杂度降低至O(n)</p>
+<h3 id="进程线程"><a href="#进程线程" class="headerlink" title="进程线程"></a>进程线程</h3><ul>
+<li><p>进程：并发执行的程序在执行过程中分配和管理资源的基本单位，一个程序至少一个进程</p>
+</li>
+<li><p>线程：是进程的一个执行单元，处理器调度的基本单位。一个进程至少一个线程。</p>
+</li>
+</ul>
+<p>区别：</p>
+<ol>
+<li><p>进程之间是独立的地址空间，同一进程的线程共享进程的地址空间</p>
+</li>
+<li><p>进程之间资源独立，同一进程的线程共享进程的资源</p>
+</li>
+<li><p>每个独立的进程有一个程序入口，线程不能独立执行，必须依存在程序中</p>
+</li>
+<li><p>进程是分配和管理资源的基本单位，线程是处理器调度的基本单位</p>
+</li>
+</ol>
+<h3 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h3><ul>
+<li><p>宏任务：由Node/浏览器发起的任务，每次从宏任务事件队列中获取一个放入执行栈中执行</p>
+<ul>
+<li><p>script</p>
+</li>
+<li><p>setTimeout/setInterval</p>
+</li>
+<li><p>I/O</p>
+</li>
+<li><p>UI交互事件</p>
+</li>
+<li><p>postMessage()</p>
+</li>
+<li><p>setImmediate: 遇到setTimeout，先于它执行</p>
+</li>
+</ul>
+</li>
+<li><p>微任务：由JavaScript发起的任务，当前任务执行后立刻执行，无需等渲染。</p>
+<ul>
+<li><p>Promise</p>
+</li>
+<li><p>process.nextTick</p>
+</li>
+<li><p>Object.observe</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="代码输出判断"><a href="#代码输出判断" class="headerlink" title="代码输出判断"></a>代码输出判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;主线程执行，输出start</span><br><span class="line">console.log(&#39;start&#39;)</span><br><span class="line">&#x2F;&#x2F;宏任务1，放入宏任务队列</span><br><span class="line">setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;setTimeout&#39;)</span><br><span class="line">&#125;, 0)</span><br><span class="line">&#x2F;&#x2F;new Promise执行输出Promise</span><br><span class="line">new Promise((resolve) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;promise&#39;)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;)&#x2F;&#x2F;then为微任务1，放入微任务队列</span><br><span class="line">  .then(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;then1&#39;)</span><br><span class="line">  &#125;)&#x2F;&#x2F;then为微任务2，放入微任务队列</span><br><span class="line">  .then(() &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#39;then2&#39;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#x2F;&#x2F;输出end</span><br><span class="line">console.log(&#39;end&#39;)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>循环1:start -&gt; promise -&gt; end</p>
+</li>
+<li><p>执行微任务队列：then1 -&gt; then2</p>
+</li>
+<li><p>执行宏任务队列：setTimeout</p>
+</li>
+</ol>
+<h4 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h4><ol>
+<li><p>执行一个宏任务</p>
+</li>
+<li><p>执行中遇到宏任务，将其放入宏任务队列，遇到微任务，将其放入微任务队列</p>
+</li>
+<li><p>宏任务执行完毕，立即执行微任务队列中所有微任务</p>
+</li>
+<li><p>全部微任务执行完毕，检查渲染，完毕后开始下一个宏任务</p>
+</li>
+</ol>
+<h4 id="nextTick作用"><a href="#nextTick作用" class="headerlink" title="$nextTick作用"></a>$nextTick作用</h4><p>vm.$nextTick接受一个回调函数作为参数，用于将回调延迟到下次DOM更新周期(下次微任务执行时更新DOM)后进行，即将回调函数添加到微任务中。</p>
+<h3 id="判断变量是对象还是数组"><a href="#判断变量是对象还是数组" class="headerlink" title="判断变量是对象还是数组"></a>判断变量是对象还是数组</h3><p>使用<code>array instanceof Array</code>方法，返回true则为数组，否则对象</p>
+<p>不能使用<code>typeof</code>，它判断对象和数组都返回<code>Object</code>，只用来判断基本类型<code>Boolean</code>/<code>Number</code>/<code>Symbol</code>/<code>Undefined</code>/<code>String</code>，其他引用类型，除了<code>function</code>外其他都返回<code>object</code></p>
+
       
       <!-- reward -->
       
@@ -704,7 +744,7 @@ var _hmt = _hmt || [];
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/" rel="tag">ES6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/debug/" rel="tag">debug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
 
 
     </footer>
@@ -721,7 +761,7 @@ var _hmt = _hmt || [];
 
 </article>
     
-    <article id="post-webpack-dev-server搭建简易mock服务器" class="article article-type-post" itemscope
+    <article id="post-剑指offer（三）-链表" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -729,8 +769,8 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/post/328527238.html"
-    >webpack-dev-server搭建简易mock服务器</a
+  <a class="article-title" href="/post/7475bf8d.html"
+    >剑指offer（三）-链表</a
   >
 </h2>
   
@@ -740,12 +780,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/post/328527238.html" class="article-date">
-  <time datetime="2021-05-25T05:06:45.000Z" itemprop="datePublished">2021-05-25</time>
+      <a href="/post/7475bf8d.html" class="article-date">
+  <time datetime="2021-06-16T03:18:26.000Z" itemprop="datePublished">2021-06-16</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </div>
 
       
@@ -764,15 +804,68 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><blockquote>
-<p>用来快速开发应用，仅用于development环境</p>
+      <blockquote>
+<p>一种线性结构表，数据元素在内存中分散存储，采用链式表示结构，即链表。</p>
 </blockquote>
-<p>webpack-dev-server是第三方依赖库，依赖<code>webpack-dev-middleware</code>（负责把webpack打包后的文件存放在内存中供外界访问）。</p>
-<p>下载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D webpack-dev-server --registry https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/post/328527238.html">阅读更多...</a>
-      
+<p>顺序表的存储结构是逻辑位置和物理位置都相邻，但链表是逻辑位置相邻，物理位置不一定相邻，且不能随机存取，但在插入和删除时，不需要移动元素。</p>
+<p>链表存储结构由结点组成，每个结点包括一个数据域和一个指针域（指向下一个后继元素的地址）。除单链表外还有循环链表和双向链表，循环链表的最后一个结点的指针指向头结点，形成环。双向链表多了一个指向前驱元素的指针。</p>
+<h2 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a>从尾到头打印链表</h2><p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：head &#x3D; [1,3,2]</span><br><span class="line">输出：[2,3,1]</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>按JavaScript数据结构，链表使用对象存储，数据结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function ListNode(val) &#123;</span><br><span class="line">    this.val &#x3D; val;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后输出数组，故可以通过遍历将链表中的数据存入数组后再使用<code>reverse()</code>反转，或使用<code>unshift()</code>方法每次从数组头插入数据。</p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val) &#123;</span><br><span class="line"> *     this.val &#x3D; val;</span><br><span class="line"> *     this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; head</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var reversePrint &#x3D; function(head) &#123;</span><br><span class="line">    if(!head )</span><br><span class="line">        return [];</span><br><span class="line">    let arr &#x3D; [];</span><br><span class="line">    &#x2F;&#x2F;方法1</span><br><span class="line">    while(head)&#123;</span><br><span class="line">        arr.push(head.val);</span><br><span class="line">        head &#x3D; head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr.reverse();</span><br><span class="line">    &#x2F;&#x2F;方法2</span><br><span class="line">    while(head)&#123;</span><br><span class="line">        arr.unshift(head.val);</span><br><span class="line">        head &#x3D; head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除链表的节点"><a href="#删除链表的节点" class="headerlink" title="删除链表的节点"></a>删除链表的节点</h2><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</p>
+<p>返回删除后的链表的头节点。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: head &#x3D; [4,5,1,9], val &#x3D; 5</span><br><span class="line">输出: [4,1,9]</span><br><span class="line">解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9.</span><br><span class="line"></span><br><span class="line">输入: head &#x3D; [4,5,1,9], val &#x3D; 1</span><br><span class="line">输出: [4,5,9]</span><br><span class="line">解释: 给定你链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 5 -&gt; 9.</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>删除链表节点，即将要删除结点的前驱结点的<code>next</code>指针指向删除节点的<code>next</code>结点。需要注意的是要删除的结点是头结点和末尾结点的问题。</p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val) &#123;</span><br><span class="line"> *     this.val &#x3D; val;</span><br><span class="line"> *     this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; head</span><br><span class="line"> * @param &#123;number&#125; val</span><br><span class="line"> * @return &#123;ListNode&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var deleteNode &#x3D; function(head, val) &#123;</span><br><span class="line">    if(!head)</span><br><span class="line">        return [];</span><br><span class="line">    &#x2F;&#x2F;删除结点是头结点</span><br><span class="line">    if(head.val &#x3D;&#x3D;&#x3D; val)&#123;</span><br><span class="line">        head &#x3D; head.next;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">       &#x2F;&#x2F; return head;</span><br><span class="line">    let current &#x3D; head;</span><br><span class="line">    let nextnode &#x3D; current.next;</span><br><span class="line">    while(current)&#123;</span><br><span class="line">        if(nextnode.val &#x3D;&#x3D;&#x3D; val &amp;&amp; nextnode.next)&#123;&#x2F;&#x2F;删除非尾结点</span><br><span class="line">            current.next &#x3D; nextnode.next;</span><br><span class="line">            return head;</span><br><span class="line">        &#125;else if(nextnode.val &#x3D;&#x3D;&#x3D; val &amp;&amp; !nextnode.next)&#123;&#x2F;&#x2F;删除尾结点</span><br><span class="line">            current.next &#x3D; null;</span><br><span class="line">            return head;</span><br><span class="line">        &#125;</span><br><span class="line">        current &#x3D; nextnode;</span><br><span class="line">        nextnode &#x3D; nextnode.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return head;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="链表中倒数第k个节点"><a href="#链表中倒数第k个节点" class="headerlink" title="链表中倒数第k个节点"></a>链表中倒数第k个节点</h2><p>输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。</p>
+<p>例如，一个链表有 6 个节点，从头节点开始，它们的值依次是 1、2、3、4、5、6。这个链表的倒数第 3 个节点是值为 4 的节点。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 k &#x3D; 2.</span><br><span class="line"></span><br><span class="line">返回链表 4-&gt;5.</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>使用<strong>快慢指针</strong>，快指针先走k步，慢指针再开始走，等快指针走到链表尾，慢指针即为倒数第k个结点。注意k大于链表长度的情况</p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val) &#123;</span><br><span class="line"> *     this.val &#x3D; val;</span><br><span class="line"> *     this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; head</span><br><span class="line"> * @param &#123;number&#125; k</span><br><span class="line"> * @return &#123;ListNode&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var getKthFromEnd &#x3D; function(head, k) &#123;</span><br><span class="line">    let fast &#x3D; head;</span><br><span class="line">    let slow &#x3D; head;</span><br><span class="line">    let path &#x3D; 1;</span><br><span class="line">    while(fast)&#123;</span><br><span class="line">        if(path &lt;&#x3D; k)&#123;</span><br><span class="line">            fast &#x3D; fast.next;</span><br><span class="line">            path ++;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            fast &#x3D; fast.next;</span><br><span class="line">            slow &#x3D; slow.next;</span><br><span class="line">            path ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(path &lt;&#x3D; k)&#123;</span><br><span class="line">        &#x2F;&#x2F;k大于链表长度的情况</span><br><span class="line">        slow &#x3D; null;</span><br><span class="line">    &#125;</span><br><span class="line">    return slow;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><p>方法一：使用数组保存链表所有的值，再重新新建一个反转的链表</p>
+<p>方法二：使用<code>prev</code>/<code>current</code>/<code>nextnode</code>指针。使<code>current</code>指针的<code>next</code>指向<code>prev</code>且<code>current = nextnode</code>向后遍历链表。使<code>prev = current</code>一直指向<code>current</code>的前一个，使反转链表成立。</p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val) &#123;</span><br><span class="line"> *     this.val &#x3D; val;</span><br><span class="line"> *     this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; head</span><br><span class="line"> * @return &#123;ListNode&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var reverseList &#x3D; function(head) &#123;</span><br><span class="line">    &#x2F;&#x2F;方法一</span><br><span class="line">    let arr &#x3D; [];</span><br><span class="line">    let result &#x3D; null;</span><br><span class="line">    if(!head)&#123;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">    while(head)&#123;</span><br><span class="line">        arr.unshift(head.val);</span><br><span class="line">        head &#x3D; head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    result &#x3D; new ListNode(arr[0]);</span><br><span class="line">    let p &#x3D; result;</span><br><span class="line">    for(let i &#x3D; 0;i &lt; arr.length - 1; i++)&#123;</span><br><span class="line">        p.next &#x3D; new ListNode(arr[i+1]);</span><br><span class="line">        p &#x3D; p.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;方法二</span><br><span class="line">    let prev &#x3D; null;</span><br><span class="line">    let current &#x3D; head;</span><br><span class="line">    let nextnode &#x3D; null;</span><br><span class="line">    if(!head)&#123;</span><br><span class="line">        return prev;</span><br><span class="line">    &#125;</span><br><span class="line">    while(current)&#123;</span><br><span class="line">        nextnode &#x3D; current.next;</span><br><span class="line">        if(!prev)&#123;</span><br><span class="line">            current.next &#x3D; null;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            current.next &#x3D; prev;</span><br><span class="line">        &#125;</span><br><span class="line">        prev &#x3D; current;</span><br><span class="line">        current &#x3D; nextnode;</span><br><span class="line">    &#125;</span><br><span class="line">    return prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="两个链表的第一个公共结点"><a href="#两个链表的第一个公共结点" class="headerlink" title="两个链表的第一个公共结点"></a>两个链表的第一个公共结点</h2><p>输入两个无环的单链表，找出它们的第一个公共结点。（注意因为传入数据是链表，所以错误测试数据的提示是用其他方式显示的，保证传入数据是正确的）</p>
+<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>两种解释，公共节点即val值相同的两个节点，或两个链表的第一个交点</p>
+<p>若为解释一，则可以通过保存链表1的值和所在位置，再遍历链表2找值相同且位置最前的节点，即为公共节点。</p>
+<p>解释一和解释二都可以使用双指针解答。双指针公共遍历，若再某节点第一次相遇，则该节点为公共节点。</p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;解释一</span><br><span class="line">&#x2F;*function ListNode(x)&#123;</span><br><span class="line">    this.val &#x3D; x;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;*&#x2F;</span><br><span class="line">function FindFirstCommonNode(pHead1, pHead2)</span><br><span class="line">&#123;</span><br><span class="line">    let list &#x3D; &#123;&#125;;</span><br><span class="line">    let path &#x3D; 1;</span><br><span class="line">    while(pHead1)&#123;</span><br><span class="line">        list[pHead1.val] &#x3D; path;</span><br><span class="line">        pHead1 &#x3D; pHead1.next;</span><br><span class="line">        path ++;</span><br><span class="line">    &#125;</span><br><span class="line">    let min &#x3D; path;</span><br><span class="line">    let result &#x3D; null;</span><br><span class="line">    while(pHead2)&#123;</span><br><span class="line">        if(list[pHead2.val] &amp;&amp; list[pHead2.val] &lt;&#x3D; min)&#123;</span><br><span class="line">            result &#x3D; pHead2;</span><br><span class="line">            min &#x3D; list[pHead2.val];</span><br><span class="line">        &#125;</span><br><span class="line">        pHead2 &#x3D; pHead2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;通用解法</span><br><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val) &#123;</span><br><span class="line"> *     this.val &#x3D; val;</span><br><span class="line"> *     this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; headA</span><br><span class="line"> * @param &#123;ListNode&#125; headB</span><br><span class="line"> * @return &#123;ListNode&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var getIntersectionNode &#x3D; function(headA, headB) &#123;</span><br><span class="line">    let nodeA &#x3D; headA;</span><br><span class="line">    let nodeB &#x3D; headB;</span><br><span class="line">    while(nodeA!&#x3D;&#x3D;nodeB)&#123;</span><br><span class="line">        nodeA &#x3D; nodeA ? nodeA.next : headB;</span><br><span class="line">        nodeB &#x3D; nodeB ? nodeB.next : headA;</span><br><span class="line">    &#125;</span><br><span class="line">    return nodeA;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="合并两个排序的链表"><a href="#合并两个排序的链表" class="headerlink" title="合并两个排序的链表"></a>合并两个排序的链表</h2><p>输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。</p>
+<p>示例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4</span><br><span class="line">输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h3><p>使用归并排序，通过两个链表的指针，依次将较小的值放入新链表中</p>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val) &#123;</span><br><span class="line"> *     this.val &#x3D; val;</span><br><span class="line"> *     this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; l1</span><br><span class="line"> * @param &#123;ListNode&#125; l2</span><br><span class="line"> * @return &#123;ListNode&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var mergeTwoLists &#x3D; function(l1, l2) &#123;</span><br><span class="line">    let list &#x3D; new ListNode();</span><br><span class="line">    let p &#x3D; list;</span><br><span class="line">    while(l1 &amp;&amp; l2)&#123;</span><br><span class="line">        if(l1.val&lt;&#x3D;l2.val)&#123;</span><br><span class="line">            p.next &#x3D; l1;</span><br><span class="line">            l1 &#x3D; l1.next;</span><br><span class="line">            p &#x3D; p.next;</span><br><span class="line">        &#125;else if(l2.val &lt;&#x3D; l1.val)&#123;</span><br><span class="line">            p.next &#x3D; l2;</span><br><span class="line">            p &#x3D; p.next;</span><br><span class="line">            l2 &#x3D; l2.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    while(l1)&#123;</span><br><span class="line">        p.next &#x3D; l1;</span><br><span class="line">        l1 &#x3D; l1.next;</span><br><span class="line">        p &#x3D; p.next;</span><br><span class="line">    &#125;</span><br><span class="line">    while(l2)&#123;</span><br><span class="line">        p.next &#x3D; l2;</span><br><span class="line">        l2 &#x3D; l2.next;</span><br><span class="line">        p &#x3D; p.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return list.next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除链表中重复的结点"><a href="#删除链表中重复的结点" class="headerlink" title="删除链表中重复的结点"></a>删除链表中重复的结点</h2><p>在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">&#123;1,2,3,3,4,4,5&#125;</span><br><span class="line"></span><br><span class="line">返回值：</span><br><span class="line">&#123;1,2,5&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h3><p>使用<code>prev</code>指针指向当前节点的上一个节点，注意由空指针开始，<code>next</code>指向链表的头指针，防止无法删除从头指针开始重复的元素。在判断时，若出现重复元素，将<code>prev</code>指针的<code>next</code>指向下一个不重复的元素。</p>
+<h3 id="解答-6"><a href="#解答-6" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*function ListNode(x)&#123;</span><br><span class="line">    this.val &#x3D; x;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;*&#x2F;</span><br><span class="line">function deleteDuplication(pHead)</span><br><span class="line">&#123;</span><br><span class="line">    let node &#x3D; pHead;</span><br><span class="line">    let p &#x3D; null;</span><br><span class="line">    let head &#x3D; new ListNode(0);</span><br><span class="line">    head.next &#x3D; pHead;</span><br><span class="line">    let prev &#x3D; head;</span><br><span class="line">    while(node &amp;&amp; node.next)&#123;</span><br><span class="line">        if(node.val &#x3D;&#x3D;&#x3D; node.next.val)&#123;</span><br><span class="line">            while(node.next &amp;&amp; node.next.val &#x3D;&#x3D;&#x3D; node.val)&#123;</span><br><span class="line">                node &#x3D; node.next;</span><br><span class="line">            &#125;</span><br><span class="line">            prev.next &#x3D; node.next;</span><br><span class="line">            node &#x3D; node.next;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            prev&#x3D; prev.next;</span><br><span class="line">            node &#x3D; node.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return head.next;</span><br><span class="line">    &#x2F;&#x2F; write code here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="链表中环的入口结点"><a href="#链表中环的入口结点" class="headerlink" title="链表中环的入口结点"></a>链表中环的入口结点</h2><p>给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。</p>
+<h3 id="分析-7"><a href="#分析-7" class="headerlink" title="分析"></a>分析</h3><p>使用数组保存每个节点，若某节点已经在数组中存在，则该节点为环的入口节点</p>
+<h3 id="解答-7"><a href="#解答-7" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*function ListNode(x)&#123;</span><br><span class="line">    this.val &#x3D; x;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;*&#x2F;</span><br><span class="line">function EntryNodeOfLoop(pHead)</span><br><span class="line">&#123;</span><br><span class="line">    let arr &#x3D; [];</span><br><span class="line">    if(!pHead)&#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    let node &#x3D; pHead;</span><br><span class="line">    while(node)&#123;</span><br><span class="line">        if(arr.includes(node))</span><br><span class="line">            return node;</span><br><span class="line">        arr.push(node);</span><br><span class="line">        node &#x3D; node.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -784,7 +877,7 @@ var _hmt = _hmt || [];
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
 
     </footer>
@@ -801,7 +894,7 @@ var _hmt = _hmt || [];
 
 </article>
     
-    <article id="post-webpack-配置参数解析（下）" class="article article-type-post" itemscope
+    <article id="post-前端面经总结（三）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -809,8 +902,8 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/post/2741042691.html"
-    >webpack-配置参数解析（下）</a
+  <a class="article-title" href="/post/23bc433d.html"
+    >前端面经总结（三）</a
   >
 </h2>
   
@@ -820,12 +913,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/post/2741042691.html" class="article-date">
-  <time datetime="2021-05-24T09:04:34.000Z" itemprop="datePublished">2021-05-24</time>
+      <a href="/post/23bc433d.html" class="article-date">
+  <time datetime="2021-06-15T10:18:26.000Z" itemprop="datePublished">2021-06-15</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
   </div>
 
       
@@ -844,14 +937,493 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h2><blockquote>
-<p>选项<code>resolve</code>可设置模块如何被解析</p>
+      <p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h3><blockquote>
+<p>用来装页面上的元素的矩形区域。包括<strong>IE盒子模型</strong>和<strong>标准W3C盒子模型</strong></p>
 </blockquote>
-<h3 id="resolve-alias"><a href="#resolve-alias" class="headerlink" title="resolve.alias"></a>resolve.alias</h3><blockquote>
-<p>创建<code>import</code>或<code>require</code>中间<code>request</code>的别名</p>
+<p>盒模型包含4层，<code>content</code>/<code>padding</code>/<code>border</code>/<code>margin</code></p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul>
+<li><p>IE盒子模型</p>
+<ul>
+<li><p>width = <code>content_width</code> + <code>padding-left</code> + <code>padding-right</code> +  <code>border-left</code> + <code>border-right</code>;</p>
+</li>
+<li><p>height = <code>content_height</code> + <code>padding-top</code> + <code>padding-bottom</code> + <code>border-top</code> + <code>border-bottom</code>;</p>
+</li>
+</ul>
+</li>
+<li><p>标准W3C盒子模型</p>
+<ul>
+<li><p>width = <code>content-width</code>;</p>
+</li>
+<li><p>height = <code>content-height</code>;</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><p>CSS3中引入<code>box-sizing</code>属性，有两种取值：<code>border-box</code>/<code>content-box</code></p>
+<ul>
+<li><p>border-box: 即IE盒子模型</p>
+</li>
+<li><p>content-box: 即标准W3C盒子模型</p>
+</li>
+</ul>
+<h3 id="link-import标签的区别"><a href="#link-import标签的区别" class="headerlink" title="link/import标签的区别"></a>link/import标签的区别</h3><blockquote>
+<p>link和import标签都在加载CSS时使用</p>
 </blockquote>
+<ol>
+<li><p>link标签属于HTML，@import标签为CSS提供</p>
+</li>
+<li><p>link标签在页面加载时同时被加载，@import引用的CSS在页面加载结束后才被加载</p>
+</li>
+<li><p>link没有兼容性，import在IE5以上才被识别</p>
+</li>
+<li><p>link标签权重大于import</p>
+</li>
+</ol>
+<h3 id="transition-animation区别"><a href="#transition-animation区别" class="headerlink" title="transition/animation区别"></a>transition/animation区别</h3><blockquote>
+<p>transition和animation均随时间改变元素的属性值。</p>
+</blockquote>
+<ol>
+<li><p>transtition需要触发一个事件改变属性，animation不需要</p>
+</li>
+<li><p>transition为2帧，from/to，animation可以一帧一帧改变</p>
+</li>
+</ol>
+<h3 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h3><blockquote>
+<p>flex为弹性布局，用来为盒子模型提供最大的灵活性</p>
+</blockquote>
+<p>任何容器都可以指定为flex布局，但指定为flex布局以后，子元素的<code>float</code>/<code>clear</code>/<code>vertical-align</code>属性失效</p>
+<p>采用flex布局的元素为flex容器，其所有自动成为容器成员，即flex项目。容器默认存在两根轴<code>main axis</code>和<code>cross axis</code>。项目默认沿主轴排列。</p>
+<h4 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h4><ol>
+<li><p>flex-direction：决定主轴方向，即项目排列方向</p>
+<ul>
+<li><p>row(默认)：主轴水平，起点在左边，项目从左至右排列</p>
+</li>
+<li><p>row-reverse：主轴水平，起点在右边，项目从右至左排列</p>
+</li>
+<li><p>column：主轴垂直，起点在上沿，项目从上而下排列</p>
+</li>
+<li><p>column-reverse：主轴垂直，起点在下沿，项目从下而上排列</p>
+</li>
+</ul>
+</li>
+<li><p>flex-wrap：默认时项目排在一条线上，使用flex-wrap属性定义一条轴线排不下时如何换行</p>
+<ul>
+<li><p>nowrap(默认)：不换行</p>
+</li>
+<li><p>wrap：换行，第一行在上，第二行在下…</p>
+</li>
+<li><p>wrap-reverse：换行，第一行在下，第二行在第一行上面，…</p>
+</li>
+</ul>
+</li>
+<li><p>flex-flow：为<code>flex-direction</code>和<code>flex-wrap</code>的简写方式，如<code>flex-flow: row wrap;</code></p>
+</li>
+<li><p>justify-content：定义项目在主轴（水平）上的对齐方式</p>
+<ul>
+<li><p>flex-start(默认)：左对齐</p>
+</li>
+<li><p>flex-end：右对齐</p>
+</li>
+<li><p>center：居中</p>
+</li>
+<li><p>space-between：两端对齐，项目之间的间隔都相等</p>
+</li>
+<li><p>space-around：每个项目两侧的间隔相等</p>
+</li>
+</ul>
+</li>
+<li><p>align-items：定义项目在交叉轴（垂直）上的对齐方式</p>
+<ul>
+<li><p>stretch(默认)：若项目未设置高度或设为auto，则占满整个容器高度</p>
+</li>
+<li><p>flex-start：项目在交叉轴起点对齐</p>
+</li>
+<li><p>flex-end：项目在交叉轴终点对齐</p>
+</li>
+<li><p>center：项目在交叉轴中点对齐</p>
+</li>
+<li><p>baseline：项目在项目的第一行文字基线对齐</p>
+</li>
+</ul>
+</li>
+<li><p>align-content：定义多根轴线的对齐方式，若项目只有一根轴线，该属性无用</p>
+<ul>
+<li><p>stretch(默认)：轴线占满整个交叉轴</p>
+</li>
+<li><p>flex-start：轴线与交叉轴起点对齐</p>
+</li>
+<li><p>flex-end：轴线与交叉轴终点对齐</p>
+</li>
+<li><p>center：轴线与交叉轴中点对齐</p>
+</li>
+<li><p>space-between：轴线与交叉轴两端对齐，轴线之间间隔相等</p>
+</li>
+<li><p>space-around：轴线两侧间隔相等</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h4><ol>
+<li><p>order：定义项目的排列顺序，数值越小，排列越靠前，默认为<code>0</code></p>
+</li>
+<li><p>flex-grow：定义项目的放大比例，默认为<code>0</code>，即若存在剩余空间也不放大。若所有项目的<code>flex-grow: 1;</code>，则所有项目等分剩余空间。</p>
+</li>
+<li><p>flex-shrink：定义项目的缩小比例，默认为<code>1</code>，即若空间不足，则该项目将缩小。若所有项目的<code>flex-shrink: 1;</code>，则空间不足时，所有项目等比例缩小。若一个项目的<code>flex-shrink: 0;</code>，其他的为<code>1</code>，则为<code>0</code>的项目不缩小。负值无效。</p>
+</li>
+<li><p>flex-basis：定义在分配多余空间前，项目占据的主轴空间。浏览器通过此属性计算主轴是否有多余空间。默认为<code>auto</code>，即项目本来大小。<code>flex-basis</code>可以设为跟<code>width</code>和<code>height</code>一样的值，则项目占据固定空间。</p>
+</li>
+<li><p>flex：为<code>flex-grow</code>/<code>flex-shrink</code>/<code>flex-basis</code>的简写，默认为<code>flex: 0 1 auto</code>。其中<code>flex-shrink</code>/<code>flex-basis</code>可选</p>
+<ul>
+<li><p>auto：即<code>flex: 1 1 auto;</code></p>
+</li>
+<li><p>none：即<code>flex: 0 0 auto;</code></p>
+</li>
+</ul>
+</li>
+<li><p>align-self: 允许单个项目与其他项目有不同的对齐方式，覆盖该项目的<code>align-items</code>属性，默认为<code>auto</code>，即继承父元素的<code>align-item</code>属性，若没有父元素，则等同于<code>stretch</code>。</p>
+</li>
+</ol>
+<p>可选值为：<code>align-self: auto | flex-start | flex-end | center | baseline | stretch;</code></p>
+<h3 id="grid布局"><a href="#grid布局" class="headerlink" title="grid布局"></a>grid布局</h3><blockquote>
+<p>grid布局将网页划分成一个个网格，可以任意组合不同网格作出不同的布局。</p>
+</blockquote>
+<p>采用网格布局的区域为容器，容器内部采用网格定位的子元素为项目，项目只代表容器的顶层子元素，不包括项目的子元素。容器里水平区域为行row，垂直区域为列column</p>
+<h4 id="grid布局与flex区别"><a href="#grid布局与flex区别" class="headerlink" title="grid布局与flex区别"></a>grid布局与flex区别</h4><p>flex布局为轴线布局，指定项目针对轴线的位置，即一维布局。</p>
+<p>grid布局将容器分为行和列，产生单元格，指定项目所在的单元格，即二维布局。</p>
+<h4 id="容器属性-1"><a href="#容器属性-1" class="headerlink" title="容器属性"></a>容器属性</h4><ol>
+<li><p>display：指定网页的布局</p>
+<ul>
+<li><p>grid：采用网格布局，默认容器元素都是块级元素</p>
+</li>
+<li><p>inline-grid：指定元素为行内元素，元素内部采用网格布局</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>设置为网格布局后，<code>float</code>/<code>display: inline-block;</code>/<code>display: table-cell;</code>/<code>vertical-align</code>/<code>column-*</code>等设置失效</p>
+<ol start="2">
+<li><p>grid-template-columns/grid-template-rows：定义每一列列宽/每一行行高。几行几列就设置几个数值，如<code>grid-template-columns: 100px 100px 100px;</code>。</p>
+<ul>
+<li><p>repeat()：如<code>grid-template-rows: repeat(3, 33.33%);</code>第一个参数为重复次数，即行数，第二个参数为重复的值，即行高。也可写为重复某模式<code>grid-template-columns: repeat(2, 100px 20px 80px);</code></p>
+</li>
+<li><p>auto-fill：使用<code>auto-fill</code>自动填充尽可能多的单元格，如<code>grid-template-columns: repeat(auto-fill, 100px);</code></p>
+</li>
+<li><p>fr：即片段，若宽度为1fr和2fr，则2fr是1fr的两倍。<code>grid-template-columns: 1fr 1fr;</code></p>
+</li>
+<li><p>auto：由浏览器自己决定长度。<code>grid-template-columns: 100px auto 100px;</code>，即第二列宽度等于该列单元格的最大宽度</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+</li>
+<li><p>row-gap/column-gap/gap：行间距/列间距/行列间距的简写，如<code>grid-gap: 20px 20px;</code></p>
+</li>
+<li><p>grid-template-areas：定义区域，如</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grid-template-areas: &quot;header header header&quot;</span><br><span class="line">                    &quot;main main sidebar&quot;</span><br><span class="line">                    &quot;footer footer footer&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>若某些区域不需要使用，则使用<code>.</code>表示，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grid-template-areas: &#39;a . c&#39;</span><br><span class="line">                     &#39;d . f&#39;</span><br><span class="line">                     &#39;g . i&#39;;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>grid-auto-flow：设置子元素的放置顺序</p>
+<ul>
+<li><p>row(默认)：先行后列</p>
+</li>
+<li><p>column：先列后行</p>
+</li>
+<li><p>row dense：当某些项目指定位置后，其他项目先行后列，尽可能不出现空格</p>
+</li>
+<li><p>column dense：当某些项目指定位置后，其他项目先列后行，尽可能不出现空格</p>
+</li>
+</ul>
+</li>
+<li><p>justify-item/align-items/place-items：设置单元格内容的水平位置/垂直位置/水平垂直位置简写，如<code>place-items: start end;</code></p>
+<ul>
+<li><p>start：对齐单元格的起始边缘</p>
+</li>
+<li><p>end：对齐单元格的结束边缘</p>
+</li>
+<li><p>center：单元格内部居中</p>
+</li>
+<li><p>stretch：拉伸，占满单元格的整个宽度</p>
+</li>
+</ul>
+</li>
+<li><p>justify-content/align-content/place-content：设置单元格内容在容器里的水平位置/垂直位置/水平垂直位置的简写</p>
+<ul>
+<li><p>start：对齐容器的起始边缘</p>
+</li>
+<li><p>end：对齐容器的结束边缘</p>
+</li>
+<li><p>center：容器内部居中</p>
+</li>
+<li><p>stretch：项目大小没有指定时，拉伸占据整个网格容器</p>
+</li>
+<li><p>space-around：每个项目两侧间隔相等</p>
+</li>
+<li><p>space-between：项目间间隔相等，项目与容器边框间没有间隔</p>
+</li>
+<li><p>space-evenly：项目间间隔、项目与容器边框之间间隔都相等</p>
+</li>
+</ul>
+</li>
+<li><p>grid-template/grid</p>
+<ul>
+<li><p>grid-template = grid-template-columns + grid-template-rows + grid-template-areas</p>
+</li>
+<li><p>grid = grid-template-rows + grid-template-columns + grid-template-areas + grid-auto-rows + grid-auto-columns + grid-auto-flow</p>
+</li>
+</ul>
+</li>
+<li><p>…</p>
+</li>
+</ol>
+<h4 id="项目属性-1"><a href="#项目属性-1" class="headerlink" title="项目属性"></a>项目属性</h4><ol>
+<li><p>justify-self/align-self/place-self：设置<strong>单个</strong>单元格内容的水平位置/垂直位置/水平垂直位置简写。其用法与<code>justify-items</code>/<code>align-items</code>/<code>place-items</code>一致。</p>
+</li>
+<li><p>…</p>
+</li>
+</ol>
+<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><blockquote>
+<p>用来指定一个元素在网页上的位置</p>
+</blockquote>
+<ul>
+<li><p>static(默认)：浏览器按照源码的顺序决定每个元素的位置（<strong>正常页面流</strong>）。每个块级元素占据自己的区块，元素之间不产生重叠。此时<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>属性无效</p>
+</li>
+<li><p>relative：相对于默认位置进行偏移，即<strong>定位基点为元素的默认位置</strong>，必须搭配<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>属性指定偏移的方向与距离</p>
+</li>
+<li><p>absolute：相对于上级元素进行偏移，即<strong>定位基点为父元素</strong>，且<strong>定位基点不能是static定位</strong>，否则基点会变成网页的根元素html。必须搭配<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>使用。<code>absolute</code>定位的元素会被<strong>正常页面流</strong>忽略，即在<strong>正常页面流</strong>中，元素所占空间为<code>0</code>，周边元素不受影响。</p>
+</li>
+<li><p>fixed：相对于视口（浏览器窗口）进行偏移，即<strong>定位基点为浏览器窗口</strong>，此时元素的位置不随页面滚动而变化，搭配<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>使用时，表示元素初始位置<strong>基于视口</strong>计算，否则<strong>初始位置为元素的默认位置</strong>。</p>
+</li>
+<li><p>sticky：此属性产生动态效果，类似于<code>relative</code>和<code>fixed</code>的结合。必须搭配<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>使用。当页面滚动，父元素开始脱离视口（部分不可见）时，只要与<code>sticky</code>元素达到生效门槛（即设置的<code>top</code>/…等值），则<code>relative</code>定位自动切换为<code>fixed</code>定位。等父元素完全脱离视口（完全不可见）时，<code>fixed</code>定位自动切换回<code>relative</code>定位</p>
+</li>
+</ul>
+<h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><blockquote>
+<p>FC（Formatting Context）是W3C CSS2.1规范中的概念，是页面中一块渲染区域，并有一套渲染规则，它决定了其子元素如何定位以及和其他元素的关系和相互作用。BFC即块级格式化上下文，属于FC的普通流，即元素按照其在HTML中的先后位置自上而下布局。行内元素水平排列，占满后换行，块级元素被渲染为完整的新行。</p>
+</blockquote>
+<p>具有BFC特性的元素可看作隔离的独立容器，容器内元素的任何布局都不会影响外面的元素。</p>
+<h4 id="触发BFC"><a href="#触发BFC" class="headerlink" title="触发BFC"></a>触发BFC</h4><p>元素只要满足以下任意一个条件即可触发BFC</p>
+<ol>
+<li><p>body根元素</p>
+</li>
+<li><p>浮动元素：<code>float</code>设置除<code>none</code>以外的值</p>
+</li>
+<li><p>绝对定位元素：<code>position</code>设置<code>absolute</code>/<code>fixed</code></p>
+</li>
+<li><p>属性<code>display</code>设置<code>inline-block</code>/<code>table-cell</code>/<code>flex</code></p>
+</li>
+<li><p>属性<code>overflow</code>设置除<code>visible</code>以外的值，如<code>hidden</code>/<code>auto</code>/<code>scroll</code></p>
+</li>
+</ol>
+<h4 id="BFC特性"><a href="#BFC特性" class="headerlink" title="BFC特性"></a>BFC特性</h4><ol>
+<li><p>同一个BFC下外边距<code>margin</code>会折叠，即设置<code>margin</code>为<code>100px</code>，但两个盒子之间的间距为<code>100px</code>，而非<code>200px</code>。故若需要避免外边距<code>margin</code>折叠，可以将元素放入不同的BFC容器中。</p>
+<ul>
+<li><p>外边距折叠：多个相邻普通流的快元素垂直方向<code>margin</code>会折叠。</p>
+<ul>
+<li><p>两外边距为正数：折叠结果取较大的值</p>
+</li>
+<li><p>两外边距为负数：折叠结果取绝对值较大的值</p>
+</li>
+<li><p>两外边距一正一负：折叠结果取两者之和</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>BFC可以清除浮动。</p>
+</li>
+</ol>
+<p>浮动的元素会脱离普通文档流，为元素设置触发BFC的条件，使容器包裹浮动元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置前</span><br><span class="line">&lt;div style&#x3D;&quot;border: 1px solid #000;&quot;&gt;</span><br><span class="line">    &lt;div style&#x3D;&quot;width: 100px;height: 100px;background: #eee;float: left;&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;设置后</span><br><span class="line">&lt;div style&#x3D;&quot;border: 1px solid #000;overflow: hidden&quot;&gt;</span><br><span class="line">    &lt;div style&#x3D;&quot;width: 100px;height: 100px;background: #eee;float: left;&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>为元素添加<code>overflow: hidden</code>触发其BFC特性，清除浮动。</p>
+<ul>
+<li><p>清除浮动其他的方法</p>
+<ul>
+<li><p>在浮动元素添加一个块级元素并设置属性<code>clear: both;</code>即可清除浮动。</p>
+</li>
+<li><p>给浮动元素父级元素添加伪类<code>after</code>或双伪类<code>before</code>/<code>after</code>清除浮动</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>BFC阻止元素被浮动元素覆盖</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置前</span><br><span class="line">&lt;div style&#x3D;&quot;height: 100px;width: 100px;float: left;background: lightblue&quot;&gt;左浮动元素&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div style&#x3D;&quot;height: 200px;background: #eee&quot;&gt;没有浮动, 没有触发 BFC 元素&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;设置后</span><br><span class="line">&lt;div style&#x3D;&quot;height: 100px;width: 100px;float: left;background: lightblue&quot;&gt;左浮动元素&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div style&#x3D;&quot;height: 200px;background: #eee;overflow: hidden&quot;&gt;没有浮动, 触发了 BFC 元素&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>设置后第二个元素出发了BFC特性，其内容不会被浮动元素覆盖，使用此方法可以实现两列自适应布局。左边宽度固定，右边内容自适应宽度。</p>
+<h3 id="居中"><a href="#居中" class="headerlink" title="居中"></a>居中</h3><h4 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h4><ol>
+<li>利用flex</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用<code>display: table-cell</code>和<code>vertical-align</code>对容器内文字垂直居中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  display: table-cell;</span><br><span class="line">  vertical-align: middle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用<code>position: absolute</code>和<code>margin: auto</code>实现垂直居中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  position: absolute;&#x2F;&#x2F;此时父元素position为relative</span><br><span class="line">  margin: auto;</span><br><span class="line">  top: 0;</span><br><span class="line">  bottom: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此方法将元素相对父元素处于绝对定位，设置<code>top</code>和<code>bottom</code>为相等的值，再设置<code>margin: auto</code>即可实现垂直居中</p>
+<ol start="4">
+<li>使用<code>position: absolute</code>和负外边距<code>margin</code>实现垂直居中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  height: 100px;</span><br><span class="line">  width: 100px;</span><br><span class="line">  position: absolute;&#x2F;&#x2F;此时父元素position为relative</span><br><span class="line">  top: 50%;</span><br><span class="line">  margin-top: -50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此方法必须要知道被居中块级元素的尺寸</p>
+<h4 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h4><ol>
+<li><p>已知宽度，且为block元素，添加<code>margin: 0 auto;</code></p>
+</li>
+<li><p>已知宽度，<code>position: absolute</code>，设置<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>为<code>0</code>，且<code>margin：auto</code></p>
+</li>
+</ol>
+<h4 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h4><h3 id="块级元素和行内元素"><a href="#块级元素和行内元素" class="headerlink" title="块级元素和行内元素"></a>块级元素和行内元素</h3><ol>
+<li><p>块级元素独占一行，行内元素不会独占一行</p>
+</li>
+<li><p>块级元素自动填满父元素，且可以设置<code>margin</code>/<code>padding</code>/<code>width</code>/<code>height</code>，行内元素的<code>width</code>和<code>height</code>失效，且垂直方向的<code>margin</code>和<code>padding</code>失效。</p>
+</li>
+</ol>
+<h3 id="设置元素消失"><a href="#设置元素消失" class="headerlink" title="设置元素消失"></a>设置元素消失</h3><ol>
+<li><p>display: none; 隐藏对应元素，在文档布局中不再分配空间，各边元素合拢</p>
+</li>
+<li><p>visibility: hidden; 隐藏对应元素，在文档布局中仍保留原空间，只是不可见</p>
+</li>
+<li><p>z-index = -1;</p>
+</li>
+<li><p>opacity: 0; 元素被隐藏，不会改变页面布局，若元素绑定了事件，则事件仍然可以触发</p>
+</li>
+</ol>
+<h3 id="CSS3新特性"><a href="#CSS3新特性" class="headerlink" title="CSS3新特性"></a>CSS3新特性</h3><ol>
+<li><p>transition：当元素变换样式时添加效果</p>
+<ul>
+<li><p>transition-duration：规定完成过渡效果需要的时间</p>
+</li>
+<li><p>transition-delay：规定过渡何时开始</p>
+</li>
+<li><p>transition-property：规定应用过渡的CSS属性的名称</p>
+</li>
+</ul>
+</li>
+<li><p>transform：用来向元素应用各种2D和3D转换，如缩放、旋转、移动等</p>
+</li>
+<li><p>animation：制作动画</p>
+</li>
+<li><p>增加边框属性：</p>
+<ul>
+<li><p>border-radius：创建圆角边框</p>
+</li>
+<li><p>box-shadow：为元素添加阴影</p>
+</li>
+<li><p>border-image：使用图片绘制边框</p>
+</li>
+</ul>
+</li>
+<li><p>word-wrap：强制文本换行</p>
+</li>
+<li><p>text-shadow：向文本应用阴影</p>
+</li>
+<li><p>box-sizing：设置盒模型，有<code>content-box</code>/<code>border-box</code>/<code>inherit</code></p>
+</li>
+</ol>
+<h3 id="CSS选择器及优先级"><a href="#CSS选择器及优先级" class="headerlink" title="CSS选择器及优先级"></a>CSS选择器及优先级</h3><p>优先级：</p>
+<p>!important &gt; 行内样式 &gt; ID选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 默认属性</p>
+<h3 id="calc函数"><a href="#calc函数" class="headerlink" title="calc函数"></a>calc函数</h3><h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><h3 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h3><h3 id="设置元素的背景颜色会填充哪些区域"><a href="#设置元素的背景颜色会填充哪些区域" class="headerlink" title="设置元素的背景颜色会填充哪些区域"></a>设置元素的背景颜色会填充哪些区域</h3><h3 id="重绘重排，如何减少，如何让文档脱离文档流"><a href="#重绘重排，如何减少，如何让文档脱离文档流" class="headerlink" title="重绘重排，如何减少，如何让文档脱离文档流"></a>重绘重排，如何减少，如何让文档脱离文档流</h3><h3 id="overflow原理"><a href="#overflow原理" class="headerlink" title="overflow原理"></a>overflow原理</h3><h3 id="CSS布局"><a href="#CSS布局" class="headerlink" title="CSS布局"></a>CSS布局</h3><h3 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h3><h3 id="img中alt和title区别"><a href="#img中alt和title区别" class="headerlink" title="img中alt和title区别"></a>img中alt和title区别</h3><ul>
+<li><p>alt：当图片不能正常显示时出现的文本提示</p>
+</li>
+<li><p>title：鼠标移动到元素上的文本提示</p>
+</li>
+</ul>
+
       
-      <a class="article-more-link" href="/post/2741042691.html">阅读更多...</a>
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-剑指offer（二）-字符串" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/1b6cf8a2.html"
+    >剑指offer（二）-字符串</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/1b6cf8a2.html" class="article-date">
+  <time datetime="2021-06-15T03:14:30.000Z" itemprop="datePublished">2021-06-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。"><a href="#请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。" class="headerlink" title="请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。"></a>请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。</h2><p>数值（按顺序）可以分成以下几个部分：</p>
+<ul>
+<li><p>若干空格</p>
+</li>
+<li><p>一个<strong>小数</strong>或者<strong>整数</strong></p>
+</li>
+<li><p>（可选）一个<code>e</code>或<code>E</code>，后面跟着一个<strong>整数</strong></p>
+</li>
+<li><p>若干空格</p>
+      
+      <a class="article-more-link" href="/post/1b6cf8a2.html">阅读更多...</a>
       
       
       <!-- reward -->
@@ -864,7 +1436,1000 @@ var _hmt = _hmt || [];
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-剑指offer（一）-数组" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/1858604b.html"
+    >剑指offer（一）-数组</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/1858604b.html" class="article-date">
+  <time datetime="2021-06-10T09:43:25.000Z" itemprop="datePublished">2021-06-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="数组中只出现一次的两个数字"><a href="#数组中只出现一次的两个数字" class="headerlink" title="数组中只出现一次的两个数字"></a>数组中只出现一次的两个数字</h2><p>一个整型数组里除了两个数字只出现一次，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字。</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[1,4,1,6]</span><br><span class="line"></span><br><span class="line">返回值：</span><br><span class="line">[4,6]</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">返回的结果中较小的数排在前面</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>方法一通过哈希表，若出现一次则+1，最后遍历查询值等于一的数字，输出排序后的数组即可。</p>
+<p>方法二可以通过查找数组中每个数字第一次出现的位置和最后一次出现的位置是否匹配来确定是否只出现一次，最后再去重排序即可。</p>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span><br><span class="line"> *</span><br><span class="line"> * </span><br><span class="line"> * @param array int整型一维数组 </span><br><span class="line"> * @return int整型一维数组</span><br><span class="line"> *&#x2F;</span><br><span class="line">function FindNumsAppearOnce( array ) &#123;</span><br><span class="line">    let map &#x3D; &#123;&#125;;</span><br><span class="line">    let result &#x3D; [];</span><br><span class="line">    for(let i &#x3D; 0; i&lt; array.length;i++)&#123;</span><br><span class="line">        &#x2F;&#x2F;方法一</span><br><span class="line">        if(map[array[i]])</span><br><span class="line">            map[array[i]]++</span><br><span class="line">        else</span><br><span class="line">            map[array[i]] &#x3D; 1;</span><br><span class="line">        &#x2F;&#x2F;方法二</span><br><span class="line">        if(array.indexOf(array[i]) &#x3D;&#x3D;&#x3D; array.lastIndexOf(array[i]))</span><br><span class="line">            result.push(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;方法一</span><br><span class="line">    for(let num in map)&#123;</span><br><span class="line">        if(map[num] &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">        result.push(num);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;方法二</span><br><span class="line">    result &#x3D; [...new Set(result)];&#x2F;&#x2F;去重</span><br><span class="line">    return result.sort((a,b) &#x3D;&gt; a-b);;</span><br><span class="line">&#125;</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    FindNumsAppearOnce : FindNumsAppearOnce</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组中重复的数字"><a href="#数组中重复的数字" class="headerlink" title="数组中重复的数字"></a>数组中重复的数字</h2><p>找出数组中重复的数字。</p>
+<p>在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[2, 3, 1, 0, 2, 5, 3]</span><br><span class="line">输出：2 或 3</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>将数组排序，遍历排序后的数组，若出现连续相同的数字，则为重复的数字</p>
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var findRepeatNumber &#x3D; function(nums) &#123;</span><br><span class="line">    nums.sort((a,b)&#x3D;&gt;a-b);</span><br><span class="line">    for(let i &#x3D; 1;i&lt;nums.length;i++)&#123;</span><br><span class="line">        if(nums[i] &#x3D;&#x3D;&#x3D; nums[i-1])&#123;</span><br><span class="line">            return nums[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二维数组中的查找"><a href="#二维数组中的查找" class="headerlink" title="二维数组中的查找"></a>二维数组中的查找</h2><p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">现有矩阵 matrix 如下：</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">  [1,   4,  7, 11, 15],</span><br><span class="line">  [2,   5,  8, 12, 19],</span><br><span class="line">  [3,   6,  9, 16, 22],</span><br><span class="line">  [10, 13, 14, 17, 24],</span><br><span class="line">  [18, 21, 23, 26, 30]</span><br><span class="line">]</span><br><span class="line">给定 target &#x3D; 5，返回 true。</span><br><span class="line">给定 target &#x3D; 20，返回 false。</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>方法一，使用方法<code>flat()</code>将二维数组展开，再使用<code>include()</code>方法查询是否存在整数</p>
+<p>方法二，从左下角或右上角开始寻找, 如果元素相等则退出, 若不等，则根据大小按不同方向查找，即若从左下角开始，target大于当前位置，则向右，否则向上查。</p>
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[][]&#125; matrix</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;boolean&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var findNumberIn2DArray &#x3D; function(matrix, target) &#123;</span><br><span class="line">    &#x2F;&#x2F;方法1</span><br><span class="line">    return matrix.flat(2).includes(target);</span><br><span class="line">    &#x2F;&#x2F;方法2</span><br><span class="line">    if(!matrix || matrix.length &#x3D;&#x3D; 0 || matrix[0].length &#x3D;&#x3D; 0)</span><br><span class="line">        return false;</span><br><span class="line">    let i &#x3D; matrix.length - 1,j&#x3D;0;</span><br><span class="line">    while(i&gt;&#x3D;0 &amp;&amp; j&lt;matrix[0].length)&#123;</span><br><span class="line">        if(matrix[i][j] &#x3D;&#x3D;&#x3D; target)</span><br><span class="line">            return true;</span><br><span class="line">        else if(matrix[i][j] &gt; target)&#123;</span><br><span class="line">            i--;</span><br><span class="line">        &#125;else if(matrix[i][j] &lt; target)&#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在排序数组中查找数字-I"><a href="#在排序数组中查找数字-I" class="headerlink" title="在排序数组中查找数字 I"></a>在排序数组中查找数字 I</h2><p>统计一个数字在排序数组中出现的次数。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: nums &#x3D; [5,7,7,8,8,10], target &#x3D; 8</span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">输入: nums &#x3D; [5,7,7,8,8,10], target &#x3D; 6</span><br><span class="line">输出: 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><p>查看该数字再数组中第一次<code>indexOf()</code>和最后一次出现的位置<code>lastIndexOf()</code>，若第一次出现的位置为-1，则不存在，否则<code>lastIndexOf() - indexOf() + 1</code>即为数字出现的次数</p>
+<h3 id="解答-3"><a href="#解答-3" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var search &#x3D; function(nums, target) &#123;</span><br><span class="line">    let index &#x3D; nums.indexOf(target);</span><br><span class="line">    let lastIndex &#x3D; nums.lastIndexOf(target);</span><br><span class="line">    if(index &#x3D;&#x3D; -1)</span><br><span class="line">        return 0;</span><br><span class="line">    else</span><br><span class="line">        return lastIndex - index + 1;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="构建乘积数组"><a href="#构建乘积数组" class="headerlink" title="构建乘积数组"></a>构建乘积数组</h2><p>给定一个数组 A[0,1,…,n-1]，请构建一个数组 B[0,1,…,n-1]，其中 B[i] 的值是数组 A 中除了下标 i 以外的元素的积, 即 <code>B[i]=A[0]×A[1]×…×A[i-1]×A[i+1]×…×A[n-1]</code>。不能使用除法。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5]</span><br><span class="line">输出: [120,60,40,30,24]</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>从两头遍历数组，先计算当前元素之前的乘积值，再计算当前元素之后的乘积值。两值相乘即为当前元素B[i]的值</p>
+<h3 id="解答-4"><a href="#解答-4" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; a</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var constructArr &#x3D; function(a) &#123;</span><br><span class="line">    let result &#x3D; [];</span><br><span class="line">    let right &#x3D; 1;&#x2F;&#x2F;当前元素后边的值</span><br><span class="line">    result[0] &#x3D; 1;&#x2F;&#x2F;A[0]的值</span><br><span class="line">    if(!a || !a.length)</span><br><span class="line">        return [];</span><br><span class="line">    for(let i &#x3D; 1;i&lt;a.length;i++)&#123;</span><br><span class="line">        result[i] &#x3D; result[i-1] * a[i-1];&#x2F;&#x2F;当前元素之前的乘积值</span><br><span class="line">    &#125;</span><br><span class="line">    for(let j &#x3D; a.length - 2;j&gt;&#x3D;0;j--)&#123;</span><br><span class="line">        right *&#x3D; a[j+1];</span><br><span class="line">        result[j] *&#x3D; right;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="把数组排成最小的数"><a href="#把数组排成最小的数" class="headerlink" title="把数组排成最小的数"></a>把数组排成最小的数</h2><p>输入一个非负整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [10,2]</span><br><span class="line">输出: &quot;102&quot;</span><br><span class="line"></span><br><span class="line">输入: [3,30,34,5,9]</span><br><span class="line">输出: &quot;3033459&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h3><p>构造一个新的sort方法，若数组中数字位数相同，则按从小到大排列，若数组中位数不同，则查看两个数字合起来a+b/b+a哪个最小则按哪个排。</p>
+<p>最后使用<code>join()</code>方法输出排序好的数组组成的字符串即可</p>
+<h3 id="解答-5"><a href="#解答-5" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;string&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var minNumber &#x3D; function(nums) &#123;</span><br><span class="line">   nums.sort((a,b)&#x3D;&gt;&#123;</span><br><span class="line">       if(a.toString().length &#x3D;&#x3D;&#x3D; b.toString().length)</span><br><span class="line">            return a-b;</span><br><span class="line">        else&#123;</span><br><span class="line">            return parseInt(a.toString() + b.toString()) - parseInt(b.toString() + a.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">   &#125;);</span><br><span class="line">   return nums.join(&quot;&quot;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a>数组中出现次数超过一半的数字</h2><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</p>
+<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。 </p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h3><p>先将数组排序，再遍历数组查询每个数字第一次<code>indexOf()</code>和最后一次出现的位置<code>lastIndexOf()</code>，查看两者之差<code>lastIndexOf() - indexOf() + 1</code>，即出现的次数。</p>
+<p>若出现的次数&lt;数组长度的一半，则跳过，</p>
+<p>若出现的次数&gt;数组长度的一半，则与当前出现次数的最大值对比，存储更大的值。</p>
+<p>最后输出出现次数最多的数字。</p>
+<h3 id="解答-6"><a href="#解答-6" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var majorityElement &#x3D; function(nums) &#123;</span><br><span class="line">    nums.sort((a,b)&#x3D;&gt;&#123;return a-b;&#125;);</span><br><span class="line">    let len &#x3D; nums.length &#x2F;2;</span><br><span class="line">    let max &#x3D; 0;</span><br><span class="line">    let index &#x3D; 0;</span><br><span class="line">    if(nums.length &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">        return nums[0];</span><br><span class="line">    for(let i &#x3D; 0;i&lt;nums.length;i++)&#123;</span><br><span class="line">        let first &#x3D; nums.indexOf(nums[i]);</span><br><span class="line">        let last &#x3D; nums.lastIndexOf(nums[i]);</span><br><span class="line">        let dif &#x3D; last - first + 1;</span><br><span class="line">        if(dif &#x3D;&#x3D;&#x3D; 0 || dif &lt;&#x3D; len)&#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;else if(dif &gt; len)&#123;</span><br><span class="line">            if(dif &gt; max)&#123;</span><br><span class="line">                max &#x3D; dif;</span><br><span class="line">                index &#x3D; i;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            return nums[index];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="调整数组顺序使奇数位于偶数前面"><a href="#调整数组顺序使奇数位于偶数前面" class="headerlink" title="调整数组顺序使奇数位于偶数前面"></a>调整数组顺序使奇数位于偶数前面</h2><p>输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums &#x3D; [1,2,3,4]</span><br><span class="line">输出：[1,3,2,4] </span><br><span class="line">注：[3,1,2,4] 也是正确的答案之一。</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-7"><a href="#分析-7" class="headerlink" title="分析"></a>分析</h3><p>使用双指针从数组头尾开始搜索，若左边遇到偶数则与右边出现的奇数交换。</p>
+<h3 id="解答-7"><a href="#解答-7" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var exchange &#x3D; function(nums) &#123;</span><br><span class="line">    let i&#x3D;0,j&#x3D;nums.length-1;</span><br><span class="line">    while(i&lt;j)&#123;</span><br><span class="line">        while(nums[i]%2 &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">            i++;</span><br><span class="line">        while(nums[j]%2 &#x3D;&#x3D;&#x3D; 0)</span><br><span class="line">            j--;</span><br><span class="line">        if(i&lt;j)&#123;</span><br><span class="line">            </span><br><span class="line">            [nums[i],nums[j]] &#x3D; [nums[j],nums[i]];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return nums;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="和为S的两个数字"><a href="#和为S的两个数字" class="headerlink" title="和为S的两个数字"></a>和为S的两个数字</h2><p>输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。</p>
+<p>返回值描述：<br>对应每个测试案例，输出两个数，小的先输出。</p>
+<p>示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[1,2,4,7,11,15],15</span><br><span class="line"></span><br><span class="line">返回值：</span><br><span class="line">[4,11]</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h3><p>循环遍历数组，计算和与当前元素的差，构建对象存储所有的差值，若当前差值存在，则计算差值和当前值的乘积，并与当前最小乘积对比，存储更小的值。若当前差值不存在，则将当前差值织wei</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-近期知识点总结" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/a3c7594b.html"
+    >近期知识点总结</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/a3c7594b.html" class="article-date">
+  <time datetime="2021-06-10T09:18:45.000Z" itemprop="datePublished">2021-06-10</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>js基本类型</p>
+<p>基本类型：string null undefined number boolean symbol（es6引入）复杂类型：object array date regexp function 基本包装类型：boolean number string 单体内置对象：global math</p>
+<p>数组flat方法</p>
+<p>es6数组交换</p>
+<p>[a,b]=[b,a]</p>
+<p>数组sort()方法对于number元素是按字符sort，按number大小需要自己写方法</p>
+<p>arr.sort((a,b)=&gt;a-b)</p>
+<p>a-b====顺序</p>
+<p>b-a====逆序</p>
+<p>split方法属于str，其他不可用</p>
+<p>splice方法属于数组，添加或删除元素</p>
+<p>includes()数组，找是否存在某值，存在true 不存在false</p>
+<p>原生js父节点  element.parentNode</p>
+<p>Ajax技术核心就是XMLHttpRequest对象。<br>Ajax技术的工作原理：可以分成3步<br>1.创建Ajax对象：var xhr = new XMLHttpRequest();<br>2.xhr 发送请求：xhr.open(‘get’,’test.html’,’true’);<br>    xhr.send();<br>3.xhr获取响应：<br>    xhr.onreadystatechange = function(){<br>        if(xhr.readystate == 4){//请求的状态码<br>            /*<br>                        0:请求还没有建立（open执行前）<br>                        1：请求建立了还没发送（执行了open）<br>                        2：请求正式发送（执行了send）<br>                        3：请求已受理，有部分数据可以用，但还没有处理完成<br>                        4：请求完全处理完成<br>                */<br>                alert(xhr.responseText);//返回的数据<br>        }<br>    }<br>可以看到，send()前是open()</p>
+<p>javascript中实现跨域的方式总结<br>第一种方式：jsonp请求；jsonp的原理是利用<script>标签的跨域特性，可以不受限制地从其他域中加载资源，类似的标签还有<img>.<br>第二种方式：document.domain；这种方式用在主域名相同子域名不同的跨域访问中<br>第三种方式：window.name；window的name属性有个特征：在一个窗口(window)的生命周期内,窗口载入的所有的页面都是共享一个window.name的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的，并不会因新页面的载入而进行重置。<br>第四种方式：window.postMessage；window.postMessages是html5中实现跨域访问的一种新方式，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源。<br>第五种方式：CORS；CORS背后的基本思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是应该失败。<br>第六种方式：Web Sockets；web sockets原理：在JS创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为web sockt协议。</p>
+<p>js原型遵循5个规则： 1、所有的引用类型（数组、对象、函数），都具有对象特性，即可自由扩展属性（除了“null”以外）； 2、所有的引用类型（数组、对象、函数），都有一个<strong>proto</strong>（隐式原型）属性，属性值是一个普通的对象； 3、所有的函数，都有一个prototype（显式原型）属性，属性值也是一个普通对象； 4、所有的引用类型（数组、对象、函数），<strong>proto</strong>属性值指向（完全相等）它的构造函数的“prototype”属性值； 5、当试图得到一个对象的某个属性时，如果这个对象本身没有这个属性，那么会去<strong>proto</strong>（即它的构造函数的prototype中）寻找。</p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-前端面经总结（二）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/45e5d827.html"
+    >前端面经总结（二）</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/45e5d827.html" class="article-date">
+  <time datetime="2021-06-09T07:37:42.000Z" itemprop="datePublished">2021-06-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>接<a href="https://awesolynn.me/post/5eb40cb7.html">前端面经总结（一）</a></p>
+<h3 id="HTML语义化标签理解"><a href="#HTML语义化标签理解" class="headerlink" title="HTML语义化标签理解"></a>HTML语义化标签理解</h3><p>语义化即元素本身穿大了关于标签所包含内容类型的一些信息。如<code>&lt;header&gt;</code>、<code>&lt;nav&gt;</code>、<code>&lt;article&gt;</code>、<code>&lt;aside&gt;</code>、<code>&lt;footer&gt;</code>等，使用语义化标签<strong>有利于呈现更好的内容结构</strong>，<strong>有利于SEO</strong>，并<strong>提升用户体验</strong>，<strong>便于团队开发维护</strong>，以及<strong>方便其他设备解析渲染页面</strong>，如屏幕阅读器，移动设备等。</p>
+<h3 id="RESTful理解"><a href="#RESTful理解" class="headerlink" title="RESTful理解"></a>RESTful理解</h3><p>URL中使用名词定位资源，用HTTP动词（GET,POST,DELETE等）描述操作。</p>
+      
+      <a class="article-more-link" href="/post/45e5d827.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-前端面经总结（一）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/5eb40cb7.html"
+    >前端面经总结（一）</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/5eb40cb7.html" class="article-date">
+  <time datetime="2021-06-08T05:41:28.000Z" itemprop="datePublished">2021-06-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><h3 id="http和https"><a href="#http和https" class="headerlink" title="http和https"></a>http和https</h3><blockquote>
+<p>http： 超文本传输协议，一种网络协议，一个客户端和服务器端请求和应答的标准（TCP）。</p>
+</blockquote>
+<blockquote>
+<p>https：http的安全版，以安全为目标的HTTP通道。即在HTTP下加入SSL层。用于建立一个信息安全通道，来确保数据的传输以及网站的真实性</p>
+</blockquote>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ol>
+<li><p>http传输的数据是未加密的，是明文。https传输的数据通过SSL协议进行了加密处理，安全性更高。</p>
+</li>
+<li><p>https需要ca证书，http不需要。</p>
+</li>
+<li><p>http协议的端口是80，https协议的端口为443.</p>
+</li>
+<li><p>http的链接是无状态的，https的链接由SSL和HTTP协议构建。</p>
+</li>
+</ol>
+<h4 id="https协议工作原理"><a href="#https协议工作原理" class="headerlink" title="https协议工作原理"></a>https协议工作原理</h4><ol>
+<li><p>客户端使用https url访问服务器，要求web服务器建立ssl链接</p>
+</li>
+<li><p>web服务器收到请求，将网站包含公钥的证书返回给客户端</p>
+</li>
+<li><p>客户端和web服务器协商ssl链接的安全等级，即加密登记</p>
+</li>
+<li><p>协商一致后，建立会话密钥，通过网站公钥加密会话密钥传送给网站</p>
+</li>
+<li><p>web服务器使用自己的私钥解密会话密钥</p>
+</li>
+<li><p>web服务器通过会话密钥加密与客户端间的通信</p>
+</li>
+</ol>
+<h4 id="https协议优缺点"><a href="#https协议优缺点" class="headerlink" title="https协议优缺点"></a>https协议优缺点</h4><ol>
+<li><p>优点：加密传输，身份认证，确保数据正确安全的发送</p>
+</li>
+<li><p>缺点</p>
+<ul>
+<li><p>https握手阶段较费时，页面加载时间延长50%，增加10%～20%耗电</p>
+</li>
+<li><p>https缓存不如http高效，增加了数据开销</p>
+</li>
+<li><p>ssl证书有费用</p>
+</li>
+<li><p>ssl证书需要绑定ip，不能在同一个ip绑定多个域名</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="tcp三次握手"><a href="#tcp三次握手" class="headerlink" title="tcp三次握手"></a>tcp三次握手</h3><ol>
+<li><p>客户端发请求连接服务端</p>
+</li>
+<li><p>服务端确认连接，并发送请求链接客户端</p>
+</li>
+<li><p>客户端确认连接</p>
+</li>
+</ol>
+<p>同一个域名也需要三次握手</p>
+<h3 id="tcp和udp区别"><a href="#tcp和udp区别" class="headerlink" title="tcp和udp区别"></a>tcp和udp区别</h3><ol>
+<li><p>tcp面向连接，udp无连接，发送数据前不需要先建立连接</p>
+</li>
+<li><p>tcp提供可靠服务，无差错，不丢失，不重复，按序到达。udp尽最大努力交付，不可靠。</p>
+</li>
+<li><p>tcp面向字节流，udp面向报文会丢包。</p>
+</li>
+<li><p>tcp只能1对1，udp支持1对1，1对多</p>
+</li>
+<li><p>tcp首部20字节，udp8字节</p>
+</li>
+</ol>
+<h3 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h3><blockquote>
+<p>websocket是HTML5中的协议，基于HTTP协议，支持持久性连接。匀速服务端主动向客户端推送数据，且在Websocket API中浏览器和服务器只需要完成一次握手即可创建持久性的连接，开始双向数据传输</p>
+</blockquote>
+<p>建立一个<code>WebSocket</code>连接，客户端浏览器首先要向服务器发起一个<code>HTTP</code>请求，这个请求和通常的 HTTP 请求不同，包含了一些附加头信息，其中附加头信息<code>Upgrade: WebSocket</code>表明这是一个申请协议升级的<code>HTTP</code>请求，服务器端解析这些附加的头信息然后产生应答信息返回给客户端，客户端和服务器端的WebSocket连接就建立起来了，双方就可以通过这个连接通道自由的传递信息，并且这个连接会持续存在直到客户端或者服务器端的某一方主动的关闭连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Upgrade:webSocket</span><br><span class="line">Connection:Upgrade</span><br></pre></td></tr></table></figure>
+
+<h4 id="websocket和socket区别"><a href="#websocket和socket区别" class="headerlink" title="websocket和socket区别"></a>websocket和socket区别</h4><blockquote>
+<p>socket是应用层与TCP/IP协议族通信的中间软件抽象层，是一组接口。当两台主机通信时，socket来组织数据，以符合指定的协议。</p>
+</blockquote>
+<p>websocket是应用层协议，socket是传输控制层协议。</p>
+<h3 id="http中keep-alive模式"><a href="#http中keep-alive模式" class="headerlink" title="http中keep-alive模式"></a>http中keep-alive模式</h3><blockquote>
+<p>keep-alive模式即持久连接、连接重用。keep-alive模式使客户端到服务端的连接持续有效，当出现对服务器的后继请求时，keep-alive避免了建立或重新建立连接。且HTTP1.1中的keep-alive将多个请求合并为一个，即发送多个request接受多个response。但每个request只能对应一个response。。</p>
+</blockquote>
+<p>http1.0中keep-alive模式默认关闭，需要在http头加入<code>Connection:Keep-Alive</code>启用。http1.1中默认启用keep-alive，需要加入<code>Connection:close</code>才关闭。</p>
+<p>启用keep-alive模式避免了建立/释放连接的开销，故更高效，性能更高。</p>
+<h4 id="与tcp中keep-alive的区别"><a href="#与tcp中keep-alive的区别" class="headerlink" title="与tcp中keep-alive的区别"></a>与tcp中keep-alive的区别</h4><p>tcp中keep-alive是一种检测tcp连接状况的定时器，用于检测连接是否丢失，即连接建立后长时间不发送数据或隔很长时间才发送数据，当超过一定时间后（tcp_keepalive_time），tcp发送一个数据为空的报文，若回应了则对方在线，连接可以继续保持，若多次发送均未回应，则说明连接丢失，不需要保持连接。</p>
+<p>http中keep-alive模式是为了使连接的时间更长一些，以便在一个连接传送多个http，提高效率。</p>
+<h3 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h3><blockquote>
+<p>http2.0是基于1999年发布的http1.0的首次更新。</p>
+</blockquote>
+<p>新特性：</p>
+<ul>
+<li><p>提升访问速度：请求资源所需时间更少，访问速度更快</p>
+</li>
+<li><p>允许多路复用：在一个HTTP的连接上，多路“HTTP消息”同时工作。</p>
+</li>
+</ul>
+<p>流程：建立tcp连接后，可乱序交错发出多个由二进制帧组成的信息流，每个流都有独一无二的标识和优先级，在接收端接受到信息流后，根据帧头的信息组装成完整的数据。</p>
+<ul>
+<li><p>二进制分帧：新增二进制分帧层将所有传输信息分割为更小的消息和帧，并对他们采取二进制的编码封装。其中首部信息header封装到Headers帧中，request body封装到Data帧中。</p>
+</li>
+<li><p>首部压缩：http/2使用hpack算法来减少传输的header大小。通讯双方格子缓存一份头部字段表，避免了重复header的传输，也减少了需要传输的大小。</p>
+</li>
+</ul>
+<blockquote>
+<p>hpack算法使用一份索引表定义常用的http Header，将常用的http Header存在表里。请求时只需要发送表里的索引位置。同时将字符串进行霍夫曼编码来压缩字符串大小。</p>
+</blockquote>
+<ul>
+<li>服务器端推送：服务器可以对一个客户端请求发送多个响应，服务器向客户端推送资源无需客户端明确地请求。并且，服务端推送能把客户端所需要的资源伴随着index.html一起发送到客户端，省去了客户端重复请求的步骤。</li>
+</ul>
+<h3 id="http状态码"><a href="#http状态码" class="headerlink" title="http状态码"></a>http状态码</h3><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><ul>
+<li>1**：信息，服务器收到请求，需要请求者继续执行操作</li>
+<li>2**：成功，操作被成功接收并处理</li>
+<li>3**：重定向，需要进一步的操作以完成请求</li>
+<li>4**：客户端错误，请求包含语法错误或无法完成请求</li>
+<li>5**：服务器错误，服务器在处理请求的过程中发生了错误</li>
+</ul>
+<h4 id="常用状态码"><a href="#常用状态码" class="headerlink" title="常用状态码"></a>常用状态码</h4><ol>
+<li><p>200：请求成功，一般用于GET、POST请求</p>
+</li>
+<li><p>206：服务器成功处理了部分GET请求。可用于下载工具断点续传或将大文档分解为多个下载段同时下载。</p>
+</li>
+<li><p>301：永久重定向。被请求的资源已永久移动到新位置，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替</p>
+</li>
+<li><p>302：临时重定向。被请求的资源临时从不同的URI响应请求，客户端应继续使用原有URI。</p>
+</li>
+<li><p>304：Not Modified未修改。所请求的资源未修改。如果客户端发送了一个带条件的GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个304状态码。</p>
+<p> 解决：</p>
+<ul>
+<li><p>设置强制不缓存<code>Cache-Control=no-cache</code></p>
+</li>
+<li><p>及时定期更新页面内容</p>
+</li>
+<li><p>同步更新CDN缓存</p>
+<p>Cache-Control属性：常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。</p>
+<blockquote>
+<p>cache-control是一个通用消息头字段被用于HTTP请求和响应中，通过指定指令来实现缓存机制，这个缓存指令是单向的</p>
+</blockquote>
+</li>
+<li><p>no-cache：客户端请求携带此字段，则经过缓存服务器时不读缓存资源。</p>
+</li>
+<li><p>no-store：告知服务器/客户端/中间服务器，请求/响应信息中有机密信息，无需响应。</p>
+</li>
+<li><p>max-age：最大缓存市场。标识客户端不接收age大于此设定时间的响应。</p>
+</li>
+<li><p>min-fresh：最小缓存时长</p>
+</li>
+<li><p>no-transform：缓存不能改变实体主题的媒体类型。</p>
+</li>
+<li><p>等。。。</p>
+</li>
+</ul>
+</li>
+<li><p>400：请求无效。</p>
+<p> 原因：前端提交数据的字段名称和类型与后端的实体不一致，或前端提交的数据不是<code>json</code>字符串类型。</p>
+<p> 解决：保持数据字段的一致性，将数据通过<code>JSON.stringify</code>实现序列化。</p>
+</li>
+<li><p>401：未授权，当前请求需要用户验证。</p>
+</li>
+<li><p>403：禁止访问，服务器得到请求但拒绝执行。</p>
+</li>
+<li><p>404：文件未找到，无效链接。原因有url拼写错误或页面不存在等</p>
+</li>
+<li><p>500：内部服务器错误。</p>
+</li>
+<li><p>502：无效网关。</p>
+</li>
+</ol>
+<h3 id="实用的BOM属性方法。"><a href="#实用的BOM属性方法。" class="headerlink" title="实用的BOM属性方法。"></a>实用的BOM属性方法。</h3><blockquote>
+<p>BOM：浏览器对象</p>
+</blockquote>
+<ol>
+<li><p>location对象</p>
+<ul>
+<li><p>location.href: 返回/设置当前文档的URL</p>
+</li>
+<li><p>location.search: 返回URL中查询字符串部分。即返回包括<code>?</code>及其后面的部分。</p>
+</li>
+<li><p>location.hash: 返回URL中<code>#</code>后面的内容，若没有返回空</p>
+</li>
+<li><p>location.host: 返回URL的域名部分。</p>
+</li>
+<li><p>location.pathname: 返回URL域名后的部分，即<code>/</code>后的内容</p>
+</li>
+<li><p>location.port: 返回URL的端口部分</p>
+</li>
+<li><p>location.reload(): 重载当前页面</p>
+</li>
+</ul>
+</li>
+<li><p>history对象</p>
+<ul>
+<li><p>history.go(num): 前进/后退<code>num</code>页</p>
+</li>
+<li><p>history.back(): 后退一页</p>
+</li>
+<li><p>history.forward(): 前进一页</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么fetch发送2次请求"><a href="#为什么fetch发送2次请求" class="headerlink" title="为什么fetch发送2次请求"></a>为什么fetch发送2次请求</h3><p>使用<code>fetch</code>的<code>post</code>请求时，<code>fetch</code>第一次发送<code>Options</code>请求询问服务器是否支持修改的请求头，若支持，<code>fetch</code>第二次发送真正的请求。</p>
+<h3 id="cookie、session、localStorage、sessionStorage区别"><a href="#cookie、session、localStorage、sessionStorage区别" class="headerlink" title="cookie、session、localStorage、sessionStorage区别"></a>cookie、session、localStorage、sessionStorage区别</h3><ul>
+<li><p>cookie：用来跟踪浏览器用户身份的会话方式。<code>cookie</code>可以在前后端进行用户的身份认证，标记用户。以文本的方式保存在客户端每次请求都带着<code>cookie</code></p>
+</li>
+<li><p>session：用来跟踪浏览器用户身份的会话方式。<code>session</code>由<code>cookie</code>进行标记</p>
+</li>
+<li><p>localStorage：本地存储，是WebStorage的API，使用<code>window.localStorage</code>获取。</p>
+</li>
+<li><p>sessionStorage：会话存储，是WebStorage的API，使用<code>window.sessionStorage</code>获取。</p>
+</li>
+</ul>
+<h4 id="cookie与session区别"><a href="#cookie与session区别" class="headerlink" title="cookie与session区别"></a>cookie与session区别</h4><ol>
+<li><p>保持状态：<code>cookie</code>保存在浏览器端。<code>session</code>保存在服务器端。</p>
+</li>
+<li><p>存储内容：<code>cookie</code>只能保存字符串类型，以文本的方式。<code>session</code>通过类似哈希表的数据结构保存，支持任何类型的对象</p>
+</li>
+<li><p>存储大小：单个<code>cookie</code>保存的数据不能超过<code>4kb</code>。<code>session</code>大小没有限制。</p>
+</li>
+<li><p>安全性：<code>session</code>安全性大于<code>cookie</code>。</p>
+<p> 原因：<code>sessionID</code>保存在<code>cookie</code>中，且<code>sessionID</code>有人登陆或启动<code>session_start</code>才会有，第二次启用时，前一次的<code>session</code>过期，<code>sessionID</code>失效，且<code>sessionID</code>是加密的。</p>
+</li>
+<li><p>使用方式：</p>
+<ul>
+<li><p>cookie：若浏览器中未设置过期时间，<code>cookie</code>保存在内存中，生命周期随浏览器的关闭而结束，即<code>会话cookie</code>。若浏览器中设置了过期时间，<code>cookie</code>保存在硬盘中，关闭浏览器后<code>cookie</code>仍存在，仅当过期时间结束才消失</p>
+</li>
+<li><p>session：服务器收到请求创建<code>session</code>，首先检查客户端请求是否包含<code>sessionID</code>，若有，则根据该id返回对应<code>session</code>对象。若没有，则创建新的<code>session</code>对象并使用<code>cookie</code>方式存储<code>sessionID</code>并在本次响应中返回给客户端。</p>
+</li>
+</ul>
+</li>
+<li><p>应用场景：</p>
+<ul>
+<li><p>cookie：判断用户是否登陆过，以便下次登陆；保存上次登陆的时间等信息；保存上次查看的页面；浏览计数</p>
+</li>
+<li><p>session：保存每个用户的专用信息，变量的值保存在服务端，通过<code>sessionID</code>来区分不同用户。</p>
+</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li><p>cookie：大小受限、用户可以禁用<code>cookie</code>、安全性较低、每次访问都要传送，浪费带宽、<code>cookie</code>数据有路径概念，可以限制<code>cookie</code>只属于某个路径下。</p>
+</li>
+<li><p>session：保存的东西越多越占内存，服务器的内存压力较大、依赖于<code>cookie</code>，若禁用<code>cookie</code>，需要使用URL重写，不安全、创建<code>session</code>变量随意性大，过度使用导致代码不可读且不好维护。</p>
+<p>  如果用户禁用<code>cookie</code>，则要使用URL重写，可以通过<code>response.encodeURL(url)</code>进行实现；API对<code>encodeURL</code>的结束为，当浏览器支持<code>cookie</code>时，url不做任何处理；当浏览器不支持<code>cookie</code>的时候，将会重写URL将<code>sessionID</code>拼接到访问地址后。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="cookie、localStorage、sessionStorage区别"><a href="#cookie、localStorage、sessionStorage区别" class="headerlink" title="cookie、localStorage、sessionStorage区别"></a>cookie、localStorage、sessionStorage区别</h4><ol>
+<li><p>生命周期</p>
+<ul>
+<li><p>cookie：若浏览器中未设置过期时间，<code>cookie</code>保存在内存中，生命周期随浏览器的关闭而结束，即<code>会话cookie</code>。若浏览器中设置了过期时间，<code>cookie</code>保存在硬盘中，关闭浏览器后<code>cookie</code>仍存在，仅当过期时间结束才消失</p>
+</li>
+<li><p>localStorage：除非被清除，否则永久保存</p>
+</li>
+<li><p>sessionStorage：仅当前会话有效，关闭页面或浏览器后被清除。</p>
+</li>
+</ul>
+</li>
+<li><p>数据大小：<code>cookie</code>最大为<code>4kb</code>。<code>localStorage</code>和<code>sessionStorage</code>最大为<code>5MB</code></p>
+</li>
+<li><p>与服务器通信：</p>
+<ul>
+<li><p>cookie：携带在<code>HTTP</code>头上</p>
+</li>
+<li><p>localStorage/sessionStorage：仅在客户端保存，不参与和服务器的通信</p>
+</li>
+</ul>
+</li>
+<li><p>用途：</p>
+<ul>
+<li><p>cookie：判断用户是否登陆过，以便下次登陆；保存上次登陆的时间等信息；保存上次查看的页面；浏览计数</p>
+</li>
+<li><p>localStorage：用于长期登陆且判断用户是否已登陆。适合长期保存在本地的数据</p>
+</li>
+<li><p>sessionStorage：用于敏感账号一次性登陆。</p>
+</li>
+</ul>
+</li>
+<li><p>与cookie相比优点：存储空间更大；节省网络流量；显示速度更快；安全性比<code>cookie</code>高；数据操作比<code>cookie</code>方便</p>
+</li>
+</ol>
+<h3 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h3><blockquote>
+<p>iframe创建包含另一个文档的内联框架。</p>
+</blockquote>
+<p>缺点：</p>
+<ul>
+<li><p>阻塞主页面的<code>onload</code>事件</p>
+</li>
+<li><p>搜索引擎无法解读此种页面，不利于<code>SEO</code></p>
+</li>
+<li><p>iframe和主页面共享连接吃，浏览器对相同区域有限制，故会影响性能。</p>
+</li>
+</ul>
+<h3 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h3><blockquote>
+<p>XSS攻击(Cross-Site scripting)指跨站脚本攻击，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息，如cookie、sessionID等，危害数据安全。</p>
+</blockquote>
+<h4 id="分类-1"><a href="#分类-1" class="headerlink" title="分类"></a>分类</h4><p>XSS攻击可分为存储型、反射型、DOM型。</p>
+<ul>
+<li><p>存储型：恶意代码提交到目标网站数据库，用户打开网站，服务端将代码从<code>数据库</code>取出拼接到HTML中返回给浏览器，进而攻击目标网站。常见于带用户保存数据的网站功能：论坛发帖、商品评论、用户私信等。</p>
+</li>
+<li><p>反射型：构造包含恶意代码的特殊<code>URL</code>。用户打开<code>URL</code>时，<code>服务端</code>将代码从<code>URL</code>取出拼接到HTML中返回给浏览器，进而攻击。常见于通过<code>URL</code>传递参数的功能，如网站搜索、跳转等。</p>
+</li>
+<li><p>DOM型：构造包含恶意代码的特殊<code>URL</code>，用户打开<code>URL</code>，浏览器接受响应解析执行，前端<code>JavaScript</code>取出<code>URL</code>中的恶意代码执行，进而攻击。</p>
+</li>
+</ul>
+<p>DOM型XSS属于前端<code>JavaScript</code>自身的安全漏洞，取出和执行都由<code>浏览器端</code>完成。其他两种存储型和反射型都属于<code>服务器</code>端的安全漏洞。</p>
+<h4 id="预防"><a href="#预防" class="headerlink" title="预防"></a>预防</h4><blockquote>
+<p>预防主要从输入过滤、防止HTML出现注入、防止JavaScript执行恶意代码三方面入手。</p>
+</blockquote>
+<ol>
+<li>存储型攻击和发射型攻击</li>
+</ol>
+<ul>
+<li><p>纯前端渲染，将代码与数据分开</p>
+<p>  浏览器加载<code>静态HTML</code>，然后再执行<code>HTML</code>中的<code>JavaScript</code>。<code>JavaScript</code>通过<code>Ajax</code>加载业务数据，调用<code>DOM API</code>更新到页面。</p>
+</li>
+<li><p>转义HTML</p>
+<p>  使用合适的转义库/模版引擎，对HTML模版各处插入点充分转义。</p>
+</li>
+</ul>
+<ol start="2">
+<li>DOM型攻击</li>
+</ol>
+<p>小心使用<code>.innerHTML</code>、<code>outerHTML</code>、<code>document.write()</code>等方法，避免将不可信的数据插入HTML页面。若使用前端框架，小心使用<code>v-html</code>/<code>dangerouslySetInnerHTML</code>功能。DOM中的内联事件监听器，如<code>onclick</code>、<code>onload</code>、<code>location</code>等，以及<code>&lt;a&gt;</code>中的<code>href</code>，和JavaScript的<code>setTimeout()</code>、<code>setInterval()</code>等均可将字符串当作代码运行。故避免将不可信的数据传递给以上API。</p>
+<ol start="3">
+<li>其他措施</li>
+</ol>
+<ul>
+<li><p>使用<code>CSP(Content Security Policy)</code>防范</p>
+</li>
+<li><p>控制输入内容长度</p>
+</li>
+<li><p>使用<code>HTTP-only Cookie</code>：禁止<code>JavaScript</code>读取敏感<code>Cookie</code>。</p>
+</li>
+<li><p>使用验证码</p>
+</li>
+</ul>
+<p>总结：防范XSS攻击可以利用<strong>模版引擎</strong>、<strong>避免内联事件</strong>、<strong>避免拼接HTML</strong>、通过<strong>CSP/输入长度配置/接口安全措施</strong>等方法<strong>增加攻击难度，降低攻击后果</strong>、使用<strong>XSS扫描工具</strong>自动<strong>检测发现潜在的XSS漏洞</strong>。</p>
+<h3 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h3><blockquote>
+<p>CSRF(Cross-Site request forgery)跨站请求伪造：诱导用户进入第三方网站，攻击者向被攻击网站发送跨站请求，利用获取的注册凭证，绕过后台用户验证，冒充用户对被攻击网站执行某种操作的目的。</p>
+</blockquote>
+<h4 id="分类-2"><a href="#分类-2" class="headerlink" title="分类"></a>分类</h4><ol>
+<li><p>GET类型：一个HTTP请求即可</p>
+</li>
+<li><p>POST类型：通常使用一个自动提交的表单。</p>
+</li>
+<li><p>链接类型：需要用户点击链接触发。</p>
+</li>
+</ol>
+<h4 id="防范"><a href="#防范" class="headerlink" title="防范"></a>防范</h4><p>CSRF的特点有<strong>通常发生在第三方域名</strong>，且<strong>不能获取到Cookie等信息，仅使用Cookie</strong>。</p>
+<ul>
+<li><p>阻止不明外域的访问</p>
+<ul>
+<li><p>同源检测</p>
+<p>  服务器可以通过解析Header中<code>Origin Header</code>和<code>Referer Header</code>的域名确定请求的来源域。</p>
+<p>  若<code>Origin Header</code>存在，直接使用其中的字段确认来源域名。</p>
+<p>  若<code>Origin Header</code>不存在(IE11同源策略、302重定向)使用<code>Referer Header</code>中链接的<code>Origin</code>部分可以得知请求的来源域名。</p>
+<p>  通过设置<code>Referrer Policy</code>的策略为<code>same-origin</code>，对于同源的链接和引用，会发送<code>Referer</code>，referer值为<code>Host</code>不带<code>Path</code>。跨域访问不携带<code>Referer</code>。</p>
+<p>  此方法相对简单，能防范大多数CSRF攻击，若有较多用户输入内容的网站，则需要额外的防护措施</p>
+</li>
+<li><p>Samesite Cookie</p>
+<p>  为<code>Set-Cookie</code>响应头新增<code>Samesite</code>属性，用来表明此<code>Cookie</code>为<code>同站Cookie</code>，且只能作为<code>第一方Cookie</code>。</p>
+<ul>
+<li><p>Samesite=Strict</p>
+<p>  严格模式，表明此<code>Cookie</code>在任何情况下都不可能作为<code>第三方Cookie</code>。即若网站a识别用户是否登陆的<code>Cookie</code>被设为<code>Strict</code>，其他外链发起的请求都不会带上此<code>Cookie</code>，则用户从其他外链进入网站a都不会是登陆状态。</p>
+</li>
+<li><p>Samesite=Lax</p>
+<p>  宽松模式，若该请求<strong>改变了当前页面或打开了新页面</strong>且同时为<code>GET请求</code>，则此<code>Cookie</code>可以作为<code>第三方Cookie</code>，在链接跳转时仍会带上此<code>Cookie</code>，但对于<code>异步请求</code>或<code>POST请求</code>则不会带。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>提交时要求附加本域才能获取的信息</p>
+<ul>
+<li><p>CSRF Token（存在<code>session</code>中，避免存入<code>cookie</code>后被冒用）</p>
+<ol>
+<li><p>将<code>CSRF Token</code>输出到页面</p>
+</li>
+<li><p>页面提交的请求携带此<code>Token</code></p>
+</li>
+<li><p>服务器验证<code>Token</code>是否正确</p>
+<p>此方法实现复杂，需要每个页面都写入<code>Token</code>，每个<code>Form/ajax</code>请求都携带<code>Token</code>，后端对每个接口都校验，工作量巨大且有可能遗漏。</p>
+</li>
+</ol>
+</li>
+<li><p>双重Cookie验证（要求<code>ajax</code>和<code>表单</code>请求携带一个<code>Cookie</code>中的值）</p>
+<ol>
+<li><p>用户访问页面向请求域名注入一个<code>Cookie</code>，内容为随机字符串</p>
+</li>
+<li><p>前端向后端发起请求时取出<code>Cookie</code>添加到<code>URL</code>的参数中</p>
+</li>
+<li><p>后端接口验证<code>Cookie</code>中的字段与<code>URL</code>参数中的字段是否一致，不一致则拒绝。</p>
+<p>此方法无需使用<code>session</code>，适用面广，易于实施，且存在客户端中，没有服务器压力，且实施成本更低，可以在前后端统一拦截校验。但它在Cookie中加了额外的字段，若有其他漏洞，攻击者可以注入Cookie，此方式失效。且难于做到子域名的隔离。</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-JavaScript自检问答" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/a80967e6.html"
+    >JavaScript自检问答</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/a80967e6.html" class="article-date">
+  <time datetime="2021-06-03T07:21:41.000Z" itemprop="datePublished">2021-06-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="变量和类型"><a href="#变量和类型" class="headerlink" title="变量和类型"></a>变量和类型</h2><ol>
+<li>JavaScript规定了几种语言类型</li>
+</ol>
+<ol start="2">
+<li>JavaScript对象的底层数据结构是什么</li>
+</ol>
+<ol start="3">
+<li>Symbol类型在实际开发中的应用、可手动实现一个简单的Symbol</li>
+</ol>
+<ol start="4">
+<li>JavaScript中的变量在内存中的具体存储形式</li>
+</ol>
+<ol start="5">
+<li>基本类型对应的内置对象，以及他们之间的装箱拆箱操作</li>
+</ol>
+<ol start="6">
+<li>理解值类型和引用类型</li>
+</ol>
+<ol start="7">
+<li>null和undefined的区别</li>
+</ol>
+<ol start="8">
+<li>至少可以说出三种判断JavaScript数据类型的方式，以及他们的优缺点，如何准确的判断数组类型</li>
+</ol>
+<ol start="9">
+<li>可能发生隐式类型转换的场景以及转换原则，应如何避免或巧妙应用</li>
+</ol>
+<ol start="10">
+<li>出现小数精度丢失的原因，JavaScript可以存储的最大数字、最大安全数字，JavaScript处理大数字的方法、避免精度丢失的方法</li>
+</ol>
+<h2 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h2><ol>
+<li>理解原型设计模式以及JavaScript中的原型规则</li>
+</ol>
+<ol start="2">
+<li>instanceof的底层实现原理，手动实现一个instanceof</li>
+</ol>
+<ol start="4">
+<li>实现继承的几种方式以及他们的优缺点</li>
+</ol>
+<ol start="5">
+<li>至少说出一种开源项目(如Node)中应用原型继承的案例</li>
+</ol>
+<ol start="6">
+<li>可以描述new一个对象的详细过程，手动实现一个new操作符</li>
+</ol>
+<ol start="7">
+<li>理解es6 class构造以及继承的底层实现原理</li>
+</ol>
+<h2 id="作用域和闭包"><a href="#作用域和闭包" class="headerlink" title="作用域和闭包"></a>作用域和闭包</h2><ol>
+<li>理解词法作用域和动态作用域</li>
+</ol>
+<ol start="2">
+<li>理解JavaScript的作用域和作用域链</li>
+</ol>
+<ol start="3">
+<li>理解JavaScript的执行上下文栈，可以应用堆栈信息快速定位问题</li>
+</ol>
+<ol start="4">
+<li>this的原理以及几种不同使用场景的取值</li>
+</ol>
+<ol start="5">
+<li>闭包的实现原理和作用，可以列举几个开发中闭包的实际应用</li>
+</ol>
+<ol start="6">
+<li>理解堆栈溢出和内存泄漏的原理，如何防止</li>
+</ol>
+<ol start="7">
+<li>如何处理循环的异步操作</li>
+</ol>
+<ol start="8">
+<li>理解模块化解决的实际问题，可列举几个模块化方案并理解其中原理</li>
+</ol>
+<h2 id="执行机制"><a href="#执行机制" class="headerlink" title="执行机制"></a>执行机制</h2><ol>
+<li>为何try里面放return，finally还会执行，理解其内部机制</li>
+</ol>
+<ol start="2">
+<li>JavaScript如何实现异步编程，可以详细描述EventLoop机制</li>
+</ol>
+<ol start="3">
+<li>宏任务和微任务分别有哪些</li>
+</ol>
+<ol start="4">
+<li>可以快速分析一个复杂的异步嵌套逻辑，并掌握分析方法</li>
+</ol>
+<ol start="5">
+<li>使用Promise实现串行</li>
+</ol>
+<ol start="6">
+<li>Node与浏览器EventLoop的差异</li>
+</ol>
+<ol start="7">
+<li>如何在保证页面运行流畅的情况下处理海量数据</li>
+</ol>
+<h2 id="语法和API"><a href="#语法和API" class="headerlink" title="语法和API"></a>语法和API</h2><ol>
+<li>理解ECMAScript和JavaScript的关系</li>
+</ol>
+<ol start="2">
+<li>熟练运用es5、es6提供的语法规范，</li>
+</ol>
+<ol start="3">
+<li>熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）</li>
+</ol>
+<ol start="4">
+<li>熟练应用map、reduce、filter 等高阶函数解决问题</li>
+</ol>
+<ol start="5">
+<li>setInterval需要注意的点，使用setTimeout实现setInterval</li>
+</ol>
+<ol start="6">
+<li>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</li>
+</ol>
+<ol start="7">
+<li>JavaScript异常处理的方式，统一的异常处理方案</li>
+</ol>
+<h2 id="JavaScript编程题"><a href="#JavaScript编程题" class="headerlink" title="JavaScript编程题"></a>JavaScript编程题</h2><ol>
+<li>多种方式实现数组去重、扁平化、对比优缺点</li>
+</ol>
+<ol start="2">
+<li>多种方式实现深拷贝、对比优缺点</li>
+</ol>
+<ol start="3">
+<li>手写函数柯里化工具函数、并理解其应用场景和优势</li>
+</ol>
+<ol start="4">
+<li>手写防抖和节流工具函数、并理解其内部原理和应用场景</li>
+</ol>
+<ol start="5">
+<li>实现一个sleep函数</li>
+</ol>
+<h2 id="手动实现前端轮子"><a href="#手动实现前端轮子" class="headerlink" title="手动实现前端轮子"></a>手动实现前端轮子</h2><ol>
+<li>手动实现call、apply、bind</li>
+</ol>
+<ol start="2">
+<li>手动实现符合Promise/A+规范的Promise、手动实现async await</li>
+</ol>
+<ol start="3">
+<li>手写一个EventEmitter实现事件发布、订阅</li>
+</ol>
+<ol start="4">
+<li>可以说出两种实现双向绑定的方案、可以手动实现</li>
+</ol>
+<ol start="5">
+<li>手写JSON.stringify、JSON.parse</li>
+</ol>
+<ol start="6">
+<li>手写一个模版引擎，并能解释其中原理</li>
+</ol>
+<ol start="7">
+<li>手写懒加载、下拉刷新、上拉加载、预加载等效果</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
 
 
     </footer>
@@ -887,7 +2452,7 @@ var _hmt = _hmt || [];
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>
