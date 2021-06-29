@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="google-site-verification" content="uTX6ZxeFW7rykbUpHLWNuwhxfXD4MgejK-UnVZTKP-Q" />
+   
+  <meta name="keywords" content="面经,http,HTML,CSS,JavaScript,浏览器,Vue," />
+   
+  <meta name="description" content="前端面经学习总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端面经总结（六） |  AwesoLynn
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/images/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?af054647e650dbe3e70db15555ddf480";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+  <script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<link rel="alternate" href="/atom.xml" title="AwesoLynn" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-前端面经总结（六）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端面经总结（六）
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/9e01d4c6.html" class="article-date">
+  <time datetime="2021-06-22T08:24:43.000Z" itemprop="datePublished">2021-06-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">7k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">31分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>接<a href="https://awesolynn.me/post/fb0f9f1f.html">前端面经总结（五）</a></p>
+<h2 id="SetTimeout循环输出数组"><a href="#SetTimeout循环输出数组" class="headerlink" title="SetTimeout循环输出数组"></a>SetTimeout循环输出数组</h2><ol>
+<li>使用闭包</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for(var i &#x3D; 1; i &lt; 5; i++)&#123;</span><br><span class="line">    (function(j)&#123;</span><br><span class="line">        setTimeout(function timer()&#123;</span><br><span class="line">            console.log(j);</span><br><span class="line">        &#125;,j*1000);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过闭包，将i变量留在内存中，输出j时，引用外部函数变量i，i根据循环得出。</p>
+<a id="more"></a>
+
+<ol start="2">
+<li>let</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(let i &#x3D; 0;i &lt; 5;i++)&#123;</span><br><span class="line">    setTimeout(function timer()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;,i*1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>let将i绑定到循环体的每次迭代，确保上一次迭代结束的值重新被赋值。setTimeout里function()属于新的域，var定义的变量无法传入此函数执行域中，let声明的块变量可以作用于此函数执行域。</p>
+<h2 id="js作用域"><a href="#js作用域" class="headerlink" title="js作用域"></a>js作用域</h2><ol>
+<li>作用域</li>
+</ol>
+<p>定义的变量可以产生作用/使用的区域。js作用域可以分为<strong>全局作用域</strong>和<strong>局部作用域</strong>。</p>
+<ol start="2">
+<li>执行上下文：当前代码运行的环境，主要分为<strong>全局级别</strong>和<strong>函数级别</strong>。</li>
+</ol>
+<p>无论什么环境，只能存在一个全局级别的执行上下文，可以有多个函数执行上下文。函数每次被调用执行时，js引擎自动创建出一个函数上下问，并放入执行上下文堆栈中，<strong>外部上下文无法访问内部上下文中的变量，但内部上下文可以访问外部上下文中的变量</strong>。</p>
+<h2 id="js中this指向"><a href="#js中this指向" class="headerlink" title="js中this指向"></a>js中this指向</h2><blockquote>
+<p>谁调用这个函数或方法，this关键字就指向谁</p>
+</blockquote>
+<ol>
+<li>普通函数调用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function person()&#123;</span><br><span class="line">    this.name &#x3D; &quot;x1&quot;;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line">person();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;output</span><br><span class="line">window</span><br><span class="line">x1</span><br></pre></td></tr></table></figure>
+
+<p>如上，全局对象window调用了person方法，故this指向全局对象window。故person内的this也指向window，故name为window的一个属性。</p>
+<ol start="2">
+<li>作为方法调用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &quot;xx&quot;;</span><br><span class="line">var person&#x3D;&#123;</span><br><span class="line">    name: &quot;yy&quot;,</span><br><span class="line">    showName:function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">person.showName();&#x2F;&#x2F;输出yy</span><br><span class="line">var showNameA &#x3D; person.showName;</span><br><span class="line">showNameA();&#x2F;&#x2F;输出xx</span><br></pre></td></tr></table></figure>
+
+<p>person.showName()明显为person调用showName方法，故this指向person，输出yy</p>
+<p>而showNameA = person.showName时，showNameA相当于window的一个属性，将person.showName赋值给他，故调用showNameA时，是相当于window.showNameA。故this指向window，输出xx</p>
+<ol start="3">
+<li>作为构造函数调用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">var personA &#x3D; Person(&quot;xx&quot;);</span><br><span class="line">console.log(personA.name);&#x2F;&#x2F;undefined;</span><br><span class="line">console.log(window.name);&#x2F;&#x2F;xx</span><br></pre></td></tr></table></figure>
+
+<p>personA.name即window.personA.name，可见上述代码并没有定义此属性，故输出undefined；</p>
+<p>而window.name。在personA赋值时，调用了window.Person(“xx”)，此时将window的name赋值为xx。故输出window.name即为xx</p>
+<ol start="4">
+<li>new</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">var personB &#x3D; new Person(&quot;xx&quot;);</span><br><span class="line">console.log(personB.name);</span><br></pre></td></tr></table></figure>
+
+<p>new操作符实例化对象的内部过程为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function person(name)&#123;</span><br><span class="line">    var o &#x3D; &#123;&#125;;</span><br><span class="line">    o._proto_ &#x3D; Person.prototype;</span><br><span class="line">    Person.call(o,name);</span><br><span class="line">    return o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可得，当使用new操作符实例化对象，首先创建一个新的对象，并将新对象的proto指向Person的prototype完成对原型属性和方法的继承。再通过使用call方法，将this的指向从Person改为新对象，并完成o.name = name;</p>
+<p>此时使用new Person(“xx”)；即将this指向personB，并赋值personB.name = “xx”;<br>故输出personB.name时，输出xx</p>
+<ol start="5">
+<li>call/apply方法调用</li>
+</ol>
+<p>call/apply方法最大的作用是改变this的指向，且都属于Function.prototype的一个方法。但他们的区别在于传递的参数不同，call传递函数运行作用域(this)和所有的参数序列(必须列举出来)，apply传递函数运行作用域(this)和参数数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &quot;xx&quot;;</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name : &quot;yy&quot;,</span><br><span class="line">    showName:function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;call方法第一个参数函数运行作用域为空，则指向默认值window</span><br><span class="line">Person.showName.call();&#x2F;&#x2F;输出window.name，即xx</span><br><span class="line"></span><br><span class="line">funtion FruitA(n1,n2)&#123;</span><br><span class="line">    this.n1&#x3D;n1;</span><br><span class="line">    this.n2&#x3D;n2;</span><br><span class="line">    this.change&#x3D;function(x,y)&#123;</span><br><span class="line">        this.n1&#x3D;x;</span><br><span class="line">        this.n2&#x3D;y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fruitA&#x3D;new FruitA(&quot;cheery&quot;,&quot;banana&quot;);</span><br><span class="line">var FruitB&#x3D;&#123;</span><br><span class="line">    n1:&quot;apple&quot;,</span><br><span class="line">    n2:&quot;orange&quot;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;将fruitA的change方法this指向FruitB，故设置FruitB.n1 &#x3D; pear;FruitB.n2 &#x3D; peach;</span><br><span class="line">fruitA.change.call(FruitB,&quot;pear&quot;,&quot;peach&quot;);</span><br><span class="line"></span><br><span class="line">console.log(FruitB.n1); &#x2F;&#x2F;输出 pear</span><br><span class="line">console.log(FruitB.n2);&#x2F;&#x2F; 输出 peach</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>bind方法</li>
+</ol>
+<p>bind方法也是用来改变函数的this指向，且利用后续参数传参。但它与call/apply的区别为：bind方法不会立即执行，即它返回的是一个函数，执行时需要使用()调用，或将其绑定到事件上，通过事件触发调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fruitA.change.bind(FruitB,&quot;pear&quot;,&quot;peach&quot;)();</span><br><span class="line">document.onclick &#x3D; fruitA.change.bind(FruitB,&quot;pear&quot;,&quot;peach&quot;);</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>eval方法</li>
+</ol>
+<p>eval方法执行，this绑定到当前作用域的对象上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &quot;xx&quot;;</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name: &quot;yy&quot;;</span><br><span class="line">    showName:function()&#123;</span><br><span class="line">        eval(&quot;console.log(this.name&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">person.showName();&#x2F;&#x2F;输出yy</span><br><span class="line">var a &#x3D; person.showName;</span><br><span class="line">a();&#x2F;&#x2F;即window.a，则this指向window，输出xx</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>箭头函数</li>
+</ol>
+<p>箭头函数中this始终指向外部对象，且自身没有this，故自身不能new实例化，也不能使用call/apply/bind等方法来改变this指向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function timer()&#123;</span><br><span class="line">    this.seconds &#x3D; 0;</span><br><span class="line">    setInterval(() &#x3D;&gt; this.seconds ++, 1000);&#x2F;&#x2F;this指向外部对象，即实例化timer后的timer1的seconds，每秒+1</span><br><span class="line">&#125;</span><br><span class="line">var timer1 &#x3D; new timer();</span><br><span class="line">setTimeout(() &#x3D;&gt; console.log(timer1.seconds),3100);&#x2F;&#x2F;3s后输出timer1.seconds即3</span><br></pre></td></tr></table></figure>
+
+<h2 id="前端性能优化"><a href="#前端性能优化" class="headerlink" title="前端性能优化"></a>前端性能优化</h2><ol>
+<li><p>优化DOM：</p>
+<ul>
+<li>删除不必要的代码和注释，最小化文件</li>
+<li>利用GZIP压缩文件</li>
+<li>结合HTTP缓存文件</li>
+</ul>
+</li>
+<li><p>图片懒加载，避免一次性加载过多文件导致请求阻塞</p>
+</li>
+<li><p>减少HTTP请求数量</p>
+<ul>
+<li><p>文件合并，图片压缩</p>
+</li>
+<li><p>减少重定向</p>
+</li>
+</ul>
+</li>
+<li><p>优化网络连接：使用CDN，将用户请求导向离用户最近的服务节点上</p>
+</li>
+<li><p>优化资源加载</p>
+<ul>
+<li><p>优化资源加载位置，即CSS放在head，先外链再内页，JS文件放在body底部，先外链再内页</p>
+</li>
+<li><p>模块按需加载。</p>
+</li>
+</ul>
+</li>
+<li><p>减少重绘回流</p>
+<blockquote>
+<p>重绘：页面中样式改变不影响它在文档流中的位置，如color/visibility等，浏览器将新样式赋予元素并重新绘制</p>
+</blockquote>
+<blockquote>
+<p>回流：当render tree中部分或全部元素尺寸/结构等属性改变，浏览器需要重新渲染部分或全部文档的过程</p>
+</blockquote>
+<ul>
+<li><p>避免使用层次较深的选择器，避免使用css表达式，元素适当定义高度等</p>
+</li>
+<li><p>使用防抖或节流限制某方法的频繁触发</p>
+<blockquote>
+<p>防抖debounce：频繁触发的情况下，只要有足够的空闲时间才执行代码一次</p>
+</blockquote>
+<blockquote>
+<p>节流：一定时间内js方法只跑一次</p>
+</blockquote>
+</li>
+<li><p>及时清理环境</p>
+</li>
+</ul>
+</li>
+<li><p>webpack优化</p>
+<ul>
+<li><p>打包公共代码</p>
+</li>
+<li><p>动态导入，按需加载</p>
+</li>
+<li><p>删除无用代码</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="CSS居中-行内-块级"><a href="#CSS居中-行内-块级" class="headerlink" title="CSS居中(行内/块级)"></a>CSS居中(行内/块级)</h2><h3 id="水平"><a href="#水平" class="headerlink" title="水平"></a>水平</h3><ol>
+<li>行内</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父级元素</span><br><span class="line">display: block;&#x2F;&#x2F;设置为块级</span><br><span class="line">text-align: center;&#x2F;&#x2F;设置行内水平居中</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>块级元素</p>
+<ul>
+<li><p>宽度固定: <code>margin: 0 auto;</code></p>
+</li>
+<li><p>不定宽度:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F;方法1</span><br><span class="line">    &#x2F;&#x2F;子元素</span><br><span class="line">    display:inline-block&#x2F;inline;&#x2F;&#x2F;改为行内块级元素&#x2F;行内元素</span><br><span class="line">    &#x2F;&#x2F;父元素</span><br><span class="line">    text-align: center;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;方法2</span><br><span class="line">    transform: translateX(-50%);&#x2F;&#x2F;在x轴位移50%</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;方法3</span><br><span class="line">    &#x2F;&#x2F;父元素</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">### 垂直</span><br><span class="line"></span><br><span class="line">1. 行内</span><br><span class="line"></span><br><span class="line">    - 单行：设置行高&#x3D;盒子高，即父元素和子元素height相等</span><br><span class="line"></span><br><span class="line">    - 多行：设置&#96;&#96;&#96;display:table-cell;vertical-align:middle;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>块级</p>
+<ul>
+<li><p>position: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">top: 50%;</span><br><span class="line">margin: auto;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex：<code>display: flex; align-items: center;</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="垂直水平"><a href="#垂直水平" class="headerlink" title="垂直水平"></a>垂直水平</h3><ol>
+<li>已知高宽</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">top: 0;</span><br><span class="line">bottom: 0;</span><br><span class="line">left: 0;</span><br><span class="line">right: 0;</span><br><span class="line">margin: auto;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>未知高宽</p>
+<ul>
+<li><p>定位属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">left: 50%;</span><br><span class="line">top: 50%;</span><br><span class="line">transform: translateX(-50%) translateY(-50%);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">display: flex;</span><br><span class="line">justify-content: center;</span><br><span class="line">align-items: center;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="demo-parent-child的height-顶边"><a href="#demo-parent-child的height-顶边" class="headerlink" title=".demo .parent .child的height/顶边"></a>.demo .parent .child的height/顶边</h2><h2 id="闭包的理解及优缺点"><a href="#闭包的理解及优缺点" class="headerlink" title="闭包的理解及优缺点"></a>闭包的理解及优缺点</h2><p>闭包指有权访问另一个函数作用域中的变量的函数。可以在函数外部访问到函数内部的局部变量，且这些变量始终保存在内存中，不会随函数的结束而自动销毁</p>
+<ul>
+<li><p>优点</p>
+<ol>
+<li><p>保护函数内变量安全</p>
+</li>
+<li><p>内存中保存变量，可以做缓存</p>
+</li>
+<li><p>匿名自执行函数可以减少内存消耗</p>
+</li>
+</ol>
+</li>
+<li><p>缺点</p>
+<ol>
+<li><p>被引用的私有变量不能被销毁，增大了内存消耗</p>
+</li>
+<li><p>闭包涉及跨域访问，导致性能损失</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="position配置的相对元素"><a href="#position配置的相对元素" class="headerlink" title="position配置的相对元素"></a>position配置的相对元素</h2><ul>
+<li><p>absolute：相对父级元素</p>
+</li>
+<li><p>relative：相对默认位置</p>
+</li>
+<li><p>fixed：相对浏览器窗口</p>
+</li>
+<li><p>static：默认位置</p>
+</li>
+</ul>
+<h2 id="git常用操作"><a href="#git常用操作" class="headerlink" title="git常用操作"></a>git常用操作</h2><h2 id="js原生以class获取元素更改样式"><a href="#js原生以class获取元素更改样式" class="headerlink" title="js原生以class获取元素更改样式"></a>js原生以class获取元素更改样式</h2><h2 id="java-js类的区别"><a href="#java-js类的区别" class="headerlink" title="java/js类的区别"></a>java/js类的区别</h2><h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><h2 id="前后端分离实现"><a href="#前后端分离实现" class="headerlink" title="前后端分离实现"></a>前后端分离实现</h2><h2 id="登陆状态保存（浏览器隐身模式）"><a href="#登陆状态保存（浏览器隐身模式）" class="headerlink" title="登陆状态保存（浏览器隐身模式）"></a>登陆状态保存（浏览器隐身模式）</h2><h2 id="jquery和Vue异同"><a href="#jquery和Vue异同" class="headerlink" title="jquery和Vue异同"></a>jquery和Vue异同</h2><ol>
+<li><p>jquery首先需要获取dom对象，在对对象进行各项操作</p>
+</li>
+<li><p>vue首先将值和js对象绑定，修改js对象的值，vue自动把dom值更新。即通过vue对象将数据和view分离，实现相互绑定</p>
+</li>
+</ol>
+<h2 id="jquery和原生js异同"><a href="#jquery和原生js异同" class="headerlink" title="jquery和原生js异同"></a>jquery和原生js异同</h2><ol>
+<li><p>原生js会等到dom元素加载完毕且图片加载完毕后再执行，jquery会等到dom加载完成但不会等图片加载完成</p>
+</li>
+<li><p>jquery可以写多个入口函数你，原生js不行</p>
+</li>
+</ol>
+<h2 id="echart如何实现和Vue的响应"><a href="#echart如何实现和Vue的响应" class="headerlink" title="echart如何实现和Vue的响应"></a>echart如何实现和Vue的响应</h2><h2 id="手写call-bind-apply"><a href="#手写call-bind-apply" class="headerlink" title="手写call/bind/apply"></a>手写call/bind/apply</h2><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p>将新的this绑定到某函数func上，并返回func的拷贝</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function bind(context,...args)&#123;</span><br><span class="line">    const fn &#x3D; this;&#x2F;&#x2F;调用bind的函数func</span><br><span class="line">    return function(...args)&#123;</span><br><span class="line">        return fn.apply(context,...args,...args2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="手写promise"><a href="#手写promise" class="headerlink" title="手写promise"></a>手写promise</h2><h3 id="Promise特征："><a href="#Promise特征：" class="headerlink" title="Promise特征："></a>Promise特征：</h3><ol>
+<li><p>三个状态: <code>pending</code>/<code>fulfilled</code>/<code>rejected</code>。状态默认为<code>pending</code>，且只能从<code>pending</code>到<code>fulfilled</code>或从<code>pending</code>到<code>rejected</code>，一旦确认不会再改变</p>
+</li>
+<li><p>new promise时，需要传递<code>executor()</code>执行器，执行器立刻执行。<code>executor</code>接收两个参数，分别是<code>resolve</code>/<code>reject</code></p>
+</li>
+<li><p>promise使用<code>value</code>保存成功状态的值，可以是<code>undefined</code>/<code>thenable</code>/<code>promise</code>。</p>
+</li>
+<li><p>promise使用<code>reason</code>保存失败状态的值</p>
+</li>
+<li><p>promise必须有一个<code>then</code>方法，接收两个参数，分别是成功回调<code>onFulfilled</code>和失败回调<code>onRejected</code></p>
+</li>
+<li><p>调用<code>then</code>，promise成功，则执行<code>onFulfilled</code>，参数为promise的<code>value</code>。promise失败，则执行<code>onRejected</code>，参数为promise的<code>reason</code>。</p>
+</li>
+<li><p>若<code>then</code>中抛出异常，则将异常作为参数，传递给下一个<code>then</code>失败回调<code>onRejected</code></p>
+</li>
+</ol>
+<h3 id="promise原理及基础版代码（无链式调用和值穿透）"><a href="#promise原理及基础版代码（无链式调用和值穿透）" class="headerlink" title="promise原理及基础版代码（无链式调用和值穿透）"></a>promise原理及基础版代码（无链式调用和值穿透）</h3><p>原理：发布订阅者模式，通过两个队列缓存成功的回调和失败的回调。当执行函数executor执行时，触发resolve和reject，依次调用成功或失败的回调函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">const PENDING &#x3D; &quot;PENDING&quot;;</span><br><span class="line">const FULFILLED &#x3D; &quot;FULFILLED&quot;;</span><br><span class="line">const REJECTED &#x3D; &quot;REJECTED&quot;;</span><br><span class="line"></span><br><span class="line">class Promise&#123;</span><br><span class="line">    constructor(executor)&#123;</span><br><span class="line">        &#x2F;&#x2F;默认状态为pending</span><br><span class="line">        this.status &#x3D; PENDING；</span><br><span class="line">        &#x2F;&#x2F;存放成功状态值</span><br><span class="line">        this.value &#x3D; undefined;</span><br><span class="line">        &#x2F;&#x2F;存放失败状态值</span><br><span class="line">        this.reason &#x3D; undefined;</span><br><span class="line">        &#x2F;&#x2F;存放成功回调</span><br><span class="line">        this.onResolvedCallbacks &#x3D; [];</span><br><span class="line">        &#x2F;&#x2F;存放失败回调</span><br><span class="line">        this.onRejectedCallbacks &#x3D; [];</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;成功方法</span><br><span class="line">        let resolve &#x3D; (value) &#x3D;&gt; &#123;</span><br><span class="line">            if(value instanceof Promise)&#123;</span><br><span class="line">                return value.then(resolve,reject);</span><br><span class="line">            &#125;</span><br><span class="line">            setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                if(this.status &#x3D;&#x3D;&#x3D; PENDING)&#123;</span><br><span class="line">                    &#x2F;&#x2F;状态置为成功</span><br><span class="line">                    this.status &#x3D; FULFILLED;</span><br><span class="line">                    this.value &#x3D; value;</span><br><span class="line">                    &#x2F;&#x2F;依次执行成功回调函数</span><br><span class="line">                    this.onResolvedCallbacks.forEach(fn&#x3D;&gt;fn());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;失败方法</span><br><span class="line">        let reject &#x3D; (reason)&#x3D;&gt;&#123;</span><br><span class="line">            setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                if(this.status &#x3D;&#x3D;&#x3D; PENDING)&#123;</span><br><span class="line">                    &#x2F;&#x2F;状态置为失败</span><br><span class="line">                    this.status &#x3D; REJECTED;</span><br><span class="line">                    this.reason &#x3D; reason;</span><br><span class="line">                    &#x2F;&#x2F;依次执行失败回调函数</span><br><span class="line">                    this.onRejectedCallbacks.forEach(fn &#x3D;&gt; fn());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            &#x2F;&#x2F;立即执行executor方法，将resolve和reject传递出去</span><br><span class="line">            executor(resolve,reject);</span><br><span class="line">        &#125;catch(error)&#123;</span><br><span class="line">            reject(error);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;then方法</span><br><span class="line">        then(onFulfilled,onRejected)&#123;</span><br><span class="line">            if(this.status &#x3D;&#x3D;&#x3D; FULFILLED)&#123;</span><br><span class="line">                &#x2F;&#x2F;链式调用</span><br><span class="line">                return fulfillPromise &#x3D; new Promise((resolve,reject) &#x3D;&gt; &#123;</span><br><span class="line">                    setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                        try&#123;</span><br><span class="line">                            let result &#x3D; onFulfilled(this.value);</span><br><span class="line">                            resolve(result);</span><br><span class="line">                        &#125;catch(e)&#123;</span><br><span class="line">                            reject(e);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                &#x2F;&#x2F;调用成功的回调函数</span><br><span class="line">                &#x2F;&#x2F;onFulfilled(this.value);</span><br><span class="line">            &#125;</span><br><span class="line">            if(this.status &#x3D;&#x3D;&#x3D; REJECTED)&#123;</span><br><span class="line">                return rejectPromise &#x3D; new Promise((resolve,reject) &#x3D;&gt; &#123;</span><br><span class="line">                    setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                        try&#123;</span><br><span class="line">                            let result &#x3D; onRejected(this.reason);</span><br><span class="line">                            resolve(result);</span><br><span class="line">                        &#125;catch(e)&#123;</span><br><span class="line">                            reject(e);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                &#x2F;&#x2F;调用失败的回调函数</span><br><span class="line">                &#x2F;&#x2F;onRejected(this.reason);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;若状态为pendig，依次将成功&#x2F;失败回调函数存放起来</span><br><span class="line">            if(this.status&#x3D;&#x3D;&#x3D; PENDING)&#123;</span><br><span class="line">                this.onResolvedCallbacks.push(()&#x3D;&gt;&#123;</span><br><span class="line">                    try&#123;</span><br><span class="line">                        let result &#x3D; onFulfilled(this.value);</span><br><span class="line">                        resolve(result);</span><br><span class="line">                    &#125;catch(e)&#123;</span><br><span class="line">                        reject(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                &#125;);</span><br><span class="line">                this.onRejectedCallbacks.push(()&#x3D;&gt;&#123;</span><br><span class="line">                    try&#123;</span><br><span class="line">                        let result &#x3D; onRejected(this.reason);</span><br><span class="line">                        resolve(result);</span><br><span class="line">                    &#125;catch(e)&#123;</span><br><span class="line">                        reject(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="promise-all"><a href="#promise-all" class="headerlink" title="promise.all"></a>promise.all</h3><blockquote>
+<p>promise.all解决并发问题，多个异步并发获取最终的结果 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Promise.all &#x3D; function(values)&#123;</span><br><span class="line">    if(!Array.isArray(values))&#123;</span><br><span class="line">        const type &#x3D; typeof values;</span><br><span class="line">        return new TypeError(&#96;TypeError: $&#123;type&#125; $&#123;values&#125; is not iterable&#96;);</span><br><span class="line">    &#125;</span><br><span class="line">    return new Promise((resolve,reject)&#x3D;&gt;&#123;</span><br><span class="line">        let resultArr&#x3D;[];</span><br><span class="line">        let orderIndex &#x3D; 0;</span><br><span class="line">        const processResultByKey &#x3D; (value,index)&#x3D;&gt;&#123;</span><br><span class="line">            resultArr[index] &#x3D; value;</span><br><span class="line">            &#x2F;&#x2F;若当前顺序与结果数量一致，则输出最终结果</span><br><span class="line">            if(++orderIndex &#x3D;&#x3D;&#x3D; values.length)&#123;</span><br><span class="line">                resolve(resultArr);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(let i &#x3D; 0;i&lt;value.length;i++)&#123;</span><br><span class="line">            let value &#x3D; value[i];</span><br><span class="line">            if(value &amp;&amp; typeof value.then &#x3D;&#x3D;&#x3D; &quot;function&quot;)&#123;</span><br><span class="line">                value.then((value)&#x3D;&gt;&#123;</span><br><span class="line">                    processResultByKey(value,i);</span><br><span class="line">                &#125;,reject);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                processResultByKey(value,i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="promise-race"><a href="#promise-race" class="headerlink" title="promise.race()"></a>promise.race()</h3><blockquote>
+<p>promise.race用来处理多个请求，哪个请求最先完成先用哪个</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Promise.race &#x3D; function(promises)&#123;</span><br><span class="line">    return new Promise((resolve,reject)&#x3D;&gt;&#123;</span><br><span class="line">        for(let i &#x3D; 0;i&lt;promises.length;i++)&#123;</span><br><span class="line">            let val &#x3D; promises[i];</span><br><span class="line">            if(val &amp;&amp; typeof val.then &#x3D;&#x3D;&#x3D; &quot;function&quot;)&#123;</span><br><span class="line">                val.then(resolve,reject);</span><br><span class="line">            &#125;else&#123;&#x2F;&#x2F;普通值</span><br><span class="line">                resolve(val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function bubble(arr)&#123;</span><br><span class="line">    for(let i &#x3D; 0;i&lt;arr.length -1;i++)&#123;</span><br><span class="line">        for(let j &#x3D; 0; j&lt;arr.length - 1- i;j++)&#123;</span><br><span class="line">            if(arr[j]&gt;arr[j+1])</span><br><span class="line">                [arr[j],arr[j+1]] &#x3D; [arr[j+1],arr[j]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度On2</p>
+<h4 id="优化（有序数组冒泡排序）"><a href="#优化（有序数组冒泡排序）" class="headerlink" title="优化（有序数组冒泡排序）"></a>优化（有序数组冒泡排序）</h4><p>设置标识位，若没有发生交换，则说明有序，不需要排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function bubble(arr)&#123;</span><br><span class="line">    let flag &#x3D; true;</span><br><span class="line">    for(let i &#x3D; 0;i &lt; arr.length-1;i++)&#123;</span><br><span class="line">        for(let j&#x3D;0;j&lt;arr.length-1-i;j++)&#123;</span><br><span class="line">            if(arr[j]&gt;arr[j+1])&#123;</span><br><span class="line">                flag &#x3D; false;</span><br><span class="line">                [arr[j],arr[j+1]] &#x3D; [arr[j+1],arr[j]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(flag)</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化（部分有序）"><a href="#优化（部分有序）" class="headerlink" title="优化（部分有序）"></a>优化（部分有序）</h4><p>设置变量记录有序的部分，则每次冒泡到此就不继续排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let arr &#x3D; [3,2,1,4,5,6]</span><br><span class="line">function bubble(arr)&#123;</span><br><span class="line">    for(let i &#x3D; 0;i &lt; arr.length-1;i++)&#123;</span><br><span class="line">        let len &#x3D; arr.length -1-i;</span><br><span class="line">        let pos &#x3D; -1;&#x2F;&#x2F;记录有序的下标</span><br><span class="line">        for(let j&#x3D;0;j&lt;arr.length-1-i;j++)&#123;</span><br><span class="line">            if(arr[j]&gt;arr[j+1])&#123;</span><br><span class="line">                pos &#x3D; j;</span><br><span class="line">                [arr[j],arr[j+1]] &#x3D; [arr[j+1],arr[j]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        len &#x3D; pos;</span><br><span class="line">        if(pos &#x3D;&#x3D; -1)&#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>时间复杂度O(nlogn)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function quicksort(arr)&#123;</span><br><span class="line">    let mid &#x3D; Math.floor(arr.length &#x2F; 2);</span><br><span class="line">    let middle &#x3D; arr.splice(mid,1)[0];</span><br><span class="line">    let left,right &#x3D; [];</span><br><span class="line">    for(let i&#x3D;0;i&lt;a.length -1;i++)&#123;</span><br><span class="line">        if(arr[i] &gt; middle)</span><br><span class="line">            right.push(arr[i]);</span><br><span class="line">        else</span><br><span class="line">            left.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return quicksort(left).concat([mid],quicksort(right));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>时间复杂度O(nlogn)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function mergesort(arr)&#123;</span><br><span class="line">    function merge(a,b)&#123;</span><br><span class="line">        let left,right &#x3D; 0;</span><br><span class="line">        let result &#x3D; [];</span><br><span class="line">        while(left &lt; a.length &amp;&amp; right &lt; b.length)&#123;</span><br><span class="line">            if(a[left] &lt; b[right])&#123;</span><br><span class="line">                result.push(a[left]);</span><br><span class="line">                left++;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                result.push(b[right]);</span><br><span class="line">                right++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        while(left &lt; a.length)&#123;</span><br><span class="line">            result.push(a[left]);</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        while(right &lt; b.length)&#123;</span><br><span class="line">            result.push(b[right]);</span><br><span class="line">            right++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function mergeArr(arr)&#123;</span><br><span class="line">        if(arr.length &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">            return arr;</span><br><span class="line">        let mid &#x3D; Math.floor(arr.length &#x2F; 2);</span><br><span class="line">        let left &#x3D; arr.slice(0,mid);</span><br><span class="line">        let right &#x3D; arr.slice(mid,arr.length);</span><br><span class="line">        return merge(mergeArr(left),mergeArr(right));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="树算法"><a href="#树算法" class="headerlink" title="树算法"></a>树算法</h2><h2 id="webpack原理"><a href="#webpack原理" class="headerlink" title="webpack原理"></a>webpack原理</h2><ol>
+<li><p>初始化参数</p>
+</li>
+<li><p>根据参数初始化compiler对象，注册所有配置插件，监听webpack构建生命周期的事件节点，执行对象run方法执行编译</p>
+</li>
+<li><p>通过配置的entry入口解析文件构建语法树</p>
+</li>
+<li><p>递归调用所有配置的loader对文件进行转换，再找出模块依赖的模块，直到所有入口依赖的文件都经过处理</p>
+</li>
+<li><p>根据递归得到每个文件的结果，根据entry配置生成代码块chunk</p>
+</li>
+<li><p>输出所有chunk到文件系统。</p>
+</li>
+</ol>
+<h2 id="webpack两个核心元素及常用Loader，Plugin"><a href="#webpack两个核心元素及常用Loader，Plugin" class="headerlink" title="webpack两个核心元素及常用Loader，Plugin"></a>webpack两个核心元素及常用Loader，Plugin</h2><ol>
+<li><p>核心元素</p>
+<ul>
+<li>compiler对象：类似于webpack的司机，有run-启动编译/newCompilation-创建编译器/emitAsset-处理编译后结果等方法</li>
+<li>compilation对象：类似于webpack的发动机，被compiler用来创建新的编译或构建。它能访问所有模块和他们的依赖</li>
+</ul>
+</li>
+<li><p>loader</p>
+<ul>
+<li>vue-loader：.vue文件加载器</li>
+<li>sass-loader：sass&amp;scss文件加载器</li>
+<li>postcss-loader：css样式处理工具，自动添加浏览器适配前缀，压缩css样式等</li>
+<li>css-loader：css模块加载器</li>
+<li>babel-loader：webpack加载器</li>
+<li>eslint-loader：代码检查工具</li>
+</ul>
+</li>
+<li><p>plugin</p>
+<ul>
+<li>html-webpack-plugin：自动引入js资源文件到入口index.html文件</li>
+<li>mini-css-extract-plugin：抽离css样式到独立的.css文件</li>
+</ul>
+</li>
+</ol>
+<h2 id="webpack中plugin哪个时期触发"><a href="#webpack中plugin哪个时期触发" class="headerlink" title="webpack中plugin哪个时期触发"></a>webpack中plugin哪个时期触发</h2><h2 id="时间循环"><a href="#时间循环" class="headerlink" title="时间循环"></a>时间循环</h2><h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>通过数据劫持结合发布订阅者模式实现</p>
+<p>vue通过<code>Object.defineProperty()</code>实现数据劫持，它可以控制一个对象属性的特有操作，例如读写权/枚举等，</p>
+<p>MVVM主要包含两方面，数据变化更新视图，视图变化更新数据。其中视图变化更新数据只需要通过事件监听即可。</p>
+<h3 id="数据变化更新视图"><a href="#数据变化更新视图" class="headerlink" title="数据变化更新视图"></a>数据变化更新视图</h3><p>通过<code>Object.defineProperty()</code>对属性设置一个set函数，当数据改变后触发set函数，故将更新方法写入set即可实现data更新view</p>
+<ol>
+<li><p>实现监听器Observer，用来劫持监听所有属性，若有变动，则通知订阅者</p>
+</li>
+<li><p>实现订阅者Watcher，可收到属性的变化通知并执行相应的函数，从而更新视图</p>
+</li>
+<li><p>实现解析器Compile，扫描解析每个节点的相关指令，并根据初始化模版数据以及初始化相应的订阅器</p>
+</li>
+</ol>
+<h2 id="虚拟dom"><a href="#虚拟dom" class="headerlink" title="虚拟dom"></a>虚拟dom</h2><p>页面更新可以先全部反映到虚拟dm中，操作内存中的js对象速度会更快，当更新完成后，再将最终的js对象映射到真实的dom中，由浏览器绘制渲染</p>
+<h2 id="dom概念及分类"><a href="#dom概念及分类" class="headerlink" title="dom概念及分类"></a>dom概念及分类</h2><p>Dom即HTML的层级结构，有Dom元素树和Dom文档树。</p>
+<p>其节点类型有：元素节点、属性节点、文本节点、文档节点、注释节点、实体名称节点、处理指令节点等</p>
+<h3 id="获取元素节点"><a href="#获取元素节点" class="headerlink" title="获取元素节点"></a>获取元素节点</h3><ul>
+<li>document.getElementById: 通过id获取元素节点　</li>
+<li>getElementsByTagName:　通过标签名称获取元素节点</li>
+<li>getElementsByClassName: 通过类名获取元素节点</li>
+<li>getElementsByName: 通过表单元素的name获取元素节点</li>
+<li>querySelector(“[selector]”):　支持一切css中的选择器，但如果匹配多个，只会返回第一个</li>
+<li>querySelectorAll(“[selector]”):　返回所有选中的元素</li>
+</ul>
+<h2 id="a-2-amp-amp-a-3"><a href="#a-2-amp-amp-a-3" class="headerlink" title="a==2 &amp;&amp; a==3"></a>a==2 &amp;&amp; a==3</h2><p>js调用==比较时，会触发类型转换，即两个函数<code>toString()</code>和<code>valueOf</code>，每比较一次，调用一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; &#123;</span><br><span class="line">    i: 1,</span><br><span class="line">    valueOf:()&#x3D;&gt;&#123;</span><br><span class="line">        return a.i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="a-2-amp-amp-a-3-1"><a href="#a-2-amp-amp-a-3-1" class="headerlink" title="a===2&amp;&amp;a===3"></a>a===2&amp;&amp;a===3</h2><p>使用Object.defineProperty为对象定义一个属性，此时该属性具有getter方法，即可以在代码中被直接访问到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var value &#x3D; 0;</span><br><span class="line">Object.defineProperty(window,&#39;a&#39;,&#123;</span><br><span class="line">    get: function()&#123;</span><br><span class="line">        return this.value ++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现元素拖拽"><a href="#实现元素拖拽" class="headerlink" title="实现元素拖拽"></a>实现元素拖拽</h2><ol>
+<li><p>使用HTML5的API：dataTransfer</p>
+<ul>
+<li><p>为拖拽的元素设值允许拖拽，赋予dragstart事件将其id转换为数据保存</p>
+</li>
+<li><p>为容器添加dragover属性添加事件组织浏览器默认事件，允许元素放置，并赋予drop事件进行元素放置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 参数要传入event对象 --&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box1&quot; ondragover&#x3D;&quot;allowdrop(event)&quot; ondrop&#x3D;&quot;drop(event)&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&quot;img&#x2F;2.jpg&quot; alt&#x3D;&quot;00&quot; draggable&#x3D;&quot;true&quot; ondragstart&#x3D;&quot;drag(event)&quot; id&#x3D;&quot;drag&quot; width&#x3D;&quot;50&quot; height&#x3D;&quot;50&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子一&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box2&quot; ondragover&#x3D;&quot;allowdrop(event)&quot; ondrop&#x3D;&quot;drop(event)&quot;&gt;</span><br><span class="line">&lt;span&gt;我是盒子二&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function allowdrop(e) &#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drop(e) &#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">        var data &#x3D; e.dataTransfer.getData(&quot;text&quot;);</span><br><span class="line">        e.target.appendChild(document.getElementById(data));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drag(e) &#123;</span><br><span class="line">        e.dataTransfer.setData(&quot;text&quot;, e.target.id);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用原生js</p>
+<ul>
+<li><p>获取鼠标距离元素左边界和上边界的距离</p>
+</li>
+<li><p>移动后计算元素相对原来位置的相对距离，赋予样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;box1&quot; id&#x3D;&quot;drag&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子一&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子二&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let drag &#x3D; document.querySelector(&quot;#drag&quot;);&#x2F;&#x2F;获取操作元素</span><br><span class="line">    drag.onmousedown &#x3D; function (e) &#123;&#x2F;&#x2F;鼠标按下触发</span><br><span class="line">        var disx &#x3D; e.pageX - drag.offsetLeft;&#x2F;&#x2F;获取鼠标相对元素距离</span><br><span class="line">        var disy &#x3D; e.pageY - drag.offsetTop;</span><br><span class="line">        console.log(e.pageX);</span><br><span class="line">        console.log(drag.offsetLeft);</span><br><span class="line">        document.onmousemove &#x3D; function (e) &#123;&#x2F;&#x2F;鼠标移动触发事件，元素移到对应为位置</span><br><span class="line">            drag.style.left &#x3D; e.pageX - disx + &#39;px&#39;;</span><br><span class="line">            drag.style.top &#x3D; e.pageY - disy + &#39;px&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        document.onmouseup &#x3D; function()&#123;&#x2F;&#x2F;鼠标抬起，清除绑定的事件，元素放置在对应的位置</span><br><span class="line">            document.onmousemove &#x3D; null;</span><br><span class="line">            document.onmousedown &#x3D; null;</span><br><span class="line">        &#125;;</span><br><span class="line">        e.preventDefault();&#x2F;&#x2F;阻止浏览器的默认事件</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="实现防抖-节流函数"><a href="#实现防抖-节流函数" class="headerlink" title="实现防抖/节流函数"></a>实现防抖/节流函数</h2><ol>
+<li>防抖函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func,delay)&#123;</span><br><span class="line">    var timeout;</span><br><span class="line">    return function(e)&#123;</span><br><span class="line">        &#x2F;&#x2F;清除旧timeout</span><br><span class="line">        clearTimeout(timeout);</span><br><span class="line">        var context &#x3D;  this, args &#x3D; arguments;</span><br><span class="line">        &#x2F;&#x2F;新timeout</span><br><span class="line">        timeout &#x3D; setTimeout(function()&#123;</span><br><span class="line">            func.apply(context,args);</span><br><span class="line">        &#125;,delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;第一次触发会立刻执行 </span><br><span class="line">const debounceImmediate &#x3D; (cb, delay &#x3D; 1000, immediate &#x3D; true) &#x3D;&gt; &#123;</span><br><span class="line">  let timer &#x3D; null;</span><br><span class="line">  return function (...args) &#123;</span><br><span class="line">    const context &#x3D; this;</span><br><span class="line">    const execNow &#x3D; immediate &amp;&amp; !timer;</span><br><span class="line">    if (timer) clearTimeout(timer);</span><br><span class="line">    timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      cb.apply(context, args);</span><br><span class="line">      timer &#x3D; null;</span><br><span class="line">    &#125;, delay);</span><br><span class="line">    execNow &amp;&amp; cb.apply(this, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>节流函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, delay)&#123;</span><br><span class="line">    let timeout;</span><br><span class="line">    let start &#x3D; new Date;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        let context &#x3D;  this, args &#x3D; arguments, curr &#x3D;  new Date() - 0;</span><br><span class="line">        let remain &#x3D;  delay - (curr - start);</span><br><span class="line">        if(timeout) </span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">        if(remain &lt;&#x3D; 0&gt;)&#123;</span><br><span class="line">            &#x2F;&#x2F;第一次触发执行</span><br><span class="line">            func.apply(context,args);</span><br><span class="line">            start &#x3D; curr;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            &#x2F;&#x2F;事件结束后也执行一次</span><br><span class="line">            timeout &#x3D; setTimeout(function()&#123;</span><br><span class="line">                func.apply(context,args)</span><br><span class="line">                timeout &#x3D; null</span><br><span class="line">            &#125;,delay);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="vue直接赋值修改数组，页面无法同步更新"><a href="#vue直接赋值修改数组，页面无法同步更新" class="headerlink" title="vue直接赋值修改数组，页面无法同步更新"></a>vue直接赋值修改数组，页面无法同步更新</h2><p>vue由于js限制，不能同步更新，它会绕开监听器，无法实现动态效果。若需要实时更新，需要使用push()/pop()等方法</p>
+<h2 id="vue-router实现原理"><a href="#vue-router实现原理" class="headerlink" title="vue-router实现原理"></a>vue-router实现原理</h2><p>2种模式：hash/history</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F; 根据mode确定history实际的类并实例化    </span><br><span class="line">switch (mode) &#123;</span><br><span class="line">  case &#39;history&#39;:</span><br><span class="line">    this.history &#x3D; new HTML5History(this, options.base)</span><br><span class="line">    break</span><br><span class="line">  case &#39;hash&#39;:</span><br><span class="line">    this.history &#x3D; new HashHistory(this, options.base, this.fallback)</span><br><span class="line">    break</span><br><span class="line">  case &#39;abstract&#39;:</span><br><span class="line">    this.history &#x3D; new AbstractHistory(this, options.base)</span><br><span class="line">    break</span><br><span class="line">  default:</span><br><span class="line">    if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">      assert(false, &#96;invalid mode: $&#123;mode&#125;&#96;)</span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>hash：url的<code>hash</code>以<code>#</code>开头，基于<code>location.hash</code>实现，值为<code>#</code>后的内容。当<code>hash</code>改变时，页面不会刷新，浏览器也不会请求服务器。<code>hash</code>改变时，触发相应的<code>hashchange</code>事件，操控路由改变，切换内容</p>
+</li>
+<li><p>history：通过使用<code>pushState</code>和<code>replaceState</code>改变url地址，同时使用<code>onpopState</code>事件，刷新页面向服务器发送请求。需要特别注意的是,调用<code>history.pushState()</code>或<code>history.replaceState()</code>不会触发<code>popstate</code>事件。只有在做出浏览器动作时，比如点击后退、前进按钮或者调用JS中的<code>history.back()</code>、<code>history.forward()</code>、<code>history.go()</code>才会触发该事件。</p>
+</li>
+</ul>
+<h3 id="HashHistory"><a href="#HashHistory" class="headerlink" title="HashHistory"></a>HashHistory</h3><p>替换路由有两个方法<code>HashHistory.push()</code>和<code>HashHistory.replace()</code></p>
+<ul>
+<li><p>HashHistory.push()将新路由添加到浏览器访问离是栈顶。</p>
+<ol>
+<li>$router.push()</li>
+<li>HashHistory.push()：根据hash模式调用，设置hash并添加到浏览器历史记录，即<code>window.location.hash=xxx</code></li>
+<li>History.transitionTo()：监听更新，若更新则调用</li>
+<li>History.updateRoute()：更新路由</li>
+<li>app._route = route：替换路由</li>
+<li>vm.render()：更新视图</li>
+</ol>
+</li>
+<li><p>HashHistory.replace()替换当前路由</p>
+</li>
+</ul>
+<h3 id="HTML5History"><a href="#HTML5History" class="headerlink" title="HTML5History"></a>HTML5History</h3><p>History interface是浏览器历史记录栈提供的接口，通过<code>back()</code>/<code>forward()</code>/<code>go()</code>等方法，读取浏览器历史记录栈的信息，进行跳转操作。HTML5后通过使用<code>pushState()</code>/<code>replaceState()</code>读取、修改浏览器历史记录栈</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.history.pushState(stateObject, title, URL)</span><br><span class="line">window.history.replaceState(stateObject, title, URL)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>stateObject: 当浏览器跳转到新状态时，将触发<code>popState</code>事件，该事件携带此参数副本</p>
+</li>
+<li><p>title：所添加记录的标题</p>
+</li>
+<li><p>URL：所添加记录的url</p>
+</li>
+</ul>
+<h2 id="事件冒泡-事件捕获-事件委托"><a href="#事件冒泡-事件捕获-事件委托" class="headerlink" title="事件冒泡/事件捕获/事件委托"></a>事件冒泡/事件捕获/事件委托</h2><p>解决页面中事件流的问题，即解决事件发生的顺序问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;div1&quot;&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;div2&quot;&gt;</span><br><span class="line">        &lt;p id&#x3D;&quot;p1&quot;&gt;事件&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let div1 &#x3D; document.getElementById(&#39;div1&#39;);</span><br><span class="line">    let div2 &#x3D; document.getElementById(&#39;div2&#39;);</span><br><span class="line">    let p1 &#x3D; document.getElementById(&#39;p1&#39;);</span><br><span class="line">    div1.onclick &#x3D; function ()&#123; console.log(&quot;click div1&quot;)&#125;;</span><br><span class="line">    div2.onclick &#x3D; function ()&#123; console.log(&quot;click div2&quot;)&#125;;</span><br><span class="line">    p1.onclick &#x3D; function ()&#123; console.log(&quot;click p1&quot;)&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>事件冒泡：事件从最内层的元素开始发生，一直向上传播，直到document对象。如上述代码，事件发生顺序为<code>&lt;p&gt;</code>=&gt;<code>&lt;div id=&quot;div2&quot;&gt;</code>=&gt;<code>&lt;div id=&quot;div1&quot;&gt;</code></p>
+</li>
+<li><p>事件捕获：事件从最外层元素开始发生，直到最具体的元素。如上述代码，事件发生顺序为<code>&lt;div id=&quot;div1&quot;&gt;</code>=&gt;<code>&lt;div id=&quot;div2&quot;&gt;</code>=&gt;<code>&lt;p&gt;</code></p>
+</li>
+</ul>
+<p>方法<code>addEventListener(event, function, useCapture)</code>用来为特定元素绑定事件处理函数，其参数分别为：没有on的事件类型<code>event</code>/事件处理函数<code>function</code>/控制事件阶段<code>useCapture</code>。其中<code>useCapture</code>默认为<code>false</code>，即在事件冒泡阶段调用事件函数，若为<code>true</code>，即在事件捕获阶段调用事件函数</p>
+<ul>
+<li>事件委托：事件目标自身不处理事件，而是把处理任务委托给其父元素/祖先元素或者根元素document</li>
+</ul>
+<h2 id="typeof-null-typeof-undefined输出"><a href="#typeof-null-typeof-undefined输出" class="headerlink" title="typeof null/typeof undefined输出"></a>typeof null/typeof undefined输出</h2><ul>
+<li><p>typeof null = object：null表示一个空对象的引用，即一个变量不再指向任何对象地址</p>
+</li>
+<li><p>typeof undefined = undefined：undefined表示一个没有赋值的变量</p>
+</li>
+</ul>
+<h2 id="异步async实现sleep函数"><a href="#异步async实现sleep函数" class="headerlink" title="异步async实现sleep函数"></a>异步async实现sleep函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(resolve, ms);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function fn() &#123;</span><br><span class="line">    await sleep(1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<h2 id="instanceof实现"><a href="#instanceof实现" class="headerlink" title="instanceof实现"></a>instanceof实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function fn(a,b)&#123;</span><br><span class="line">    let type &#x3D; b.prototype;&#x2F;&#x2F;类型原型</span><br><span class="line">    let obj &#x3D; a._proto_;</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(type &#x3D;&#x3D;&#x3D; obj)</span><br><span class="line">            return true;</span><br><span class="line">        obj &#x3D; obj._proto_;</span><br><span class="line">        if(obj &#x3D;&#x3D;&#x3D; null)</span><br><span class="line">            return false;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="jsonp原理及实现"><a href="#jsonp原理及实现" class="headerlink" title="jsonp原理及实现"></a>jsonp原理及实现</h2><blockquote>
+<p>jsonp是json的使用模式，可以让网页从别的域名获取资料，即跨域读取数据。由于同源策略，所以需要使用jsonp</p>
+</blockquote>
+<p>原理：利用<code>script</code>标签的<code>src</code>没有跨域限制来完成</p>
+<p>过程：</p>
+<ol>
+<li>前端定义解析函数jsonCallback = function(res){}</li>
+<li>通过params的形式包装script标签的请求参数，并声明执行函数fn=jsonpCallback</li>
+<li>后端获取到前端声明的执行函数，并带上参数调用执行函数jsonpCallback，传递给前端</li>
+<li>前端在script标签返回资源时，执行jsonpCallback并通过回调函数的方式拿到数据。</li>
+</ol>
+<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>实现不同屏幕分辨率的终端上浏览网页的不同展示方式，即通过检测视口分辨率，针对不同客户端在客户端做代码处理，来展现不同的布局和内容。常用的是三栏布局等</p>
+<h2 id="webpack打包output中filename-name-chunkhash-js里chunkhash的用处"><a href="#webpack打包output中filename-name-chunkhash-js里chunkhash的用处" class="headerlink" title="webpack打包output中filename:[name][chunkhash].js里chunkhash的用处"></a>webpack打包output中filename:[name][chunkhash].js里chunkhash的用处</h2><p>具体来说webpack是根据入口entry配置文件来分析其依赖项并由此来构建该entry的chunk，并生成对应的hash值。不同的chunk会有不同的hash值。一般在项目中把公共的依赖库和程序入口文件隔离并进行单独打包构建，用chunkhash来生成hash值，只要依赖公共库不变，那么其对应的chunkhash就不会变，从而达到缓存的目的。</p>
+<h2 id="map和foreach的区别，好处和优点"><a href="#map和foreach的区别，好处和优点" class="headerlink" title="map和foreach的区别，好处和优点"></a>map和foreach的区别，好处和优点</h2><ul>
+<li><p>forEach()：针对每个元素执行提供的函数</p>
+</li>
+<li><p>map()：创建新的数组，其中每个元素由调用a中每个元素执行提供的函数而来</p>
+</li>
+</ul>
+<p>区别：</p>
+<ol>
+<li><p>forEach会修改原来数组，map得到一个新的数组并返回</p>
+</li>
+<li><p>forEach执行速度比map慢</p>
+</li>
+<li><p>forEach适用于不改变数据，仅利用数据时使用，map适用于需要改变数值时使用</p>
+</li>
+</ol>
+<h2 id="登陆登出的实现"><a href="#登陆登出的实现" class="headerlink" title="登陆登出的实现"></a>登陆登出的实现</h2><h2 id="echart实现方面有没有什么困难"><a href="#echart实现方面有没有什么困难" class="headerlink" title="echart实现方面有没有什么困难"></a>echart实现方面有没有什么困难</h2><h2 id="防抖和节流分别在什么情况下使用"><a href="#防抖和节流分别在什么情况下使用" class="headerlink" title="防抖和节流分别在什么情况下使用"></a>防抖和节流分别在什么情况下使用</h2><h2 id="BFC理解"><a href="#BFC理解" class="headerlink" title="BFC理解"></a>BFC理解</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://awesolynn.me/post/9e01d4c6.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag">面经</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/post/fb0f9f1f.html" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">前端面经总结（五）</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'vrc8vwEom9swxls4339xUlcK-gzGzoHsz',
+        app_key: 'FIy1fJ98cWqNoA6uR79jOQsB',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '一起快活呀(╹ڡ╹ )✧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        Aweso Lynn
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+      <aside class="sidebar">
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/02/19/eV3lATnHktMLSDG.png" alt="AwesoLynn"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i></p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+      
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['Better ever than never','Yesterday, you said tomorrow','Wherever you are, be all there'],
+    startDelay: 0,
+    typeSpeed: 100,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  </div>
+</body>
+
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://awesolynn.me/"/>
-  <updated>2021-06-18T23:39:23.304Z</updated>
+  <updated>2021-06-28T03:44:48.299Z</updated>
   <id>https://awesolynn.me/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>前端面经总结（五）</title>
-    <link href="https://awesolynn.me/post/fb0f9f1f.html"/>
-    <id>https://awesolynn.me/post/fb0f9f1f.html</id>
-    <published>2021-06-17T01:02:58.000Z</published>
-    <updated>2021-06-18T23:39:23.304Z</updated>
+    <title>前端面经总结（六）</title>
+    <link href="https://awesolynn.me/post/9e01d4c6.html"/>
+    <id>https://awesolynn.me/post/9e01d4c6.html</id>
+    <published>2021-06-22T08:24:43.000Z</published>
+    <updated>2021-06-28T03:44:48.299Z</updated>
     
     <summary type="html">
     
@@ -45,6 +45,41 @@
     
       <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
     
+      <category term="Vue" scheme="https://awesolynn.me/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面经总结（五）</title>
+    <link href="https://awesolynn.me/post/fb0f9f1f.html"/>
+    <id>https://awesolynn.me/post/fb0f9f1f.html</id>
+    <published>2021-06-17T01:02:58.000Z</published>
+    <updated>2021-06-22T08:27:25.630Z</updated>
+    
+    <summary type="html">
+    
+      前端面经学习总结
+    
+    </summary>
+    
+    
+      <category term="面经" scheme="https://awesolynn.me/categories/%E9%9D%A2%E7%BB%8F/"/>
+    
+    
+      <category term="CSS" scheme="https://awesolynn.me/tags/CSS/"/>
+    
+      <category term="JavaScript" scheme="https://awesolynn.me/tags/JavaScript/"/>
+    
+      <category term="面经" scheme="https://awesolynn.me/tags/%E9%9D%A2%E7%BB%8F/"/>
+    
+      <category term="http" scheme="https://awesolynn.me/tags/http/"/>
+    
+      <category term="HTML" scheme="https://awesolynn.me/tags/HTML/"/>
+    
+      <category term="浏览器" scheme="https://awesolynn.me/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+      <category term="Vue" scheme="https://awesolynn.me/tags/Vue/"/>
+    
   </entry>
   
   <entry>
@@ -52,7 +87,7 @@
     <link href="https://awesolynn.me/post/94915a58.html"/>
     <id>https://awesolynn.me/post/94915a58.html</id>
     <published>2021-06-16T10:49:56.000Z</published>
-    <updated>2021-06-18T23:39:23.305Z</updated>
+    <updated>2021-06-28T10:24:00.576Z</updated>
     
     <summary type="html">
     
@@ -83,7 +118,7 @@
     <link href="https://awesolynn.me/post/7475bf8d.html"/>
     <id>https://awesolynn.me/post/7475bf8d.html</id>
     <published>2021-06-16T03:18:26.000Z</published>
-    <updated>2021-06-18T23:39:23.307Z</updated>
+    <updated>2021-06-29T07:03:11.714Z</updated>
     
     <summary type="html">
     
@@ -108,7 +143,7 @@
     <link href="https://awesolynn.me/post/23bc433d.html"/>
     <id>https://awesolynn.me/post/23bc433d.html</id>
     <published>2021-06-15T10:18:26.000Z</published>
-    <updated>2021-06-18T23:39:23.302Z</updated>
+    <updated>2021-06-28T04:29:06.774Z</updated>
     
     <summary type="html">
     
@@ -164,7 +199,7 @@
     <link href="https://awesolynn.me/post/1858604b.html"/>
     <id>https://awesolynn.me/post/1858604b.html</id>
     <published>2021-06-10T09:43:25.000Z</published>
-    <updated>2021-06-18T23:39:23.306Z</updated>
+    <updated>2021-06-29T07:03:14.873Z</updated>
     
     <summary type="html">
     
@@ -189,18 +224,14 @@
     <link href="https://awesolynn.me/post/a3c7594b.html"/>
     <id>https://awesolynn.me/post/a3c7594b.html</id>
     <published>2021-06-10T09:18:45.000Z</published>
-    <updated>2021-06-18T23:39:23.309Z</updated>
+    <updated>2021-06-22T08:20:54.076Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;js基本类型&lt;/p&gt;
-&lt;p&gt;基本类型：string null undefined number boolean symbol（es6引入）复杂类型：object array date regexp function 基本包装类型：boolean number string
-        
-      
+      &lt;p&gt;js基本类型&lt;/p&gt;
+&lt;p&gt;基本类型：string null undefined number boolean symbol（es6引入）复杂类型：object array date regexp function 基本包装类型：boolean number string 单体内置对象：global math&lt;/p&gt;
+&lt;p&gt;数组flat方法&lt;/p&gt;
+&lt;p&gt;es6数组交换&lt;/p&gt;
     
     </summary>
     
@@ -244,7 +275,7 @@
     <link href="https://awesolynn.me/post/5eb40cb7.html"/>
     <id>https://awesolynn.me/post/5eb40cb7.html</id>
     <published>2021-06-08T05:41:28.000Z</published>
-    <updated>2021-06-09T09:52:46.170Z</updated>
+    <updated>2021-06-22T08:21:04.891Z</updated>
     
     <summary type="html">
     
@@ -275,7 +306,7 @@
     <link href="https://awesolynn.me/post/a80967e6.html"/>
     <id>https://awesolynn.me/post/a80967e6.html</id>
     <published>2021-06-03T07:21:41.000Z</published>
-    <updated>2021-06-09T07:38:07.091Z</updated>
+    <updated>2021-06-22T08:21:24.968Z</updated>
     
     <summary type="html">
     
@@ -296,7 +327,7 @@
     <link href="https://awesolynn.me/post/81ec75ea.html"/>
     <id>https://awesolynn.me/post/81ec75ea.html</id>
     <published>2021-06-03T05:02:14.000Z</published>
-    <updated>2021-06-15T03:18:33.348Z</updated>
+    <updated>2021-06-22T08:23:59.171Z</updated>
     
     <summary type="html">
     
@@ -481,33 +512,6 @@
     
     
       <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>近期问题分析及解决</title>
-    <link href="https://awesolynn.me/post/900994060.html"/>
-    <id>https://awesolynn.me/post/900994060.html</id>
-    <published>2021-05-26T04:21:50.000Z</published>
-    <updated>2021-05-28T08:03:46.410Z</updated>
-    
-    <summary type="html">
-    
-      近期debug解决及分析
-    
-    </summary>
-    
-    
-      <category term="debug" scheme="https://awesolynn.me/categories/debug/"/>
-    
-    
-      <category term="vue" scheme="https://awesolynn.me/tags/vue/"/>
-    
-      <category term="webpack" scheme="https://awesolynn.me/tags/webpack/"/>
-    
-      <category term="debug" scheme="https://awesolynn.me/tags/debug/"/>
-    
-      <category term="ES6" scheme="https://awesolynn.me/tags/ES6/"/>
     
   </entry>
   

@@ -1,12 +1,489 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端面经总结（六）</title>
+    <url>/post/9e01d4c6.html</url>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/fb0f9f1f.html">前端面经总结（五）</a></p>
+<h2 id="SetTimeout循环输出数组"><a href="#SetTimeout循环输出数组" class="headerlink" title="SetTimeout循环输出数组"></a>SetTimeout循环输出数组</h2><ol>
+<li>使用闭包</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i &#x3D; 1; i &lt; 5; i++)&#123;</span><br><span class="line">    (function(j)&#123;</span><br><span class="line">        setTimeout(function timer()&#123;</span><br><span class="line">            console.log(j);</span><br><span class="line">        &#125;,j*1000);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过闭包，将i变量留在内存中，输出j时，引用外部函数变量i，i根据循环得出。</p>
+<a id="more"></a>
+
+<ol start="2">
+<li>let</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(let i &#x3D; 0;i &lt; 5;i++)&#123;</span><br><span class="line">    setTimeout(function timer()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;,i*1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>let将i绑定到循环体的每次迭代，确保上一次迭代结束的值重新被赋值。setTimeout里function()属于新的域，var定义的变量无法传入此函数执行域中，let声明的块变量可以作用于此函数执行域。</p>
+<h2 id="js作用域"><a href="#js作用域" class="headerlink" title="js作用域"></a>js作用域</h2><ol>
+<li>作用域</li>
+</ol>
+<p>定义的变量可以产生作用/使用的区域。js作用域可以分为<strong>全局作用域</strong>和<strong>局部作用域</strong>。</p>
+<ol start="2">
+<li>执行上下文：当前代码运行的环境，主要分为<strong>全局级别</strong>和<strong>函数级别</strong>。</li>
+</ol>
+<p>无论什么环境，只能存在一个全局级别的执行上下文，可以有多个函数执行上下文。函数每次被调用执行时，js引擎自动创建出一个函数上下问，并放入执行上下文堆栈中，<strong>外部上下文无法访问内部上下文中的变量，但内部上下文可以访问外部上下文中的变量</strong>。</p>
+<h2 id="js中this指向"><a href="#js中this指向" class="headerlink" title="js中this指向"></a>js中this指向</h2><blockquote>
+<p>谁调用这个函数或方法，this关键字就指向谁</p>
+</blockquote>
+<ol>
+<li>普通函数调用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function person()&#123;</span><br><span class="line">    this.name &#x3D; &quot;x1&quot;;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line">person();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;output</span><br><span class="line">window</span><br><span class="line">x1</span><br></pre></td></tr></table></figure>
+
+<p>如上，全局对象window调用了person方法，故this指向全局对象window。故person内的this也指向window，故name为window的一个属性。</p>
+<ol start="2">
+<li>作为方法调用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var name &#x3D; &quot;xx&quot;;</span><br><span class="line">var person&#x3D;&#123;</span><br><span class="line">    name: &quot;yy&quot;,</span><br><span class="line">    showName:function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">person.showName();&#x2F;&#x2F;输出yy</span><br><span class="line">var showNameA &#x3D; person.showName;</span><br><span class="line">showNameA();&#x2F;&#x2F;输出xx</span><br></pre></td></tr></table></figure>
+
+<p>person.showName()明显为person调用showName方法，故this指向person，输出yy</p>
+<p>而showNameA = person.showName时，showNameA相当于window的一个属性，将person.showName赋值给他，故调用showNameA时，是相当于window.showNameA。故this指向window，输出xx</p>
+<ol start="3">
+<li>作为构造函数调用</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">var personA &#x3D; Person(&quot;xx&quot;);</span><br><span class="line">console.log(personA.name);&#x2F;&#x2F;undefined;</span><br><span class="line">console.log(window.name);&#x2F;&#x2F;xx</span><br></pre></td></tr></table></figure>
+
+<p>personA.name即window.personA.name，可见上述代码并没有定义此属性，故输出undefined；</p>
+<p>而window.name。在personA赋值时，调用了window.Person(“xx”)，此时将window的name赋值为xx。故输出window.name即为xx</p>
+<ol start="4">
+<li>new</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">    this.name &#x3D; name;</span><br><span class="line">&#125;</span><br><span class="line">var personB &#x3D; new Person(&quot;xx&quot;);</span><br><span class="line">console.log(personB.name);</span><br></pre></td></tr></table></figure>
+
+<p>new操作符实例化对象的内部过程为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function person(name)&#123;</span><br><span class="line">    var o &#x3D; &#123;&#125;;</span><br><span class="line">    o._proto_ &#x3D; Person.prototype;</span><br><span class="line">    Person.call(o,name);</span><br><span class="line">    return o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此可得，当使用new操作符实例化对象，首先创建一个新的对象，并将新对象的proto指向Person的prototype完成对原型属性和方法的继承。再通过使用call方法，将this的指向从Person改为新对象，并完成o.name = name;</p>
+<p>此时使用new Person(“xx”)；即将this指向personB，并赋值personB.name = “xx”;<br>故输出personB.name时，输出xx</p>
+<ol start="5">
+<li>call/apply方法调用</li>
+</ol>
+<p>call/apply方法最大的作用是改变this的指向，且都属于Function.prototype的一个方法。但他们的区别在于传递的参数不同，call传递函数运行作用域(this)和所有的参数序列(必须列举出来)，apply传递函数运行作用域(this)和参数数组。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var name &#x3D; &quot;xx&quot;;</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name : &quot;yy&quot;,</span><br><span class="line">    showName:function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;call方法第一个参数函数运行作用域为空，则指向默认值window</span><br><span class="line">Person.showName.call();&#x2F;&#x2F;输出window.name，即xx</span><br><span class="line"></span><br><span class="line">funtion FruitA(n1,n2)&#123;</span><br><span class="line">    this.n1&#x3D;n1;</span><br><span class="line">    this.n2&#x3D;n2;</span><br><span class="line">    this.change&#x3D;function(x,y)&#123;</span><br><span class="line">        this.n1&#x3D;x;</span><br><span class="line">        this.n2&#x3D;y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fruitA&#x3D;new FruitA(&quot;cheery&quot;,&quot;banana&quot;);</span><br><span class="line">var FruitB&#x3D;&#123;</span><br><span class="line">    n1:&quot;apple&quot;,</span><br><span class="line">    n2:&quot;orange&quot;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;将fruitA的change方法this指向FruitB，故设置FruitB.n1 &#x3D; pear;FruitB.n2 &#x3D; peach;</span><br><span class="line">fruitA.change.call(FruitB,&quot;pear&quot;,&quot;peach&quot;);</span><br><span class="line"></span><br><span class="line">console.log(FruitB.n1); &#x2F;&#x2F;输出 pear</span><br><span class="line">console.log(FruitB.n2);&#x2F;&#x2F; 输出 peach</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>bind方法</li>
+</ol>
+<p>bind方法也是用来改变函数的this指向，且利用后续参数传参。但它与call/apply的区别为：bind方法不会立即执行，即它返回的是一个函数，执行时需要使用()调用，或将其绑定到事件上，通过事件触发调用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fruitA.change.bind(FruitB,&quot;pear&quot;,&quot;peach&quot;)();</span><br><span class="line">document.onclick &#x3D; fruitA.change.bind(FruitB,&quot;pear&quot;,&quot;peach&quot;);</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>eval方法</li>
+</ol>
+<p>eval方法执行，this绑定到当前作用域的对象上。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var name &#x3D; &quot;xx&quot;;</span><br><span class="line">var person &#x3D; &#123;</span><br><span class="line">    name: &quot;yy&quot;;</span><br><span class="line">    showName:function()&#123;</span><br><span class="line">        eval(&quot;console.log(this.name&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">person.showName();&#x2F;&#x2F;输出yy</span><br><span class="line">var a &#x3D; person.showName;</span><br><span class="line">a();&#x2F;&#x2F;即window.a，则this指向window，输出xx</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>箭头函数</li>
+</ol>
+<p>箭头函数中this始终指向外部对象，且自身没有this，故自身不能new实例化，也不能使用call/apply/bind等方法来改变this指向</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function timer()&#123;</span><br><span class="line">    this.seconds &#x3D; 0;</span><br><span class="line">    setInterval(() &#x3D;&gt; this.seconds ++, 1000);&#x2F;&#x2F;this指向外部对象，即实例化timer后的timer1的seconds，每秒+1</span><br><span class="line">&#125;</span><br><span class="line">var timer1 &#x3D; new timer();</span><br><span class="line">setTimeout(() &#x3D;&gt; console.log(timer1.seconds),3100);&#x2F;&#x2F;3s后输出timer1.seconds即3</span><br></pre></td></tr></table></figure>
+
+<h2 id="前端性能优化"><a href="#前端性能优化" class="headerlink" title="前端性能优化"></a>前端性能优化</h2><ol>
+<li><p>优化DOM：</p>
+<ul>
+<li>删除不必要的代码和注释，最小化文件</li>
+<li>利用GZIP压缩文件</li>
+<li>结合HTTP缓存文件</li>
+</ul>
+</li>
+<li><p>图片懒加载，避免一次性加载过多文件导致请求阻塞</p>
+</li>
+<li><p>减少HTTP请求数量</p>
+<ul>
+<li><p>文件合并，图片压缩</p>
+</li>
+<li><p>减少重定向</p>
+</li>
+</ul>
+</li>
+<li><p>优化网络连接：使用CDN，将用户请求导向离用户最近的服务节点上</p>
+</li>
+<li><p>优化资源加载</p>
+<ul>
+<li><p>优化资源加载位置，即CSS放在head，先外链再内页，JS文件放在body底部，先外链再内页</p>
+</li>
+<li><p>模块按需加载。</p>
+</li>
+</ul>
+</li>
+<li><p>减少重绘回流</p>
+<blockquote>
+<p>重绘：页面中样式改变不影响它在文档流中的位置，如color/visibility等，浏览器将新样式赋予元素并重新绘制</p>
+</blockquote>
+<blockquote>
+<p>回流：当render tree中部分或全部元素尺寸/结构等属性改变，浏览器需要重新渲染部分或全部文档的过程</p>
+</blockquote>
+<ul>
+<li><p>避免使用层次较深的选择器，避免使用css表达式，元素适当定义高度等</p>
+</li>
+<li><p>使用防抖或节流限制某方法的频繁触发</p>
+<blockquote>
+<p>防抖debounce：频繁触发的情况下，只要有足够的空闲时间才执行代码一次</p>
+</blockquote>
+<blockquote>
+<p>节流：一定时间内js方法只跑一次</p>
+</blockquote>
+</li>
+<li><p>及时清理环境</p>
+</li>
+</ul>
+</li>
+<li><p>webpack优化</p>
+<ul>
+<li><p>打包公共代码</p>
+</li>
+<li><p>动态导入，按需加载</p>
+</li>
+<li><p>删除无用代码</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="CSS居中-行内-块级"><a href="#CSS居中-行内-块级" class="headerlink" title="CSS居中(行内/块级)"></a>CSS居中(行内/块级)</h2><h3 id="水平"><a href="#水平" class="headerlink" title="水平"></a>水平</h3><ol>
+<li>行内</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;父级元素</span><br><span class="line">display: block;&#x2F;&#x2F;设置为块级</span><br><span class="line">text-align: center;&#x2F;&#x2F;设置行内水平居中</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>块级元素</p>
+<ul>
+<li><p>宽度固定: <code>margin: 0 auto;</code></p>
+</li>
+<li><p>不定宽度:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#x2F;&#x2F;方法1</span><br><span class="line">    &#x2F;&#x2F;子元素</span><br><span class="line">    display:inline-block&#x2F;inline;&#x2F;&#x2F;改为行内块级元素&#x2F;行内元素</span><br><span class="line">    &#x2F;&#x2F;父元素</span><br><span class="line">    text-align: center;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;方法2</span><br><span class="line">    transform: translateX(-50%);&#x2F;&#x2F;在x轴位移50%</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;方法3</span><br><span class="line">    &#x2F;&#x2F;父元素</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">### 垂直</span><br><span class="line"></span><br><span class="line">1. 行内</span><br><span class="line"></span><br><span class="line">    - 单行：设置行高&#x3D;盒子高，即父元素和子元素height相等</span><br><span class="line"></span><br><span class="line">    - 多行：设置&#96;&#96;&#96;display:table-cell;vertical-align:middle;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>块级</p>
+<ul>
+<li><p>position: </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">top: 50%;</span><br><span class="line">margin: auto;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex：<code>display: flex; align-items: center;</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="垂直水平"><a href="#垂直水平" class="headerlink" title="垂直水平"></a>垂直水平</h3><ol>
+<li>已知高宽</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">top: 0;</span><br><span class="line">bottom: 0;</span><br><span class="line">left: 0;</span><br><span class="line">right: 0;</span><br><span class="line">margin: auto;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>未知高宽</p>
+<ul>
+<li><p>定位属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">left: 50%;</span><br><span class="line">top: 50%;</span><br><span class="line">transform: translateX(-50%) translateY(-50%);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">display: flex;</span><br><span class="line">justify-content: center;</span><br><span class="line">align-items: center;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="demo-parent-child的height-顶边"><a href="#demo-parent-child的height-顶边" class="headerlink" title=".demo .parent .child的height/顶边"></a>.demo .parent .child的height/顶边</h2><h2 id="闭包的理解及优缺点"><a href="#闭包的理解及优缺点" class="headerlink" title="闭包的理解及优缺点"></a>闭包的理解及优缺点</h2><p>闭包指有权访问另一个函数作用域中的变量的函数。可以在函数外部访问到函数内部的局部变量，且这些变量始终保存在内存中，不会随函数的结束而自动销毁</p>
+<ul>
+<li><p>优点</p>
+<ol>
+<li><p>保护函数内变量安全</p>
+</li>
+<li><p>内存中保存变量，可以做缓存</p>
+</li>
+<li><p>匿名自执行函数可以减少内存消耗</p>
+</li>
+</ol>
+</li>
+<li><p>缺点</p>
+<ol>
+<li><p>被引用的私有变量不能被销毁，增大了内存消耗</p>
+</li>
+<li><p>闭包涉及跨域访问，导致性能损失</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="position配置的相对元素"><a href="#position配置的相对元素" class="headerlink" title="position配置的相对元素"></a>position配置的相对元素</h2><ul>
+<li><p>absolute：相对父级元素</p>
+</li>
+<li><p>relative：相对默认位置</p>
+</li>
+<li><p>fixed：相对浏览器窗口</p>
+</li>
+<li><p>static：默认位置</p>
+</li>
+</ul>
+<h2 id="git常用操作"><a href="#git常用操作" class="headerlink" title="git常用操作"></a>git常用操作</h2><h2 id="js原生以class获取元素更改样式"><a href="#js原生以class获取元素更改样式" class="headerlink" title="js原生以class获取元素更改样式"></a>js原生以class获取元素更改样式</h2><h2 id="java-js类的区别"><a href="#java-js类的区别" class="headerlink" title="java/js类的区别"></a>java/js类的区别</h2><h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><h2 id="前后端分离实现"><a href="#前后端分离实现" class="headerlink" title="前后端分离实现"></a>前后端分离实现</h2><h2 id="登陆状态保存（浏览器隐身模式）"><a href="#登陆状态保存（浏览器隐身模式）" class="headerlink" title="登陆状态保存（浏览器隐身模式）"></a>登陆状态保存（浏览器隐身模式）</h2><h2 id="jquery和Vue异同"><a href="#jquery和Vue异同" class="headerlink" title="jquery和Vue异同"></a>jquery和Vue异同</h2><ol>
+<li><p>jquery首先需要获取dom对象，在对对象进行各项操作</p>
+</li>
+<li><p>vue首先将值和js对象绑定，修改js对象的值，vue自动把dom值更新。即通过vue对象将数据和view分离，实现相互绑定</p>
+</li>
+</ol>
+<h2 id="jquery和原生js异同"><a href="#jquery和原生js异同" class="headerlink" title="jquery和原生js异同"></a>jquery和原生js异同</h2><ol>
+<li><p>原生js会等到dom元素加载完毕且图片加载完毕后再执行，jquery会等到dom加载完成但不会等图片加载完成</p>
+</li>
+<li><p>jquery可以写多个入口函数你，原生js不行</p>
+</li>
+</ol>
+<h2 id="echart如何实现和Vue的响应"><a href="#echart如何实现和Vue的响应" class="headerlink" title="echart如何实现和Vue的响应"></a>echart如何实现和Vue的响应</h2><h2 id="手写call-bind-apply"><a href="#手写call-bind-apply" class="headerlink" title="手写call/bind/apply"></a>手写call/bind/apply</h2><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p>将新的this绑定到某函数func上，并返回func的拷贝</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function bind(context,...args)&#123;</span><br><span class="line">    const fn &#x3D; this;&#x2F;&#x2F;调用bind的函数func</span><br><span class="line">    return function(...args)&#123;</span><br><span class="line">        return fn.apply(context,...args,...args2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="手写promise"><a href="#手写promise" class="headerlink" title="手写promise"></a>手写promise</h2><h3 id="Promise特征："><a href="#Promise特征：" class="headerlink" title="Promise特征："></a>Promise特征：</h3><ol>
+<li><p>三个状态: <code>pending</code>/<code>fulfilled</code>/<code>rejected</code>。状态默认为<code>pending</code>，且只能从<code>pending</code>到<code>fulfilled</code>或从<code>pending</code>到<code>rejected</code>，一旦确认不会再改变</p>
+</li>
+<li><p>new promise时，需要传递<code>executor()</code>执行器，执行器立刻执行。<code>executor</code>接收两个参数，分别是<code>resolve</code>/<code>reject</code></p>
+</li>
+<li><p>promise使用<code>value</code>保存成功状态的值，可以是<code>undefined</code>/<code>thenable</code>/<code>promise</code>。</p>
+</li>
+<li><p>promise使用<code>reason</code>保存失败状态的值</p>
+</li>
+<li><p>promise必须有一个<code>then</code>方法，接收两个参数，分别是成功回调<code>onFulfilled</code>和失败回调<code>onRejected</code></p>
+</li>
+<li><p>调用<code>then</code>，promise成功，则执行<code>onFulfilled</code>，参数为promise的<code>value</code>。promise失败，则执行<code>onRejected</code>，参数为promise的<code>reason</code>。</p>
+</li>
+<li><p>若<code>then</code>中抛出异常，则将异常作为参数，传递给下一个<code>then</code>失败回调<code>onRejected</code></p>
+</li>
+</ol>
+<h3 id="promise原理及基础版代码（无链式调用和值穿透）"><a href="#promise原理及基础版代码（无链式调用和值穿透）" class="headerlink" title="promise原理及基础版代码（无链式调用和值穿透）"></a>promise原理及基础版代码（无链式调用和值穿透）</h3><p>原理：发布订阅者模式，通过两个队列缓存成功的回调和失败的回调。当执行函数executor执行时，触发resolve和reject，依次调用成功或失败的回调函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const PENDING &#x3D; &quot;PENDING&quot;;</span><br><span class="line">const FULFILLED &#x3D; &quot;FULFILLED&quot;;</span><br><span class="line">const REJECTED &#x3D; &quot;REJECTED&quot;;</span><br><span class="line"></span><br><span class="line">class Promise&#123;</span><br><span class="line">    constructor(executor)&#123;</span><br><span class="line">        &#x2F;&#x2F;默认状态为pending</span><br><span class="line">        this.status &#x3D; PENDING；</span><br><span class="line">        &#x2F;&#x2F;存放成功状态值</span><br><span class="line">        this.value &#x3D; undefined;</span><br><span class="line">        &#x2F;&#x2F;存放失败状态值</span><br><span class="line">        this.reason &#x3D; undefined;</span><br><span class="line">        &#x2F;&#x2F;存放成功回调</span><br><span class="line">        this.onResolvedCallbacks &#x3D; [];</span><br><span class="line">        &#x2F;&#x2F;存放失败回调</span><br><span class="line">        this.onRejectedCallbacks &#x3D; [];</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;成功方法</span><br><span class="line">        let resolve &#x3D; (value) &#x3D;&gt; &#123;</span><br><span class="line">            if(value instanceof Promise)&#123;</span><br><span class="line">                return value.then(resolve,reject);</span><br><span class="line">            &#125;</span><br><span class="line">            setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                if(this.status &#x3D;&#x3D;&#x3D; PENDING)&#123;</span><br><span class="line">                    &#x2F;&#x2F;状态置为成功</span><br><span class="line">                    this.status &#x3D; FULFILLED;</span><br><span class="line">                    this.value &#x3D; value;</span><br><span class="line">                    &#x2F;&#x2F;依次执行成功回调函数</span><br><span class="line">                    this.onResolvedCallbacks.forEach(fn&#x3D;&gt;fn());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;失败方法</span><br><span class="line">        let reject &#x3D; (reason)&#x3D;&gt;&#123;</span><br><span class="line">            setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                if(this.status &#x3D;&#x3D;&#x3D; PENDING)&#123;</span><br><span class="line">                    &#x2F;&#x2F;状态置为失败</span><br><span class="line">                    this.status &#x3D; REJECTED;</span><br><span class="line">                    this.reason &#x3D; reason;</span><br><span class="line">                    &#x2F;&#x2F;依次执行失败回调函数</span><br><span class="line">                    this.onRejectedCallbacks.forEach(fn &#x3D;&gt; fn());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        try&#123;</span><br><span class="line">            &#x2F;&#x2F;立即执行executor方法，将resolve和reject传递出去</span><br><span class="line">            executor(resolve,reject);</span><br><span class="line">        &#125;catch(error)&#123;</span><br><span class="line">            reject(error);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;then方法</span><br><span class="line">        then(onFulfilled,onRejected)&#123;</span><br><span class="line">            if(this.status &#x3D;&#x3D;&#x3D; FULFILLED)&#123;</span><br><span class="line">                &#x2F;&#x2F;链式调用</span><br><span class="line">                return fulfillPromise &#x3D; new Promise((resolve,reject) &#x3D;&gt; &#123;</span><br><span class="line">                    setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                        try&#123;</span><br><span class="line">                            let result &#x3D; onFulfilled(this.value);</span><br><span class="line">                            resolve(result);</span><br><span class="line">                        &#125;catch(e)&#123;</span><br><span class="line">                            reject(e);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                &#x2F;&#x2F;调用成功的回调函数</span><br><span class="line">                &#x2F;&#x2F;onFulfilled(this.value);</span><br><span class="line">            &#125;</span><br><span class="line">            if(this.status &#x3D;&#x3D;&#x3D; REJECTED)&#123;</span><br><span class="line">                return rejectPromise &#x3D; new Promise((resolve,reject) &#x3D;&gt; &#123;</span><br><span class="line">                    setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">                        try&#123;</span><br><span class="line">                            let result &#x3D; onRejected(this.reason);</span><br><span class="line">                            resolve(result);</span><br><span class="line">                        &#125;catch(e)&#123;</span><br><span class="line">                            reject(e);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">                &#x2F;&#x2F;调用失败的回调函数</span><br><span class="line">                &#x2F;&#x2F;onRejected(this.reason);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;若状态为pendig，依次将成功&#x2F;失败回调函数存放起来</span><br><span class="line">            if(this.status&#x3D;&#x3D;&#x3D; PENDING)&#123;</span><br><span class="line">                this.onResolvedCallbacks.push(()&#x3D;&gt;&#123;</span><br><span class="line">                    try&#123;</span><br><span class="line">                        let result &#x3D; onFulfilled(this.value);</span><br><span class="line">                        resolve(result);</span><br><span class="line">                    &#125;catch(e)&#123;</span><br><span class="line">                        reject(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                &#125;);</span><br><span class="line">                this.onRejectedCallbacks.push(()&#x3D;&gt;&#123;</span><br><span class="line">                    try&#123;</span><br><span class="line">                        let result &#x3D; onRejected(this.reason);</span><br><span class="line">                        resolve(result);</span><br><span class="line">                    &#125;catch(e)&#123;</span><br><span class="line">                        reject(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="promise-all"><a href="#promise-all" class="headerlink" title="promise.all"></a>promise.all</h3><blockquote>
+<p>promise.all解决并发问题，多个异步并发获取最终的结果 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Promise.all &#x3D; function(values)&#123;</span><br><span class="line">    if(!Array.isArray(values))&#123;</span><br><span class="line">        const type &#x3D; typeof values;</span><br><span class="line">        return new TypeError(&#96;TypeError: $&#123;type&#125; $&#123;values&#125; is not iterable&#96;);</span><br><span class="line">    &#125;</span><br><span class="line">    return new Promise((resolve,reject)&#x3D;&gt;&#123;</span><br><span class="line">        let resultArr&#x3D;[];</span><br><span class="line">        let orderIndex &#x3D; 0;</span><br><span class="line">        const processResultByKey &#x3D; (value,index)&#x3D;&gt;&#123;</span><br><span class="line">            resultArr[index] &#x3D; value;</span><br><span class="line">            &#x2F;&#x2F;若当前顺序与结果数量一致，则输出最终结果</span><br><span class="line">            if(++orderIndex &#x3D;&#x3D;&#x3D; values.length)&#123;</span><br><span class="line">                resolve(resultArr);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for(let i &#x3D; 0;i&lt;value.length;i++)&#123;</span><br><span class="line">            let value &#x3D; value[i];</span><br><span class="line">            if(value &amp;&amp; typeof value.then &#x3D;&#x3D;&#x3D; &quot;function&quot;)&#123;</span><br><span class="line">                value.then((value)&#x3D;&gt;&#123;</span><br><span class="line">                    processResultByKey(value,i);</span><br><span class="line">                &#125;,reject);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                processResultByKey(value,i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="promise-race"><a href="#promise-race" class="headerlink" title="promise.race()"></a>promise.race()</h3><blockquote>
+<p>promise.race用来处理多个请求，哪个请求最先完成先用哪个</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Promise.race &#x3D; function(promises)&#123;</span><br><span class="line">    return new Promise((resolve,reject)&#x3D;&gt;&#123;</span><br><span class="line">        for(let i &#x3D; 0;i&lt;promises.length;i++)&#123;</span><br><span class="line">            let val &#x3D; promises[i];</span><br><span class="line">            if(val &amp;&amp; typeof val.then &#x3D;&#x3D;&#x3D; &quot;function&quot;)&#123;</span><br><span class="line">                val.then(resolve,reject);</span><br><span class="line">            &#125;else&#123;&#x2F;&#x2F;普通值</span><br><span class="line">                resolve(val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function bubble(arr)&#123;</span><br><span class="line">    for(let i &#x3D; 0;i&lt;arr.length -1;i++)&#123;</span><br><span class="line">        for(let j &#x3D; 0; j&lt;arr.length - 1- i;j++)&#123;</span><br><span class="line">            if(arr[j]&gt;arr[j+1])</span><br><span class="line">                [arr[j],arr[j+1]] &#x3D; [arr[j+1],arr[j]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度On2</p>
+<h4 id="优化（有序数组冒泡排序）"><a href="#优化（有序数组冒泡排序）" class="headerlink" title="优化（有序数组冒泡排序）"></a>优化（有序数组冒泡排序）</h4><p>设置标识位，若没有发生交换，则说明有序，不需要排序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function bubble(arr)&#123;</span><br><span class="line">    let flag &#x3D; true;</span><br><span class="line">    for(let i &#x3D; 0;i &lt; arr.length-1;i++)&#123;</span><br><span class="line">        for(let j&#x3D;0;j&lt;arr.length-1-i;j++)&#123;</span><br><span class="line">            if(arr[j]&gt;arr[j+1])&#123;</span><br><span class="line">                flag &#x3D; false;</span><br><span class="line">                [arr[j],arr[j+1]] &#x3D; [arr[j+1],arr[j]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(flag)</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化（部分有序）"><a href="#优化（部分有序）" class="headerlink" title="优化（部分有序）"></a>优化（部分有序）</h4><p>设置变量记录有序的部分，则每次冒泡到此就不继续排序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr &#x3D; [3,2,1,4,5,6]</span><br><span class="line">function bubble(arr)&#123;</span><br><span class="line">    for(let i &#x3D; 0;i &lt; arr.length-1;i++)&#123;</span><br><span class="line">        let len &#x3D; arr.length -1-i;</span><br><span class="line">        let pos &#x3D; -1;&#x2F;&#x2F;记录有序的下标</span><br><span class="line">        for(let j&#x3D;0;j&lt;arr.length-1-i;j++)&#123;</span><br><span class="line">            if(arr[j]&gt;arr[j+1])&#123;</span><br><span class="line">                pos &#x3D; j;</span><br><span class="line">                [arr[j],arr[j+1]] &#x3D; [arr[j+1],arr[j]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        len &#x3D; pos;</span><br><span class="line">        if(pos &#x3D;&#x3D; -1)&#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>时间复杂度O(nlogn)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function quicksort(arr)&#123;</span><br><span class="line">    let mid &#x3D; Math.floor(arr.length &#x2F; 2);</span><br><span class="line">    let middle &#x3D; arr.splice(mid,1)[0];</span><br><span class="line">    let left,right &#x3D; [];</span><br><span class="line">    for(let i&#x3D;0;i&lt;a.length -1;i++)&#123;</span><br><span class="line">        if(arr[i] &gt; middle)</span><br><span class="line">            right.push(arr[i]);</span><br><span class="line">        else</span><br><span class="line">            left.push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return quicksort(left).concat([mid],quicksort(right));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>时间复杂度O(nlogn)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function mergesort(arr)&#123;</span><br><span class="line">    function merge(a,b)&#123;</span><br><span class="line">        let left,right &#x3D; 0;</span><br><span class="line">        let result &#x3D; [];</span><br><span class="line">        while(left &lt; a.length &amp;&amp; right &lt; b.length)&#123;</span><br><span class="line">            if(a[left] &lt; b[right])&#123;</span><br><span class="line">                result.push(a[left]);</span><br><span class="line">                left++;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                result.push(b[right]);</span><br><span class="line">                right++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        while(left &lt; a.length)&#123;</span><br><span class="line">            result.push(a[left]);</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        while(right &lt; b.length)&#123;</span><br><span class="line">            result.push(b[right]);</span><br><span class="line">            right++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function mergeArr(arr)&#123;</span><br><span class="line">        if(arr.length &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">            return arr;</span><br><span class="line">        let mid &#x3D; Math.floor(arr.length &#x2F; 2);</span><br><span class="line">        let left &#x3D; arr.slice(0,mid);</span><br><span class="line">        let right &#x3D; arr.slice(mid,arr.length);</span><br><span class="line">        return merge(mergeArr(left),mergeArr(right));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="树算法"><a href="#树算法" class="headerlink" title="树算法"></a>树算法</h2><h2 id="webpack原理"><a href="#webpack原理" class="headerlink" title="webpack原理"></a>webpack原理</h2><ol>
+<li><p>初始化参数</p>
+</li>
+<li><p>根据参数初始化compiler对象，注册所有配置插件，监听webpack构建生命周期的事件节点，执行对象run方法执行编译</p>
+</li>
+<li><p>通过配置的entry入口解析文件构建语法树</p>
+</li>
+<li><p>递归调用所有配置的loader对文件进行转换，再找出模块依赖的模块，直到所有入口依赖的文件都经过处理</p>
+</li>
+<li><p>根据递归得到每个文件的结果，根据entry配置生成代码块chunk</p>
+</li>
+<li><p>输出所有chunk到文件系统。</p>
+</li>
+</ol>
+<h2 id="webpack两个核心元素及常用Loader，Plugin"><a href="#webpack两个核心元素及常用Loader，Plugin" class="headerlink" title="webpack两个核心元素及常用Loader，Plugin"></a>webpack两个核心元素及常用Loader，Plugin</h2><ol>
+<li><p>核心元素</p>
+<ul>
+<li>compiler对象：类似于webpack的司机，有run-启动编译/newCompilation-创建编译器/emitAsset-处理编译后结果等方法</li>
+<li>compilation对象：类似于webpack的发动机，被compiler用来创建新的编译或构建。它能访问所有模块和他们的依赖</li>
+</ul>
+</li>
+<li><p>loader</p>
+<ul>
+<li>vue-loader：.vue文件加载器</li>
+<li>sass-loader：sass&amp;scss文件加载器</li>
+<li>postcss-loader：css样式处理工具，自动添加浏览器适配前缀，压缩css样式等</li>
+<li>css-loader：css模块加载器</li>
+<li>babel-loader：webpack加载器</li>
+<li>eslint-loader：代码检查工具</li>
+</ul>
+</li>
+<li><p>plugin</p>
+<ul>
+<li>html-webpack-plugin：自动引入js资源文件到入口index.html文件</li>
+<li>mini-css-extract-plugin：抽离css样式到独立的.css文件</li>
+</ul>
+</li>
+</ol>
+<h2 id="webpack中plugin哪个时期触发"><a href="#webpack中plugin哪个时期触发" class="headerlink" title="webpack中plugin哪个时期触发"></a>webpack中plugin哪个时期触发</h2><h2 id="时间循环"><a href="#时间循环" class="headerlink" title="时间循环"></a>时间循环</h2><h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>通过数据劫持结合发布订阅者模式实现</p>
+<p>vue通过<code>Object.defineProperty()</code>实现数据劫持，它可以控制一个对象属性的特有操作，例如读写权/枚举等，</p>
+<p>MVVM主要包含两方面，数据变化更新视图，视图变化更新数据。其中视图变化更新数据只需要通过事件监听即可。</p>
+<h3 id="数据变化更新视图"><a href="#数据变化更新视图" class="headerlink" title="数据变化更新视图"></a>数据变化更新视图</h3><p>通过<code>Object.defineProperty()</code>对属性设置一个set函数，当数据改变后触发set函数，故将更新方法写入set即可实现data更新view</p>
+<ol>
+<li><p>实现监听器Observer，用来劫持监听所有属性，若有变动，则通知订阅者</p>
+</li>
+<li><p>实现订阅者Watcher，可收到属性的变化通知并执行相应的函数，从而更新视图</p>
+</li>
+<li><p>实现解析器Compile，扫描解析每个节点的相关指令，并根据初始化模版数据以及初始化相应的订阅器</p>
+</li>
+</ol>
+<h2 id="虚拟dom"><a href="#虚拟dom" class="headerlink" title="虚拟dom"></a>虚拟dom</h2><p>页面更新可以先全部反映到虚拟dm中，操作内存中的js对象速度会更快，当更新完成后，再将最终的js对象映射到真实的dom中，由浏览器绘制渲染</p>
+<h2 id="dom概念及分类"><a href="#dom概念及分类" class="headerlink" title="dom概念及分类"></a>dom概念及分类</h2><p>Dom即HTML的层级结构，有Dom元素树和Dom文档树。</p>
+<p>其节点类型有：元素节点、属性节点、文本节点、文档节点、注释节点、实体名称节点、处理指令节点等</p>
+<h3 id="获取元素节点"><a href="#获取元素节点" class="headerlink" title="获取元素节点"></a>获取元素节点</h3><ul>
+<li>document.getElementById: 通过id获取元素节点　</li>
+<li>getElementsByTagName:　通过标签名称获取元素节点</li>
+<li>getElementsByClassName: 通过类名获取元素节点</li>
+<li>getElementsByName: 通过表单元素的name获取元素节点</li>
+<li>querySelector(“[selector]”):　支持一切css中的选择器，但如果匹配多个，只会返回第一个</li>
+<li>querySelectorAll(“[selector]”):　返回所有选中的元素</li>
+</ul>
+<h2 id="a-2-amp-amp-a-3"><a href="#a-2-amp-amp-a-3" class="headerlink" title="a==2 &amp;&amp; a==3"></a>a==2 &amp;&amp; a==3</h2><p>js调用==比较时，会触发类型转换，即两个函数<code>toString()</code>和<code>valueOf</code>，每比较一次，调用一次</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let a &#x3D; &#123;</span><br><span class="line">    i: 1,</span><br><span class="line">    valueOf:()&#x3D;&gt;&#123;</span><br><span class="line">        return a.i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="a-2-amp-amp-a-3-1"><a href="#a-2-amp-amp-a-3-1" class="headerlink" title="a===2&amp;&amp;a===3"></a>a===2&amp;&amp;a===3</h2><p>使用Object.defineProperty为对象定义一个属性，此时该属性具有getter方法，即可以在代码中被直接访问到。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var value &#x3D; 0;</span><br><span class="line">Object.defineProperty(window,&#39;a&#39;,&#123;</span><br><span class="line">    get: function()&#123;</span><br><span class="line">        return this.value ++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现元素拖拽"><a href="#实现元素拖拽" class="headerlink" title="实现元素拖拽"></a>实现元素拖拽</h2><ol>
+<li><p>使用HTML5的API：dataTransfer</p>
+<ul>
+<li><p>为拖拽的元素设值允许拖拽，赋予dragstart事件将其id转换为数据保存</p>
+</li>
+<li><p>为容器添加dragover属性添加事件组织浏览器默认事件，允许元素放置，并赋予drop事件进行元素放置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- 参数要传入event对象 --&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box1&quot; ondragover&#x3D;&quot;allowdrop(event)&quot; ondrop&#x3D;&quot;drop(event)&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&quot;img&#x2F;2.jpg&quot; alt&#x3D;&quot;00&quot; draggable&#x3D;&quot;true&quot; ondragstart&#x3D;&quot;drag(event)&quot; id&#x3D;&quot;drag&quot; width&#x3D;&quot;50&quot; height&#x3D;&quot;50&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子一&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box2&quot; ondragover&#x3D;&quot;allowdrop(event)&quot; ondrop&#x3D;&quot;drop(event)&quot;&gt;</span><br><span class="line">&lt;span&gt;我是盒子二&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function allowdrop(e) &#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drop(e) &#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">        var data &#x3D; e.dataTransfer.getData(&quot;text&quot;);</span><br><span class="line">        e.target.appendChild(document.getElementById(data));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drag(e) &#123;</span><br><span class="line">        e.dataTransfer.setData(&quot;text&quot;, e.target.id);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用原生js</p>
+<ul>
+<li><p>获取鼠标距离元素左边界和上边界的距离</p>
+</li>
+<li><p>移动后计算元素相对原来位置的相对距离，赋予样式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;box1&quot; id&#x3D;&quot;drag&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子一&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子二&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let drag &#x3D; document.querySelector(&quot;#drag&quot;);&#x2F;&#x2F;获取操作元素</span><br><span class="line">    drag.onmousedown &#x3D; function (e) &#123;&#x2F;&#x2F;鼠标按下触发</span><br><span class="line">        var disx &#x3D; e.pageX - drag.offsetLeft;&#x2F;&#x2F;获取鼠标相对元素距离</span><br><span class="line">        var disy &#x3D; e.pageY - drag.offsetTop;</span><br><span class="line">        console.log(e.pageX);</span><br><span class="line">        console.log(drag.offsetLeft);</span><br><span class="line">        document.onmousemove &#x3D; function (e) &#123;&#x2F;&#x2F;鼠标移动触发事件，元素移到对应为位置</span><br><span class="line">            drag.style.left &#x3D; e.pageX - disx + &#39;px&#39;;</span><br><span class="line">            drag.style.top &#x3D; e.pageY - disy + &#39;px&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        document.onmouseup &#x3D; function()&#123;&#x2F;&#x2F;鼠标抬起，清除绑定的事件，元素放置在对应的位置</span><br><span class="line">            document.onmousemove &#x3D; null;</span><br><span class="line">            document.onmousedown &#x3D; null;</span><br><span class="line">        &#125;;</span><br><span class="line">        e.preventDefault();&#x2F;&#x2F;阻止浏览器的默认事件</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="实现防抖-节流函数"><a href="#实现防抖-节流函数" class="headerlink" title="实现防抖/节流函数"></a>实现防抖/节流函数</h2><ol>
+<li>防抖函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function debounce(func,delay)&#123;</span><br><span class="line">    var timeout;</span><br><span class="line">    return function(e)&#123;</span><br><span class="line">        &#x2F;&#x2F;清除旧timeout</span><br><span class="line">        clearTimeout(timeout);</span><br><span class="line">        var context &#x3D;  this, args &#x3D; arguments;</span><br><span class="line">        &#x2F;&#x2F;新timeout</span><br><span class="line">        timeout &#x3D; setTimeout(function()&#123;</span><br><span class="line">            func.apply(context,args);</span><br><span class="line">        &#125;,delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;第一次触发会立刻执行 </span><br><span class="line">const debounceImmediate &#x3D; (cb, delay &#x3D; 1000, immediate &#x3D; true) &#x3D;&gt; &#123;</span><br><span class="line">  let timer &#x3D; null;</span><br><span class="line">  return function (...args) &#123;</span><br><span class="line">    const context &#x3D; this;</span><br><span class="line">    const execNow &#x3D; immediate &amp;&amp; !timer;</span><br><span class="line">    if (timer) clearTimeout(timer);</span><br><span class="line">    timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      cb.apply(context, args);</span><br><span class="line">      timer &#x3D; null;</span><br><span class="line">    &#125;, delay);</span><br><span class="line">    execNow &amp;&amp; cb.apply(this, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>节流函数</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function throttle(func, delay)&#123;</span><br><span class="line">    let timeout;</span><br><span class="line">    let start &#x3D; new Date;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        let context &#x3D;  this, args &#x3D; arguments, curr &#x3D;  new Date() - 0;</span><br><span class="line">        let remain &#x3D;  delay - (curr - start);</span><br><span class="line">        if(timeout) </span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">        if(remain &lt;&#x3D; 0&gt;)&#123;</span><br><span class="line">            &#x2F;&#x2F;第一次触发执行</span><br><span class="line">            func.apply(context,args);</span><br><span class="line">            start &#x3D; curr;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            &#x2F;&#x2F;事件结束后也执行一次</span><br><span class="line">            timeout &#x3D; setTimeout(function()&#123;</span><br><span class="line">                func.apply(context,args)</span><br><span class="line">                timeout &#x3D; null</span><br><span class="line">            &#125;,delay);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="vue直接赋值修改数组，页面无法同步更新"><a href="#vue直接赋值修改数组，页面无法同步更新" class="headerlink" title="vue直接赋值修改数组，页面无法同步更新"></a>vue直接赋值修改数组，页面无法同步更新</h2><p>vue由于js限制，不能同步更新，它会绕开监听器，无法实现动态效果。若需要实时更新，需要使用push()/pop()等方法</p>
+<h2 id="vue-router实现原理"><a href="#vue-router实现原理" class="headerlink" title="vue-router实现原理"></a>vue-router实现原理</h2><p>2种模式：hash/history</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &#x2F;&#x2F; 根据mode确定history实际的类并实例化    </span><br><span class="line">switch (mode) &#123;</span><br><span class="line">  case &#39;history&#39;:</span><br><span class="line">    this.history &#x3D; new HTML5History(this, options.base)</span><br><span class="line">    break</span><br><span class="line">  case &#39;hash&#39;:</span><br><span class="line">    this.history &#x3D; new HashHistory(this, options.base, this.fallback)</span><br><span class="line">    break</span><br><span class="line">  case &#39;abstract&#39;:</span><br><span class="line">    this.history &#x3D; new AbstractHistory(this, options.base)</span><br><span class="line">    break</span><br><span class="line">  default:</span><br><span class="line">    if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">      assert(false, &#96;invalid mode: $&#123;mode&#125;&#96;)</span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>hash：url的<code>hash</code>以<code>#</code>开头，基于<code>location.hash</code>实现，值为<code>#</code>后的内容。当<code>hash</code>改变时，页面不会刷新，浏览器也不会请求服务器。<code>hash</code>改变时，触发相应的<code>hashchange</code>事件，操控路由改变，切换内容</p>
+</li>
+<li><p>history：通过使用<code>pushState</code>和<code>replaceState</code>改变url地址，同时使用<code>onpopState</code>事件，刷新页面向服务器发送请求。需要特别注意的是,调用<code>history.pushState()</code>或<code>history.replaceState()</code>不会触发<code>popstate</code>事件。只有在做出浏览器动作时，比如点击后退、前进按钮或者调用JS中的<code>history.back()</code>、<code>history.forward()</code>、<code>history.go()</code>才会触发该事件。</p>
+</li>
+</ul>
+<h3 id="HashHistory"><a href="#HashHistory" class="headerlink" title="HashHistory"></a>HashHistory</h3><p>替换路由有两个方法<code>HashHistory.push()</code>和<code>HashHistory.replace()</code></p>
+<ul>
+<li><p>HashHistory.push()将新路由添加到浏览器访问离是栈顶。</p>
+<ol>
+<li>$router.push()</li>
+<li>HashHistory.push()：根据hash模式调用，设置hash并添加到浏览器历史记录，即<code>window.location.hash=xxx</code></li>
+<li>History.transitionTo()：监听更新，若更新则调用</li>
+<li>History.updateRoute()：更新路由</li>
+<li>app._route = route：替换路由</li>
+<li>vm.render()：更新视图</li>
+</ol>
+</li>
+<li><p>HashHistory.replace()替换当前路由</p>
+</li>
+</ul>
+<h3 id="HTML5History"><a href="#HTML5History" class="headerlink" title="HTML5History"></a>HTML5History</h3><p>History interface是浏览器历史记录栈提供的接口，通过<code>back()</code>/<code>forward()</code>/<code>go()</code>等方法，读取浏览器历史记录栈的信息，进行跳转操作。HTML5后通过使用<code>pushState()</code>/<code>replaceState()</code>读取、修改浏览器历史记录栈</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.history.pushState(stateObject, title, URL)</span><br><span class="line">window.history.replaceState(stateObject, title, URL)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>stateObject: 当浏览器跳转到新状态时，将触发<code>popState</code>事件，该事件携带此参数副本</p>
+</li>
+<li><p>title：所添加记录的标题</p>
+</li>
+<li><p>URL：所添加记录的url</p>
+</li>
+</ul>
+<h2 id="事件冒泡-事件捕获-事件委托"><a href="#事件冒泡-事件捕获-事件委托" class="headerlink" title="事件冒泡/事件捕获/事件委托"></a>事件冒泡/事件捕获/事件委托</h2><p>解决页面中事件流的问题，即解决事件发生的顺序问题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;div1&quot;&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;div2&quot;&gt;</span><br><span class="line">        &lt;p id&#x3D;&quot;p1&quot;&gt;事件&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let div1 &#x3D; document.getElementById(&#39;div1&#39;);</span><br><span class="line">    let div2 &#x3D; document.getElementById(&#39;div2&#39;);</span><br><span class="line">    let p1 &#x3D; document.getElementById(&#39;p1&#39;);</span><br><span class="line">    div1.onclick &#x3D; function ()&#123; console.log(&quot;click div1&quot;)&#125;;</span><br><span class="line">    div2.onclick &#x3D; function ()&#123; console.log(&quot;click div2&quot;)&#125;;</span><br><span class="line">    p1.onclick &#x3D; function ()&#123; console.log(&quot;click p1&quot;)&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>事件冒泡：事件从最内层的元素开始发生，一直向上传播，直到document对象。如上述代码，事件发生顺序为<code>&lt;p&gt;</code>=&gt;<code>&lt;div id=&quot;div2&quot;&gt;</code>=&gt;<code>&lt;div id=&quot;div1&quot;&gt;</code></p>
+</li>
+<li><p>事件捕获：事件从最外层元素开始发生，直到最具体的元素。如上述代码，事件发生顺序为<code>&lt;div id=&quot;div1&quot;&gt;</code>=&gt;<code>&lt;div id=&quot;div2&quot;&gt;</code>=&gt;<code>&lt;p&gt;</code></p>
+</li>
+</ul>
+<p>方法<code>addEventListener(event, function, useCapture)</code>用来为特定元素绑定事件处理函数，其参数分别为：没有on的事件类型<code>event</code>/事件处理函数<code>function</code>/控制事件阶段<code>useCapture</code>。其中<code>useCapture</code>默认为<code>false</code>，即在事件冒泡阶段调用事件函数，若为<code>true</code>，即在事件捕获阶段调用事件函数</p>
+<ul>
+<li>事件委托：事件目标自身不处理事件，而是把处理任务委托给其父元素/祖先元素或者根元素document</li>
+</ul>
+<h2 id="typeof-null-typeof-undefined输出"><a href="#typeof-null-typeof-undefined输出" class="headerlink" title="typeof null/typeof undefined输出"></a>typeof null/typeof undefined输出</h2><ul>
+<li><p>typeof null = object：null表示一个空对象的引用，即一个变量不再指向任何对象地址</p>
+</li>
+<li><p>typeof undefined = undefined：undefined表示一个没有赋值的变量</p>
+</li>
+</ul>
+<h2 id="异步async实现sleep函数"><a href="#异步async实现sleep函数" class="headerlink" title="异步async实现sleep函数"></a>异步async实现sleep函数</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(resolve, ms);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function fn() &#123;</span><br><span class="line">    await sleep(1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<h2 id="instanceof实现"><a href="#instanceof实现" class="headerlink" title="instanceof实现"></a>instanceof实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fn(a,b)&#123;</span><br><span class="line">    let type &#x3D; b.prototype;&#x2F;&#x2F;类型原型</span><br><span class="line">    let obj &#x3D; a._proto_;</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(type &#x3D;&#x3D;&#x3D; obj)</span><br><span class="line">            return true;</span><br><span class="line">        obj &#x3D; obj._proto_;</span><br><span class="line">        if(obj &#x3D;&#x3D;&#x3D; null)</span><br><span class="line">            return false;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="jsonp原理及实现"><a href="#jsonp原理及实现" class="headerlink" title="jsonp原理及实现"></a>jsonp原理及实现</h2><blockquote>
+<p>jsonp是json的使用模式，可以让网页从别的域名获取资料，即跨域读取数据。由于同源策略，所以需要使用jsonp</p>
+</blockquote>
+<p>原理：利用<code>script</code>标签的<code>src</code>没有跨域限制来完成</p>
+<p>过程：</p>
+<ol>
+<li>前端定义解析函数jsonCallback = function(res){}</li>
+<li>通过params的形式包装script标签的请求参数，并声明执行函数fn=jsonpCallback</li>
+<li>后端获取到前端声明的执行函数，并带上参数调用执行函数jsonpCallback，传递给前端</li>
+<li>前端在script标签返回资源时，执行jsonpCallback并通过回调函数的方式拿到数据。</li>
+</ol>
+<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>实现不同屏幕分辨率的终端上浏览网页的不同展示方式，即通过检测视口分辨率，针对不同客户端在客户端做代码处理，来展现不同的布局和内容。常用的是三栏布局等</p>
+<h2 id="webpack打包output中filename-name-chunkhash-js里chunkhash的用处"><a href="#webpack打包output中filename-name-chunkhash-js里chunkhash的用处" class="headerlink" title="webpack打包output中filename:[name][chunkhash].js里chunkhash的用处"></a>webpack打包output中filename:[name][chunkhash].js里chunkhash的用处</h2><p>具体来说webpack是根据入口entry配置文件来分析其依赖项并由此来构建该entry的chunk，并生成对应的hash值。不同的chunk会有不同的hash值。一般在项目中把公共的依赖库和程序入口文件隔离并进行单独打包构建，用chunkhash来生成hash值，只要依赖公共库不变，那么其对应的chunkhash就不会变，从而达到缓存的目的。</p>
+<h2 id="map和foreach的区别，好处和优点"><a href="#map和foreach的区别，好处和优点" class="headerlink" title="map和foreach的区别，好处和优点"></a>map和foreach的区别，好处和优点</h2><ul>
+<li><p>forEach()：针对每个元素执行提供的函数</p>
+</li>
+<li><p>map()：创建新的数组，其中每个元素由调用a中每个元素执行提供的函数而来</p>
+</li>
+</ul>
+<p>区别：</p>
+<ol>
+<li><p>forEach会修改原来数组，map得到一个新的数组并返回</p>
+</li>
+<li><p>forEach执行速度比map慢</p>
+</li>
+<li><p>forEach适用于不改变数据，仅利用数据时使用，map适用于需要改变数值时使用</p>
+</li>
+</ol>
+<h2 id="登陆登出的实现"><a href="#登陆登出的实现" class="headerlink" title="登陆登出的实现"></a>登陆登出的实现</h2><h2 id="echart实现方面有没有什么困难"><a href="#echart实现方面有没有什么困难" class="headerlink" title="echart实现方面有没有什么困难"></a>echart实现方面有没有什么困难</h2><h2 id="防抖和节流分别在什么情况下使用"><a href="#防抖和节流分别在什么情况下使用" class="headerlink" title="防抖和节流分别在什么情况下使用"></a>防抖和节流分别在什么情况下使用</h2><h2 id="BFC理解"><a href="#BFC理解" class="headerlink" title="BFC理解"></a>BFC理解</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
+      <categories>
+        <category>面经</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>JavaScript</tag>
+        <tag>面经</tag>
+        <tag>http</tag>
+        <tag>HTML</tag>
+        <tag>浏览器</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>前端面经总结（五）</title>
     <url>/post/fb0f9f1f.html</url>
-    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/94915a58.html">前端面经总结（四）</a></p>
 <h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>Vue是一个渐进性框架，可以把一个页面分割成多个组件，当其他页面有类似功能时，直接让封装的组件复用。Vue是构建页面的声明式框架，不关心具体实现，只关心图层</p>
 <h3 id="v-model原理"><a href="#v-model原理" class="headerlink" title="v-model原理"></a>v-model原理</h3><p>绑定数据并监听数据改变。初始化时使用Object.defineProperty/Proxy（2.0/3.0）重新定义data中属性，当页面使用对应属性时，手机当前组件的watcher，若属性变化则通知相关依赖进行更新操作。</p>
 <p>Object.defineProperty缺点</p>
+<a id="more"></a>
 <ol>
 <li><p>无法检测到对象属性的动态添加和删除</p>
 </li>
@@ -235,12 +712,13 @@
         <tag>http</tag>
         <tag>HTML</tag>
         <tag>浏览器</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
     <title>前端面经总结（四）</title>
     <url>/post/94915a58.html</url>
-    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/45e5d827.html">前端面经总结（二）</a></p>
+    <content><![CDATA[<p>接<a href="https://awesolynn.me/post/23bc433d.html">前端面经总结（三）</a></p>
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="typeof和instance-of区别"><a href="#typeof和instance-of区别" class="headerlink" title="typeof和instance of区别"></a>typeof和instance of区别</h3><p>二者都用来判断变量是否为空</p>
 <ul>
 <li><p>typeof返回值为字符串，说明变量的数据类型</p>
@@ -249,12 +727,12 @@
 </li>
 </ul>
 <h3 id="深拷贝-浅拷贝"><a href="#深拷贝-浅拷贝" class="headerlink" title="深拷贝/浅拷贝"></a>深拷贝/浅拷贝</h3><ul>
-<li>浅拷贝：只是拷贝了基本类型的数据，而引用类型数据，复制后也会发生引用。即浅拷贝仅指向被复制的内存地址，若原地址对象改变，则复制后的对象也相应改变。</li>
-</ul>
+<li><p>浅拷贝：只是拷贝了基本类型的数据，而引用类型数据，复制后也会发生引用。即浅拷贝仅指向被复制的内存地址，若原地址对象改变，则复制后的对象也相应改变。</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;使用&#x3D;直接赋值</span><br><span class="line">let newArr &#x3D; arr;</span><br><span class="line">&#x2F;&#x2F;使用slice()</span><br><span class="line">let newArr &#x3D; arr.slice();</span><br><span class="line">&#x2F;&#x2F;使用concat()</span><br><span class="line">let newArr &#x3D;  arr.concat();</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>深拷贝：创建新对象，属性中引用的其他对象也会被克隆，且不再指向原对象地址。使用JSON.parse()/JSON.stringfy()</li>
+</li>
+<li><p>深拷贝：创建新对象，属性中引用的其他对象也会被克隆，且不再指向原对象地址。使用JSON.parse()/JSON.stringfy()</p>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;使用JSON.stringify和JSON.parse</span><br><span class="line">var newArr &#x3D; JSON.parse(JSON.stringify(arr));&#x2F;&#x2F;该方法可以拷贝数组和对象，但不能拷贝函数。对于RegExp类型和Function类型无法完全满足，且不支持有循环引用的对象。</span><br><span class="line">&#x2F;&#x2F;拷贝时判断属性类型</span><br><span class="line">var deepCopy &#x3D; function(obj) &#123;</span><br><span class="line">    &#x2F;&#x2F; 只拷贝对象</span><br><span class="line">    if (typeof obj !&#x3D;&#x3D; &#39;object&#39;) return;</span><br><span class="line">    &#x2F;&#x2F; 根据obj的类型判断是新建一个数组还是一个对象</span><br><span class="line">    var newObj &#x3D; obj instanceof Array ? [] : &#123;&#125;;</span><br><span class="line">        for (var key in obj) &#123;</span><br><span class="line">            &#x2F;&#x2F; 遍历obj,并且判断是obj的属性才拷贝</span><br><span class="line">            if (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">                &#x2F;&#x2F; 判断属性值的类型，如果是对象递归调用深拷贝</span><br><span class="line">                newObj[key] &#x3D; typeof obj[key] &#x3D;&#x3D;&#x3D; &#39;object&#39; ? deepCopy(obj[key]) : obj[key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  return newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -327,8 +805,60 @@
 </li>
 </ol>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>一种特殊的函数，绑定了外部环境变量的函数，允许在一个内层函数中访问到其外层函数的作用域。可以保护变量不受外界污染，一直存在内存中</p>
-<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>除<code>null</code>和<code>undefined</code>外，每个对象都有原型，可以理解为对象的默认属性和方法。</p>
-<p>原型链依赖对象的<code>_proto_</code>指向，当访问对象的成员时，若自身没有，则去原型链指向对象的构造函数的<code>prototype</code>中一层一层找，找到后使用，没找到则返回<code>undefined</code>或报错。</p>
+<h3 id="原型及原型链"><a href="#原型及原型链" class="headerlink" title="原型及原型链"></a>原型及原型链</h3><ol>
+<li>原型</li>
+</ol>
+<blockquote>
+<p>原型prototype是一个简单的对象，用于实现对象的属性继承，可以理解为对象的父级。</p>
+</blockquote>
+<p>每个JavaScipt对象包含一个<code>__proto__</code>的属性指向该对象的原型，通过<code>obj.__proto__</code>访问。</p>
+<ol start="2">
+<li>其他概念</li>
+</ol>
+<ul>
+<li><p>构造函数：通过<code>new</code>新建对象的函数</p>
+</li>
+<li><p>实例：通过构造函数和<code>new</code>创建的对象，即实例</p>
+</li>
+</ul>
+<p>实例通过<code>__proto__</code>指向原型，通过<code>constructor</code>指向构造函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;创建实例</span><br><span class="line">const instance  &#x3D; new Object();&#x2F;&#x2F;Object()为构造函数</span><br><span class="line">&#x2F;&#x2F;原型</span><br><span class="line">const prototype &#x3D; Object.prototype;</span><br></pre></td></tr></table></figure>
+
+<p>由上：</p>
+<ul>
+<li><p>实例.<strong>proto</strong> = 原型</p>
+</li>
+<li><p>原型.constructor = 构造函数</p>
+</li>
+<li><p>构造函数.prototype = 原型</p>
+</li>
+<li><p>实例.constructor = 构造函数：实例并不真正拥有<code>constructor</code>指针，而是从原型链上获取</p>
+</li>
+</ul>
+<ol start="2">
+<li>原型链</li>
+</ol>
+<p>除<code>null</code>和<code>undefined</code>外，每个对象都有原型，即<code>__proto__</code>属性，指向创建该对象的构造函数的原型。<code>__proto__</code>将对象连接起来组成了原型链，即一个用来实现继承和共享属性的有限的对象链。</p>
+<ul>
+<li><p>属性查找机制：原型链依赖对象的<code>_proto_</code>指向，当访问对象的成员时，若自身没有，则去原型链指向对象的构造函数的<code>prototype</code>中一层一层找，找到后使用，没找到则返回<code>undefined</code>或报错。</p>
+</li>
+<li><p>属性修改机制：</p>
+<ul>
+<li><p>基本数据类型(<code>Number</code>/<code>String</code>/<code>Boolean</code>/<code>Undefined</code>/<code>Null</code>/<code>Symbol</code>)：通过实例对象修改原型属性，不会修改原型对象的属性，若该属性不存在，则<strong>在该实例对象上创建一个同名属性</strong>。</p>
+</li>
+<li><p>引用类型(<code>Object</code>/<code>Array</code>/…): <code>a.info = {name: &quot;xxx&quot;, age: 18}</code></p>
+<ul>
+<li><p>整体修改：若通过实例对象<strong>整体修改</strong>引用类型，则不会修改原型对象对应的引用类型，而<strong>在该实例对象创建一个同名属性</strong>。即修改<code>a.info = {name: &quot;xxx&quot;, sex: &quot;girl&quot;}</code></p>
+</li>
+<li><p>部分修改：若通过实例对象<strong>部分修改</strong>引用类型，即修改该引用类型的属性，则会<strong>直接修改原型上的引用类型</strong>。即修改<code>a.info.age = 20</code>，则原型上的<code>a.__proto__.info = {name: &quot;xxx&quot;, age: 20}</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function A() &#123;</span><br><span class="line">this.name &#x3D; &#39;a&#39;;</span><br><span class="line">this.background &#x3D; &#123; color: &#39;green&#39; &#125;;</span><br><span class="line"> &#125;</span><br><span class="line"> function B()&#123;&#125;</span><br><span class="line"></span><br><span class="line"> B.prototype &#x3D; new A();&#x2F;&#x2F;B的原型为A</span><br><span class="line"> var b1 &#x3D; new B();&#x2F;&#x2F;b1为B的实例</span><br><span class="line"> var b2 &#x3D; new B();&#x2F;&#x2F;b2为B的实例</span><br><span class="line"> </span><br><span class="line"> b1.name &#x3D; &#39;change&#39;;&#x2F;&#x2F;仅修改实例b1的属性值，若不存在则添加属性</span><br><span class="line"> b1.background.color &#x3D; &#39;red&#39;;&#x2F;&#x2F;修改实例b1的属性background的属性值color，此时原型A的background也被修改了</span><br><span class="line"></span><br><span class="line">console.log(b1.name);&#x2F;&#x2F;change</span><br><span class="line">console.log(b2.name);&#x2F;&#x2F;b2本身不存在属性name，故到原型链上找，即输出a</span><br><span class="line">console.log(b1. background);&#x2F;&#x2F;&#123;color: &quot;red&quot;&#125;</span><br><span class="line">console.log(b2. background);&#x2F;&#x2F;通过b1部分修改引用类型background的属性，则原型A改变，b2不存在background属性，则到原型链上找，即输出&#123;color: &quot;red&quot;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;若实现console.log(b2. background);输出&#123;color: &quot;green&quot;&#125;，则b1如下修改</span><br><span class="line">b1.background &#x3D; &#123;color: &quot;red&quot;&#125;;&#x2F;&#x2F;整体修改b1属性background，b1不存在此属性，故在b1创建同名属性background，不改变原型的属性background</span><br><span class="line">console.log(b1. background);&#x2F;&#x2F;&#123;color: &quot;red&quot;&#125;</span><br><span class="line">console.log(b2. background);&#x2F;&#x2F;&#123;color: &quot;green&quot;&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="浏览器渲染的流程"><a href="#浏览器渲染的流程" class="headerlink" title="浏览器渲染的流程"></a>浏览器渲染的流程</h3><ol>
 <li><p>将html代码按深度优先比例生成dom树</p>
 </li>
@@ -545,6 +1075,47 @@
 <h4 id="nextTick作用"><a href="#nextTick作用" class="headerlink" title="$nextTick作用"></a>$nextTick作用</h4><p>vm.$nextTick接受一个回调函数作为参数，用于将回调延迟到下次DOM更新周期(下次微任务执行时更新DOM)后进行，即将回调函数添加到微任务中。</p>
 <h3 id="判断变量是对象还是数组"><a href="#判断变量是对象还是数组" class="headerlink" title="判断变量是对象还是数组"></a>判断变量是对象还是数组</h3><p>使用<code>array instanceof Array</code>方法，返回true则为数组，否则对象</p>
 <p>不能使用<code>typeof</code>，它判断对象和数组都返回<code>Object</code>，只用来判断基本类型<code>Boolean</code>/<code>Number</code>/<code>Symbol</code>/<code>Undefined</code>/<code>String</code>，其他引用类型，除了<code>function</code>外其他都返回<code>object</code></p>
+<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><blockquote>
+<p>执行上下文EC可简单理解为一个包含<code>变量对象</code>/<code>作用域链</code>/<code>this指向</code>的对象，可分为3类：<code>全局执行上下文</code>/<code>函数上下文</code>/<code>eval上下文</code></p>
+</blockquote>
+<ol>
+<li><p>全局执行上下文：即window对象。window对象也是var声明的全局变量的载体，即通过var创建的全局对象，都能通过window直接访问</p>
+</li>
+<li><p>函数上下文：每当一个函数被调用时，都会创建一个函数上下文，通过一个函数都被多次调用，都会创建一个新的上下文</p>
+</li>
+</ol>
+<h4 id="执行上下文栈"><a href="#执行上下文栈" class="headerlink" title="执行上下文栈"></a>执行上下文栈</h4><blockquote>
+<p>执行上下文栈，即调用栈。用于存储代码执行期间创建的所有上下文，具有先进后出LIFO的特性</p>
+</blockquote>
+<p>js代码首次运行时，先创建一个全局执行上下文压入执行栈中，没胆该函数被调用，则创建一个新的函数执行上下文压入栈中。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function f1()&#123;</span><br><span class="line">  f2(); </span><br><span class="line">  console.log(&quot;1&quot;); </span><br><span class="line">&#125;</span><br><span class="line">function f2()&#123;</span><br><span class="line">  f3();</span><br><span class="line">  console.log(&quot;2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">function f3()&#123;</span><br><span class="line">  console.log(&quot;3&quot;);</span><br><span class="line">&#125;</span><br><span class="line">f1();&#x2F;&#x2F;3 2 1</span><br></pre></td></tr></table></figure>
+
+<h4 id="执行上下文创建阶段"><a href="#执行上下文创建阶段" class="headerlink" title="执行上下文创建阶段"></a>执行上下文创建阶段</h4><p>执行上下文创建分为<strong>创建阶段</strong>和<strong>执行阶段</strong>。</p>
+<p>创建阶段主要负责：</p>
+<ol>
+<li>确定this指向</li>
+</ol>
+<p>在全局执行上下文中，this总是指向全局对象。在函数执行上下文中，this的值取决于函数的调用方式，若被对象调用，则this指向此对象，否则this一般指向全局对象window或undefined</p>
+<ol start="2">
+<li>创建词法环境组件</li>
+</ol>
+<p>词法环境是包含标志符变量映射的结构，此标识符表示变量/函数的名称，变量是对实际对象或原始值的引入。</p>
+<p>词法环境由<strong>环境记录</strong>和<strong>对外部环境引入记录</strong>两部分组成。</p>
+<ul>
+<li>环境记录：用于存储当前环境中的变量和函数声明的实际位置</li>
+<li>外部环境引入记录：用于保存自身环境可以访问到的其他外部环境</li>
+</ul>
+<p>词法环境分为<strong>全局词法环境</strong>和<strong>函数词法环境</strong></p>
+<ul>
+<li>全局词法环境：对外部环境引入记录为<code>null</code>，全局词法环境本身即为最外层环境，此外，它还记录了当前环境下的所有属性和方法的位置</li>
+<li>函数词法环境：包含用户在函数定义的所有属性、方法、<code>arguments</code>对象。其外部环境引入由实际代码决定。</li>
+</ul>
+<ol start="3">
+<li>创建变量环境组件</li>
+</ol>
+<p>变量环境具备词法环境所有属性。ES6中唯一的区别在于<strong>词法环境用于存储函数声明与let/const声明的变量</strong>，而<strong>变量环境仅存储var声明的变量</strong>。</p>
+<p>在执行上下文创建阶段，函数声明与var声明的变量在创建阶段已经被赋予了一个值，var被设置为undefined，函数被设置为自身函数。但let/const被设置为未初始化。即<strong>变量提升</strong>，在声明之前可以访问var定义的变量，因为其已经在创建阶段就被初始化为undefined，而let/const没有被赋值，故声明之前访问会提示引用错误。</p>
+<p>而在执行阶段，则根据之前的环境记录对应赋值，若有值则对应赋值，若没有值，则赋予undefined</p>
 ]]></content>
       <categories>
         <category>面经</category>
@@ -567,6 +1138,8 @@
 <p>顺序表的存储结构是逻辑位置和物理位置都相邻，但链表是逻辑位置相邻，物理位置不一定相邻，且不能随机存取，但在插入和删除时，不需要移动元素。</p>
 <p>链表存储结构由结点组成，每个结点包括一个数据域和一个指针域（指向下一个后继元素的地址）。除单链表外还有循环链表和双向链表，循环链表的最后一个结点的指针指向头结点，形成环。双向链表多了一个指向前驱元素的指针。</p>
 <h2 id="从尾到头打印链表"><a href="#从尾到头打印链表" class="headerlink" title="从尾到头打印链表"></a>从尾到头打印链表</h2><p>输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。</p>
+<a id="more"></a>
+
 <p>示例 1：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：head &#x3D; [1,3,2]</span><br><span class="line">输出：[2,3,1]</span><br></pre></td></tr></table></figure>
 
@@ -622,7 +1195,34 @@
 
 <h2 id="链表中环的入口结点"><a href="#链表中环的入口结点" class="headerlink" title="链表中环的入口结点"></a>链表中环的入口结点</h2><p>给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。</p>
 <h3 id="分析-7"><a href="#分析-7" class="headerlink" title="分析"></a>分析</h3><p>使用数组保存每个节点，若某节点已经在数组中存在，则该节点为环的入口节点</p>
-<h3 id="解答-7"><a href="#解答-7" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*function ListNode(x)&#123;</span><br><span class="line">    this.val &#x3D; x;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;*&#x2F;</span><br><span class="line">function EntryNodeOfLoop(pHead)</span><br><span class="line">&#123;</span><br><span class="line">    let arr &#x3D; [];</span><br><span class="line">    if(!pHead)&#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    let node &#x3D; pHead;</span><br><span class="line">    while(node)&#123;</span><br><span class="line">        if(arr.includes(node))</span><br><span class="line">            return node;</span><br><span class="line">        arr.push(node);</span><br><span class="line">        node &#x3D; node.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<h3 id="解答-7"><a href="#解答-7" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*function ListNode(x)&#123;</span><br><span class="line">    this.val &#x3D; x;</span><br><span class="line">    this.next &#x3D; null;</span><br><span class="line">&#125;*&#x2F;</span><br><span class="line">function EntryNodeOfLoop(pHead)</span><br><span class="line">&#123;</span><br><span class="line">    let arr &#x3D; [];</span><br><span class="line">    if(!pHead)&#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    let node &#x3D; pHead;</span><br><span class="line">    while(node)&#123;</span><br><span class="line">        if(arr.includes(node))</span><br><span class="line">            return node;</span><br><span class="line">        arr.push(node);</span><br><span class="line">        node &#x3D; node.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;快慢指针</span><br><span class="line">&#x2F;&#x2F;若存在环，则快慢指针会在环入口点相遇</span><br><span class="line">var hasCycle &#x3D; function(head) &#123;</span><br><span class="line">    if(!head)</span><br><span class="line">        return null;</span><br><span class="line">    let slow &#x3D; head,fast &#x3D; head.next;</span><br><span class="line">    while(slow)&#123;</span><br><span class="line">        if(!fast || !fast.next)</span><br><span class="line">            return false;</span><br><span class="line">        if(slow &#x3D;&#x3D;&#x3D; fast)</span><br><span class="line">            return slow;</span><br><span class="line">        slow &#x3D; slow.next;</span><br><span class="line">        fast &#x3D; fast.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="两个链表生成相加链表"><a href="#两个链表生成相加链表" class="headerlink" title="两个链表生成相加链表"></a>两个链表生成相加链表</h2><ol>
+<li>给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照<strong>逆序</strong>的方式存储的，并且每个节点只能存储<strong>一位</strong>数字。</li>
+</ol>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：l1 &#x3D; [2,4,3], l2 &#x3D; [5,6,4]</span><br><span class="line">输出：[7,0,8]</span><br><span class="line">解释：342 + 465 &#x3D; 807.</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>假设链表中每一个节点的值都在 0 - 9 之间，那么链表整体就可以代表一个整数。</li>
+</ol>
+<p>给定两个这种链表，请生成代表两个整数相加值的结果链表。</p>
+<p>例如：链表 1 为 9-&gt;3-&gt;7，链表 2 为 6-&gt;3，最后生成新的结果链表为 1-&gt;0-&gt;0-&gt;0。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">[9,3,7],[6,3]</span><br><span class="line"></span><br><span class="line">返回值：</span><br><span class="line">&#123;1,0,0,0&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h3><p>两个题目整体思路相同，即将两个链表的各个节点相加，并保存进位放入下个节点的相加中，将结果放入新链表中。若最后一位仍有进位，则新建一个节点保存进位放入新链表中。</p>
+<p>题目1节点顺序为数字逆序，故每位相加的和放入新链表时即为数字相加和的顺序。</p>
+<p>题目2节点顺序与数字顺序相同，故结果需要倒序插入每位的结果。且需要在相加前将链表的节点值存入栈中，保证栈顶的值为数字末尾的值。</p>
+<h3 id="解答-8"><a href="#解答-8" class="headerlink" title="解答"></a>解答</h3><ol>
+<li>两个链表的顺序为数字逆序</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * function ListNode(val, next) &#123;</span><br><span class="line"> *     this.val &#x3D; (val&#x3D;&#x3D;&#x3D;undefined ? 0 : val)</span><br><span class="line"> *     this.next &#x3D; (next&#x3D;&#x3D;&#x3D;undefined ? null : next)</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;ListNode&#125; l1</span><br><span class="line"> * @param &#123;ListNode&#125; l2</span><br><span class="line"> * @return &#123;ListNode&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var addTwoNumbers &#x3D; function(l1, l2) &#123;</span><br><span class="line">    let list &#x3D; new ListNode();</span><br><span class="line">    let p &#x3D; list;</span><br><span class="line">    let carry &#x3D; 0;</span><br><span class="line">    while(l1 || l2)&#123;</span><br><span class="line">        let sum &#x3D; (l1 ? l1.val : 0) + (l2? l2.val : 0) + carry;</span><br><span class="line">        p.next &#x3D; new ListNode(sum % 10);</span><br><span class="line">        carry &#x3D; Math.floor(sum&#x2F;10);</span><br><span class="line">        p &#x3D; p.next;</span><br><span class="line">        if(l1) l1 &#x3D; l1.next;</span><br><span class="line">        if(l2) l2 &#x3D; l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    if(carry)&#123;</span><br><span class="line">        p.next &#x3D; new ListNode(carry);</span><br><span class="line">        p &#x3D; p.next;</span><br><span class="line">    &#125;</span><br><span class="line">    return list.next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>两个链表的顺序即数字的顺序 </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * function ListNode(x)&#123;</span><br><span class="line"> *   this.val &#x3D; x;</span><br><span class="line"> *   this.next &#x3D; null;</span><br><span class="line"> * &#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * </span><br><span class="line"> * @param head1 ListNode类 </span><br><span class="line"> * @param head2 ListNode类 </span><br><span class="line"> * @return ListNode类</span><br><span class="line"> *&#x2F;</span><br><span class="line">function addInList( head1 ,  head2 ) &#123;</span><br><span class="line">    let num1 &#x3D; [],num2 &#x3D; [];</span><br><span class="line">    let p1 &#x3D;head1,p2&#x3D;head2;</span><br><span class="line">    while(p1)&#123;</span><br><span class="line">        num1.push(p1.val);</span><br><span class="line">        p1 &#x3D; p1.next;</span><br><span class="line">    &#125;</span><br><span class="line">    while(p2)&#123;</span><br><span class="line">        num2.push(p2.val);</span><br><span class="line">        p2 &#x3D;p2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    let p &#x3D; null;</span><br><span class="line">    let carry &#x3D; 0;</span><br><span class="line">    while(num1.length || num2.length)&#123;</span><br><span class="line">        let sum &#x3D; (num1.length ? num1.pop() : 0) + (num2.length ? num2.pop() : 0) + carry;</span><br><span class="line">        carry &#x3D; Math.floor(sum &#x2F; 10);</span><br><span class="line">        let node &#x3D; new ListNode(sum % 10);</span><br><span class="line">        node.next &#x3D; p;</span><br><span class="line">        p &#x3D;node;</span><br><span class="line">        &#x2F;&#x2F;if(head1) head1 &#x3D; head1.next;</span><br><span class="line">        &#x2F;&#x2F;if(head2) head2 &#x3D; head2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    if(carry)&#123;</span><br><span class="line">        let node &#x3D; new ListNode(carry);</span><br><span class="line">        node.next &#x3D; p;</span><br><span class="line">        p &#x3D; node;</span><br><span class="line">    &#125;</span><br><span class="line">    return p;</span><br><span class="line">&#125;</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    addInList : addInList</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -640,15 +1240,14 @@
 <p>用来装页面上的元素的矩形区域。包括<strong>IE盒子模型</strong>和<strong>标准W3C盒子模型</strong></p>
 </blockquote>
 <p>盒模型包含4层，<code>content</code>/<code>padding</code>/<code>border</code>/<code>margin</code></p>
-<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul>
-<li><p>IE盒子模型</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><a id="more"></a>
+
 <ul>
-<li><p>width = <code>content_width</code> + <code>padding-left</code> + <code>padding-right</code> +  <code>border-left</code> + <code>border-right</code>;</p>
-</li>
-<li><p>height = <code>content_height</code> + <code>padding-top</code> + <code>padding-bottom</code> + <code>border-top</code> + <code>border-bottom</code>;</p>
-</li>
+<li>IE盒子模型</li>
 </ul>
-</li>
+<pre><code>- width = ```content_width``` + ```padding-left``` + ```padding-right``` +  ```border-left``` + ```border-right```;
+
+- height = ```content_height``` + ```padding-top``` + ```padding-bottom``` + ```border-top``` + ```border-bottom```;</code></pre><ul>
 <li><p>标准W3C盒子模型</p>
 <ul>
 <li><p>width = <code>content-width</code>;</p>
@@ -958,7 +1557,7 @@
 <h3 id="居中"><a href="#居中" class="headerlink" title="居中"></a>居中</h3><h4 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h4><ol>
 <li>利用flex</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>使用<code>display: table-cell</code>和<code>vertical-align</code>对容器内文字垂直居中</li>
@@ -982,8 +1581,30 @@
 </li>
 <li><p>已知宽度，<code>position: absolute</code>，设置<code>top</code>/<code>bottom</code>/<code>left</code>/<code>right</code>为<code>0</code>，且<code>margin：auto</code></p>
 </li>
+<li><p>使用<code>flex</code>容器，设置<code>justify-content: center;</code></p>
+</li>
+<li><p>行内元素：<code>text-align: center;</code></p>
+</li>
 </ol>
-<h4 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h4><h3 id="块级元素和行内元素"><a href="#块级元素和行内元素" class="headerlink" title="块级元素和行内元素"></a>块级元素和行内元素</h3><ol>
+<h4 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h4><ol>
+<li>已知高宽</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">top: 0;</span><br><span class="line">bottom: 0;</span><br><span class="line">left: 0;</span><br><span class="line">right: 0;</span><br><span class="line">margin: auto;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>未知高宽</p>
+<ul>
+<li><p>定位属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;父元素</span><br><span class="line">position: relative;</span><br><span class="line">&#x2F;&#x2F;子元素</span><br><span class="line">position: absolute;</span><br><span class="line">left: 50%;</span><br><span class="line">top: 50%;</span><br><span class="line">transform: translateX(-50%) translateY(-50%);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">display: flex;</span><br><span class="line">justify-content: center;</span><br><span class="line">align-items: center;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="块级元素和行内元素"><a href="#块级元素和行内元素" class="headerlink" title="块级元素和行内元素"></a>块级元素和行内元素</h3><ol>
 <li><p>块级元素独占一行，行内元素不会独占一行</p>
 </li>
 <li><p>块级元素自动填满父元素，且可以设置<code>margin</code>/<code>padding</code>/<code>width</code>/<code>height</code>，行内元素的<code>width</code>和<code>height</code>失效，且垂直方向的<code>margin</code>和<code>padding</code>失效。</p>
@@ -1033,7 +1654,107 @@
 </ol>
 <h3 id="CSS选择器及优先级"><a href="#CSS选择器及优先级" class="headerlink" title="CSS选择器及优先级"></a>CSS选择器及优先级</h3><p>优先级：</p>
 <p>!important &gt; 行内样式 &gt; ID选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 默认属性</p>
-<h3 id="calc函数"><a href="#calc函数" class="headerlink" title="calc函数"></a>calc函数</h3><h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><h3 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h3><h3 id="设置元素的背景颜色会填充哪些区域"><a href="#设置元素的背景颜色会填充哪些区域" class="headerlink" title="设置元素的背景颜色会填充哪些区域"></a>设置元素的背景颜色会填充哪些区域</h3><h3 id="重绘重排，如何减少，如何让文档脱离文档流"><a href="#重绘重排，如何减少，如何让文档脱离文档流" class="headerlink" title="重绘重排，如何减少，如何让文档脱离文档流"></a>重绘重排，如何减少，如何让文档脱离文档流</h3><h3 id="overflow原理"><a href="#overflow原理" class="headerlink" title="overflow原理"></a>overflow原理</h3><h3 id="CSS布局"><a href="#CSS布局" class="headerlink" title="CSS布局"></a>CSS布局</h3><h3 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h3><h3 id="img中alt和title区别"><a href="#img中alt和title区别" class="headerlink" title="img中alt和title区别"></a>img中alt和title区别</h3><ul>
+<p>选择器解析顺序：<strong>从右向左</strong></p>
+<h3 id="calc函数"><a href="#calc函数" class="headerlink" title="calc函数"></a>calc函数</h3><h3 id="display"><a href="#display" class="headerlink" title="display"></a>display</h3><h3 id="层叠上下文"><a href="#层叠上下文" class="headerlink" title="层叠上下文"></a>层叠上下文</h3><blockquote>
+<p>层叠上下文是HTML中一个三维概念，即每个元素的位置都是三维的，若元素含有层叠上下文，即它在<strong>z轴</strong>上有层叠关系</p>
+</blockquote>
+<ol>
+<li><p>层叠等级</p>
+<ul>
+<li><p>在同一层叠上下文中，层叠等级描述在此上下文中的元素在Z轴上的上下顺序</p>
+</li>
+<li><p>在普通元素中，层叠等级描述普通元素在Z轴上的上下顺序</p>
+</li>
+<li><p>普通元素的层叠等级优先由所在层叠上下文决定</p>
+</li>
+<li><p>层叠等级的比较只有在当前层叠上下文元素中才有意义。不同层叠上下文中比较层叠等级没有意义。</p>
+</li>
+</ul>
+</li>
+<li><p>层叠顺序</p>
+</li>
+</ol>
+<p>层叠上下文的背景和边框<code>background/border</code> =&gt; <code>z-index &lt; 0</code> =&gt; <code>block</code>块级水平盒子 =&gt; <code>float</code>浮动盒子 =&gt; <code>inline/inlink-block</code>水平盒子 =&gt; <code>z-index：auto/0</code> =&gt; <code>z-index &gt; 0</code></p>
+<ol start="3">
+<li>层叠上下文的产生</li>
+</ol>
+<p>层叠上下文满足以下任意一个条件即可形成：</p>
+<ul>
+<li>文档根元素<code>html</code></li>
+<li>属性<code>position</code>值为<code>absolute/relative</code>且<code>z-index</code>不为<code>auto</code></li>
+<li>属性<code>position</code>值为<code>fixed/sticky</code></li>
+<li>属于<code>fiex</code>容器的子元素，且<code>z-index</code>不为<code>auto</code></li>
+<li>属于<code>grid</code>容器的子元素，且<code>z-index</code>不为<code>auto</code></li>
+<li>属性<code>opacity</code>值不是<code>1</code>的元素</li>
+<li>属性<code>transform</code>不为<code>none</code>的元素</li>
+<li>属性<code>mix-blend-mode</code>值不是<code>normal</code></li>
+<li>属性<code>isolation</code>值不是<code>isolate</code></li>
+<li>属性<code>filter</code>值不是<code>none</code></li>
+<li>属性<code>will-change</code>指定的属性值为上面任意一个</li>
+<li>元素<code>-webkit-overflow-scrolling</code>属性值设置为<code>touch</code></li>
+</ul>
+<h3 id="设置元素的背景颜色会填充哪些区域"><a href="#设置元素的背景颜色会填充哪些区域" class="headerlink" title="设置元素的背景颜色会填充哪些区域"></a>设置元素的背景颜色会填充哪些区域</h3><h3 id="重绘重排，如何减少，如何让文档脱离文档流"><a href="#重绘重排，如何减少，如何让文档脱离文档流" class="headerlink" title="重绘重排，如何减少，如何让文档脱离文档流"></a>重绘重排，如何减少，如何让文档脱离文档流</h3><h3 id="overflow原理"><a href="#overflow原理" class="headerlink" title="overflow原理"></a>overflow原理</h3><h3 id="CSS布局"><a href="#CSS布局" class="headerlink" title="CSS布局"></a>CSS布局</h3><ol>
+<li>两栏布局，左侧固定，右侧自适应</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;left&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;right&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>左侧元素浮动，右侧设置margin</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.left&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    float: left;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    height:300px;</span><br><span class="line">    width: 100%;&#x2F;&#x2F;宽度为100%</span><br><span class="line">    margin-left: 310px;&#x2F;&#x2F;盒子被覆盖区域变成margin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>flex</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;father&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;left&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;right&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>给两栏布局添加父元素，并设置flex布局，左侧盒子宽度固定，右侧盒子占据所有空间</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.father&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定位+margin</li>
+</ul>
+<p>给左侧盒子绝对定位，即不占页面空间，再设置右侧盒子margin-left为左侧盒子宽度</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.left&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    position: absolute;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    margin-left: 300px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>三栏布局，两边固定，中间自适应（圣杯布局/双飞翼布局）</li>
+</ol>
+<ul>
+<li><p>圣杯布局</p>
+<ul>
+<li><p>header/footer各自占领屏幕所有宽度，高度固定</p>
+</li>
+<li><p>中间container是三栏布局</p>
+</li>
+<li><p>三栏布局两侧宽度固定，中间自适应布局且高度为三栏中最高区域的高度</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;left&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;main&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;right&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用flex实现：</p>
+</li>
+<li><p>container设置弹性布局flex</p>
+</li>
+<li><p>left/right定宽，main设置flex: 1;填满剩余区域</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.left</span><br><span class="line">.right&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>双飞翼布局</p>
+<ul>
+<li><p>left/main/right都设置左浮动</p>
+</li>
+<li><p>main宽度100%</p>
+</li>
+<li><p>设置left负边距为100%，right负边距为自身宽度，margin负边距使文档流发生偏移，改变元素大小。当为浮动元素之间设置负边距magin-left，则被设置的内容会在原有border-left基础上左移。</p>
+</li>
+<li><p>设置container的margin为左右两栏流出空间，大小为left/right宽度</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;main&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;center&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;left&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;right&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">.container&#123;</span><br><span class="line">    overflow: hidden;&#x2F;&#x2F;消除浮动</span><br><span class="line">&#125;</span><br><span class="line">.left</span><br><span class="line">.right</span><br><span class="line">.main&#123;</span><br><span class="line">    float: left;</span><br><span class="line">&#125;</span><br><span class="line">.main&#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">.left&#123;</span><br><span class="line">    width: 300px;</span><br><span class="line">    margin-left: -100%;</span><br><span class="line">&#125;</span><br><span class="line">.right&#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    margin-left: -200px;</span><br><span class="line">&#125;</span><br><span class="line">.center&#123;</span><br><span class="line">    margin: 0 200px 0 300px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h3><h3 id="img中alt和title区别"><a href="#img中alt和title区别" class="headerlink" title="img中alt和title区别"></a>img中alt和title区别</h3><ul>
 <li><p>alt：当图片不能正常显示时出现的文本提示</p>
 </li>
 <li><p>title：鼠标移动到元素上的文本提示</p>
@@ -1163,6 +1884,8 @@
 <p>示例</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">[1,4,1,6]</span><br><span class="line"></span><br><span class="line">返回值：</span><br><span class="line">[4,6]</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">返回的结果中较小的数排在前面</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
+
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>方法一通过哈希表，若出现一次则+1，最后遍历查询值等于一的数字，输出排序后的数组即可。</p>
 <p>方法二可以通过查找数组中每个数字第一次出现的位置和最后一次出现的位置是否匹配来确定是否只出现一次，最后再去重排序即可。</p>
 <h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span><br><span class="line"> *</span><br><span class="line"> * </span><br><span class="line"> * @param array int整型一维数组 </span><br><span class="line"> * @return int整型一维数组</span><br><span class="line"> *&#x2F;</span><br><span class="line">function FindNumsAppearOnce( array ) &#123;</span><br><span class="line">    let map &#x3D; &#123;&#125;;</span><br><span class="line">    let result &#x3D; [];</span><br><span class="line">    for(let i &#x3D; 0; i&lt; array.length;i++)&#123;</span><br><span class="line">        &#x2F;&#x2F;方法一</span><br><span class="line">        if(map[array[i]])</span><br><span class="line">            map[array[i]]++</span><br><span class="line">        else</span><br><span class="line">            map[array[i]] &#x3D; 1;</span><br><span class="line">        &#x2F;&#x2F;方法二</span><br><span class="line">        if(array.indexOf(array[i]) &#x3D;&#x3D;&#x3D; array.lastIndexOf(array[i]))</span><br><span class="line">            result.push(array[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;方法一</span><br><span class="line">    for(let num in map)&#123;</span><br><span class="line">        if(map[num] &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">        result.push(num);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;方法二</span><br><span class="line">    result &#x3D; [...new Set(result)];&#x2F;&#x2F;去重</span><br><span class="line">    return result.sort((a,b) &#x3D;&gt; a-b);;</span><br><span class="line">&#125;</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    FindNumsAppearOnce : FindNumsAppearOnce</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -1223,12 +1946,19 @@
 <h3 id="分析-7"><a href="#分析-7" class="headerlink" title="分析"></a>分析</h3><p>使用双指针从数组头尾开始搜索，若左边遇到偶数则与右边出现的奇数交换。</p>
 <h3 id="解答-7"><a href="#解答-7" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var exchange &#x3D; function(nums) &#123;</span><br><span class="line">    let i&#x3D;0,j&#x3D;nums.length-1;</span><br><span class="line">    while(i&lt;j)&#123;</span><br><span class="line">        while(nums[i]%2 &#x3D;&#x3D;&#x3D; 1)</span><br><span class="line">            i++;</span><br><span class="line">        while(nums[j]%2 &#x3D;&#x3D;&#x3D; 0)</span><br><span class="line">            j--;</span><br><span class="line">        if(i&lt;j)&#123;</span><br><span class="line">            </span><br><span class="line">            [nums[i],nums[j]] &#x3D; [nums[j],nums[i]];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return nums;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<h2 id="寻找两个正序数组的中位数"><a href="#寻找两个正序数组的中位数" class="headerlink" title="寻找两个正序数组的中位数"></a>寻找两个正序数组的中位数</h2><p>给定两个大小分别为m和n的正序（从小到大）数组nums1和nums2。请你找出并返回这两个正序数组的中位数 。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：nums1 &#x3D; [1,3], nums2 &#x3D; [2]</span><br><span class="line">输出：2.00000</span><br><span class="line">解释：合并数组 &#x3D; [1,2,3] ，中位数 2</span><br><span class="line"></span><br><span class="line">输入：nums1 &#x3D; [1,2], nums2 &#x3D; [3,4]</span><br><span class="line">输出：2.50000</span><br><span class="line">解释：合并数组 &#x3D; [1,2,3,4] ，中位数 (2 + 3) &#x2F; 2 &#x3D; 2.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h3><p>合并两个数组，并排序，若新数组长度为奇数，则中位数为其中间的一个值<code>num[num.length/2]</code>。若长度为偶数，则为中间两个数的平均值</p>
+<h3 id="解答-8"><a href="#解答-8" class="headerlink" title="解答"></a>解答</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums1</span><br><span class="line"> * @param &#123;number[]&#125; nums2</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var findMedianSortedArrays &#x3D; function(nums1, nums2) &#123;</span><br><span class="line">    let num &#x3D; nums1.concat(nums2);   </span><br><span class="line">    if(num.length &amp;&amp; num)&#123;</span><br><span class="line">        num.sort((a,b)&#x3D;&gt;&#123;</span><br><span class="line">            return a-b;</span><br><span class="line">        &#125;);</span><br><span class="line">        let a &#x3D; Math.floor(num.length &#x2F; 2);</span><br><span class="line">        if(num.length % 2 &#x3D;&#x3D;&#x3D; 0)&#123;</span><br><span class="line">            return (num[a] + num[a-1])&#x2F;2;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return num[a];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="和为S的两个数字"><a href="#和为S的两个数字" class="headerlink" title="和为S的两个数字"></a>和为S的两个数字</h2><p>输入一个递增排序的数组和一个数字S，在数组中查找两个数，使得他们的和正好是S，如果有多对数字的和等于S，输出两个数的乘积最小的。</p>
 <p>返回值描述：<br>对应每个测试案例，输出两个数，小的先输出。</p>
 <p>示例</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">[1,2,4,7,11,15],15</span><br><span class="line"></span><br><span class="line">返回值：</span><br><span class="line">[4,11]</span><br></pre></td></tr></table></figure>
 
-<h3 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h3><p>循环遍历数组，计算和与当前元素的差，构建对象存储所有的差值，若当前差值存在，则计算差值和当前值的乘积，并与当前最小乘积对比，存储更小的值。若当前差值不存在，则将当前差值织wei</p>
+<h3 id="分析-9"><a href="#分析-9" class="headerlink" title="分析"></a>分析</h3><p>循环遍历数组，计算和与当前元素的差，构建对象存储所有的差值，若当前差值存在，则计算差值和当前值的乘积，并与当前最小乘积对比，存储更小的值。若当前差值不存在，则将当前差值织wei</p>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -1246,6 +1976,8 @@
 <p>基本类型：string null undefined number boolean symbol（es6引入）复杂类型：object array date regexp function 基本包装类型：boolean number string 单体内置对象：global math</p>
 <p>数组flat方法</p>
 <p>es6数组交换</p>
+<a id="more"></a>
+
 <p>[a,b]=[b,a]</p>
 <p>数组sort()方法对于number元素是按字符sort，按number大小需要自己写方法</p>
 <p>arr.sort((a,b)=&gt;a-b)</p>
@@ -1465,6 +2197,8 @@
 <li><p>http的链接是无状态的，https的链接由SSL和HTTP协议构建。</p>
 </li>
 </ol>
+<a id="more"></a>
+
 <h4 id="https协议工作原理"><a href="#https协议工作原理" class="headerlink" title="https协议工作原理"></a>https协议工作原理</h4><ol>
 <li><p>客户端使用https url访问服务器，要求web服务器建立ssl链接</p>
 </li>
@@ -1872,6 +2606,8 @@
 <ol start="3">
 <li>Symbol类型在实际开发中的应用、可手动实现一个简单的Symbol</li>
 </ol>
+<a id="more"></a>
+
 <ol start="4">
 <li>JavaScript中的变量在内存中的具体存储形式</li>
 </ol>
@@ -2034,10 +2770,9 @@
 <li><p>如果存在多个同名参数，则返回数组</p>
 </li>
 <li><p>不支持URLSearchParams方法</p>
-</li>
+<a id="more"></a></li>
 </ol>
 <p><strong>示例1</strong></p>
-<a id="more"></a>
 <p>输入：</p>
 <p><a href="http://www.nowcoder.com?key=1&amp;key=2&amp;key=3&amp;test=4#hehe" target="_blank" rel="noopener">http://www.nowcoder.com?key=1&amp;key=2&amp;key=3&amp;test=4#hehe</a> key</p>
 <p>输出：</p>
