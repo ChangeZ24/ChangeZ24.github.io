@@ -32,7 +32,7 @@
 <ol>
 <li>普通函数调用</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function person()&#123;</span><br><span class="line">    this.name &#x3D; &quot;x1&quot;;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line">person();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;output</span><br><span class="line">window</span><br><span class="line">x1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; var name &#x3D; &quot;x1&quot;;&#x2F;&#x2F;输出一样</span><br><span class="line">function person()&#123;</span><br><span class="line">    this.name &#x3D; &quot;x1&quot;;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line">person();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;output</span><br><span class="line">window</span><br><span class="line">x1</span><br></pre></td></tr></table></figure>
 
 <p>如上，全局对象window调用了person方法，故this指向全局对象window。故person内的this也指向window，故name为window的一个属性。</p>
 <ol start="2">
@@ -229,8 +229,12 @@
 <li><p>jquery可以写多个入口函数你，原生js不行</p>
 </li>
 </ol>
-<h2 id="echart如何实现和Vue的响应"><a href="#echart如何实现和Vue的响应" class="headerlink" title="echart如何实现和Vue的响应"></a>echart如何实现和Vue的响应</h2><h2 id="手写call-bind-apply"><a href="#手写call-bind-apply" class="headerlink" title="手写call/bind/apply"></a>手写call/bind/apply</h2><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p>将新的this绑定到某函数func上，并返回func的拷贝</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function bind(context,...args)&#123;</span><br><span class="line">    const fn &#x3D; this;&#x2F;&#x2F;调用bind的函数func</span><br><span class="line">    return function(...args)&#123;</span><br><span class="line">        return fn.apply(context,...args,...args2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="echart如何实现和Vue的响应"><a href="#echart如何实现和Vue的响应" class="headerlink" title="echart如何实现和Vue的响应"></a>echart如何实现和Vue的响应</h2><h2 id="手写call-bind-apply"><a href="#手写call-bind-apply" class="headerlink" title="手写call/bind/apply"></a>手写call/bind/apply</h2><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function call(context)&#123;</span><br><span class="line">    context &#x3D; context || window;</span><br><span class="line">    context.fn &#x3D; this;</span><br><span class="line">    const args &#x3D; Array.from(arguments).slice(1);</span><br><span class="line">    const res &#x3D; argument.length &gt; 1 ? context.fn(...args):context.fn;</span><br><span class="line">    delete context.fn;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function apply(context)&#123;</span><br><span class="line">    context &#x3D; context || window;</span><br><span class="line">    context.fn &#x3D; this;</span><br><span class="line">    const res &#x3D; arguments[1]? context.fn(...arguments[1]) : context.fn();</span><br><span class="line">    delete context.fn;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h3><p>将新的this绑定到某函数func上，并返回func的拷贝</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function bind(context,...args)&#123;</span><br><span class="line">    const fn &#x3D; this;&#x2F;&#x2F;调用bind的函数func</span><br><span class="line">    return function(...args)&#123;</span><br><span class="line">        return fn.apply(context,...args.concat(...args2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;另一种</span><br><span class="line">function bind(context)&#123;</span><br><span class="line">	console cxt &#x3D; JSOn.parse(JSON.stringify(context)) || window;</span><br><span class="line">	cxt.func &#x3D; this;</span><br><span class="line">	const args &#x3D; Array.from(arguments).slice(1);</span><br><span class="line">	return function()&#123;</span><br><span class="line">		const allArgs &#x3D; args.concat(Array.from(arguments));</span><br><span class="line">		return allArgs.length &gt; 0 ? cxt.func(...allArgs):cxt.func();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="手写promise"><a href="#手写promise" class="headerlink" title="手写promise"></a>手写promise</h2><h3 id="Promise特征："><a href="#Promise特征：" class="headerlink" title="Promise特征："></a>Promise特征：</h3><ol>
 <li><p>三个状态: <code>pending</code>/<code>fulfilled</code>/<code>rejected</code>。状态默认为<code>pending</code>，且只能从<code>pending</code>到<code>fulfilled</code>或从<code>pending</code>到<code>rejected</code>，一旦确认不会再改变</p>
@@ -314,7 +318,55 @@
 </ul>
 </li>
 </ol>
-<h2 id="webpack中plugin哪个时期触发"><a href="#webpack中plugin哪个时期触发" class="headerlink" title="webpack中plugin哪个时期触发"></a>webpack中plugin哪个时期触发</h2><h2 id="时间循环"><a href="#时间循环" class="headerlink" title="时间循环"></a>时间循环</h2><h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>通过数据劫持结合发布订阅者模式实现</p>
+<h2 id="webpack中plugin哪个时期触发"><a href="#webpack中plugin哪个时期触发" class="headerlink" title="webpack中plugin哪个时期触发"></a>webpack中plugin哪个时期触发</h2><h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>事件循环是为了解决js单线程运行阻塞的问题而产生。在js中所有任务可以分为同步任务(立即执行的任务，一般直接进入主线程中执行)和异步任务(如ajax/setTimeout等)。</p>
+<p>同步任务进入主线程(主执行栈)，异步任务进入任务队列，主线程内任务执行完毕为空，则去任务队列读取对应的任务，推入主线程执行，以上不断重复的过程即为事件循环。</p>
+<h3 id="宏任务-微任务"><a href="#宏任务-微任务" class="headerlink" title="宏任务/微任务"></a>宏任务/微任务</h3><ul>
+<li><p>宏任务：由Node/浏览器发起的任务，每次从宏任务事件队列中获取一个放入执行栈中执行</p>
+<ul>
+<li><p>script</p>
+</li>
+<li><p>setTimeout/setInterval</p>
+</li>
+<li><p>I/O</p>
+</li>
+<li><p>UI交互事件</p>
+</li>
+<li><p>postMessage()</p>
+</li>
+<li><p>setImmediate: 遇到setTimeout，先于它执行</p>
+</li>
+</ul>
+</li>
+<li><p>微任务：由JavaScript发起的任务，当前任务执行后立刻执行，无需等渲染。</p>
+<ul>
+<li><p>Promise</p>
+</li>
+<li><p>process.nextTick</p>
+</li>
+<li><p>Object.observe</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="常见考题"><a href="#常见考题" class="headerlink" title="常见考题"></a>常见考题</h3><ol>
+<li>基础题</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">console.log(1)&#x2F;&#x2F;主线程</span><br><span class="line"></span><br><span class="line">setTimeout(()&#x3D;&gt;&#123;&#x2F;&#x2F;放入宏任务队列</span><br><span class="line">    console.log(2)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">new Promise((resolve, reject)&#x3D;&gt;&#123;&#x2F;&#x2F;主线程</span><br><span class="line">    console.log(&#39;new Promise&#39;)&#x2F;&#x2F;主线程</span><br><span class="line">    resolve()&#x2F;&#x2F;微任务，放入微任务队列</span><br><span class="line">&#125;).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;then&#39;)&#x2F;&#x2F;微任务</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(3)&#x2F;&#x2F;主线程</span><br><span class="line">&#x2F;&#x2F;输出：1 -&gt; new Promise -&gt; 3 -&gt; then -&gt; 2</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>复杂题</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async function async1() &#123;&#x2F;&#x2F;函数定义，未调用，不管</span><br><span class="line">    console.log(&#39;async1 start&#39;)&#x2F;&#x2F;4.主线程</span><br><span class="line">    await async2()&#x2F;&#x2F;5.遇到await，先执行async2，阻塞下面代码console，即加入微任务1</span><br><span class="line">    console.log(&#39;async1 end&#39;)</span><br><span class="line">&#125;</span><br><span class="line">async function async2() &#123;&#x2F;&#x2F;函数定义，未调用，不管</span><br><span class="line">    console.log(&#39;async2&#39;)&#x2F;&#x2F;6.执行async2，打印</span><br><span class="line">&#125;</span><br><span class="line">console.log(&#39;script start&#39;)&#x2F;&#x2F;1.主线程</span><br><span class="line">setTimeout(function () &#123;&#x2F;&#x2F;2.宏任务，放入宏任务队列1</span><br><span class="line">    console.log(&#39;settimeout&#39;)</span><br><span class="line">&#125;)</span><br><span class="line">async1()&#x2F;&#x2F;3.调用async1</span><br><span class="line">new Promise(function (resolve) &#123;&#x2F;&#x2F;7.new Promise主线程</span><br><span class="line">    console.log(&#39;promise1&#39;)&#x2F;&#x2F;8. 打印</span><br><span class="line">    resolve()&#x2F;&#x2F;9. 微任务，放入微任务队列2</span><br><span class="line">&#125;).then(function () &#123;</span><br><span class="line">    console.log(&#39;promise2&#39;)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&#39;script end&#39;)&#x2F;&#x2F;10.主线程，打印</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;第一趟主线程输出：script start -&gt; async1 start -&gt; async2 -&gt; promise1 -&gt; script end</span><br><span class="line">&#x2F;&#x2F;开始微任务，输出：async1 end -&gt; promise2</span><br><span class="line">&#x2F;&#x2F;微任务执行完毕，执行下一个宏任务，输出：settimeout</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;最终输出：script start -&gt; async1 start -&gt; async2 -&gt; promise1 -&gt; script end -&gt; async1 end -&gt; promise2 -&gt; settimeout</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ol>
+<li><p>执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中</p>
+</li>
+<li><p>当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完</p>
+</li>
+<li><p>遇到<code>async</code>和<code>await</code>，<code>await</code>会阻塞下面的代码（即加入微任务队列），先执行<code>async</code>外面的同步代码，同步代码执行完，再回到<code>async</code>函数中，再执行之前阻塞的代码</p>
+</li>
+</ol>
+<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>通过数据劫持结合发布订阅者模式实现</p>
 <p>vue通过<code>Object.defineProperty()</code>实现数据劫持，它可以控制一个对象属性的特有操作，例如读写权/枚举等，</p>
 <p>MVVM主要包含两方面，数据变化更新视图，视图变化更新数据。其中视图变化更新数据只需要通过事件监听即可。</p>
 <h3 id="数据变化更新视图"><a href="#数据变化更新视图" class="headerlink" title="数据变化更新视图"></a>数据变化更新视图</h3><p>通过<code>Object.defineProperty()</code>对属性设置一个set函数，当数据改变后触发set函数，故将更新方法写入set即可实现data更新view</p>
@@ -430,7 +482,13 @@
 <li><p>typeof undefined = undefined：undefined表示一个没有赋值的变量</p>
 </li>
 </ul>
-<h2 id="异步async实现sleep函数"><a href="#异步async实现sleep函数" class="headerlink" title="异步async实现sleep函数"></a>异步async实现sleep函数</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(resolve, ms);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function fn() &#123;</span><br><span class="line">    await sleep(1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+<h2 id="异步async实现sleep函数"><a href="#异步async实现sleep函数" class="headerlink" title="异步async实现sleep函数"></a>异步async实现sleep函数</h2><ol>
+<li><p>promise解决callback会产生的回调地狱，且不能捕获错误的问题而产生，它实现了链式调用，每次返回都是一个全新的promise。但无法取消promise，错误也需要通过回调函数来捕获。</p>
+</li>
+<li><p>async/await也解决回调地狱的问题，且不会向promise产生一系列的then链。但他的缺点是await将异步代码改造成同步代码，若多个异步操作没有依赖性，则await会导致性能上的降低</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(resolve, ms);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function fn() &#123;</span><br><span class="line">    await sleep(1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;promise</span><br><span class="line">function sleep &#x3D; time&#x3D;&gt;&#123;</span><br><span class="line">    return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">        setTimeour(resolve,ms);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">sleep(1000).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&quot;111&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h2 id="instanceof实现"><a href="#instanceof实现" class="headerlink" title="instanceof实现"></a>instanceof实现</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fn(a,b)&#123;</span><br><span class="line">    let type &#x3D; b.prototype;&#x2F;&#x2F;类型原型</span><br><span class="line">    let obj &#x3D; a._proto_;</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(type &#x3D;&#x3D;&#x3D; obj)</span><br><span class="line">            return true;</span><br><span class="line">        obj &#x3D; obj._proto_;</span><br><span class="line">        if(obj &#x3D;&#x3D;&#x3D; null)</span><br><span class="line">            return false;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -462,7 +520,65 @@
 <li><p>forEach适用于不改变数据，仅利用数据时使用，map适用于需要改变数值时使用</p>
 </li>
 </ol>
-<h2 id="登陆登出的实现"><a href="#登陆登出的实现" class="headerlink" title="登陆登出的实现"></a>登陆登出的实现</h2><h2 id="echart实现方面有没有什么困难"><a href="#echart实现方面有没有什么困难" class="headerlink" title="echart实现方面有没有什么困难"></a>echart实现方面有没有什么困难</h2><h2 id="防抖和节流分别在什么情况下使用"><a href="#防抖和节流分别在什么情况下使用" class="headerlink" title="防抖和节流分别在什么情况下使用"></a>防抖和节流分别在什么情况下使用</h2><h2 id="BFC理解"><a href="#BFC理解" class="headerlink" title="BFC理解"></a>BFC理解</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
+<h2 id="防抖和节流分别在什么情况下使用"><a href="#防抖和节流分别在什么情况下使用" class="headerlink" title="防抖和节流分别在什么情况下使用"></a>防抖和节流分别在什么情况下使用</h2><ol>
+<li><p>防抖：N秒后再执行该事件，若n秒内重复触发，则重新计时。</p>
+<ul>
+<li><p>搜索框搜索输入，用户最后一次输入完再发送请求</p>
+</li>
+<li><p>手机号/邮箱输入检测</p>
+</li>
+<li><p>窗口大小resize。窗口调整完在计算窗口大小，防止重复渲染</p>
+</li>
+</ul>
+</li>
+<li><p>节流：N秒内值运行一次，若n秒内重复触发，则只有一次生效</p>
+<ul>
+<li>滚动加载，加载更多等</li>
+<li>搜索框，搜索联想功能</li>
+</ul>
+</li>
+</ol>
+<h2 id="BFC理解"><a href="#BFC理解" class="headerlink" title="BFC理解"></a>BFC理解</h2><h2 id="项目登陆如何实现"><a href="#项目登陆如何实现" class="headerlink" title="项目登陆如何实现"></a>项目登陆如何实现</h2><ol>
+<li><p>写登陆页面和登陆的路由跳转</p>
+</li>
+<li><p>写登陆的请求接口</p>
+</li>
+<li><p>使用axios向后端登陆接口发送登陆请求</p>
+</li>
+<li><p>跨域在java后端使用cors标签头处理</p>
+</li>
+<li><p>后端校验登陆返回一个token或者sessionID</p>
+</li>
+<li><p>使用vuex保存登陆状态token到浏览器的sessionStorage，并根据返回内容跳转URL路由</p>
+</li>
+<li><p>退出时，清空sessionStorage中的token信息，跳转页面</p>
+</li>
+</ol>
+<h3 id="单点登陆"><a href="#单点登陆" class="headerlink" title="单点登陆"></a>单点登陆</h3><ol>
+<li><p>用户在认证中心登陆</p>
+</li>
+<li><p>登陆成功，认证中心记录用户登陆状态，将token写入认证中心的cookie</p>
+</li>
+<li><p>应用系统检查请求中有没有token，没有，则表示没有登陆，页面带着认证中心的cookie跳转至认证中心。</p>
+</li>
+<li><p>认证中心通过cookie了解用户是否已经登陆。</p>
+</li>
+<li><p>若没有登陆，则返回登陆页面等待登陆。若登陆过了，则生成一个token，拼接在目标url后，回传给系统</p>
+</li>
+<li><p>系统拿到token，想认证中心确认token的合法性，防止伪造token。</p>
+</li>
+<li><p>确认无误，系统记录用户登陆状态，将token写入当前系统的cookie，进入系统。</p>
+</li>
+<li><p>后续用户再次访问系统，会自动带上此token，系统验证token发现已登陆则直接放行。</p>
+</li>
+</ol>
+<h2 id="基本类型和引用类型区别"><a href="#基本类型和引用类型区别" class="headerlink" title="基本类型和引用类型区别"></a>基本类型和引用类型区别</h2><ol>
+<li><p>基本类型是存储在栈内的简单数据段，其值存在变量访问的位置。故赋值/访问/函数传参都是按值传递。复制时，复制原始值的副本给新变量，从此而至为两个独立的变量，传参同</p>
+</li>
+<li><p>引用类型是存储在堆中的对象，其指针存在变量访问的位置。故赋值/访问/函数传参都是按地址传递。复制时，复制原始值的内存地址给新变量，故新变量改变，原始值也会改变，传参亦同。</p>
+</li>
+</ol>
+]]></content>
       <categories>
         <category>面经</category>
       </categories>
@@ -1075,9 +1191,8 @@
 <h4 id="nextTick作用"><a href="#nextTick作用" class="headerlink" title="$nextTick作用"></a>$nextTick作用</h4><p>vm.$nextTick接受一个回调函数作为参数，用于将回调延迟到下次DOM更新周期(下次微任务执行时更新DOM)后进行，即将回调函数添加到微任务中。</p>
 <h3 id="判断变量是对象还是数组"><a href="#判断变量是对象还是数组" class="headerlink" title="判断变量是对象还是数组"></a>判断变量是对象还是数组</h3><p>使用<code>array instanceof Array</code>方法，返回true则为数组，否则对象</p>
 <p>不能使用<code>typeof</code>，它判断对象和数组都返回<code>Object</code>，只用来判断基本类型<code>Boolean</code>/<code>Number</code>/<code>Symbol</code>/<code>Undefined</code>/<code>String</code>，其他引用类型，除了<code>function</code>外其他都返回<code>object</code></p>
-<h3 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h3><blockquote>
-<p>执行上下文EC可简单理解为一个包含<code>变量对象</code>/<code>作用域链</code>/<code>this指向</code>的对象，可分为3类：<code>全局执行上下文</code>/<code>函数上下文</code>/<code>eval上下文</code></p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 执行上下文</span><br><span class="line"></span><br><span class="line">&gt; 执行上下文EC可简单理解为一个包含&#96;&#96;&#96;变量对象&#96;&#96;&#96;&#x2F;&#96;&#96;&#96;作用域链&#96;&#96;&#96;&#x2F;&#96;&#96;&#96;this指向&#96;&#96;&#96;的对象，可分为3类：&#96;&#96;&#96;全局执行上下文&#96;&#96;&#96;&#x2F;&#96;&#96;&#96;函数上下文&#96;&#96;&#96;&#x2F;&#96;&#96;&#96;eval上下文</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li><p>全局执行上下文：即window对象。window对象也是var声明的全局变量的载体，即通过var创建的全局对象，都能通过window直接访问</p>
 </li>
@@ -2165,7 +2280,53 @@
 <li><p>搭建受控环境，使用第三方工具模拟用户发起页面访问请求，主动采集数据分析。</p>
 </li>
 </ol>
-<h3 id="options预检请求作用"><a href="#options预检请求作用" class="headerlink" title="options预检请求作用"></a>options预检请求作用</h3><h3 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h3>]]></content>
+<h3 id="options预检请求作用"><a href="#options预检请求作用" class="headerlink" title="options预检请求作用"></a>options预检请求作用</h3><h3 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h3><ol>
+<li><p>解析HTML文档生成DOM树</p>
+</li>
+<li><p>解析CSS样式，生成CSSOM树，和HTML无先后顺序</p>
+</li>
+<li><p>根据DOM树和CSSOM树生成用于渲染的渲染树render tree</p>
+</li>
+<li><p>对渲染树的每个节点进行布局处理，确定在屏幕上的显示位置</p>
+</li>
+<li><p>遍历渲染树用UI将每个节点绘制出来。</p>
+</li>
+</ol>
+<h3 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h3><ol>
+<li><p>OSI七层模型：应用层、表示层、会话层、传输层、网络层、数据链路层、物理层</p>
+<ul>
+<li><p>应用层：HTTP/FTP/SMTP等</p>
+</li>
+<li><p>表示层：Telnet等</p>
+</li>
+<li><p>会话层：SMTP/DNS</p>
+</li>
+<li><p>传输层：TCP/UDP</p>
+</li>
+<li><p>网络层：IP/ICMP/ARP等</p>
+</li>
+<li><p>数据链路层：PPP等</p>
+</li>
+<li><p>物理层：IEEE 802.1等</p>
+</li>
+</ul>
+</li>
+<li><p>TCP/IP四层模型：应用层、运输层、网际层和网络接口层。</p>
+<ul>
+<li><p>网络接口层：网络接口</p>
+</li>
+<li><p>网际层：IP</p>
+</li>
+<li><p>运输层：TCP/UDP</p>
+</li>
+<li><p>应用层：HTTP/DNS/SMTP</p>
+</li>
+</ul>
+</li>
+<li><p>五层体系结构：应用层、运输层、网络层、数据链路层、物理层</p>
+</li>
+</ol>
+]]></content>
       <categories>
         <category>面经</category>
       </categories>

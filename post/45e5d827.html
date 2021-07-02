@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.8k字</span>
+            <span class="post-count">2.1k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">6分钟</span>
+            <span class="post-count">7分钟</span>
         </span>
     </span>
 </div>
@@ -299,7 +299,53 @@ var _hmt = _hmt || [];
 <li><p>搭建受控环境，使用第三方工具模拟用户发起页面访问请求，主动采集数据分析。</p>
 </li>
 </ol>
-<h3 id="options预检请求作用"><a href="#options预检请求作用" class="headerlink" title="options预检请求作用"></a>options预检请求作用</h3><h3 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h3>
+<h3 id="options预检请求作用"><a href="#options预检请求作用" class="headerlink" title="options预检请求作用"></a>options预检请求作用</h3><h3 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h3><ol>
+<li><p>解析HTML文档生成DOM树</p>
+</li>
+<li><p>解析CSS样式，生成CSSOM树，和HTML无先后顺序</p>
+</li>
+<li><p>根据DOM树和CSSOM树生成用于渲染的渲染树render tree</p>
+</li>
+<li><p>对渲染树的每个节点进行布局处理，确定在屏幕上的显示位置</p>
+</li>
+<li><p>遍历渲染树用UI将每个节点绘制出来。</p>
+</li>
+</ol>
+<h3 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h3><ol>
+<li><p>OSI七层模型：应用层、表示层、会话层、传输层、网络层、数据链路层、物理层</p>
+<ul>
+<li><p>应用层：HTTP/FTP/SMTP等</p>
+</li>
+<li><p>表示层：Telnet等</p>
+</li>
+<li><p>会话层：SMTP/DNS</p>
+</li>
+<li><p>传输层：TCP/UDP</p>
+</li>
+<li><p>网络层：IP/ICMP/ARP等</p>
+</li>
+<li><p>数据链路层：PPP等</p>
+</li>
+<li><p>物理层：IEEE 802.1等</p>
+</li>
+</ul>
+</li>
+<li><p>TCP/IP四层模型：应用层、运输层、网际层和网络接口层。</p>
+<ul>
+<li><p>网络接口层：网络接口</p>
+</li>
+<li><p>网际层：IP</p>
+</li>
+<li><p>运输层：TCP/UDP</p>
+</li>
+<li><p>应用层：HTTP/DNS/SMTP</p>
+</li>
+</ul>
+</li>
+<li><p>五层体系结构：应用层、运输层、网络层、数据链路层、物理层</p>
+</li>
+</ol>
+
       
       <!-- reward -->
       
