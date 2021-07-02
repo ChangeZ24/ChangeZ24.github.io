@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">8.6k字</span>
+            <span class="post-count">4.3k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">37分钟</span>
+            <span class="post-count">19分钟</span>
         </span>
     </span>
 </div>
@@ -444,267 +444,7 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 </ol>
-<h2 id="webpack中plugin哪个时期触发"><a href="#webpack中plugin哪个时期触发" class="headerlink" title="webpack中plugin哪个时期触发"></a>webpack中plugin哪个时期触发</h2><h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>事件循环是为了解决js单线程运行阻塞的问题而产生。在js中所有任务可以分为同步任务(立即执行的任务，一般直接进入主线程中执行)和异步任务(如ajax/setTimeout等)。</p>
-<p>同步任务进入主线程(主执行栈)，异步任务进入任务队列，主线程内任务执行完毕为空，则去任务队列读取对应的任务，推入主线程执行，以上不断重复的过程即为事件循环。</p>
-<h3 id="宏任务-微任务"><a href="#宏任务-微任务" class="headerlink" title="宏任务/微任务"></a>宏任务/微任务</h3><ul>
-<li><p>宏任务：由Node/浏览器发起的任务，每次从宏任务事件队列中获取一个放入执行栈中执行</p>
-<ul>
-<li><p>script</p>
-</li>
-<li><p>setTimeout/setInterval</p>
-</li>
-<li><p>I/O</p>
-</li>
-<li><p>UI交互事件</p>
-</li>
-<li><p>postMessage()</p>
-</li>
-<li><p>setImmediate: 遇到setTimeout，先于它执行</p>
-</li>
-</ul>
-</li>
-<li><p>微任务：由JavaScript发起的任务，当前任务执行后立刻执行，无需等渲染。</p>
-<ul>
-<li><p>Promise</p>
-</li>
-<li><p>process.nextTick</p>
-</li>
-<li><p>Object.observe</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="常见考题"><a href="#常见考题" class="headerlink" title="常见考题"></a>常见考题</h3><ol>
-<li>基础题</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">console.log(1)&#x2F;&#x2F;主线程</span><br><span class="line"></span><br><span class="line">setTimeout(()&#x3D;&gt;&#123;&#x2F;&#x2F;放入宏任务队列</span><br><span class="line">    console.log(2)</span><br><span class="line">&#125;, 0)</span><br><span class="line"></span><br><span class="line">new Promise((resolve, reject)&#x3D;&gt;&#123;&#x2F;&#x2F;主线程</span><br><span class="line">    console.log(&#39;new Promise&#39;)&#x2F;&#x2F;主线程</span><br><span class="line">    resolve()&#x2F;&#x2F;微任务，放入微任务队列</span><br><span class="line">&#125;).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&#39;then&#39;)&#x2F;&#x2F;微任务</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(3)&#x2F;&#x2F;主线程</span><br><span class="line">&#x2F;&#x2F;输出：1 -&gt; new Promise -&gt; 3 -&gt; then -&gt; 2</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>复杂题</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">async function async1() &#123;&#x2F;&#x2F;函数定义，未调用，不管</span><br><span class="line">    console.log(&#39;async1 start&#39;)&#x2F;&#x2F;4.主线程</span><br><span class="line">    await async2()&#x2F;&#x2F;5.遇到await，先执行async2，阻塞下面代码console，即加入微任务1</span><br><span class="line">    console.log(&#39;async1 end&#39;)</span><br><span class="line">&#125;</span><br><span class="line">async function async2() &#123;&#x2F;&#x2F;函数定义，未调用，不管</span><br><span class="line">    console.log(&#39;async2&#39;)&#x2F;&#x2F;6.执行async2，打印</span><br><span class="line">&#125;</span><br><span class="line">console.log(&#39;script start&#39;)&#x2F;&#x2F;1.主线程</span><br><span class="line">setTimeout(function () &#123;&#x2F;&#x2F;2.宏任务，放入宏任务队列1</span><br><span class="line">    console.log(&#39;settimeout&#39;)</span><br><span class="line">&#125;)</span><br><span class="line">async1()&#x2F;&#x2F;3.调用async1</span><br><span class="line">new Promise(function (resolve) &#123;&#x2F;&#x2F;7.new Promise主线程</span><br><span class="line">    console.log(&#39;promise1&#39;)&#x2F;&#x2F;8. 打印</span><br><span class="line">    resolve()&#x2F;&#x2F;9. 微任务，放入微任务队列2</span><br><span class="line">&#125;).then(function () &#123;</span><br><span class="line">    console.log(&#39;promise2&#39;)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(&#39;script end&#39;)&#x2F;&#x2F;10.主线程，打印</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;第一趟主线程输出：script start -&gt; async1 start -&gt; async2 -&gt; promise1 -&gt; script end</span><br><span class="line">&#x2F;&#x2F;开始微任务，输出：async1 end -&gt; promise2</span><br><span class="line">&#x2F;&#x2F;微任务执行完毕，执行下一个宏任务，输出：settimeout</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;最终输出：script start -&gt; async1 start -&gt; async2 -&gt; promise1 -&gt; script end -&gt; async1 end -&gt; promise2 -&gt; settimeout</span><br></pre></td></tr></table></figure>
-
-<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><ol>
-<li><p>执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中</p>
-</li>
-<li><p>当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完</p>
-</li>
-<li><p>遇到<code>async</code>和<code>await</code>，<code>await</code>会阻塞下面的代码（即加入微任务队列），先执行<code>async</code>外面的同步代码，同步代码执行完，再回到<code>async</code>函数中，再执行之前阻塞的代码</p>
-</li>
-</ol>
-<h2 id="vue双向绑定原理"><a href="#vue双向绑定原理" class="headerlink" title="vue双向绑定原理"></a>vue双向绑定原理</h2><p>通过数据劫持结合发布订阅者模式实现</p>
-<p>vue通过<code>Object.defineProperty()</code>实现数据劫持，它可以控制一个对象属性的特有操作，例如读写权/枚举等，</p>
-<p>MVVM主要包含两方面，数据变化更新视图，视图变化更新数据。其中视图变化更新数据只需要通过事件监听即可。</p>
-<h3 id="数据变化更新视图"><a href="#数据变化更新视图" class="headerlink" title="数据变化更新视图"></a>数据变化更新视图</h3><p>通过<code>Object.defineProperty()</code>对属性设置一个set函数，当数据改变后触发set函数，故将更新方法写入set即可实现data更新view</p>
-<ol>
-<li><p>实现监听器Observer，用来劫持监听所有属性，若有变动，则通知订阅者</p>
-</li>
-<li><p>实现订阅者Watcher，可收到属性的变化通知并执行相应的函数，从而更新视图</p>
-</li>
-<li><p>实现解析器Compile，扫描解析每个节点的相关指令，并根据初始化模版数据以及初始化相应的订阅器</p>
-</li>
-</ol>
-<h2 id="虚拟dom"><a href="#虚拟dom" class="headerlink" title="虚拟dom"></a>虚拟dom</h2><p>页面更新可以先全部反映到虚拟dm中，操作内存中的js对象速度会更快，当更新完成后，再将最终的js对象映射到真实的dom中，由浏览器绘制渲染</p>
-<h2 id="dom概念及分类"><a href="#dom概念及分类" class="headerlink" title="dom概念及分类"></a>dom概念及分类</h2><p>Dom即HTML的层级结构，有Dom元素树和Dom文档树。</p>
-<p>其节点类型有：元素节点、属性节点、文本节点、文档节点、注释节点、实体名称节点、处理指令节点等</p>
-<h3 id="获取元素节点"><a href="#获取元素节点" class="headerlink" title="获取元素节点"></a>获取元素节点</h3><ul>
-<li>document.getElementById: 通过id获取元素节点　</li>
-<li>getElementsByTagName:　通过标签名称获取元素节点</li>
-<li>getElementsByClassName: 通过类名获取元素节点</li>
-<li>getElementsByName: 通过表单元素的name获取元素节点</li>
-<li>querySelector(“[selector]”):　支持一切css中的选择器，但如果匹配多个，只会返回第一个</li>
-<li>querySelectorAll(“[selector]”):　返回所有选中的元素</li>
-</ul>
-<h2 id="a-2-amp-amp-a-3"><a href="#a-2-amp-amp-a-3" class="headerlink" title="a==2 &amp;&amp; a==3"></a>a==2 &amp;&amp; a==3</h2><p>js调用==比较时，会触发类型转换，即两个函数<code>toString()</code>和<code>valueOf</code>，每比较一次，调用一次</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; &#123;</span><br><span class="line">    i: 1,</span><br><span class="line">    valueOf:()&#x3D;&gt;&#123;</span><br><span class="line">        return a.i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="a-2-amp-amp-a-3-1"><a href="#a-2-amp-amp-a-3-1" class="headerlink" title="a===2&amp;&amp;a===3"></a>a===2&amp;&amp;a===3</h2><p>使用Object.defineProperty为对象定义一个属性，此时该属性具有getter方法，即可以在代码中被直接访问到。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var value &#x3D; 0;</span><br><span class="line">Object.defineProperty(window,&#39;a&#39;,&#123;</span><br><span class="line">    get: function()&#123;</span><br><span class="line">        return this.value ++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="实现元素拖拽"><a href="#实现元素拖拽" class="headerlink" title="实现元素拖拽"></a>实现元素拖拽</h2><ol>
-<li><p>使用HTML5的API：dataTransfer</p>
-<ul>
-<li><p>为拖拽的元素设值允许拖拽，赋予dragstart事件将其id转换为数据保存</p>
-</li>
-<li><p>为容器添加dragover属性添加事件组织浏览器默认事件，允许元素放置，并赋予drop事件进行元素放置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 参数要传入event对象 --&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box1&quot; ondragover&#x3D;&quot;allowdrop(event)&quot; ondrop&#x3D;&quot;drop(event)&quot;&gt;</span><br><span class="line">    &lt;img src&#x3D;&quot;img&#x2F;2.jpg&quot; alt&#x3D;&quot;00&quot; draggable&#x3D;&quot;true&quot; ondragstart&#x3D;&quot;drag(event)&quot; id&#x3D;&quot;drag&quot; width&#x3D;&quot;50&quot; height&#x3D;&quot;50&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子一&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box2&quot; ondragover&#x3D;&quot;allowdrop(event)&quot; ondrop&#x3D;&quot;drop(event)&quot;&gt;</span><br><span class="line">&lt;span&gt;我是盒子二&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function allowdrop(e) &#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drop(e) &#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">        var data &#x3D; e.dataTransfer.getData(&quot;text&quot;);</span><br><span class="line">        e.target.appendChild(document.getElementById(data));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function drag(e) &#123;</span><br><span class="line">        e.dataTransfer.setData(&quot;text&quot;, e.target.id);</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>使用原生js</p>
-<ul>
-<li><p>获取鼠标距离元素左边界和上边界的距离</p>
-</li>
-<li><p>移动后计算元素相对原来位置的相对距离，赋予样式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;box1&quot; id&#x3D;&quot;drag&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子一&lt;&#x2F;span&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;box2&quot;&gt;</span><br><span class="line">    &lt;span&gt;我是盒子二&lt;&#x2F;span&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let drag &#x3D; document.querySelector(&quot;#drag&quot;);&#x2F;&#x2F;获取操作元素</span><br><span class="line">    drag.onmousedown &#x3D; function (e) &#123;&#x2F;&#x2F;鼠标按下触发</span><br><span class="line">        var disx &#x3D; e.pageX - drag.offsetLeft;&#x2F;&#x2F;获取鼠标相对元素距离</span><br><span class="line">        var disy &#x3D; e.pageY - drag.offsetTop;</span><br><span class="line">        console.log(e.pageX);</span><br><span class="line">        console.log(drag.offsetLeft);</span><br><span class="line">        document.onmousemove &#x3D; function (e) &#123;&#x2F;&#x2F;鼠标移动触发事件，元素移到对应为位置</span><br><span class="line">            drag.style.left &#x3D; e.pageX - disx + &#39;px&#39;;</span><br><span class="line">            drag.style.top &#x3D; e.pageY - disy + &#39;px&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        document.onmouseup &#x3D; function()&#123;&#x2F;&#x2F;鼠标抬起，清除绑定的事件，元素放置在对应的位置</span><br><span class="line">            document.onmousemove &#x3D; null;</span><br><span class="line">            document.onmousedown &#x3D; null;</span><br><span class="line">        &#125;;</span><br><span class="line">        e.preventDefault();&#x2F;&#x2F;阻止浏览器的默认事件</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="实现防抖-节流函数"><a href="#实现防抖-节流函数" class="headerlink" title="实现防抖/节流函数"></a>实现防抖/节流函数</h2><ol>
-<li>防抖函数</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func,delay)&#123;</span><br><span class="line">    var timeout;</span><br><span class="line">    return function(e)&#123;</span><br><span class="line">        &#x2F;&#x2F;清除旧timeout</span><br><span class="line">        clearTimeout(timeout);</span><br><span class="line">        var context &#x3D;  this, args &#x3D; arguments;</span><br><span class="line">        &#x2F;&#x2F;新timeout</span><br><span class="line">        timeout &#x3D; setTimeout(function()&#123;</span><br><span class="line">            func.apply(context,args);</span><br><span class="line">        &#125;,delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;第一次触发会立刻执行 </span><br><span class="line">const debounceImmediate &#x3D; (cb, delay &#x3D; 1000, immediate &#x3D; true) &#x3D;&gt; &#123;</span><br><span class="line">  let timer &#x3D; null;</span><br><span class="line">  return function (...args) &#123;</span><br><span class="line">    const context &#x3D; this;</span><br><span class="line">    const execNow &#x3D; immediate &amp;&amp; !timer;</span><br><span class="line">    if (timer) clearTimeout(timer);</span><br><span class="line">    timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      cb.apply(context, args);</span><br><span class="line">      timer &#x3D; null;</span><br><span class="line">    &#125;, delay);</span><br><span class="line">    execNow &amp;&amp; cb.apply(this, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>节流函数</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, delay)&#123;</span><br><span class="line">    let timeout;</span><br><span class="line">    let start &#x3D; new Date;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        let context &#x3D;  this, args &#x3D; arguments, curr &#x3D;  new Date() - 0;</span><br><span class="line">        let remain &#x3D;  delay - (curr - start);</span><br><span class="line">        if(timeout) </span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">        if(remain &lt;&#x3D; 0&gt;)&#123;</span><br><span class="line">            &#x2F;&#x2F;第一次触发执行</span><br><span class="line">            func.apply(context,args);</span><br><span class="line">            start &#x3D; curr;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            &#x2F;&#x2F;事件结束后也执行一次</span><br><span class="line">            timeout &#x3D; setTimeout(function()&#123;</span><br><span class="line">                func.apply(context,args)</span><br><span class="line">                timeout &#x3D; null</span><br><span class="line">            &#125;,delay);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="vue直接赋值修改数组，页面无法同步更新"><a href="#vue直接赋值修改数组，页面无法同步更新" class="headerlink" title="vue直接赋值修改数组，页面无法同步更新"></a>vue直接赋值修改数组，页面无法同步更新</h2><p>vue由于js限制，不能同步更新，它会绕开监听器，无法实现动态效果。若需要实时更新，需要使用push()/pop()等方法</p>
-<h2 id="vue-router实现原理"><a href="#vue-router实现原理" class="headerlink" title="vue-router实现原理"></a>vue-router实现原理</h2><p>2种模式：hash/history</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F; 根据mode确定history实际的类并实例化    </span><br><span class="line">switch (mode) &#123;</span><br><span class="line">  case &#39;history&#39;:</span><br><span class="line">    this.history &#x3D; new HTML5History(this, options.base)</span><br><span class="line">    break</span><br><span class="line">  case &#39;hash&#39;:</span><br><span class="line">    this.history &#x3D; new HashHistory(this, options.base, this.fallback)</span><br><span class="line">    break</span><br><span class="line">  case &#39;abstract&#39;:</span><br><span class="line">    this.history &#x3D; new AbstractHistory(this, options.base)</span><br><span class="line">    break</span><br><span class="line">  default:</span><br><span class="line">    if (process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39;) &#123;</span><br><span class="line">      assert(false, &#96;invalid mode: $&#123;mode&#125;&#96;)</span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>hash：url的<code>hash</code>以<code>#</code>开头，基于<code>location.hash</code>实现，值为<code>#</code>后的内容。当<code>hash</code>改变时，页面不会刷新，浏览器也不会请求服务器。<code>hash</code>改变时，触发相应的<code>hashchange</code>事件，操控路由改变，切换内容</p>
-</li>
-<li><p>history：通过使用<code>pushState</code>和<code>replaceState</code>改变url地址，同时使用<code>onpopState</code>事件，刷新页面向服务器发送请求。需要特别注意的是,调用<code>history.pushState()</code>或<code>history.replaceState()</code>不会触发<code>popstate</code>事件。只有在做出浏览器动作时，比如点击后退、前进按钮或者调用JS中的<code>history.back()</code>、<code>history.forward()</code>、<code>history.go()</code>才会触发该事件。</p>
-</li>
-</ul>
-<h3 id="HashHistory"><a href="#HashHistory" class="headerlink" title="HashHistory"></a>HashHistory</h3><p>替换路由有两个方法<code>HashHistory.push()</code>和<code>HashHistory.replace()</code></p>
-<ul>
-<li><p>HashHistory.push()将新路由添加到浏览器访问离是栈顶。</p>
-<ol>
-<li>$router.push()</li>
-<li>HashHistory.push()：根据hash模式调用，设置hash并添加到浏览器历史记录，即<code>window.location.hash=xxx</code></li>
-<li>History.transitionTo()：监听更新，若更新则调用</li>
-<li>History.updateRoute()：更新路由</li>
-<li>app._route = route：替换路由</li>
-<li>vm.render()：更新视图</li>
-</ol>
-</li>
-<li><p>HashHistory.replace()替换当前路由</p>
-</li>
-</ul>
-<h3 id="HTML5History"><a href="#HTML5History" class="headerlink" title="HTML5History"></a>HTML5History</h3><p>History interface是浏览器历史记录栈提供的接口，通过<code>back()</code>/<code>forward()</code>/<code>go()</code>等方法，读取浏览器历史记录栈的信息，进行跳转操作。HTML5后通过使用<code>pushState()</code>/<code>replaceState()</code>读取、修改浏览器历史记录栈</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.history.pushState(stateObject, title, URL)</span><br><span class="line">window.history.replaceState(stateObject, title, URL)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>stateObject: 当浏览器跳转到新状态时，将触发<code>popState</code>事件，该事件携带此参数副本</p>
-</li>
-<li><p>title：所添加记录的标题</p>
-</li>
-<li><p>URL：所添加记录的url</p>
-</li>
-</ul>
-<h2 id="事件冒泡-事件捕获-事件委托"><a href="#事件冒泡-事件捕获-事件委托" class="headerlink" title="事件冒泡/事件捕获/事件委托"></a>事件冒泡/事件捕获/事件委托</h2><p>解决页面中事件流的问题，即解决事件发生的顺序问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;div1&quot;&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;div2&quot;&gt;</span><br><span class="line">        &lt;p id&#x3D;&quot;p1&quot;&gt;事件&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    let div1 &#x3D; document.getElementById(&#39;div1&#39;);</span><br><span class="line">    let div2 &#x3D; document.getElementById(&#39;div2&#39;);</span><br><span class="line">    let p1 &#x3D; document.getElementById(&#39;p1&#39;);</span><br><span class="line">    div1.onclick &#x3D; function ()&#123; console.log(&quot;click div1&quot;)&#125;;</span><br><span class="line">    div2.onclick &#x3D; function ()&#123; console.log(&quot;click div2&quot;)&#125;;</span><br><span class="line">    p1.onclick &#x3D; function ()&#123; console.log(&quot;click p1&quot;)&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>事件冒泡：事件从最内层的元素开始发生，一直向上传播，直到document对象。如上述代码，事件发生顺序为<code>&lt;p&gt;</code>=&gt;<code>&lt;div id=&quot;div2&quot;&gt;</code>=&gt;<code>&lt;div id=&quot;div1&quot;&gt;</code></p>
-</li>
-<li><p>事件捕获：事件从最外层元素开始发生，直到最具体的元素。如上述代码，事件发生顺序为<code>&lt;div id=&quot;div1&quot;&gt;</code>=&gt;<code>&lt;div id=&quot;div2&quot;&gt;</code>=&gt;<code>&lt;p&gt;</code></p>
-</li>
-</ul>
-<p>方法<code>addEventListener(event, function, useCapture)</code>用来为特定元素绑定事件处理函数，其参数分别为：没有on的事件类型<code>event</code>/事件处理函数<code>function</code>/控制事件阶段<code>useCapture</code>。其中<code>useCapture</code>默认为<code>false</code>，即在事件冒泡阶段调用事件函数，若为<code>true</code>，即在事件捕获阶段调用事件函数</p>
-<ul>
-<li>事件委托：事件目标自身不处理事件，而是把处理任务委托给其父元素/祖先元素或者根元素document</li>
-</ul>
-<h2 id="typeof-null-typeof-undefined输出"><a href="#typeof-null-typeof-undefined输出" class="headerlink" title="typeof null/typeof undefined输出"></a>typeof null/typeof undefined输出</h2><ul>
-<li><p>typeof null = object：null表示一个空对象的引用，即一个变量不再指向任何对象地址</p>
-</li>
-<li><p>typeof undefined = undefined：undefined表示一个没有赋值的变量</p>
-</li>
-</ul>
-<h2 id="异步async实现sleep函数"><a href="#异步async实现sleep函数" class="headerlink" title="异步async实现sleep函数"></a>异步async实现sleep函数</h2><ol>
-<li><p>promise解决callback会产生的回调地狱，且不能捕获错误的问题而产生，它实现了链式调用，每次返回都是一个全新的promise。但无法取消promise，错误也需要通过回调函数来捕获。</p>
-</li>
-<li><p>async/await也解决回调地狱的问题，且不会向promise产生一系列的then链。但他的缺点是await将异步代码改造成同步代码，若多个异步操作没有依赖性，则await会导致性能上的降低</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function sleep(ms) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(resolve, ms);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function fn() &#123;</span><br><span class="line">    await sleep(1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;promise</span><br><span class="line">function sleep &#x3D; time&#x3D;&gt;&#123;</span><br><span class="line">    return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">        setTimeour(resolve,ms);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">sleep(1000).then(()&#x3D;&gt;&#123;</span><br><span class="line">    console.log(&quot;111&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="instanceof实现"><a href="#instanceof实现" class="headerlink" title="instanceof实现"></a>instanceof实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function fn(a,b)&#123;</span><br><span class="line">    let type &#x3D; b.prototype;&#x2F;&#x2F;类型原型</span><br><span class="line">    let obj &#x3D; a._proto_;</span><br><span class="line">    while(true)&#123;</span><br><span class="line">        if(type &#x3D;&#x3D;&#x3D; obj)</span><br><span class="line">            return true;</span><br><span class="line">        obj &#x3D; obj._proto_;</span><br><span class="line">        if(obj &#x3D;&#x3D;&#x3D; null)</span><br><span class="line">            return false;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="jsonp原理及实现"><a href="#jsonp原理及实现" class="headerlink" title="jsonp原理及实现"></a>jsonp原理及实现</h2><blockquote>
-<p>jsonp是json的使用模式，可以让网页从别的域名获取资料，即跨域读取数据。由于同源策略，所以需要使用jsonp</p>
-</blockquote>
-<p>原理：利用<code>script</code>标签的<code>src</code>没有跨域限制来完成</p>
-<p>过程：</p>
-<ol>
-<li>前端定义解析函数jsonCallback = function(res){}</li>
-<li>通过params的形式包装script标签的请求参数，并声明执行函数fn=jsonpCallback</li>
-<li>后端获取到前端声明的执行函数，并带上参数调用执行函数jsonpCallback，传递给前端</li>
-<li>前端在script标签返回资源时，执行jsonpCallback并通过回调函数的方式拿到数据。</li>
-</ol>
-<h2 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h2><p>实现不同屏幕分辨率的终端上浏览网页的不同展示方式，即通过检测视口分辨率，针对不同客户端在客户端做代码处理，来展现不同的布局和内容。常用的是三栏布局等</p>
-<h2 id="webpack打包output中filename-name-chunkhash-js里chunkhash的用处"><a href="#webpack打包output中filename-name-chunkhash-js里chunkhash的用处" class="headerlink" title="webpack打包output中filename:[name][chunkhash].js里chunkhash的用处"></a>webpack打包output中filename:[name][chunkhash].js里chunkhash的用处</h2><p>具体来说webpack是根据入口entry配置文件来分析其依赖项并由此来构建该entry的chunk，并生成对应的hash值。不同的chunk会有不同的hash值。一般在项目中把公共的依赖库和程序入口文件隔离并进行单独打包构建，用chunkhash来生成hash值，只要依赖公共库不变，那么其对应的chunkhash就不会变，从而达到缓存的目的。</p>
-<h2 id="map和foreach的区别，好处和优点"><a href="#map和foreach的区别，好处和优点" class="headerlink" title="map和foreach的区别，好处和优点"></a>map和foreach的区别，好处和优点</h2><ul>
-<li><p>forEach()：针对每个元素执行提供的函数</p>
-</li>
-<li><p>map()：创建新的数组，其中每个元素由调用a中每个元素执行提供的函数而来</p>
-</li>
-</ul>
-<p>区别：</p>
-<ol>
-<li><p>forEach会修改原来数组，map得到一个新的数组并返回</p>
-</li>
-<li><p>forEach执行速度比map慢</p>
-</li>
-<li><p>forEach适用于不改变数据，仅利用数据时使用，map适用于需要改变数值时使用</p>
-</li>
-</ol>
-<h2 id="防抖和节流分别在什么情况下使用"><a href="#防抖和节流分别在什么情况下使用" class="headerlink" title="防抖和节流分别在什么情况下使用"></a>防抖和节流分别在什么情况下使用</h2><ol>
-<li><p>防抖：N秒后再执行该事件，若n秒内重复触发，则重新计时。</p>
-<ul>
-<li><p>搜索框搜索输入，用户最后一次输入完再发送请求</p>
-</li>
-<li><p>手机号/邮箱输入检测</p>
-</li>
-<li><p>窗口大小resize。窗口调整完在计算窗口大小，防止重复渲染</p>
-</li>
-</ul>
-</li>
-<li><p>节流：N秒内值运行一次，若n秒内重复触发，则只有一次生效</p>
-<ul>
-<li>滚动加载，加载更多等</li>
-<li>搜索框，搜索联想功能</li>
-</ul>
-</li>
-</ol>
-<h2 id="BFC理解"><a href="#BFC理解" class="headerlink" title="BFC理解"></a>BFC理解</h2><h2 id="项目登陆如何实现"><a href="#项目登陆如何实现" class="headerlink" title="项目登陆如何实现"></a>项目登陆如何实现</h2><ol>
-<li><p>写登陆页面和登陆的路由跳转</p>
-</li>
-<li><p>写登陆的请求接口</p>
-</li>
-<li><p>使用axios向后端登陆接口发送登陆请求</p>
-</li>
-<li><p>跨域在java后端使用cors标签头处理</p>
-</li>
-<li><p>后端校验登陆返回一个token或者sessionID</p>
-</li>
-<li><p>使用vuex保存登陆状态token到浏览器的sessionStorage，并根据返回内容跳转URL路由</p>
-</li>
-<li><p>退出时，清空sessionStorage中的token信息，跳转页面</p>
-</li>
-</ol>
-<h3 id="单点登陆"><a href="#单点登陆" class="headerlink" title="单点登陆"></a>单点登陆</h3><ol>
-<li><p>用户在认证中心登陆</p>
-</li>
-<li><p>登陆成功，认证中心记录用户登陆状态，将token写入认证中心的cookie</p>
-</li>
-<li><p>应用系统检查请求中有没有token，没有，则表示没有登陆，页面带着认证中心的cookie跳转至认证中心。</p>
-</li>
-<li><p>认证中心通过cookie了解用户是否已经登陆。</p>
-</li>
-<li><p>若没有登陆，则返回登陆页面等待登陆。若登陆过了，则生成一个token，拼接在目标url后，回传给系统</p>
-</li>
-<li><p>系统拿到token，想认证中心确认token的合法性，防止伪造token。</p>
-</li>
-<li><p>确认无误，系统记录用户登陆状态，将token写入当前系统的cookie，进入系统。</p>
-</li>
-<li><p>后续用户再次访问系统，会自动带上此token，系统验证token发现已登陆则直接放行。</p>
-</li>
-</ol>
-<h2 id="基本类型和引用类型区别"><a href="#基本类型和引用类型区别" class="headerlink" title="基本类型和引用类型区别"></a>基本类型和引用类型区别</h2><ol>
-<li><p>基本类型是存储在栈内的简单数据段，其值存在变量访问的位置。故赋值/访问/函数传参都是按值传递。复制时，复制原始值的副本给新变量，从此而至为两个独立的变量，传参同</p>
-</li>
-<li><p>引用类型是存储在堆中的对象，其指针存在变量访问的位置。故赋值/访问/函数传参都是按地址传递。复制时，复制原始值的内存地址给新变量，故新变量改变，原始值也会改变，传参亦同。</p>
-</li>
-</ol>
-
+<h2 id="webpack中plugin哪个时期触发"><a href="#webpack中plugin哪个时期触发" class="headerlink" title="webpack中plugin哪个时期触发"></a>webpack中plugin哪个时期触发</h2>
       
       <!-- reward -->
       
@@ -786,6 +526,15 @@ var _hmt = _hmt || [];
   
   
   <nav class="article-nav">
+    
+      <a href="/post/4c01a359.html" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端面经总结（七）
+          
+        </div>
+      </a>
     
     
       <a href="/post/fb0f9f1f.html" class="article-nav-link">
