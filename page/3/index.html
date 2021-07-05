@@ -91,6 +91,85 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-结合Vue3-demo项目分析源码（一）" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/1654628943.html"
+    >结合Vue3-demo项目分析源码（一）</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/1654628943.html" class="article-date">
+  <time datetime="2021-05-26T07:33:53.000Z" itemprop="datePublished">2021-05-26</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>Vue3-demo项目即为先前<a href="https://awesolynn.me/post/876416960.html">从0搭建简易vue3项目</a>中搭建的demo</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>入口文件<code>main.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createApp &#125; from &quot;vue&quot;;&#x2F;&#x2F;引入Vue3源码</span><br><span class="line">import App from &quot;.&#x2F;App&quot;;&#x2F;&#x2F;引入App.vue组件</span><br><span class="line">const app &#x3D; createApp(App,&#123;msg:&quot;Hello Vue&quot;&#125;)&#x2F;&#x2F;创建App组件，传递msg参数</span><br><span class="line"></span><br><span class="line">app.mount(&quot;#app&quot;)&#x2F;&#x2F;渲染app，将其挂载到id&#x3D;app的节点上</span><br></pre></td></tr></table></figure>
+
+<p>通过在浏览器上不同位置打断点，可以按步骤流程分析Vue源码的实现流程。</p>
+      
+      <a class="article-more-link" href="/post/1654628943.html">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-从0搭建简易vue3项目" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -814,82 +893,6 @@ var _hmt = _hmt || [];
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/" rel="tag">webpack</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Vue动态切换页签缓存页面内容" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/2684937453.html"
-    >Vue动态切换页签缓存页面内容</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/2684937453.html" class="article-date">
-  <time datetime="2021-05-14T17:15:01.000Z" itemprop="datePublished">2021-05-15</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <p>之前在上家公司自己建系统的时候出现过切换页签，但切换后上个页面的内容没有被缓存，而是重新渲染了。</p>
-<p>正好学习Vue3时看到了解决方法。</p>
-<p>（之前因为赶工作进度，学习Vue2时没有用心看&lt;–要改正的问题</p>
-<p>使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>将切换的组件包裹起来即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;keep-alive&gt;</span><br><span class="line">  &lt;component :is&#x3D;&quot;currentTabComponent&quot;&gt;&lt;&#x2F;component&gt;</span><br><span class="line">&lt;&#x2F;keep-alive&gt;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
 
 
     </footer>

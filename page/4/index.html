@@ -91,6 +91,82 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Vue动态切换页签缓存页面内容" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/post/2684937453.html"
+    >Vue动态切换页签缓存页面内容</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/post/2684937453.html" class="article-date">
+  <time datetime="2021-05-14T17:15:01.000Z" itemprop="datePublished">2021-05-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>之前在上家公司自己建系统的时候出现过切换页签，但切换后上个页面的内容没有被缓存，而是重新渲染了。</p>
+<p>正好学习Vue3时看到了解决方法。</p>
+<p>（之前因为赶工作进度，学习Vue2时没有用心看&lt;–要改正的问题</p>
+<p>使用<code>&lt;keep-alive&gt;&lt;/keep-alive&gt;</code>将切换的组件包裹起来即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;keep-alive&gt;</span><br><span class="line">  &lt;component :is&#x3D;&quot;currentTabComponent&quot;&gt;&lt;&#x2F;component&gt;</span><br><span class="line">&lt;&#x2F;keep-alive&gt;</span><br></pre></td></tr></table></figure>
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/" rel="tag">vue</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Vue组件通信" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -758,86 +834,6 @@ var _hmt = _hmt || [];
 
       
       <h2 id="2D光随鼠标移动转变方向"><a href="#2D光随鼠标移动转变方向" class="headerlink" title="2D光随鼠标移动转变方向"></a>2D光随鼠标移动转变方向</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void Update () &#123;</span><br><span class="line">&#x2F;&#x2F;获取鼠标的坐标，鼠标是屏幕坐标，Z轴为0，这里不做转换  </span><br><span class="line">Vector3 mouse &#x3D; Input.mousePosition;</span><br><span class="line">&#x2F;&#x2F;获取物体坐标，物体坐标是世界坐标，将其转换成屏幕坐标，和鼠标一直  </span><br><span class="line">Vector3 obj &#x3D; Camera.main.WorldToScreenPoint(transform.position);</span><br><span class="line">&#x2F;&#x2F;屏幕坐标向量相减，得到指向鼠标点的目标向量，即黄色线段  </span><br><span class="line">Vector3 direction &#x3D; mouse - obj;</span><br><span class="line">&#x2F;&#x2F;将Z轴置0,保持在2D平面内  </span><br><span class="line">direction.z &#x3D; 0f;</span><br><span class="line">&#x2F;&#x2F;将目标向量长度变成1，即单位向量，这里的目的是只使用向量的方向，不需要长度，所以变成1  </span><br><span class="line">direction &#x3D; direction.normalized;</span><br><span class="line">&#x2F;&#x2F;物体自身的Y轴和目标向量保持一直，这个过程XY轴都会变化数值  </span><br><span class="line">transform.up &#x3D; direction;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/" rel="tag">unity</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-unity-法线贴图&amp;BlendTree&amp;特效VFX" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/post/1132536811.html"
-    >unity-法线贴图&amp;BlendTree&amp;特效VFX</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/post/1132536811.html" class="article-date">
-  <time datetime="2021-01-26T01:10:21.000Z" itemprop="datePublished">2021-01-26</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/unity/">unity</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="法线贴图"><a href="#法线贴图" class="headerlink" title="法线贴图"></a>法线贴图</h2><blockquote>
-<p>法线贴图：记录了一个需要进行光影变换的贴图上的各个点的凹凸情况的贴图，显示芯片根据贴图的内容来实时生成新的有光影变换的贴图，从而实现立体效果</p>
-</blockquote>
-<blockquote>
-<p>法线贴图不是真正的贴图，故不会直接贴到物体的表面，其作用就是记录每个点上法线的方向。</p>
-</blockquote>
-      
-      <a class="article-more-link" href="/post/1132536811.html">阅读更多...</a>
-      
       
       <!-- reward -->
       
