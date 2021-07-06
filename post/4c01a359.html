@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">5.7k字</span>
+            <span class="post-count">6.4k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">24分钟</span>
+            <span class="post-count">27分钟</span>
         </span>
     </span>
 </div>
@@ -193,6 +193,65 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <h2 id="虚拟dom"><a href="#虚拟dom" class="headerlink" title="虚拟dom"></a>虚拟dom</h2><p>页面更新可以先全部反映到虚拟dm中，操作内存中的js对象速度会更快，当更新完成后，再将最终的js对象映射到真实的dom中，由浏览器绘制渲染</p>
+<h3 id="dom-diff"><a href="#dom-diff" class="headerlink" title="dom diff"></a>dom diff</h3><ol>
+<li>思想：DOM Diff过程即对比新旧两份VNode的过程。</li>
+</ol>
+<ul>
+<li><p>旧的VNode(即oldVNode)就是数据变化之前视图所对应的虚拟DOM节点</p>
+</li>
+<li><p>新的VNode是数据变化之后将要渲染的新的视图所对应的虚拟DOM节点</p>
+</li>
+</ul>
+<p>以生成的新的VNode为基准，对比旧的oldVNode</p>
+<ul>
+<li>如果新的VNode上有的节点而旧的oldVNode上没有，那么就在旧的oldVNode上加上去；</li>
+<li>如果新的VNode上没有的节点而旧的oldVNode上有，那么就在旧的oldVNode上去掉；</li>
+<li>如果某些节点在新的VNode和旧的oldVNode上都有，那么就以新的VNode为准，更新旧的oldVNode，从而让新旧VNode相同。</li>
+</ul>
+<ol start="2">
+<li>算法描述</li>
+</ol>
+<ul>
+<li>遍历整个虚拟节点树，找出所有节点差异，记录在补丁包中</li>
+<li>遍历结束后根据补丁包执行<code>addPatch()</code>逻辑更新视图</li>
+</ul>
+<ol start="3">
+<li>对比算法</li>
+</ol>
+<ul>
+<li><p>创建节点：新的<code>VNode</code>中有而旧的<code>oldVNode</code>中没有，就在旧的<code>oldVNode</code>中创建。先判断节点类型，再根据不同类型调用不同方法创建节点。</p>
+<ul>
+<li>调用<code>createElement</code>创建元素节点</li>
+<li>调用<code>createComment</code>创建注释节点</li>
+<li>调用<code>createTextNode</code>创建文本节点</li>
+</ul>
+</li>
+<li><p>删除节点：新的<code>VNode</code>中没有而旧的<code>oldVNode</code>中有，就从旧的<code>oldVNode</code>中删除。在要删除节点的父元素上调用<code>removeChild</code>方法删除节点</p>
+</li>
+<li><p>更新节点：新的<code>VNode</code>和旧的<code>oldVNode</code>中都有，就以新的<code>VNode</code>为准，更新旧的<code>oldVNode</code>。</p>
+<ul>
+<li><p>判断节点类型</p>
+<ul>
+<li><p>元素节点：判断<code>VNode</code>中是否有<code>tag</code>标签。判断是否包含子节点</p>
+<ul>
+<li><p>包含子节点：查看<code>oldVNode</code>是否包含子节点，若包含则递归对比更新子节点，若不包含，则判断是空节点还是文本节点，空节点则在新节点<code>VNode</code>里的子节点创建一份插入到<code>oldVNode</code>中，若为文本节点，则将文本清空，将新节点<code>VNode</code>的子节点创建一份插入到<code>oldVNode</code>中。</p>
+</li>
+<li><p>不包含子节点：若同时又不是文本节点，则说明是空节点，直接清空旧节点<code>oldVNode</code></p>
+</li>
+</ul>
+</li>
+<li><p>注释节点：判断<code>VNode</code>的<code>isComment</code>是否为<code>true</code>。注释节点是静态节点，不包含任何变量，故数据发生任何变化均与他无关，更新节点时直接跳过。</p>
+</li>
+<li><p>文本节点：不是元素节点和注释节点则为文本节点。更新时对比文本内容是否一致。若不同，则把<code>oldVNode</code>里的文本改成跟<code>VNode</code>的文本一样。若<code>oldVNode</code>不是文本节点，则直接使用<code>setTextNode</code>方法将它改成文本节点</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>完整的树比较算法时间复杂度过高，DOM-Diff中使用的算法是只对新旧两棵树中的节点进行同层比较，忽略跨层比较。</li>
+</ol>
 <h2 id="dom概念及分类"><a href="#dom概念及分类" class="headerlink" title="dom概念及分类"></a>dom概念及分类</h2><p>Dom即HTML的层级结构，有Dom元素树和Dom文档树。</p>
 <p>其节点类型有：元素节点、属性节点、文本节点、文档节点、注释节点、实体名称节点、处理指令节点等</p>
 <h3 id="获取元素节点"><a href="#获取元素节点" class="headerlink" title="获取元素节点"></a>获取元素节点</h3><ul>

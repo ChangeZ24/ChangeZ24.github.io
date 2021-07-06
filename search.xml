@@ -127,6 +127,28 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">myCharts.setOption(option);&#x2F;&#x2F;使用指定的配置项和数据显示图表</span><br><span class="line">window.addEventListener(&quot;resize&quot;, () &#x3D;&gt; &#123; myCharts.resize();&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="作用域题"><a href="#作用域题" class="headerlink" title="作用域题"></a>作用域题</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">  console.log( a ); </span><br><span class="line">&#125;</span><br><span class="line">function bar() &#123;</span><br><span class="line">  var a &#x3D; 3;</span><br><span class="line">  foo();</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; 2;</span><br><span class="line">bar();&#x2F;&#x2F;输出2</span><br><span class="line">bar.call(&#123;a:4&#125;)&#x2F;&#x2F;输出2</span><br></pre></td></tr></table></figure>
+
+<p>调用方法<code>bar()</code>时，<code>bar()</code>方法在全局作用域创建，同时<code>bar()</code>方法调用<code>foo()</code>方法，<code>foo()</code>方法也在全局作用域创建，故<code>foo()</code>方法中，用到的<code>a</code>的值，要取全局作用域定义的<code>a</code>值，即<code>var a = 2;</code>。故<code>bar()</code>输出2。</p>
+<p>以上<code>bar()</code>方法的输出用到了“静态作用域“的内容，即<strong>调用函数时，函数内用到的参数要到创建这个函数的那个作用域中取值</strong>。</p>
+<p>同样，<code>bar.call({a:4})</code>将<code>bar()</code>的<code>this</code>指向了<code>{a:4}</code>。但<code>foo()</code>方法输出的是<code>console.log(a)</code>中<code>a</code>仍是自由变量，故还是在创建<code>foo()</code>方法的作用域找，故仍输出2。若想输出4，则需要修改<code>foo()</code>方法<code>console.log(this.a)</code>。</p>
+<h2 id="算法：千分位"><a href="#算法：千分位" class="headerlink" title="算法：千分位"></a>算法：千分位</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number&#125; n</span><br><span class="line"> * @return &#123;string&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var thousandSeparator &#x3D; function(n) &#123;</span><br><span class="line">    let str &#x3D; &quot;&quot;;</span><br><span class="line">    let nstr &#x3D; n.toString().split(&quot;&quot;).reverse();</span><br><span class="line">    for(let i &#x3D; 0;i&lt;nstr.length;i++)&#123;</span><br><span class="line">        if(i%3 &#x3D;&#x3D; 2 &amp;&amp; i !&#x3D; nstr.length - 1)&#123;</span><br><span class="line">            str+&#x3D;nstr[i]+&quot;.&quot;;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            str+&#x3D;nstr[i]+ &quot;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return str.split(&quot;&quot;).reverse().join(&quot;&quot;);</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;利用正则表达式</span><br><span class="line">var thousandSeparator &#x3D; function(n) &#123;</span><br><span class="line">    let str &#x3D; n.toString();</span><br><span class="line">    let reg &#x3D; &#x2F;(\d)(?&#x3D;(?:(\d&#123;3&#125;)+$))&#x2F;g;</span><br><span class="line">    return str.replace(reg,&#39;$1.&#39;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法：两数之和"><a href="#算法：两数之和" class="headerlink" title="算法：两数之和"></a>算法：两数之和</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> *&#x2F;</span><br><span class="line">var twoSum &#x3D; function(nums, target) &#123;</span><br><span class="line">    let result &#x3D; [];</span><br><span class="line">    for(let i &#x3D; 0;i&lt; nums.length;i++)&#123;</span><br><span class="line">        let num &#x3D; target - nums[i];</span><br><span class="line">        let index &#x3D; nums.lastIndexOf(num);</span><br><span class="line">        if(index &amp;&amp; index !&#x3D;&#x3D; i &amp;&amp; index !&#x3D;&#x3D; -1)&#123;</span><br><span class="line">            result.push(i);</span><br><span class="line">            result.push(index);</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法：多维数组转化为一维数组"><a href="#算法：多维数组转化为一维数组" class="headerlink" title="算法：多维数组转化为一维数组"></a>算法：多维数组转化为一维数组</h2><ol>
+<li>利用str</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fn(arr)&#123;</span><br><span class="line">    let str &#x3D; arr.join();</span><br><span class="line">    return str.split(&quot;,&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>利用循环递归</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fn(arr)&#123;</span><br><span class="line">    let result &#x3D; [];</span><br><span class="line">    for(let i &#x3D; 0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        if(Array.isArray(arr[i]))&#123;</span><br><span class="line">            fn(arr[i]);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            result.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn(arr);</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法：珂里化"><a href="#算法：珂里化" class="headerlink" title="算法：珂里化"></a>算法：珂里化</h2><p>待改</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let fn &#x3D; function(n1,n2,n3)&#123;return n1*n2*n3&#125;</span><br><span class="line"></span><br><span class="line">function fun1(fn)&#123;</span><br><span class="line">    let len &#x3D; fn.length;</span><br><span class="line">    let args &#x3D; [];</span><br><span class="line">    return function(arg)&#123;</span><br><span class="line">        args.push(arg);</span><br><span class="line">        if(arg.length &lt; len)&#123;</span><br><span class="line">            return arguments.callee;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            return fn.apply(&quot;&quot;,args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>面经</category>
@@ -208,6 +230,65 @@
 </li>
 </ol>
 <h2 id="虚拟dom"><a href="#虚拟dom" class="headerlink" title="虚拟dom"></a>虚拟dom</h2><p>页面更新可以先全部反映到虚拟dm中，操作内存中的js对象速度会更快，当更新完成后，再将最终的js对象映射到真实的dom中，由浏览器绘制渲染</p>
+<h3 id="dom-diff"><a href="#dom-diff" class="headerlink" title="dom diff"></a>dom diff</h3><ol>
+<li>思想：DOM Diff过程即对比新旧两份VNode的过程。</li>
+</ol>
+<ul>
+<li><p>旧的VNode(即oldVNode)就是数据变化之前视图所对应的虚拟DOM节点</p>
+</li>
+<li><p>新的VNode是数据变化之后将要渲染的新的视图所对应的虚拟DOM节点</p>
+</li>
+</ul>
+<p>以生成的新的VNode为基准，对比旧的oldVNode</p>
+<ul>
+<li>如果新的VNode上有的节点而旧的oldVNode上没有，那么就在旧的oldVNode上加上去；</li>
+<li>如果新的VNode上没有的节点而旧的oldVNode上有，那么就在旧的oldVNode上去掉；</li>
+<li>如果某些节点在新的VNode和旧的oldVNode上都有，那么就以新的VNode为准，更新旧的oldVNode，从而让新旧VNode相同。</li>
+</ul>
+<ol start="2">
+<li>算法描述</li>
+</ol>
+<ul>
+<li>遍历整个虚拟节点树，找出所有节点差异，记录在补丁包中</li>
+<li>遍历结束后根据补丁包执行<code>addPatch()</code>逻辑更新视图</li>
+</ul>
+<ol start="3">
+<li>对比算法</li>
+</ol>
+<ul>
+<li><p>创建节点：新的<code>VNode</code>中有而旧的<code>oldVNode</code>中没有，就在旧的<code>oldVNode</code>中创建。先判断节点类型，再根据不同类型调用不同方法创建节点。</p>
+<ul>
+<li>调用<code>createElement</code>创建元素节点</li>
+<li>调用<code>createComment</code>创建注释节点</li>
+<li>调用<code>createTextNode</code>创建文本节点</li>
+</ul>
+</li>
+<li><p>删除节点：新的<code>VNode</code>中没有而旧的<code>oldVNode</code>中有，就从旧的<code>oldVNode</code>中删除。在要删除节点的父元素上调用<code>removeChild</code>方法删除节点</p>
+</li>
+<li><p>更新节点：新的<code>VNode</code>和旧的<code>oldVNode</code>中都有，就以新的<code>VNode</code>为准，更新旧的<code>oldVNode</code>。</p>
+<ul>
+<li><p>判断节点类型</p>
+<ul>
+<li><p>元素节点：判断<code>VNode</code>中是否有<code>tag</code>标签。判断是否包含子节点</p>
+<ul>
+<li><p>包含子节点：查看<code>oldVNode</code>是否包含子节点，若包含则递归对比更新子节点，若不包含，则判断是空节点还是文本节点，空节点则在新节点<code>VNode</code>里的子节点创建一份插入到<code>oldVNode</code>中，若为文本节点，则将文本清空，将新节点<code>VNode</code>的子节点创建一份插入到<code>oldVNode</code>中。</p>
+</li>
+<li><p>不包含子节点：若同时又不是文本节点，则说明是空节点，直接清空旧节点<code>oldVNode</code></p>
+</li>
+</ul>
+</li>
+<li><p>注释节点：判断<code>VNode</code>的<code>isComment</code>是否为<code>true</code>。注释节点是静态节点，不包含任何变量，故数据发生任何变化均与他无关，更新节点时直接跳过。</p>
+</li>
+<li><p>文本节点：不是元素节点和注释节点则为文本节点。更新时对比文本内容是否一致。若不同，则把<code>oldVNode</code>里的文本改成跟<code>VNode</code>的文本一样。若<code>oldVNode</code>不是文本节点，则直接使用<code>setTextNode</code>方法将它改成文本节点</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>完整的树比较算法时间复杂度过高，DOM-Diff中使用的算法是只对新旧两棵树中的节点进行同层比较，忽略跨层比较。</li>
+</ol>
 <h2 id="dom概念及分类"><a href="#dom概念及分类" class="headerlink" title="dom概念及分类"></a>dom概念及分类</h2><p>Dom即HTML的层级结构，有Dom元素树和Dom文档树。</p>
 <p>其节点类型有：元素节点、属性节点、文本节点、文档节点、注释节点、实体名称节点、处理指令节点等</p>
 <h3 id="获取元素节点"><a href="#获取元素节点" class="headerlink" title="获取元素节点"></a>获取元素节点</h3><ul>
@@ -473,20 +554,23 @@
     <title>前端面经总结（六）</title>
     <url>/post/9e01d4c6.html</url>
     <content><![CDATA[<p>接<a href="https://awesolynn.me/post/fb0f9f1f.html">前端面经总结（五）</a></p>
-<h2 id="SetTimeout循环输出数组"><a href="#SetTimeout循环输出数组" class="headerlink" title="SetTimeout循环输出数组"></a>SetTimeout循环输出数组</h2><ol>
-<li>使用闭包</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i &#x3D; 1; i &lt; 5; i++)&#123;</span><br><span class="line">    (function(j)&#123;</span><br><span class="line">        setTimeout(function timer()&#123;</span><br><span class="line">            console.log(j);</span><br><span class="line">        &#125;,j*1000);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过闭包，将i变量留在内存中，输出j时，引用外部函数变量i，i根据循环得出。</p>
+<h2 id="SetTimeout循环输出数组"><a href="#SetTimeout循环输出数组" class="headerlink" title="SetTimeout循环输出数组"></a>SetTimeout循环输出数组</h2><p>题目：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var i &#x3D; 0; i &lt; 5; i++) &#123;</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;,0);</span><br><span class="line">&#125;</span><br><span class="line">console.log(i)</span><br></pre></td></tr></table></figure>
+<p>由于<code>var</code>不是块级作用域，为全局作用域。<code>setTimeout</code>为异步操作，故每次执行循环，将<code>setTimeout</code>放入执行队列中，等全局<code>i</code>执行到5结束循环了再从队列中取出5次<code>setTimeout</code>执行，由于<code>var i = 0</code>全局可用，故最终输出6个5，5次<code>setTimeout</code>，1次全局<code>console.log(i)</code></p>
 <a id="more"></a>
 
+<ol>
+<li>使用闭包</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i &#x3D; 1; i &lt; 5; i++)&#123;</span><br><span class="line">    (function(j)&#123;</span><br><span class="line">        setTimeout(function ()&#123;</span><br><span class="line">            console.log(j);</span><br><span class="line">        &#125;,0);</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br><span class="line">console.log(i);</span><br></pre></td></tr></table></figure>
+
+<p>通过闭包，将i变量留在内存中，输出j时，引用外部函数变量i，i根据循环得出。</p>
 <ol start="2">
 <li>let</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(let i &#x3D; 0;i &lt; 5;i++)&#123;</span><br><span class="line">    setTimeout(function timer()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;,i*1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (let i &#x3D; 0; i &lt; 5; i++) &#123;</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;,0);</span><br><span class="line">&#125;</span><br><span class="line">console.log(i)</span><br></pre></td></tr></table></figure>
 
-<p>let将i绑定到循环体的每次迭代，确保上一次迭代结束的值重新被赋值。setTimeout里function()属于新的域，var定义的变量无法传入此函数执行域中，let声明的块变量可以作用于此函数执行域。</p>
+<p>声明<code>let</code>是块级作用域，将<code>i</code>绑定到循环体的每次迭代，确保上一次迭代结束的值重新被赋值，且不会影响后面<code>for</code>循环的<code>i</code>值赋给前面的<code>setTimeout</code>里。又由于<code>let</code>是块级作用域，只在<code>for</code>循环的大括号内可用，故全局的<code>console.log(i)</code>并不存在<code>i</code>值</p>
 <h2 id="js作用域"><a href="#js作用域" class="headerlink" title="js作用域"></a>js作用域</h2><ol>
 <li>作用域</li>
 </ol>
