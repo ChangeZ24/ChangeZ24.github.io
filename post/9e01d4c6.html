@@ -93,7 +93,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">4.4k字</span>
+            <span class="post-count">5.2k字</span>
         </span>
     </span>
 
@@ -102,7 +102,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">20分钟</span>
+            <span class="post-count">23分钟</span>
         </span>
     </span>
 </div>
@@ -315,7 +315,7 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 </ol>
-<h2 id="demo-parent-child的height-顶边"><a href="#demo-parent-child的height-顶边" class="headerlink" title=".demo .parent .child的height/顶边"></a>.demo .parent .child的height/顶边</h2><h2 id="闭包的理解及优缺点"><a href="#闭包的理解及优缺点" class="headerlink" title="闭包的理解及优缺点"></a>闭包的理解及优缺点</h2><p>闭包指有权访问另一个函数作用域中的变量的函数。可以在函数外部访问到函数内部的局部变量，且这些变量始终保存在内存中，不会随函数的结束而自动销毁</p>
+<h2 id="闭包的理解及优缺点"><a href="#闭包的理解及优缺点" class="headerlink" title="闭包的理解及优缺点"></a>闭包的理解及优缺点</h2><p>闭包指有权访问另一个函数作用域中的变量的函数。可以在函数外部访问到函数内部的局部变量，且这些变量始终保存在内存中，不会随函数的结束而自动销毁</p>
 <ul>
 <li><p>优点</p>
 <ol>
@@ -346,7 +346,33 @@ var _hmt = _hmt || [];
 <li><p>static：默认位置</p>
 </li>
 </ul>
-<h2 id="git常用操作"><a href="#git常用操作" class="headerlink" title="git常用操作"></a>git常用操作</h2><h2 id="js原生以class获取元素更改样式"><a href="#js原生以class获取元素更改样式" class="headerlink" title="js原生以class获取元素更改样式"></a>js原生以class获取元素更改样式</h2><h2 id="java-js类的区别"><a href="#java-js类的区别" class="headerlink" title="java/js类的区别"></a>java/js类的区别</h2><h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><h2 id="前后端分离实现"><a href="#前后端分离实现" class="headerlink" title="前后端分离实现"></a>前后端分离实现</h2><h2 id="登陆状态保存（浏览器隐身模式）"><a href="#登陆状态保存（浏览器隐身模式）" class="headerlink" title="登陆状态保存（浏览器隐身模式）"></a>登陆状态保存（浏览器隐身模式）</h2><h2 id="jquery和Vue异同"><a href="#jquery和Vue异同" class="headerlink" title="jquery和Vue异同"></a>jquery和Vue异同</h2><ol>
+<h2 id="git常用操作"><a href="#git常用操作" class="headerlink" title="git常用操作"></a>git常用操作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">$ git config -global user.name &lt;name&gt; #设置提交者名字</span><br><span class="line">$ git config -global user.email &lt;email&gt; #设置提交者邮箱</span><br><span class="line">$ git config -global core.editor &lt;editor&gt; #设置默认文本编辑器</span><br><span class="line">$ git config -global merge.tool &lt;tool&gt; #设置解决合并冲突时差异分析工具</span><br><span class="line">$ git config -list #检查已有的配置信息</span><br><span class="line">$ git clone &lt;url&gt; #克隆远程版本库        </span><br><span class="line">$ git init #初始化本地版本库</span><br><span class="line"></span><br><span class="line">$ git add . #添加所有改动过的文件</span><br><span class="line">$ git add &lt;file&gt; #添加指定的文件</span><br><span class="line">$ git mv &lt;old&gt; &lt;new&gt; #文件重命名</span><br><span class="line">$ git rm &lt;file&gt; #删除文件</span><br><span class="line">$ git rm -cached &lt;file&gt; #停止跟踪文件但不删除</span><br><span class="line">$ git commit -m &lt;file&gt; # 提交指定文件</span><br><span class="line">$ git commit -m “commit message” #提交所有更新过的文件</span><br><span class="line">$ git commit -amend # 修改最后一次提交</span><br><span class="line">$ git commit -C HEAD -a -amend #增补提交（不会产生新的提交历史纪录）</span><br><span class="line"></span><br><span class="line">$ git reset -hard HEAD #撤消工作目录中所有未提交文件的修改内容  比如删除也可以撤销</span><br><span class="line">$ git checkout HEAD &lt;file1&gt; &lt;file2&gt; #撤消指定的未提交文件的修改内容</span><br><span class="line">$ git checkout HEAD. #撤消所有文件</span><br><span class="line">$ git revert &lt;commit&gt; #撤消指定的提交</span><br><span class="line"></span><br><span class="line">$ git log #查看提交历史</span><br><span class="line">$ git branch -v #每个分支最后的提交</span><br><span class="line">$ git status #查看当前状态</span><br><span class="line">$ git diff #查看变更内容</span><br><span class="line"></span><br><span class="line">$ git branch #显示所有本地分支</span><br><span class="line">$ git checkout &lt;branch&#x2F;tagname&gt; #切换到指定分支或标签</span><br><span class="line">$ git branch &lt;new-branch&gt; #创建新分支</span><br><span class="line">$ git branch -d &lt;branch&gt; #删除本地分支</span><br><span class="line">$ git tag #列出所有本地标签</span><br><span class="line">$ git tag &lt;tagname&gt; #基于最新提交创建标签</span><br><span class="line">$ git tag -d &lt;tagname&gt; #删除标签</span><br><span class="line"></span><br><span class="line">$ git merge &lt;branch&gt; #合并指定分支到当前分支</span><br><span class="line">$ git rebase &lt;branch&gt; #衍合指定分支到当前分支</span><br><span class="line"></span><br><span class="line">$ git fetch &lt;remote&gt; #从远程库获取代码</span><br><span class="line">$ git pull &lt;remote&gt; &lt;branch&gt; #下载代码及快速合并</span><br><span class="line">$ git push &lt;remote&gt; &lt;branch&gt; #上传代码及快速合并</span><br><span class="line">$ git push &lt;remote&gt; : &lt;branch&gt;&#x2F;&lt;tagname&gt; #删除远程分支或标签</span><br><span class="line">$ git push -tags #上传所有标签</span><br></pre></td></tr></table></figure>
+
+<h2 id="js原生以class获取元素更改样式"><a href="#js原生以class获取元素更改样式" class="headerlink" title="js原生以class获取元素更改样式"></a>js原生以class获取元素更改样式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function getByClass(oParent, sClass)&#123;</span><br><span class="line">    var aResult&#x3D;[];</span><br><span class="line">    var aEle&#x3D;oParent.getElementsByTagName(&#39;*&#39;);</span><br><span class="line">    </span><br><span class="line">    for(var i&#x3D;0;i&lt;aEle.length;i++)&#123;</span><br><span class="line">        if(aEle[i].className&#x3D;&#x3D;sClass)</span><br><span class="line">        &#123;</span><br><span class="line">            aResult.push(aEle[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return aResult;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;用法如下</span><br><span class="line">window.onload&#x3D;function ()&#123;</span><br><span class="line">    var oUl&#x3D;document.getElementById(&#39;ul1&#39;);</span><br><span class="line">    var aBox&#x3D;getByClass(oUl, &#39;box&#39;);</span><br><span class="line">    </span><br><span class="line">    for(var i&#x3D;0;i&lt;aBox.length;i++)&#123;</span><br><span class="line">        aBox[i].style.background&#x3D;&#39;red&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="java-js类的区别"><a href="#java-js类的区别" class="headerlink" title="java/js类的区别"></a>java/js类的区别</h2><ol>
+<li><p>java面向对象， 有继承/封装/多态</p>
+</li>
+<li><p>js基于对象，没有继承/封装/多态，js的继承通过原型链或娶她方法实现</p>
+</li>
+<li><p>java类不可以直接运行，js的可以直接调用运行</p>
+</li>
+</ol>
+<h2 id="前后端分离实现"><a href="#前后端分离实现" class="headerlink" title="前后端分离实现"></a>前后端分离实现</h2><p>核心思想：前端html页面通过ajax调用后端的restuful api接口并使用json数据进行交互。</p>
+<p>涉及到的内容：</p>
+<ol>
+<li><p>技术选型</p>
+</li>
+<li><p>搭建框架</p>
+</li>
+<li><p>设计接口和数据模型</p>
+</li>
+<li><p>解决跨域</p>
+</li>
+<li><p>数据存储和部署</p>
+</li>
+</ol>
+<h2 id="浏览器隐身模式"><a href="#浏览器隐身模式" class="headerlink" title="浏览器隐身模式"></a>浏览器隐身模式</h2><p>浏览器隐身模式时，不会保存浏览记录/cookie/网站数据/表单信息。即浏览网页时存储在本地的数据。</p>
+<h2 id="jquery和Vue异同"><a href="#jquery和Vue异同" class="headerlink" title="jquery和Vue异同"></a>jquery和Vue异同</h2><ol>
 <li><p>jquery首先需要获取dom对象，在对对象进行各项操作</p>
 </li>
 <li><p>vue首先将值和js对象绑定，修改js对象的值，vue自动把dom值更新。即通过vue对象将数据和view分离，实现相互绑定</p>
@@ -358,7 +384,10 @@ var _hmt = _hmt || [];
 <li><p>jquery可以写多个入口函数你，原生js不行</p>
 </li>
 </ol>
-<h2 id="echart如何实现和Vue的响应"><a href="#echart如何实现和Vue的响应" class="headerlink" title="echart如何实现和Vue的响应"></a>echart如何实现和Vue的响应</h2><h2 id="手写call-bind-apply"><a href="#手写call-bind-apply" class="headerlink" title="手写call/bind/apply"></a>手写call/bind/apply</h2><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function call(context)&#123;</span><br><span class="line">    context &#x3D; context || window;</span><br><span class="line">    context.fn &#x3D; this;</span><br><span class="line">    const args &#x3D; Array.from(arguments).slice(1);</span><br><span class="line">    const res &#x3D; argument.length &gt; 1 ? context.fn(...args):context.fn;</span><br><span class="line">    delete context.fn;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="echart如何实现和Vue的响应"><a href="#echart如何实现和Vue的响应" class="headerlink" title="echart如何实现和Vue的响应"></a>echart如何实现和Vue的响应</h2><p>使用Vue中的<code>watch</code>监测数据变化，当数据更新后，调用<code>echarts</code>中图表的绘制方法即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    all(curVal) &#123;</span><br><span class="line">    &#x2F;&#x2F; 数据发生改变，便调用图表绘制方法传入最新数据绘制</span><br><span class="line">      this.drawLine(curVal.counts, curVal.days);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="手写call-bind-apply"><a href="#手写call-bind-apply" class="headerlink" title="手写call/bind/apply"></a>手写call/bind/apply</h2><h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function call(context)&#123;</span><br><span class="line">    context &#x3D; context || window;</span><br><span class="line">    context.fn &#x3D; this;</span><br><span class="line">    const args &#x3D; Array.from(arguments).slice(1);</span><br><span class="line">    const res &#x3D; argument.length &gt; 1 ? context.fn(...args):context.fn;</span><br><span class="line">    delete context.fn;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function apply(context)&#123;</span><br><span class="line">    context &#x3D; context || window;</span><br><span class="line">    context.fn &#x3D; this;</span><br><span class="line">    const res &#x3D; arguments[1]? context.fn(...arguments[1]) : context.fn();</span><br><span class="line">    delete context.fn;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
